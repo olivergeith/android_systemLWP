@@ -93,7 +93,7 @@ public class LiveWallpaperService extends WallpaperService {
 				// clear the canvas
 				c.drawColor(Color.BLACK);
 				if (c != null) {
-					// draw the background image
+					// draw the background image and stretch it to canvas
 					// c.drawBitmap(backgroundImage, 0, 0, null);
 					c.drawBitmap(backgroundImage, null, new RectF(0, 0, width, height), null);
 					// draw the fish
@@ -101,6 +101,9 @@ public class LiveWallpaperService extends WallpaperService {
 
 					final BitmapDrawerCircle drawerCircle = new BitmapDrawerCircle(c);
 					c.drawBitmap(drawerCircle.drawBitmap(level), width / 2 - 32, height / 2 - 32, null);
+
+					final BitmapDrawerBigArc bigArc = new BitmapDrawerBigArc(c);
+					c.drawBitmap(bigArc.drawBitmap(level), 0, height - width / 2 - 5, null);
 
 					// draw text
 					final Paint paint = new Paint();
