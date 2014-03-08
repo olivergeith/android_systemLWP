@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <CheckBoxPreference android:key="touch"
+    android:title="Enable Touch"></CheckBoxPreference>
+  <CheckBoxPreference android:key="touch2"
+    android:title="Enable Touch1"></CheckBoxPreference>
+  <CheckBoxPreference android:key="touch3"
+    android:title="Enable Touch2"></CheckBoxPreference>
+  <CheckBoxPreference android:key="touch4"
+    android:title="Enable Touch3"></CheckBoxPreference>
+</PreferenceScreen> 
