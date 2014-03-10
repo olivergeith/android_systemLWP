@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.BatteryManager;
 import android.os.Handler;
@@ -16,21 +15,26 @@ import android.service.wallpaper.WallpaperService;
 import android.view.SurfaceHolder;
 
 public class LiveWallpaperService extends WallpaperService {
-	private int level;
-	private int rawLevel = 0;
+	private int i;
+	private int level = 0;
+	private boolean isCharging = false;
+	private MyWallpaperEngine engine = null;
 
 	private final BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(final Context arg0, final Intent intent) {
-			rawLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+			level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 			final int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 			final int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-			// Are we charging / charged?
-			final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
+			// Are we charging charged?
+			isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
 			// How are we charging?
 			final int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
 			final boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
 			final boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+			if (engine != null) {
+				engine.draw();
+			}
 
 		}
 	};
@@ -49,7 +53,8 @@ public class LiveWallpaperService extends WallpaperService {
 
 	@Override
 	public Engine onCreateEngine() {
-		return new MyWallpaperEngine();
+		engine = new MyWallpaperEngine();
+		return engine;
 	}
 
 	class MyWallpaperEngine extends Engine {
@@ -66,7 +71,7 @@ public class LiveWallpaperService extends WallpaperService {
 
 		MyWallpaperEngine() {
 			backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-			level = 0;
+			i = 0;
 
 		}
 
@@ -115,19 +120,16 @@ public class LiveWallpaperService extends WallpaperService {
 					canvas.drawBitmap(backgroundImage, null, new RectF(0, 0, width, height), null);
 
 					final BitmapDrawerBigArc bigArc = new BitmapDrawerBigArc(canvas);
-					bigArc.draw(level);
+					if (!isCharging) {
+						bigArc.draw(level);
+					}
 
-					final Paint paint = new Paint();
-					paint.setColor(Color.WHITE);
-					paint.setAntiAlias(true);
-					paint.setTextSize(30);
-
-					canvas.drawText("" + rawLevel, 200f, 200f, paint);
-
-					level += 1;
-					if (level > 100)
-						level = 0;
-
+					if (isCharging) {
+						bigArc.draw(i);
+						i += 1;
+						if (i > 100)
+							i = 0;
+					}
 				}
 			} finally {
 				if (canvas != null)
@@ -135,8 +137,8 @@ public class LiveWallpaperService extends WallpaperService {
 			}
 
 			handler.removeCallbacks(drawRunner);
-			if (visible) {
-				handler.postDelayed(drawRunner, 25); // delay 10 mileseconds
+			if (visible && isCharging) {
+				handler.postDelayed(drawRunner, 50); // delay 10 mileseconds
 			}
 
 		}

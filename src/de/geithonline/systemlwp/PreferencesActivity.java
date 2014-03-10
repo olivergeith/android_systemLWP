@@ -15,13 +15,12 @@ import android.util.Log;
 import android.widget.Button;
 
 public class PreferencesActivity extends PreferenceActivity {
-	public static final String	BACKGROUND_PICKER_KEY	= "backgroundPicker";
-	private final int			PICK_IMAGE				= 1;
+	public static final String BACKGROUND_PICKER_KEY = "backgroundPicker";
+	private final int PICK_IMAGE = 1;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		// Add a button to the header list.
 		if (hasHeaders()) {
 			final Button button = new Button(this);
@@ -42,7 +41,7 @@ public class PreferencesActivity extends PreferenceActivity {
 	 * This fragment shows the preferences for the first header.
 	 */
 	public static class Prefs1Fragment extends PreferenceFragment {
-		private final int	PICK_IMAGE	= 1;
+		private final int PICK_IMAGE = 1;
 
 		@Override
 		public void onCreate(final Bundle savedInstanceState) {
