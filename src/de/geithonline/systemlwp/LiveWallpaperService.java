@@ -1,25 +1,50 @@
 package de.geithonline.systemlwp;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.BatteryManager;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
 import android.view.SurfaceHolder;
 
 public class LiveWallpaperService extends WallpaperService {
-	int	level;
+	private int level;
+	private int rawLevel = 0;
+
+	private final BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(final Context arg0, final Intent intent) {
+			rawLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+			final int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+			final int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+			// Are we charging / charged?
+			final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
+			// How are we charging?
+			final int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+			final boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
+			final boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+
+		}
+	};
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		this.registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		unregisterReceiver(mBatInfoReceiver);
 	}
 
 	@Override
@@ -29,15 +54,15 @@ public class LiveWallpaperService extends WallpaperService {
 
 	class MyWallpaperEngine extends Engine {
 
-		private final Handler	handler		= new Handler();
-		private final Runnable	drawRunner	= new Runnable() {
-												@Override
-												public void run() {
-													draw();
-												}
-											};
-		private boolean			visible		= true;
-		public Bitmap			image1, backgroundImage;
+		private final Handler handler = new Handler();
+		private final Runnable drawRunner = new Runnable() {
+			@Override
+			public void run() {
+				draw();
+			}
+		};
+		private boolean visible = true;
+		public Bitmap image1, backgroundImage;
 
 		MyWallpaperEngine() {
 			backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
@@ -65,7 +90,7 @@ public class LiveWallpaperService extends WallpaperService {
 		@Override
 		public void onSurfaceDestroyed(final SurfaceHolder holder) {
 			super.onSurfaceDestroyed(holder);
-			this.visible = false;
+			visible = false;
 			handler.removeCallbacks(drawRunner);
 		}
 
@@ -91,6 +116,13 @@ public class LiveWallpaperService extends WallpaperService {
 
 					final BitmapDrawerBigArc bigArc = new BitmapDrawerBigArc(canvas);
 					bigArc.draw(level);
+
+					final Paint paint = new Paint();
+					paint.setColor(Color.WHITE);
+					paint.setAntiAlias(true);
+					paint.setTextSize(30);
+
+					canvas.drawText("" + rawLevel, 200f, 200f, paint);
 
 					level += 1;
 					if (level > 100)

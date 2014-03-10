@@ -2,18 +2,21 @@ package de.geithonline.systemlwp;
 
 import java.util.List;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
 
 public class PreferencesActivity extends PreferenceActivity {
-	private final int	PICK_IMAGE	= 1;
+	public static final String	BACKGROUND_PICKER_KEY	= "backgroundPicker";
+	private final int			PICK_IMAGE				= 1;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class PreferencesActivity extends PreferenceActivity {
 			addPreferencesFromResource(R.xml.preferences1);
 
 			// connection the backgroundpicker with an intent
-			final Preference backgroundPicker = findPreference("backgroundPicker");
+			final Preference backgroundPicker = findPreference(BACKGROUND_PICKER_KEY);
 			backgroundPicker.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(final Preference preference) {
@@ -67,18 +70,27 @@ public class PreferencesActivity extends PreferenceActivity {
 
 		if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
 			final Uri selectedImage = imageReturnedIntent.getData();
+
+			// filepath ermitteln....
 			final String[] filePathColumn = {
 				MediaStore.Images.Media.DATA
 			};
-
 			final Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 			cursor.moveToFirst();
-
 			final int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			final String filePath = cursor.getString(columnIndex);
 			cursor.close();
 
-			Log.d("backgroundPicker", "Data Recieved! " + filePath);
+			// und in die SharedPreferences schreiben
+			final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+			final SharedPreferences.Editor editor = sharedPref.edit();
+			editor.putString(BACKGROUND_PICKER_KEY, filePath);
+			editor.commit();
+
+			final String data = sharedPref.getString(BACKGROUND_PICKER_KEY, "");
+
+			Log.d(BACKGROUND_PICKER_KEY, "Data Recieved! " + data);
+			Log.d(BACKGROUND_PICKER_KEY, "Data Recieved! " + filePath);
 
 		}
 	}
