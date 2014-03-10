@@ -1,12 +1,20 @@
 package de.geithonline.systemlwp;
 
 import java.util.List;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Button;
 
 public class PreferencesActivity extends PreferenceActivity {
+	private final int	PICK_IMAGE	= 1;
+
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,20 +39,51 @@ public class PreferencesActivity extends PreferenceActivity {
 	 * This fragment shows the preferences for the first header.
 	 */
 	public static class Prefs1Fragment extends PreferenceFragment {
+		private final int	PICK_IMAGE	= 1;
+
 		@Override
 		public void onCreate(final Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-
-			// Make sure default values are applied. In a real app, you would
-			// want this in a shared function that is used to retrieve the
-			// SharedPreferences wherever they are needed.
-			// PreferenceManager.setDefaultValues(getActivity(),
-			// R.xml.advanced_preferences, false);
-
-			// Load the preferences from an XML resource
 			addPreferencesFromResource(R.xml.preferences1);
+
+			// connection the backgroundpicker with an intent
+			final Preference backgroundPicker = findPreference("backgroundPicker");
+			backgroundPicker.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				@Override
+				public boolean onPreferenceClick(final Preference preference) {
+					final Intent intent = new Intent();
+					intent.setType("image/*");
+					intent.setAction(Intent.ACTION_GET_CONTENT);
+					startActivityForResult(Intent.createChooser(intent, "Select Background Picture"), PICK_IMAGE);
+					return true;
+				}
+			});
 		}
 	}
+
+	@Override
+	public void onActivityResult(final int requestCode, final int resultCode, final Intent imageReturnedIntent) {
+		super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+		if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+			final Uri selectedImage = imageReturnedIntent.getData();
+			final String[] filePathColumn = {
+				MediaStore.Images.Media.DATA
+			};
+
+			final Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+			cursor.moveToFirst();
+
+			final int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+			final String filePath = cursor.getString(columnIndex);
+			cursor.close();
+
+			Log.d("backgroundPicker", "Data Recieved! " + filePath);
+
+		}
+	}
+
+	// ################################################################################################
 
 	/**
 	 * This fragment shows the preferences for the second header.
