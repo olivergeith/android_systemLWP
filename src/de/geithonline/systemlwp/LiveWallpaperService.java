@@ -33,7 +33,7 @@ public class LiveWallpaperService extends WallpaperService {
 			final boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
 			final boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
 			if (engine != null) {
-				engine.draw();
+				engine.drawMe();
 			}
 
 		}
@@ -80,6 +80,10 @@ public class LiveWallpaperService extends WallpaperService {
 			super.onCreate(surfaceHolder);
 		}
 
+		public void drawMe() {
+			handler.post(drawRunner);
+		}
+
 		@Override
 		public void onVisibilityChanged(final boolean visible) {
 			this.visible = visible;
@@ -101,7 +105,7 @@ public class LiveWallpaperService extends WallpaperService {
 
 		@Override
 		public void onOffsetsChanged(final float xOffset, final float yOffset, final float xStep, final float yStep, final int xPixels, final int yPixels) {
-			draw();
+			drawMe();
 		}
 
 		void draw() {
