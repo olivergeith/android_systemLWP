@@ -10,10 +10,15 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
 
 public class Settings {
+	private final static SharedPreferences prefs = LiveWallpaperService.prefs;
 
-	public static int getOpacity() {
-		final SharedPreferences prefs = LiveWallpaperService.prefs;
+	private static int getOpacity() {
 		final int op = Integer.valueOf(prefs.getString("opacity", "128"));
+		return op;
+	}
+
+	private static int getBackgroundOpacity() {
+		final int op = Integer.valueOf(prefs.getString("background_opacity", "128"));
 		return op;
 	}
 
@@ -64,7 +69,7 @@ public class Settings {
 		final Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setColor(Color.DKGRAY);
-		paint.setAlpha(getOpacity());
+		paint.setAlpha(getBackgroundOpacity());
 		paint.setStyle(Style.FILL);
 		return paint;
 	}

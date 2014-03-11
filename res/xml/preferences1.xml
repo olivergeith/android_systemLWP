@@ -8,6 +8,14 @@
       android:entryValues="@array/opacitiesValues"
       android:defaultValue="128"
       />
+  <ListPreference 
+      android:key="background_opacity" 
+      android:title="Opacity of Battery-Background" 
+      android:dialogTitle="Opacity of Battery-Background" 
+      android:entries="@array/opacities"
+      android:entryValues="@array/opacitiesValues"
+      android:defaultValue="128"
+      />
   <Preference
       android:key="backgroundPicker"
       android:title="Choose Background"
