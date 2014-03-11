@@ -2,14 +2,8 @@ package de.geithonline.systemlwp;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Align;
-import android.graphics.Paint.Style;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.graphics.Typeface;
 
 public class BitmapDrawerBigArc {
 
@@ -57,11 +51,11 @@ public class BitmapDrawerBigArc {
 
 	private void drawBogen(final int level) {
 		// Background
-		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, Settings.getBackgroundPaint());
 		// Level
-		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, Settings.getBatteryPaint(level));
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
 	}
 
 	private void drawSegmente(final int level) {
@@ -76,16 +70,16 @@ public class BitmapDrawerBigArc {
 		Paint paint;
 		for (int i = 0; i < segmente; i++) {
 			if (i < zehner || level == 100) {
-				paint = getBatteryPaint(level);
+				paint = Settings.getBatteryPaint(level);
 			} else {
-				paint = getBackgroundPaint();
+				paint = Settings.getBackgroundPaint();
 			}
 			final float startwinkel = 180f + i * (winkelOneSegment + gap);
 			bitmapCanvas.drawArc(getRectForOffset(off), startwinkel, winkelOneSegment, true, paint);
 		}
 
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 	}
 
 	private void drawZeiger(final int level) {
@@ -99,7 +93,7 @@ public class BitmapDrawerBigArc {
 		final int radiusDelta = skaleDicke * einer / 10;
 
 		// Skala Hintergergrund einer
-		final Paint paint = getBatteryPaint(level);
+		final Paint paint = Settings.getBatteryPaint(level);
 		if (zehner == 10)
 			zehner = 9;
 		final float startwinkel = 180f + zehner * (winkelOneSegment + gap);
@@ -107,62 +101,10 @@ public class BitmapDrawerBigArc {
 		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke - radiusDelta), startwinkel, winkelOneSegment, true, paint);
 
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 
 		// draw percentage Number
-		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, getTextPaint(level));
-	}
-
-	private Paint getTextPaint(final int level) {
-		final Paint paint = new Paint();
-		paint.setColor(getColorForLevel(level));
-		paint.setAlpha(128);
-		paint.setAntiAlias(true);
-		paint.setTextSize(fontSize);
-		paint.setFakeBoldText(true);
-		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		paint.setTextAlign(Align.CENTER);
-		return paint;
-	}
-
-	private Paint getBatteryPaint(final int level) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(getColorForLevel(level));
-		paint.setAlpha(128);
-		paint.setStyle(Style.FILL);
-		return paint;
-	}
-
-	private Paint getBackgroundPaint() {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(Color.DKGRAY);
-		paint.setAlpha(128);
-		paint.setStyle(Style.FILL);
-		return paint;
-	}
-
-	private Paint getErasurePaint() {
-		final Paint paint = new Paint();
-		paint.setColor(Color.TRANSPARENT);
-		final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-		paint.setXfermode(xfermode);
-		paint.setStyle(Style.FILL);
-		return paint;
-	}
-
-	private int getColorForLevel(final int level) {
-
-		if (level > 30) {
-			return Color.WHITE;
-		} else {
-			if (level < 10) {
-				return Color.RED;
-			} else {
-				return Color.YELLOW;
-			}
-		}
+		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, Settings.getTextPaint(level, fontSize));
 	}
 
 	private RectF getRectForOffset(final int offset) {

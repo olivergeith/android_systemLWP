@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-  <CheckBoxPreference android:key="touch"
-    android:title="Enable Touch"></CheckBoxPreference>
+  <ListPreference 
+      android:key="opacity" 
+      android:title="Opacity of Battery" 
+      android:dialogTitle="Opacity of Battery" 
+      android:entries="@array/opacities"
+      android:entryValues="@array/opacitiesValues"
+      android:defaultValue="128"
+      />
   <Preference
-    android:key="backgroundPicker"
-    android:title="Choose Background"
-    android:summary="Select a custom Background Image"
+      android:key="backgroundPicker"
+      android:title="Choose Background"
+      android:summary="Select a custom Background Image"
      />
 </PreferenceScreen> 

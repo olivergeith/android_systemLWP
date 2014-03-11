@@ -19,11 +19,16 @@ import android.view.SurfaceHolder;
 
 public class LiveWallpaperService extends WallpaperService {
 
+	public static SharedPreferences prefs;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		// this.registerReceiver(mBatInfoReceiver, new
 		// IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		// int maxNumber =
+		// Integer.valueOf(prefs.getString("numberOfCircles", "4"));
 	}
 
 	@Override
@@ -41,6 +46,7 @@ public class LiveWallpaperService extends WallpaperService {
 	// Wallpaper Engine
 	// #####################################################################################
 	class MyWallpaperEngine extends Engine {
+		private boolean initialized = false;
 		private int level = 0;
 		private boolean isCharging = false;
 		private boolean usbCharge = false;
@@ -58,8 +64,9 @@ public class LiveWallpaperService extends WallpaperService {
 			}
 		};
 
-		public void drawMe() {
-			if (visible)
+		public synchronized void drawMe() {
+			handler.removeCallbacks(drawRunner);
+			if (visible && initialized)
 				handler.post(drawRunner);
 		}
 
@@ -77,21 +84,22 @@ public class LiveWallpaperService extends WallpaperService {
 				final int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
 				usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
 				acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+
 				drawMe();
 
 			}
 		};
 
-		void draw() {
+		synchronized void draw() {
 			final SurfaceHolder holder = getSurfaceHolder();
 
 			Canvas canvas = null;
 			try {
 				canvas = holder.lockCanvas();
 				// get the size of canvas
-				final int width = canvas.getWidth();
-				final int height = canvas.getHeight();
 				if (canvas != null) {
+					final int width = canvas.getWidth();
+					final int height = canvas.getHeight();
 					// clear the canvas
 					canvas.drawColor(Color.BLACK);
 					// draw the background image and stretch it to canvas
@@ -108,6 +116,8 @@ public class LiveWallpaperService extends WallpaperService {
 							i = 0;
 					}
 				}
+			} catch (final IllegalArgumentException ex) {
+				// do nothing
 			} finally {
 				if (canvas != null)
 					holder.unlockCanvasAndPost(canvas);
@@ -122,9 +132,6 @@ public class LiveWallpaperService extends WallpaperService {
 
 		MyWallpaperEngine() {
 			registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(LiveWallpaperService.this);
-			// int maxNumber =
-			// Integer.valueOf(prefs.getString("numberOfCircles", "4"));
 			backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 			i = 0;
 			drawMe();
@@ -163,6 +170,7 @@ public class LiveWallpaperService extends WallpaperService {
 		@Override
 		public void onSurfaceCreated(final SurfaceHolder holder) {
 			super.onSurfaceCreated(holder);
+			initialized = true;
 		}
 
 		@Override

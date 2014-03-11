@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="opacities">
+        <item name="0">Opacity 0</item>
+        <item name="32">Opacity 32</item>
+        <item name="64">Opacity 64</item>
+        <item name="96">Opacity 96</item>
+        <item name="128">Opacity 128</item>
+        <item name="192">Opacity 192</item>
+        <item name="255">Opacity 255</item>
+    </string-array>
+    
+    <string-array name="opacitiesValues">
+        <item name="0">0</item>
+        <item name="32">32</item>
+        <item name="64">64</item>
+        <item name="96">96</item>
+        <item name="128">128</item>
+        <item name="192">192</item>
+        <item name="255">255</item>
+    </string-array>
+</resources>
