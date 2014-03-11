@@ -6,7 +6,7 @@
     <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$Prefs1Fragment"
             android:icon="@drawable/icon"
             android:title="Main Preferences"
-            android:summary="Die wichtigsten Sachen" />
+            android:summary="The most important things" />
 
     <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$Prefs2Fragment"
             android:icon="@drawable/icon"

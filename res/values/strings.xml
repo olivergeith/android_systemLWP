@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">System Live Wallpaper V1.0</string>
+	<string name="app_name">BatteryWallpaper V1.0 Beta2</string>
 	<string name="MsgNoTorchMode">Sorry, no torchmode available!</string>
 	<string name="about">About</string>
 	<string name="settings">Settings</string>
@@ -11,5 +11,5 @@
 	<string name="exit">Exit</string>
 	<string name="debugging">Debugging</string>
 	<string name="the_logo">The Logo</string>
-	<string name="wallpaper_description">SystemInfoLWP</string>
+	<string name="wallpaper_description">BatteryWallpaper</string>
 </resources>

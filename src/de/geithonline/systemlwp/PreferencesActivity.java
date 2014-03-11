@@ -12,7 +12,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.Button;
 
 public class PreferencesActivity extends PreferenceActivity {
 	public static final String BACKGROUND_PICKER_KEY = "backgroundPicker";
@@ -23,9 +22,9 @@ public class PreferencesActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 		// Add a button to the header list.
 		if (hasHeaders()) {
-			final Button button = new Button(this);
-			button.setText("Some action");
-			setListFooter(button);
+			// final Button button = new Button(this);
+			// button.setText("Some action");
+			// setListFooter(button);
 		}
 	}
 
