@@ -13,50 +13,58 @@ import android.graphics.Typeface;
 
 public class BitmapDrawerBigArc {
 
-	private final int cHeight;
-	private final int cWidth;
-	private final Canvas canvas;
+	private int cHeight;
+	private int cWidth;
 	private int offset = 5;
 	private int bogenDicke = 30;
 	private int skaleDicke = 100;
 	private int abstand = 8;
 	private final float gap = 2f;
 	private int fontSize = 150;
+	private Bitmap bitmap;
+	private Canvas bitmapCanvas;
+	private int level = -99;
 
-	public BitmapDrawerBigArc(final Canvas canvas) {
-		this.canvas = canvas;
-		cWidth = canvas.getWidth();
-		cHeight = canvas.getHeight();
-		bogenDicke = Math.round(cWidth * 0.035f);
-		skaleDicke = Math.round(cWidth * 0.14f);
-		offset = Math.round(cWidth * 0.011f);
-		abstand = Math.round(cWidth * 0.015f);
-		fontSize = Math.round(cWidth * 0.25f);
+	public BitmapDrawerBigArc() {
 	}
 
-	public void draw(final int level) {
-		canvas.drawBitmap(drawBogen(level), 0, cHeight - cWidth / 2 - 5, null);
-		canvas.drawBitmap(drawSegmente(level), 0, cHeight - cWidth / 2 - 5, null);
-		canvas.drawBitmap(drawZeiger(level), 0, cHeight - cWidth / 2 - 5, null);
+	public void draw(final int level, final Canvas canvas) {
+
+		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
+		// anders
+		if (this.level != level || canvas.getWidth() != cWidth) {
+			cWidth = canvas.getWidth();
+			cHeight = canvas.getHeight();
+			bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
+			bitmapCanvas = new Canvas(bitmap);
+
+			bogenDicke = Math.round(cWidth * 0.035f);
+			skaleDicke = Math.round(cWidth * 0.14f);
+			offset = Math.round(cWidth * 0.011f);
+			abstand = Math.round(cWidth * 0.015f);
+			fontSize = Math.round(cWidth * 0.25f);
+			final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
+			final Canvas bitmapCanvas = new Canvas(bitmap);
+
+			drawBogen(level);
+			drawSegmente(level);
+			drawZeiger(level);
+		}
+
+		canvas.drawBitmap(bitmap, 0, cHeight - cWidth / 2 - 5, null);
+		this.level = level;
 	}
 
-	private Bitmap drawBogen(final int level) {
-		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
-		final Canvas bitmapCanvas = new Canvas(bitmap);
-
+	private void drawBogen(final int level) {
 		// Background
 		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, getBackgroundPaint());
 		// Level
 		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, getBatteryPaint(level));
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, getErasurePaint());
-
-		return bitmap;
 	}
 
-	private Bitmap drawSegmente(final int level) {
-		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
-		final Canvas bitmapCanvas = new Canvas(bitmap);
+	private void drawSegmente(final int level) {
 
 		final int segmente = 10;
 		final float winkelOneSegment = (180f - (segmente - 1) * gap) / segmente;
@@ -78,12 +86,9 @@ public class BitmapDrawerBigArc {
 
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, getErasurePaint());
-		return bitmap;
 	}
 
-	private Bitmap drawZeiger(final int level) {
-		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
-		final Canvas bitmapCanvas = new Canvas(bitmap);
+	private void drawZeiger(final int level) {
 
 		final int segmente = 10;
 		final float winkelOneSegment = (180f - (segmente - 1) * gap) / segmente;
@@ -106,8 +111,6 @@ public class BitmapDrawerBigArc {
 
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, getTextPaint(level));
-
-		return bitmap;
 	}
 
 	private Paint getTextPaint(final int level) {

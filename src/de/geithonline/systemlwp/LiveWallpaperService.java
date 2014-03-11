@@ -49,6 +49,7 @@ public class LiveWallpaperService extends WallpaperService {
 		private final Handler handler = new Handler();
 		private boolean visible = true;
 		private final Bitmap backgroundImage;
+		private final BitmapDrawerBigArc bigArc = new BitmapDrawerBigArc();
 
 		private final Runnable drawRunner = new Runnable() {
 			@Override
@@ -96,13 +97,12 @@ public class LiveWallpaperService extends WallpaperService {
 					// draw the background image and stretch it to canvas
 					canvas.drawBitmap(backgroundImage, null, new RectF(0, 0, width, height), null);
 
-					final BitmapDrawerBigArc bigArc = new BitmapDrawerBigArc(canvas);
 					if (!isCharging) {
-						bigArc.draw(level);
+						bigArc.draw(level, canvas);
 					}
 
 					if (isCharging) {
-						bigArc.draw(i);
+						bigArc.draw(i, canvas);
 						i += 1;
 						if (i > 100)
 							i = 0;
