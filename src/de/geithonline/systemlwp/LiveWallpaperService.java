@@ -1,5 +1,7 @@
 package de.geithonline.systemlwp;
 
+import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.settings.Settings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;

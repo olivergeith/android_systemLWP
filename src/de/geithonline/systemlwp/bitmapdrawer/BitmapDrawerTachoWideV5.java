@@ -1,5 +1,7 @@
-package de.geithonline.systemlwp;
+package de.geithonline.systemlwp.bitmapdrawer;
 
+import de.geithonline.systemlwp.settings.Settings;
+import de.geithonline.systemlwp.utils.ColorHelper;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;

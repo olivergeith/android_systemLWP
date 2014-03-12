@@ -1,4 +1,4 @@
-package de.geithonline.systemlwp;
+package de.geithonline.systemlwp.utils;
 
 import android.graphics.Color;
 

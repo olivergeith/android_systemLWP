@@ -1,5 +1,12 @@
-package de.geithonline.systemlwp;
+package de.geithonline.systemlwp.settings;
 
+import de.geithonline.systemlwp.LiveWallpaperService;
+import de.geithonline.systemlwp.R;
+import de.geithonline.systemlwp.R.integer;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
+import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.utils.ColorHelper;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
