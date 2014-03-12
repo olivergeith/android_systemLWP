@@ -71,6 +71,17 @@ public class PreferencesActivity extends PreferenceActivity {
 	/**
 	 * This fragment shows the preferences for the first header.
 	 */
+	public static class BattPreferencesFragment extends PreferenceFragment {
+		@Override
+		public void onCreate(final Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(R.xml.preferences3);
+		}
+	}
+
+	/**
+	 * This fragment shows the preferences for the first header.
+	 */
 	public static class BattColorPreferencesFragment extends PreferenceFragment {
 		@Override
 		public void onCreate(final Bundle savedInstanceState) {

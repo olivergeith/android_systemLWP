@@ -20,4 +20,16 @@
         <item name="255">255</item>
     </string-array>
 
+    <string-array name="styl">
+        <item name="1">ZoopaWideV3</item>
+        <item name="2">TachoWideV5</item>
+    </string-array>
+    
+    <string-array name="stylValues">
+        <item name="1">ZoopaWideV3</item>
+        <item name="2">TachoWideV5</item>
+    </string-array>
+    
+    
+    
 </resources>

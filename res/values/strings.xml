@@ -14,15 +14,22 @@
 	<string name="category_battery_background_options">Battery Background Options</string>
 	<string name="category_battery_options">Battery Options</string>
 	<string name="opacity">Opacity</string>
+	<string name="style">Battery Style</string>
 	<string name="color">Color</string>
+	<string name="header_title_battery">Battery Style</string>
+	<string name="header_summary_battery">Choose a Battery Style ....</string>
 	<string name="header_title_battery_options">Battery Options</string>
 	<string name="header_summary_battery_options">Colors, Opacity, ....</string>
 	<string name="header_title_background_options">Background Wallpaper</string>
 	<string name="header_summary_background_options">Choose custom Wallpaper from Gallery....</string>
 	<string name="threshold_low">Threshold for low battery</string>
-	<string name="threshold_low_summary">Threshold for low battery</string>
-	<string name="threshold_mid">Threshold for low battery</string>
-	<string name="threshold_mid_summary">Threshold for low battery</string>
+	<string name="threshold_low_summary">Threshold for low battery levels</string>
+	<string name="threshold_mid">Threshold for mid battery</string>
+	<string name="threshold_mid_summary">Threshold for mid battery levels</string>
 	<string name="colored_numbers">Numbers are colored</string>
 	<string name="colored_numbers_summary">Numbers are colored like Battery-Level-Color</string>
+	<string name="gradient_colors">Gradient Colors</string>
+	<string name="gradient_colors_summary">Gradient Color according to the Battery Level</string>
+	<string name="gradient_colors_mid">Gradient Colors (mid -> low)</string>
+	<string name="gradient_colors_mid_summary">Gradient Color according to the Battery Level</string>
 </resources>

@@ -21,7 +21,20 @@
 	        android:summary="Battery --> Color (low level)"
 	        android:defaultValue="@integer/COLOR_RED"
 	        />
-	    
+        
+        <CheckBoxPreference 
+		    android:key="gradient_colors"
+    		android:defaultValue="false"
+		    android:title="@string/gradient_colors" 
+		    android:summary="@string/gradient_colors_summary"
+            />
+        <CheckBoxPreference 
+		    android:key="gradient_colors_mid"
+    		android:defaultValue="false"
+		    android:title="@string/gradient_colors_mid" 
+		    android:summary="@string/gradient_colors_mid_summary"
+            />
+        	    	    
         <ListPreference
 	        android:defaultValue="128"
 	        android:title="@string/opacity" 

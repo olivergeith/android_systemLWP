@@ -11,9 +11,19 @@ import android.graphics.Typeface;
 
 public class Settings {
 	private final static SharedPreferences prefs = LiveWallpaperService.prefs;
+	private static String style = "aaa";
+	private static IBitmapDrawer bitmapDrawer;
 
 	private static boolean isColoredNumber() {
 		return prefs.getBoolean("colored_numbers", false);
+	}
+
+	private static boolean isGradientColors() {
+		return prefs.getBoolean("gradient_colors", false);
+	}
+
+	private static boolean isGradientColorsMid() {
+		return prefs.getBoolean("gradient_colors_mid", false);
 	}
 
 	private static int getMidThreshold() {
@@ -56,6 +66,20 @@ public class Settings {
 		return col;
 	}
 
+	public static IBitmapDrawer getBatteryStyle() {
+		// wenns den drawer noch nicht gibt, oder der style sich geändert hat
+		if (bitmapDrawer == null || !style.equals(prefs.getString("batt_style", "ZoopaWideV3"))) {
+			style = prefs.getString("batt_style", "ZoopaWideV3");
+			if (style.equals("ZoopaWideV3"))
+				bitmapDrawer = new BitmapDrawerZoopaWideV3();
+			else if (style.equals("TachoWideV5"))
+				bitmapDrawer = new BitmapDrawerTachoWideV5();
+			else
+				bitmapDrawer = new BitmapDrawerZoopaWideV3();
+		}
+		return bitmapDrawer;
+	}
+
 	public static Paint getErasurePaint() {
 		final Paint paint = new Paint();
 		paint.setColor(Color.TRANSPARENT);
@@ -66,14 +90,32 @@ public class Settings {
 	}
 
 	public static int getColorForLevel(final int level) {
-
 		if (level > getMidThreshold()) {
-			return getBattColor();
+			if (isGradientColors())
+				return getGradientColorForLevel(level);
+			else
+				return getBattColor();
 		} else {
 			if (level < getLowThreshold()) {
 				return getBattColorLow();
 			} else {
-				return getBattColorMid();
+				if (isGradientColorsMid())
+					return getGradientColorForLevel(level);
+				else
+					return getBattColorMid();
+			}
+		}
+	}
+
+	public static int getGradientColorForLevel(final int level) {
+
+		if (level > getMidThreshold()) {
+			return ColorHelper.getRadiantColor(getBattColor(), getBattColorMid(), level, 100, getMidThreshold());
+		} else {
+			if (level < getLowThreshold()) {
+				return getBattColorLow();
+			} else {
+				return ColorHelper.getRadiantColor(getBattColorLow(), getBattColorMid(), level, getLowThreshold(), getMidThreshold());
 			}
 		}
 	}
@@ -99,6 +141,15 @@ public class Settings {
 		paint.setAntiAlias(true);
 		paint.setColor(getColorForLevel(level));
 		paint.setAlpha(getOpacity());
+		paint.setStyle(Style.FILL);
+		return paint;
+	}
+
+	public static Paint getZeigerPaint(final int level) {
+		final Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setColor(Color.WHITE);
+		paint.setAlpha(255);
 		paint.setStyle(Style.FILL);
 		return paint;
 	}

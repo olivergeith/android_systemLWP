@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-public class BitmapDrawerZoopaWideV3 {
+public class BitmapDrawerZoopaWideV3 implements IBitmapDrawer {
 
 	private int cHeight;
 	private int cWidth;
@@ -22,6 +22,7 @@ public class BitmapDrawerZoopaWideV3 {
 	public BitmapDrawerZoopaWideV3() {
 	}
 
+	@Override
 	public void draw(final int level, final Canvas canvas) {
 
 		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions

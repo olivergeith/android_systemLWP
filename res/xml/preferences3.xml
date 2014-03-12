@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+        <ListPreference
+	        android:defaultValue="ZoopaWideV3"
+	        android:title="@string/style" 
+	        android:dialogTitle="Battery Style"
+	        android:entries="@array/styl"
+	        android:entryValues="@array/stylValues"
+	        android:key="batt_style"
+	        />
+
+</PreferenceScreen>

@@ -51,11 +51,12 @@ public class LiveWallpaperService extends WallpaperService {
 		private final Handler handler = new Handler();
 		private boolean visible = true;
 		private Bitmap backgroundImage = null;
-		private final BitmapDrawerZoopaWideV3 bigArc = new BitmapDrawerZoopaWideV3();
+		private  IBitmapDrawer bitmapDrawer = Settings.getBatteryStyle();
 		private int width = 0;
 		private int height = 0;
 		private float dx = 0.0f;
 		private String filePath = "aaa";
+		private int oldWidth = 0;
 
 		MyWallpaperEngine() {
 			registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
@@ -112,13 +113,14 @@ public class LiveWallpaperService extends WallpaperService {
 					canvas.drawColor(Color.BLACK);
 					// drawing the bgImage
 					drawBackgroundImage(canvas);
-
+					// schaun, ob der Bitmapdrawer sich geändert hat
+					bitmapDrawer = Settings.getBatteryStyle();
 					if (!isCharging) {
-						bigArc.draw(level, canvas);
+						bitmapDrawer.draw(level, canvas);
 					}
 
 					if (isCharging) {
-						bigArc.draw(i, canvas);
+						bitmapDrawer.draw(i, canvas);
 						i += 1;
 						if (i > 100)
 							i = 0;
@@ -147,10 +149,12 @@ public class LiveWallpaperService extends WallpaperService {
 		 */
 		private void drawBackgroundImage(final Canvas canvas) {
 			// draw the background image and stretch it to canvas
-			// canvas.drawBitmap(backgroundImage, null, new RectF(0, 0, width,
-			// height), null);
-			if (backgroundImage == null || !filePath.equals(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa")))
+			if (backgroundImage == null //
+					|| !filePath.equals(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa")) //
+					|| width != oldWidth) {
 				backgroundImage = getBackgroundImage();
+				oldWidth = width;
+			}
 			canvas.save();
 			canvas.translate(dx, 0);
 			canvas.drawBitmap(backgroundImage, 0, 0, null);
