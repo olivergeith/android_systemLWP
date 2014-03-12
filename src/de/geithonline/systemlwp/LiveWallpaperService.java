@@ -51,7 +51,7 @@ public class LiveWallpaperService extends WallpaperService {
 		private final Handler handler = new Handler();
 		private boolean visible = true;
 		private Bitmap backgroundImage = null;
-		private final BitmapDrawerBigArc bigArc = new BitmapDrawerBigArc();
+		private final BitmapDrawerZoopaWideV3 bigArc = new BitmapDrawerZoopaWideV3();
 		private int width = 0;
 		private int height = 0;
 		private float dx = 0.0f;

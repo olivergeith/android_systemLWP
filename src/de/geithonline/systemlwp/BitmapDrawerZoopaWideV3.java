@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-public class BitmapDrawerBigArc {
+public class BitmapDrawerZoopaWideV3 {
 
 	private int cHeight;
 	private int cWidth;
@@ -19,7 +19,7 @@ public class BitmapDrawerBigArc {
 	private Canvas bitmapCanvas;
 	private int level = -99;
 
-	public BitmapDrawerBigArc() {
+	public BitmapDrawerZoopaWideV3() {
 	}
 
 	public void draw(final int level, final Canvas canvas) {
