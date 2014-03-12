@@ -1,24 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-  <ListPreference 
-      android:key="opacity" 
-      android:title="Opacity of Battery" 
-      android:dialogTitle="Opacity of Battery" 
-      android:entries="@array/opacities"
-      android:entryValues="@array/opacitiesValues"
-      android:defaultValue="128"
-      />
-  <ListPreference 
-      android:key="background_opacity" 
-      android:title="Opacity of Battery-Background" 
-      android:dialogTitle="Opacity of Battery-Background" 
-      android:entries="@array/opacities"
-      android:entryValues="@array/opacitiesValues"
-      android:defaultValue="128"
-      />
-  <Preference
-      android:key="backgroundPicker"
-      android:title="Choose Background"
-      android:summary="Select a custom Background Image"
-     />
-</PreferenceScreen> 
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <PreferenceCategory android:title="Battery Background Options">
+
+	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	        android:key="battery_color"
+	        android:title="Color" 
+	        android:summary="Battery --> Color"
+	        android:defaultValue="@integer/COLOR_WHITE"
+	        alphaSlider="true"
+	        />
+	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	        android:key="battery_color_mid"
+	        android:title="Color (mid level)" 
+	        android:summary="Battery --> Color (mid level)"
+	        android:defaultValue="@integer/COLOR_ORANGE"
+	        alphaSlider="true"
+	        />
+	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	        android:key="battery_color_low"
+	        android:title="Color (low level)" 
+	        android:summary="Battery --> Color (low level)"
+	        android:defaultValue="@integer/COLOR_RED"
+	        alphaSlider="true"
+	        />
+	    
+        <ListPreference
+	        android:defaultValue="128"
+	        android:title="Opacity" 
+	        android:dialogTitle="Battery --> Opacity"
+	        android:entries="@array/opacities"
+	        android:entryValues="@array/opacitiesValues"
+	        android:key="opacity"
+	        />
+        
+        
+        
+	</PreferenceCategory>>
+    
+    <PreferenceCategory android:title="Battery Background Options">
+        
+	        <!-- alphaSlider="true" -->
+	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	        android:key="background_color"
+	        android:title="Color" 
+	        android:summary="Battery-Background --> Color"
+	        android:defaultValue="@integer/COLOR_DARKGRAY"
+	        />
+	    
+	    <ListPreference
+	        android:key="background_opacity"
+	        android:title="Opacity" 
+	        android:dialogTitle="Battery-Background --> Opacity"
+	        android:summary="Battery-Background --> Opacity"
+	        android:defaultValue="128"
+	        android:entries="@array/opacities"
+	        android:entryValues="@array/opacitiesValues"
+	        />
+	    	    
+	</PreferenceCategory>>
+
+</PreferenceScreen>

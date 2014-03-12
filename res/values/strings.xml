@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">BatteryWallpaper V1.0 Beta2</string>
+	<string name="app_name">BatteryWallpaper V1.0 Beta6</string>
 	<string name="MsgNoTorchMode">Sorry, no torchmode available!</string>
 	<string name="about">About</string>
 	<string name="settings">Settings</string>

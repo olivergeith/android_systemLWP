@@ -22,6 +22,26 @@ public class Settings {
 		return op;
 	}
 
+	private static int getBackgroundColor() {
+		final int col = prefs.getInt("background_color", R.integer.COLOR_DARKGRAY);
+		return col;
+	}
+
+	private static int getBattColor() {
+		final int col = prefs.getInt("battery_color", R.integer.COLOR_WHITE);
+		return col;
+	}
+
+	private static int getBattColorMid() {
+		final int col = prefs.getInt("battery_color_mid", R.integer.COLOR_ORANGE);
+		return col;
+	}
+
+	private static int getBattColorLow() {
+		final int col = prefs.getInt("battery_color_low", R.integer.COLOR_RED);
+		return col;
+	}
+
 	public static Paint getErasurePaint() {
 		final Paint paint = new Paint();
 		paint.setColor(Color.TRANSPARENT);
@@ -34,12 +54,12 @@ public class Settings {
 	public static int getColorForLevel(final int level) {
 
 		if (level > 30) {
-			return Color.WHITE;
+			return getBattColor();
 		} else {
 			if (level < 10) {
-				return Color.RED;
+				return getBattColorLow();
 			} else {
-				return Color.YELLOW;
+				return getBattColorMid();
 			}
 		}
 	}
@@ -68,7 +88,7 @@ public class Settings {
 	public static Paint getBackgroundPaint() {
 		final Paint paint = new Paint();
 		paint.setAntiAlias(true);
-		paint.setColor(Color.DKGRAY);
+		paint.setColor(getBackgroundColor());
 		paint.setAlpha(getBackgroundOpacity());
 		paint.setStyle(Style.FILL);
 		return paint;

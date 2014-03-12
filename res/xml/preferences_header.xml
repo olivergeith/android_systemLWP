@@ -5,11 +5,12 @@
 
     <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$Prefs1Fragment"
             android:icon="@drawable/icon"
-            android:title="Main Preferences"
-            android:summary="The most important things" />
+            android:title="Battery Bitmap Options"
+            android:summary="Colors, Opacity, ...." />
 
     <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$Prefs2Fragment"
             android:icon="@drawable/icon"
-            android:title="Extra Prefs"
-            android:summary="Some extra preferences."/>
+            android:title="More Options"
+            android:summary="Some extra preferences..."/>
+
 </preference-headers>

@@ -37,8 +37,6 @@ public class BitmapDrawerBigArc {
 			offset = Math.round(cWidth * 0.011f);
 			abstand = Math.round(cWidth * 0.015f);
 			fontSize = Math.round(cWidth * 0.25f);
-			final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
-			final Canvas bitmapCanvas = new Canvas(bitmap);
 
 			drawBogen(level);
 			drawSegmente(level);

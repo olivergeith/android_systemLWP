@@ -9,11 +9,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.RectF;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
@@ -24,11 +24,7 @@ public class LiveWallpaperService extends WallpaperService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		// this.registerReceiver(mBatInfoReceiver, new
-		// IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		// int maxNumber =
-		// Integer.valueOf(prefs.getString("numberOfCircles", "4"));
 	}
 
 	@Override
@@ -54,8 +50,20 @@ public class LiveWallpaperService extends WallpaperService {
 		private int i;
 		private final Handler handler = new Handler();
 		private boolean visible = true;
-		private final Bitmap backgroundImage;
+		private Bitmap backgroundImage = null;
 		private final BitmapDrawerBigArc bigArc = new BitmapDrawerBigArc();
+		private int width = 0;
+		private int height = 0;
+		private float dx = 0.0f;
+		private String filePath = "aaa";
+
+		MyWallpaperEngine() {
+			registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+			// getBackgroundImage();
+			i = 0;
+			// drawMe();
+		}
 
 		private final Runnable drawRunner = new Runnable() {
 			@Override
@@ -98,12 +106,12 @@ public class LiveWallpaperService extends WallpaperService {
 				canvas = holder.lockCanvas();
 				// get the size of canvas
 				if (canvas != null) {
-					final int width = canvas.getWidth();
-					final int height = canvas.getHeight();
+					width = canvas.getWidth();
+					height = canvas.getHeight();
 					// clear the canvas
 					canvas.drawColor(Color.BLACK);
-					// draw the background image and stretch it to canvas
-					canvas.drawBitmap(backgroundImage, null, new RectF(0, 0, width, height), null);
+					// drawing the bgImage
+					drawBackgroundImage(canvas);
 
 					if (!isCharging) {
 						bigArc.draw(level, canvas);
@@ -130,11 +138,81 @@ public class LiveWallpaperService extends WallpaperService {
 
 		}
 
-		MyWallpaperEngine() {
-			registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-			backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-			i = 0;
-			drawMe();
+		/**
+		 * TODO comment drawBackground
+		 * 
+		 * @param canvas
+		 * @param width
+		 * @param height
+		 */
+		private void drawBackgroundImage(final Canvas canvas) {
+			// draw the background image and stretch it to canvas
+			// canvas.drawBitmap(backgroundImage, null, new RectF(0, 0, width,
+			// height), null);
+			if (backgroundImage == null || !filePath.equals(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa")))
+				backgroundImage = getBackgroundImage();
+			canvas.save();
+			canvas.translate(dx, 0);
+			canvas.drawBitmap(backgroundImage, 0, 0, null);
+
+			canvas.restore();
+
+		}
+
+		/**
+		 * TODO comment initBackgroundImage
+		 */
+		private Bitmap getBackgroundImage() {
+			Bitmap bg;
+			// sollen wir ein custom BG laden ?
+			if (prefs.getBoolean("customBackground", false)) {
+				bg = getCustomBackground();
+				if (bg == null)
+					bg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+			} else {
+				bg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+			}
+			// now we should have a BG
+			// lets scale it
+			final int w = bg.getWidth();
+			final int h = bg.getHeight();
+			final float aspectCanvas = (float) width / (float) height;
+			final float aspectBG = (float) w / (float) h;
+
+			Log.i("GEITH", "Aspect BG = " + aspectBG);
+			Log.i("GEITH", "Aspect CA = " + aspectCanvas);
+			// bild ist schmaler aber länger
+			if (aspectBG <= aspectCanvas) {
+				//
+				final int dstW = (int) (width * 1.4);
+				final int dstH = Math.round(dstW * aspectBG);
+				Log.i("GEITH", "dstW = " + dstW);
+				Log.i("GEITH", "dstH = " + dstH);
+				bg = Bitmap.createScaledBitmap(bg, dstW, dstH, true);
+			} else {
+				// bild ist zu breit ;-) also skalierten wir es auf die
+				// canvashöhe
+				final int dstH = height;
+				final float factor = (float) height / (float) h;
+				final int dstW = Math.round(w * factor);
+				Log.i("GEITH", "dstW = " + dstW);
+				Log.i("GEITH", "dstH = " + dstH);
+				bg = Bitmap.createScaledBitmap(bg, dstW, dstH, true);
+			}
+
+			return bg;
+		}
+
+		private Bitmap getCustomBackground() {
+			Bitmap bg = null;
+			filePath = prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa");
+			if (!filePath.equals("aaa")) {
+				final BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+				bg = BitmapFactory.decodeFile(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa"), options);
+			}
+			Log.i("Geith", "Custom BG = " + filePath);
+			return bg;
 		}
 
 		@Override
@@ -185,6 +263,11 @@ public class LiveWallpaperService extends WallpaperService {
 
 		@Override
 		public void onOffsetsChanged(final float xOffset, final float yOffset, final float xStep, final float yStep, final int xPixels, final int yPixels) {
+			if (backgroundImage != null) {
+				dx = (width - backgroundImage.getWidth()) * (xOffset);
+				// dx = (width - backgroundImage.getWidth()) * (1 - xOffset);
+				// dx = (width) * (xOffset);
+			}
 			drawMe();
 		}
 
