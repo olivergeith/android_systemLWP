@@ -12,6 +12,20 @@ import android.graphics.Typeface;
 public class Settings {
 	private final static SharedPreferences prefs = LiveWallpaperService.prefs;
 
+	private static boolean isColoredNumber() {
+		return prefs.getBoolean("colored_numbers", false);
+	}
+
+	private static int getMidThreshold() {
+		final int thr = Integer.valueOf(prefs.getString("threshold_mid", "30"));
+		return thr;
+	}
+
+	private static int getLowThreshold() {
+		final int thr = Integer.valueOf(prefs.getString("threshold_low", "10"));
+		return thr;
+	}
+
 	private static int getOpacity() {
 		final int op = Integer.valueOf(prefs.getString("opacity", "128"));
 		return op;
@@ -53,10 +67,10 @@ public class Settings {
 
 	public static int getColorForLevel(final int level) {
 
-		if (level > 30) {
+		if (level > getMidThreshold()) {
 			return getBattColor();
 		} else {
-			if (level < 10) {
+			if (level < getLowThreshold()) {
 				return getBattColorLow();
 			} else {
 				return getBattColorMid();
@@ -66,7 +80,11 @@ public class Settings {
 
 	public static Paint getTextPaint(final int level, final int fontSize) {
 		final Paint paint = new Paint();
-		paint.setColor(getColorForLevel(level));
+		if (isColoredNumber()) {
+			paint.setColor(getColorForLevel(level));
+		} else {
+			paint.setColor(getBattColor());
+		}
 		paint.setAlpha(getOpacity());
 		paint.setAntiAlias(true);
 		paint.setTextSize(fontSize);

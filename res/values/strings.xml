@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">BatteryWallpaper V1.0 Beta6</string>
-	<string name="MsgNoTorchMode">Sorry, no torchmode available!</string>
+	<string name="app_name">BatteryWallpaper V1.0 Beta7</string>
+	<string name="wallpaper_description">BatteryWallpaper V1.0 Beta</string>
 	<string name="about">About</string>
 	<string name="settings">Settings</string>
-	<string name="about_long">This is your Guide in the dark, using your cameras flash-LED as a torch.</string>
-	<string name="about_long2">I developed this, because the other flashlights on the market wanted way too much permissions!</string>
-	<string name="about_long3">This App only needs access to your camera, thats all!</string>
 	<string name="Copyright">Copyright by Oliver Geith</string>
 	<string name="exit">Exit</string>
 	<string name="debugging">Debugging</string>
 	<string name="the_logo">The Logo</string>
-	<string name="wallpaper_description">BatteryWallpaper</string>
+	<string name="choose_background">Choose Background</string>
+	<string name="choose_background_summary">Choose Background</string>
+	<string name="enable_custom_background">Enable Custom Background</string>
+	<string name="category_battery_background_options">Battery Background Options</string>
+	<string name="category_battery_options">Battery Options</string>
+	<string name="opacity">Opacity</string>
+	<string name="color">Color</string>
+	<string name="header_title_battery_options">Battery Options</string>
+	<string name="header_summary_battery_options">Colors, Opacity, ....</string>
+	<string name="header_title_background_options">Background Wallpaper</string>
+	<string name="header_summary_background_options">Choose custom Wallpaper from Gallery....</string>
+	<string name="threshold_low">Threshold for low battery</string>
+	<string name="threshold_low_summary">Threshold for low battery</string>
+	<string name="threshold_mid">Threshold for low battery</string>
+	<string name="threshold_mid_summary">Threshold for low battery</string>
+	<string name="colored_numbers">Numbers are colored</string>
+	<string name="colored_numbers_summary">Numbers are colored like Battery-Level-Color</string>
 </resources>

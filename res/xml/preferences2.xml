@@ -3,14 +3,14 @@
   	
   	<CheckBoxPreference 
   	    android:key="customBackground"
-    	android:title="Enable Custom Backgrounds"
+    	android:title="@string/enable_custom_background"
     	android:defaultValue="false"
     	/>
   	
     <Preference
         android:key="backgroundPicker"
-        android:summary="Select a custom Background Image"
-        android:title="Choose Background" 
+        android:summary="@string/choose_background_summary"
+        android:title="@string/choose_background"
         android:dependency="customBackground"
         />
 

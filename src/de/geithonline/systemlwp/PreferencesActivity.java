@@ -71,7 +71,7 @@ public class PreferencesActivity extends PreferenceActivity {
 	/**
 	 * This fragment shows the preferences for the first header.
 	 */
-	public static class Prefs1Fragment extends PreferenceFragment {
+	public static class BattColorPreferencesFragment extends PreferenceFragment {
 		@Override
 		public void onCreate(final Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -84,7 +84,7 @@ public class PreferencesActivity extends PreferenceActivity {
 	/**
 	 * This fragment shows the preferences for the second header.
 	 */
-	public static class Prefs2Fragment extends PreferenceFragment {
+	public static class BackgroundPreferencesFragment extends PreferenceFragment {
 		private final int PICK_IMAGE = 1;
 
 		@Override

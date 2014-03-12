@@ -3,14 +3,15 @@
 <preference-headers
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$Prefs1Fragment"
+    <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$BattColorPreferencesFragment"
             android:icon="@drawable/icon"
-            android:title="Battery Bitmap Options"
-            android:summary="Colors, Opacity, ...." />
+            android:title="@string/header_title_battery_options"
+            android:summary="@string/header_summary_battery_options" />
 
-    <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$Prefs2Fragment"
+    <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$BackgroundPreferencesFragment"
             android:icon="@drawable/icon"
-            android:title="More Options"
-            android:summary="Some extra preferences..."/>
+            android:title="@string/header_title_background_options"
+            android:summary="@string/header_summary_background_options"
+            />
 
 </preference-headers>

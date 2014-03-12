@@ -1,58 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     
-    <PreferenceCategory android:title="Battery Background Options">
+    <PreferenceCategory android:title="@string/category_battery_options">
 
 	    <net.margaritov.preference.colorpicker.ColorPickerPreference
 	        android:key="battery_color"
-	        android:title="Color" 
+	        android:title="@string/color" 
 	        android:summary="Battery --> Color"
 	        android:defaultValue="@integer/COLOR_WHITE"
-	        alphaSlider="true"
 	        />
 	    <net.margaritov.preference.colorpicker.ColorPickerPreference
 	        android:key="battery_color_mid"
 	        android:title="Color (mid level)" 
 	        android:summary="Battery --> Color (mid level)"
 	        android:defaultValue="@integer/COLOR_ORANGE"
-	        alphaSlider="true"
 	        />
 	    <net.margaritov.preference.colorpicker.ColorPickerPreference
 	        android:key="battery_color_low"
 	        android:title="Color (low level)" 
 	        android:summary="Battery --> Color (low level)"
 	        android:defaultValue="@integer/COLOR_RED"
-	        alphaSlider="true"
 	        />
 	    
         <ListPreference
 	        android:defaultValue="128"
-	        android:title="Opacity" 
+	        android:title="@string/opacity" 
 	        android:dialogTitle="Battery --> Opacity"
 	        android:entries="@array/opacities"
 	        android:entryValues="@array/opacitiesValues"
 	        android:key="opacity"
 	        />
         
+        <EditTextPreference
+		    android:key="threshold_mid"
+    		android:defaultValue="30"
+		    android:title="@string/threshold_mid" 
+    		android:dialogTitle="@string/threshold_mid"
+		    android:inputType="number"
+		    android:summary="@string/threshold_mid_summary"
+         	/>
+        <EditTextPreference
+		    android:key="threshold_low"
+    		android:defaultValue="10"
+		    android:title="@string/threshold_low" 
+    		android:dialogTitle="@string/threshold_low"
+		    android:inputType="number"
+		    android:summary="@string/threshold_low_summary"
+         	/>
         
+        <CheckBoxPreference 
+		    android:key="colored_numbers"
+    		android:defaultValue="true"
+		    android:title="@string/colored_numbers" 
+		    android:summary="@string/colored_numbers_summary"
+            />
         
 	</PreferenceCategory>>
     
-    <PreferenceCategory android:title="Battery Background Options">
+    <PreferenceCategory android:title="@string/category_battery_background_options">
         
 	        <!-- alphaSlider="true" -->
 	    <net.margaritov.preference.colorpicker.ColorPickerPreference
 	        android:key="background_color"
-	        android:title="Color" 
+	        android:title="@string/color" 
 	        android:summary="Battery-Background --> Color"
 	        android:defaultValue="@integer/COLOR_DARKGRAY"
 	        />
 	    
 	    <ListPreference
 	        android:key="background_opacity"
-	        android:title="Opacity" 
+	        android:title="@string/opacity" 
 	        android:dialogTitle="Battery-Background --> Opacity"
-	        android:summary="Battery-Background --> Opacity"
 	        android:defaultValue="128"
 	        android:entries="@array/opacities"
 	        android:entryValues="@array/opacitiesValues"
