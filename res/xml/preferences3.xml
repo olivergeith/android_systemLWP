@@ -4,6 +4,7 @@
         <ListPreference
 	        android:defaultValue="ZoopaWideV3"
 	        android:title="@string/style" 
+	        android:summary="@string/style_summary" 
 	        android:dialogTitle="Battery Style"
 	        android:entries="@array/styl"
 	        android:entryValues="@array/stylValues"

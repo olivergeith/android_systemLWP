@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">BatteryWallpaper V1.0 Beta7</string>
+	<string name="app_name">BatteryWallpaper V1.0 Beta8</string>
 	<string name="wallpaper_description">BatteryWallpaper V1.0 Beta</string>
 	<string name="about">About</string>
 	<string name="settings">Settings</string>
@@ -15,10 +15,11 @@
 	<string name="category_battery_options">Battery Options</string>
 	<string name="opacity">Opacity</string>
 	<string name="style">Battery Style</string>
+	<string name="style_summary">Choose a Battery Style</string>
 	<string name="color">Color</string>
 	<string name="header_title_battery">Battery Style</string>
-	<string name="header_summary_battery">Choose a Battery Style ....</string>
-	<string name="header_title_battery_options">Battery Options</string>
+	<string name="header_summary_battery">Battery Style ....</string>
+	<string name="header_title_battery_options">Global Battery Options</string>
 	<string name="header_summary_battery_options">Colors, Opacity, ....</string>
 	<string name="header_title_background_options">Background Wallpaper</string>
 	<string name="header_summary_background_options">Choose custom Wallpaper from Gallery....</string>
