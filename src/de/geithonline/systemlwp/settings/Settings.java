@@ -12,7 +12,9 @@ import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV4;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
@@ -88,12 +90,20 @@ public class Settings {
 				bitmapDrawer = new BitmapDrawerZoopaWideV1();
 				return bitmapDrawer;
 			}
+			if (style.equals("ZoopaWideV2")) {
+				bitmapDrawer = new BitmapDrawerZoopaWideV2();
+				return bitmapDrawer;
+			}
 			if (style.equals("ZoopaWideV3")) {
 				bitmapDrawer = new BitmapDrawerZoopaWideV3();
 				return bitmapDrawer;
 			}
 			if (style.equals("TachoWideV5")) {
 				bitmapDrawer = new BitmapDrawerTachoWideV5();
+				return bitmapDrawer;
+			}
+			if (style.equals("ZoopaWideV4")) {
+				bitmapDrawer = new BitmapDrawerZoopaWideV4();
 				return bitmapDrawer;
 			}
 			bitmapDrawer = new BitmapDrawerZoopaWideV3();

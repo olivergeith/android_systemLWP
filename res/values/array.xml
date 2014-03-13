@@ -22,15 +22,19 @@
 
     <string-array name="styl">
         <item name="1">ZoopaWideV1</item>
-        <item name="2">ZoopaWideV3</item>
-        <item name="3">TachoWideV5</item>
-    </string-array>
+        <item name="2">ZoopaWideV2</item>
+        <item name="3">ZoopaWideV3</item>
+        <item name="4">ZoopaWideV4</item>
+        <item name="5">TachoWideV5</item>
+        </string-array>
     
     <string-array name="stylValues">
         <item name="1">ZoopaWideV1</item>
-        <item name="2">ZoopaWideV3</item>
-        <item name="3">TachoWideV5</item>
-    </string-array>
+        <item name="2">ZoopaWideV2</item>
+        <item name="3">ZoopaWideV3</item>
+        <item name="4">ZoopaWideV4</item>
+        <item name="5">TachoWideV5</item>
+        </string-array>
     
     
     
