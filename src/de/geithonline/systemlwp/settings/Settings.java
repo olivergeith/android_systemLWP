@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.utils.ColorHelper;
@@ -80,13 +81,23 @@ public class Settings {
 	public static IBitmapDrawer getBatteryStyle() {
 		// wenns den drawer noch nicht gibt, oder der style sich geändert hat
 		if (bitmapDrawer == null || !style.equals(prefs.getString("batt_style", "ZoopaWideV3"))) {
+			// getting Style from Settings
 			style = prefs.getString("batt_style", "ZoopaWideV3");
-			if (style.equals("ZoopaWideV3"))
+			// returning the right Style
+			if (style.equals("ZoopaWideV1")) {
+				bitmapDrawer = new BitmapDrawerZoopaWideV1();
+				return bitmapDrawer;
+			}
+			if (style.equals("ZoopaWideV3")) {
 				bitmapDrawer = new BitmapDrawerZoopaWideV3();
-			else if (style.equals("TachoWideV5"))
+				return bitmapDrawer;
+			}
+			if (style.equals("TachoWideV5")) {
 				bitmapDrawer = new BitmapDrawerTachoWideV5();
-			else
-				bitmapDrawer = new BitmapDrawerZoopaWideV3();
+				return bitmapDrawer;
+			}
+			bitmapDrawer = new BitmapDrawerZoopaWideV3();
+			return bitmapDrawer;
 		}
 		return bitmapDrawer;
 	}
