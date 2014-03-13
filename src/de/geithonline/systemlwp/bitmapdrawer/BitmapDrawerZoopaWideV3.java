@@ -1,10 +1,10 @@
 package de.geithonline.systemlwp.bitmapdrawer;
 
-import de.geithonline.systemlwp.settings.Settings;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import de.geithonline.systemlwp.settings.Settings;
 
 public class BitmapDrawerZoopaWideV3 implements IBitmapDrawer {
 
@@ -28,7 +28,7 @@ public class BitmapDrawerZoopaWideV3 implements IBitmapDrawer {
 
 		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
 		// anders
-		if (this.level != level || canvas.getWidth() != cWidth) {
+		if (this.level != level || canvas.getWidth() != cWidth || canvas.getHeight() != cHeight) {
 			cWidth = canvas.getWidth();
 			cHeight = canvas.getHeight();
 			bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);

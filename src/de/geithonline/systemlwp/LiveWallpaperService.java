@@ -1,7 +1,5 @@
 package de.geithonline.systemlwp;
 
-import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
-import de.geithonline.systemlwp.settings.Settings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +16,8 @@ import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.settings.Settings;
 
 public class LiveWallpaperService extends WallpaperService {
 
@@ -53,19 +53,18 @@ public class LiveWallpaperService extends WallpaperService {
 		private final Handler handler = new Handler();
 		private boolean visible = true;
 		private Bitmap backgroundImage = null;
-		private  IBitmapDrawer bitmapDrawer = Settings.getBatteryStyle();
+		private IBitmapDrawer bitmapDrawer = Settings.getBatteryStyle();
 		private int width = 0;
 		private int height = 0;
 		private float dx = 0.0f;
 		private String filePath = "aaa";
 		private int oldWidth = 0;
+		private int oldHeight = 0;
 
 		MyWallpaperEngine() {
 			registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-
-			// getBackgroundImage();
 			i = 0;
-			// drawMe();
+			drawMe();
 		}
 
 		private final Runnable drawRunner = new Runnable() {
@@ -95,15 +94,12 @@ public class LiveWallpaperService extends WallpaperService {
 				final int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
 				usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
 				acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
-
 				drawMe();
-
 			}
 		};
 
 		synchronized void draw() {
 			final SurfaceHolder holder = getSurfaceHolder();
-
 			Canvas canvas = null;
 			try {
 				canvas = holder.lockCanvas();
@@ -120,7 +116,6 @@ public class LiveWallpaperService extends WallpaperService {
 					if (!isCharging) {
 						bitmapDrawer.draw(level, canvas);
 					}
-
 					if (isCharging) {
 						bitmapDrawer.draw(i, canvas);
 						i += 1;
@@ -139,7 +134,6 @@ public class LiveWallpaperService extends WallpaperService {
 			if (visible && isCharging) {
 				handler.postDelayed(drawRunner, 50); // delay mileseconds
 			}
-
 		}
 
 		/**
@@ -153,16 +147,16 @@ public class LiveWallpaperService extends WallpaperService {
 			// draw the background image and stretch it to canvas
 			if (backgroundImage == null //
 					|| !filePath.equals(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa")) //
-					|| width != oldWidth) {
+					|| width != oldWidth //
+					|| height != oldHeight) {
 				backgroundImage = getBackgroundImage();
 				oldWidth = width;
+				oldHeight = height;
 			}
 			canvas.save();
 			canvas.translate(dx, 0);
 			canvas.drawBitmap(backgroundImage, 0, 0, null);
-
 			canvas.restore();
-
 		}
 
 		/**
@@ -224,6 +218,7 @@ public class LiveWallpaperService extends WallpaperService {
 		@Override
 		public void onCreate(final SurfaceHolder surfaceHolder) {
 			super.onCreate(surfaceHolder);
+			drawMe();
 		}
 
 		@Override
@@ -255,11 +250,13 @@ public class LiveWallpaperService extends WallpaperService {
 		public void onSurfaceCreated(final SurfaceHolder holder) {
 			super.onSurfaceCreated(holder);
 			initialized = true;
+			drawMe();
 		}
 
 		@Override
 		public void onSurfaceRedrawNeeded(final SurfaceHolder holder) {
 			super.onSurfaceRedrawNeeded(holder);
+			drawMe();
 		}
 
 		@Override

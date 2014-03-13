@@ -1,11 +1,11 @@
 package de.geithonline.systemlwp.bitmapdrawer;
 
-import de.geithonline.systemlwp.settings.Settings;
-import de.geithonline.systemlwp.utils.ColorHelper;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import de.geithonline.systemlwp.settings.Settings;
+import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class BitmapDrawerTachoWideV5 implements IBitmapDrawer {
 
@@ -29,7 +29,7 @@ public class BitmapDrawerTachoWideV5 implements IBitmapDrawer {
 
 		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
 		// anders
-		if (this.level != level || canvas.getWidth() != cWidth) {
+		if (this.level != level || canvas.getWidth() != cWidth || canvas.getHeight() != cHeight) {
 			cWidth = canvas.getWidth();
 			cHeight = canvas.getHeight();
 			bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
