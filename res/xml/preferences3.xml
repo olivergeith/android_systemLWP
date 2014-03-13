@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+ 
+    <PreferenceCategory 
+        android:title="@string/category_style"
+        android:summary="@string/category_style_summary">
     
         <ListPreference
 	        android:defaultValue="ZoopaWideV3"
@@ -10,5 +14,20 @@
 	        android:entryValues="@array/stylValues"
 	        android:key="batt_style"
 	        />
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:title="@string/category_style_options"
+        android:summary="@string/category_style_options_summary">
+        
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="color_zeiger"
+            android:title="@string/color_zeiger" 
+            android:summary="@string/color_zeiger_summary"
+            android:defaultValue="@integer/COLOR_WHITE"
+            />
 
+    </PreferenceCategory>
+        
 </PreferenceScreen>

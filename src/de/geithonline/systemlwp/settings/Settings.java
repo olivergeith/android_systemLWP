@@ -1,12 +1,5 @@
 package de.geithonline.systemlwp.settings;
 
-import de.geithonline.systemlwp.LiveWallpaperService;
-import de.geithonline.systemlwp.R;
-import de.geithonline.systemlwp.R.integer;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
-import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
-import de.geithonline.systemlwp.utils.ColorHelper;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,6 +8,12 @@ import android.graphics.Paint.Style;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
+import de.geithonline.systemlwp.LiveWallpaperService;
+import de.geithonline.systemlwp.R;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
+import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class Settings {
 	private final static SharedPreferences prefs = LiveWallpaperService.prefs;
@@ -60,6 +59,11 @@ public class Settings {
 
 	private static int getBattColor() {
 		final int col = prefs.getInt("battery_color", R.integer.COLOR_WHITE);
+		return col;
+	}
+
+	private static int getZeigerColor() {
+		final int col = prefs.getInt("color_zeiger", R.integer.COLOR_WHITE);
 		return col;
 	}
 
@@ -155,7 +159,7 @@ public class Settings {
 	public static Paint getZeigerPaint(final int level) {
 		final Paint paint = new Paint();
 		paint.setAntiAlias(true);
-		paint.setColor(Color.WHITE);
+		paint.setColor(getZeigerColor());
 		paint.setAlpha(255);
 		paint.setStyle(Style.FILL);
 		return paint;
