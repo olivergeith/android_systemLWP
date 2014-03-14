@@ -11,6 +11,8 @@ import android.graphics.Typeface;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
@@ -22,6 +24,11 @@ public class Settings {
 	private final static SharedPreferences prefs = LiveWallpaperService.prefs;
 	private static String style = "aaa";
 	private static IBitmapDrawer bitmapDrawer;
+
+	private static int getFontSize100() {
+		final int size = Integer.valueOf(prefs.getString("fontsize100", "100"));
+		return size;
+	}
 
 	private static boolean isColoredNumber() {
 		return prefs.getBoolean("colored_numbers", false);
@@ -98,12 +105,22 @@ public class Settings {
 				bitmapDrawer = new BitmapDrawerZoopaWideV3();
 				return bitmapDrawer;
 			}
-			if (style.equals("TachoWideV5")) {
-				bitmapDrawer = new BitmapDrawerTachoWideV5();
-				return bitmapDrawer;
-			}
 			if (style.equals("ZoopaWideV4")) {
 				bitmapDrawer = new BitmapDrawerZoopaWideV4();
+				return bitmapDrawer;
+			}
+
+			if (style.equals("ZoopaCircleV1")) {
+				bitmapDrawer = new BitmapDrawerZoopaCircleV1();
+				return bitmapDrawer;
+			}
+			if (style.equals("ZoopaCircleV2")) {
+				bitmapDrawer = new BitmapDrawerZoopaCircleV2();
+				return bitmapDrawer;
+			}
+
+			if (style.equals("TachoWideV5")) {
+				bitmapDrawer = new BitmapDrawerTachoWideV5();
 				return bitmapDrawer;
 			}
 			bitmapDrawer = new BitmapDrawerZoopaWideV3();
@@ -161,7 +178,12 @@ public class Settings {
 		}
 		paint.setAlpha(getOpacity());
 		paint.setAntiAlias(true);
-		paint.setTextSize(fontSize);
+
+		int fSize = fontSize;
+		if (level == 100) {
+			fSize = Math.round(fontSize * getFontSize100() / 100f);
+		}
+		paint.setTextSize(fSize);
 		paint.setFakeBoldText(true);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);

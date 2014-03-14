@@ -1,0 +1,3 @@
+Animations-style
+charging icons
+level on animation länger anzeigen

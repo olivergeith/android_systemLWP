@@ -38,6 +38,7 @@
         <ListPreference
 	        android:defaultValue="128"
 	        android:title="@string/opacity" 
+            android:summary="@string/opacity_summary" 
 	        android:dialogTitle="Battery --> Opacity"
 	        android:entries="@array/opacities"
 	        android:entryValues="@array/opacitiesValues"
@@ -60,12 +61,25 @@
 		    android:inputType="number"
 		    android:summary="@string/threshold_low_summary"
          	/>
+    </PreferenceCategory>>
+        
+    <PreferenceCategory android:title="@string/category_font_options">
         
         <CheckBoxPreference 
 		    android:key="colored_numbers"
     		android:defaultValue="true"
 		    android:title="@string/colored_numbers" 
 		    android:summary="@string/colored_numbers_summary"
+            />
+
+        <ListPreference
+            android:defaultValue="100"
+            android:title="@string/fontsize100" 
+            android:summary="@string/fontsize100_summary" 
+            android:dialogTitle="@string/fontsize100"
+            android:entries="@array/fontsize100"
+            android:entryValues="@array/fontsize100Values"
+            android:key="fontsize100"
             />
         
 	</PreferenceCategory>>
@@ -83,6 +97,7 @@
 	    <ListPreference
 	        android:key="background_opacity"
 	        android:title="@string/opacity" 
+	        android:summary="@string/opacity_summary" 
 	        android:dialogTitle="Battery-Background --> Opacity"
 	        android:defaultValue="128"
 	        android:entries="@array/opacities"
