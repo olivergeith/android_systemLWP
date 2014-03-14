@@ -9,18 +9,18 @@
             android:summary="@string/header_summary_battery" />
     
     <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$BattColorPreferencesFragment"
-            android:icon="@drawable/icon"
+            android:icon="@drawable/color"
             android:title="@string/header_title_battery_options"
             android:summary="@string/header_summary_battery_options" />
 
     <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$BackgroundPreferencesFragment"
-            android:icon="@drawable/icon"
+            android:icon="@drawable/wallpaper"
             android:title="@string/header_title_background_options"
             android:summary="@string/header_summary_background_options"
             />
 
     <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$AboutFragment"
-            android:icon="@drawable/icon"
+            android:icon="@drawable/about"
             android:title="@string/header_about_options"
             android:summary="@string/header_about_options_summary"
             />

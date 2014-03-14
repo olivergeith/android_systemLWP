@@ -1,6 +1,4 @@
-Animations-style
 charging icons
-level on animation länger anzeigen
 position
 size
 plain colored background
