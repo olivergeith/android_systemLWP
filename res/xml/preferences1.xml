@@ -106,4 +106,18 @@
 	    	    
 	</PreferenceCategory>>
 
+    <PreferenceCategory android:title="@string/category_animation_options">
+        <ListPreference
+	        android:defaultValue="1"
+	        android:title="@string/animation_style" 
+	        android:dialogTitle="@string/animation_style"
+            android:summary="@string/animation_style_summary" 
+	        android:entries="@array/animation_styl"
+	        android:entryValues="@array/animation_stylValues"
+	        android:key="animationStyle"
+	        />
+	</PreferenceCategory>>
+        
+
+
 </PreferenceScreen>

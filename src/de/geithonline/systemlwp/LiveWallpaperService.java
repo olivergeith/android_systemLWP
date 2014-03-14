@@ -58,6 +58,7 @@ public class LiveWallpaperService extends WallpaperService {
 		private float dx = 0.0f;
 		private int oldWidth = 0;
 		private int oldHeight = 0;
+		private int millies = 50;
 
 		MyWallpaperEngine() {
 			registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
@@ -119,9 +120,18 @@ public class LiveWallpaperService extends WallpaperService {
 					}
 					if (isCharging) {
 						bitmapDrawer.draw(i, canvas);
+						// Ret animationlevel
+						// Level länger anzeigen
+						if (i == level)
+							millies = 2500;
+						else
+							millies = 50;
+
 						i += 1;
-						if (i > 100)
+						if (i > getAnimationResetLevel()) {
 							i = 0;
+						}
+
 					}
 				}
 			} catch (final IllegalArgumentException ex) {
@@ -133,7 +143,17 @@ public class LiveWallpaperService extends WallpaperService {
 
 			handler.removeCallbacks(drawRunner);
 			if (visible && isCharging) {
-				handler.postDelayed(drawRunner, 50); // delay mileseconds
+				handler.postDelayed(drawRunner, millies); // delay mileseconds
+			}
+		}
+
+		private int getAnimationResetLevel() {
+			switch (Settings.getAnimationStyle()) {
+				default:
+				case Settings.ANIMATION_STYLE_0_TO_100:
+					return 100;
+				case Settings.ANIMATION_STYLE_0_TO_LEVEL:
+					return level;
 			}
 		}
 

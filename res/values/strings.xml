@@ -22,7 +22,10 @@
     <string name="category_style_options_summary">Not all options are appliable for all Batteries</string>
     <string name="category_custom_background">Custom Background</string>
     <string name="category_colored_background">Colored Background</string>
+    <string name="category_animation_options">Charge Animation Style</string>
     
+    <string name="animation_style">Charge Animation Style</string>
+	<string name="animation_style_summary">Choose a Charge Animation Style</string>
     
     <string name="opacity">Opacity</string>
     <string name="opacity_summary">How much of the Background-Image should shine through</string>

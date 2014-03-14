@@ -31,6 +31,13 @@ public class Settings {
 	private static String style = "aaa";
 	private static IBitmapDrawer bitmapDrawer;
 	private static String filePath = "aaa";
+	public static final int ANIMATION_STYLE_0_TO_100 = 1;
+	public static final int ANIMATION_STYLE_0_TO_LEVEL = 2;
+
+	public static int getAnimationStyle() {
+		final int size = Integer.valueOf(prefs.getString("animationStyle", "1"));
+		return size;
+	}
 
 	public static boolean isCenteredBattery() {
 		return prefs.getBoolean("centerBattery", true);
@@ -263,26 +270,27 @@ public class Settings {
 		return bg;
 	}
 
-	public static int getPlainWallpaterBackgroundColor() {
+	private static int getBackgroundColor1() {
 		final int col = prefs.getInt("color_plain_bgrnd", R.integer.COLOR_BLACK);
 		return col;
 	}
 
-	public static boolean isGradientBackground() {
-		return prefs.getBoolean("gradientBackground", false);
-	}
-
-	public static int getGradientWallpaterBackgroundColor2() {
+	private static int getBackgroundColor2() {
 		final int col = prefs.getInt("color2_plain_bgrnd", R.integer.COLOR_WHITE);
 		return col;
+	}
+
+	private static boolean isGradientBackground() {
+		return prefs.getBoolean("gradientBackground", false);
 	}
 
 	public static Paint getWallpaperBackgroundPaint(final int width, final int height) {
 		final Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		if (isGradientBackground()) {
-			paint.setShader(new LinearGradient(0, 0, 0, height, getPlainWallpaterBackgroundColor(), getGradientWallpaterBackgroundColor2(),
-					Shader.TileMode.MIRROR));
+			paint.setShader(new LinearGradient(0, 0, 0, height, getBackgroundColor1(), getBackgroundColor2(), Shader.TileMode.MIRROR));
+		} else {
+			paint.setColor(getBackgroundColor1());
 		}
 		return paint;
 	}

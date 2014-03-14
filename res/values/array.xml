@@ -59,8 +59,17 @@
         <item name="10">ZoopaCircleV1</item>
         <item name="11">ZoopaCircleV2</item>
         <item name="20">TachoWideV5</item>
+    </string-array>
+    
+    <string-array name="animation_styl">
+        <item name="1">0 to 100 percent</item>
+        <item name="2">0 to current Battery Level</item>
         </string-array>
     
+    <string-array name="animation_stylValues">
+        <item name="1">1</item>
+        <item name="2">2</item>
+        </string-array>
     
     
 </resources>
