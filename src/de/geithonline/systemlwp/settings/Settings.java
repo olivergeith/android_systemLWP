@@ -1,14 +1,20 @@
 package de.geithonline.systemlwp.settings;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.util.Log;
 import de.geithonline.systemlwp.LiveWallpaperService;
+import de.geithonline.systemlwp.PreferencesActivity;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
@@ -21,9 +27,10 @@ import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class Settings {
-	private final static SharedPreferences prefs = LiveWallpaperService.prefs;
+	public final static SharedPreferences prefs = LiveWallpaperService.prefs;
 	private static String style = "aaa";
 	private static IBitmapDrawer bitmapDrawer;
+	private static String filePath = "aaa";
 
 	public static boolean isCenteredBattery() {
 		return prefs.getBoolean("centerBattery", true);
@@ -91,6 +98,9 @@ public class Settings {
 		return col;
 	}
 
+	// #####################################################################################
+	// Styles
+	// #####################################################################################
 	public static IBitmapDrawer getBatteryStyle() {
 		// wenns den drawer noch nicht gibt, oder der style sich geändert hat
 		if (bitmapDrawer == null || !style.equals(prefs.getString("batt_style", "ZoopaWideV3"))) {
@@ -133,15 +143,9 @@ public class Settings {
 		return bitmapDrawer;
 	}
 
-	public static Paint getErasurePaint() {
-		final Paint paint = new Paint();
-		paint.setColor(Color.TRANSPARENT);
-		final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-		paint.setXfermode(xfermode);
-		paint.setStyle(Style.FILL);
-		return paint;
-	}
-
+	// #####################################################################################
+	// LevelColors
+	// #####################################################################################
 	public static int getColorForLevel(final int level) {
 		if (level > getMidThreshold()) {
 			if (isGradientColors())
@@ -171,6 +175,18 @@ public class Settings {
 				return ColorHelper.getRadiantColor(getBattColorLow(), getBattColorMid(), level, getLowThreshold(), getMidThreshold());
 			}
 		}
+	}
+
+	// #####################################################################################
+	// Different Paints
+	// #####################################################################################
+	public static Paint getErasurePaint() {
+		final Paint paint = new Paint();
+		paint.setColor(Color.TRANSPARENT);
+		final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
+		paint.setXfermode(xfermode);
+		paint.setStyle(Style.FILL);
+		return paint;
 	}
 
 	public static Paint getTextPaint(final int level, final int fontSize) {
@@ -221,4 +237,53 @@ public class Settings {
 		return paint;
 	}
 
+	// #####################################################################################
+	// Custom Background
+	// #####################################################################################
+	public static boolean isLoadCustomBackground() {
+		return prefs.getBoolean("customBackground", false);
+	}
+
+	public static boolean customBackgroundChanged() {
+		if (!filePath.equals(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa"))) {
+			return true;
+		}
+		return false;
+	}
+
+	public static Bitmap getCustomBackground() {
+		Bitmap bg = null;
+		filePath = prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa");
+		if (!filePath.equals("aaa")) {
+			final BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+			bg = BitmapFactory.decodeFile(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa"), options);
+		}
+		Log.i("Geith", "Custom BG = " + filePath);
+		return bg;
+	}
+
+	public static int getPlainWallpaterBackgroundColor() {
+		final int col = prefs.getInt("color_plain_bgrnd", R.integer.COLOR_BLACK);
+		return col;
+	}
+
+	public static boolean isGradientBackground() {
+		return prefs.getBoolean("gradientBackground", false);
+	}
+
+	public static int getGradientWallpaterBackgroundColor2() {
+		final int col = prefs.getInt("color2_plain_bgrnd", R.integer.COLOR_WHITE);
+		return col;
+	}
+
+	public static Paint getWallpaperBackgroundPaint(final int width, final int height) {
+		final Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		if (isGradientBackground()) {
+			paint.setShader(new LinearGradient(0, 0, 0, height, getPlainWallpaterBackgroundColor(), getGradientWallpaterBackgroundColor2(),
+					Shader.TileMode.MIRROR));
+		}
+		return paint;
+	}
 }

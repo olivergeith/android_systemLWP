@@ -11,13 +11,19 @@
 	<string name="choose_background">Choose Background</string>
 	<string name="choose_background_summary">Choose Background</string>
 	<string name="enable_custom_background">Enable Custom Background</string>
-	<string name="category_battery_background_options">Battery Background Options</string>
+    <string name="enable_gradient_background">Enable Gradient Background</string>
+
+    <string name="category_battery_background_options">Battery Background Options</string>
 	<string name="category_battery_options">Battery Options</string>
     <string name="category_font_options">Font Options</string>
 	<string name="category_style">Battery Style</string>
     <string name="category_style_summary">Battery Style Settings</string>
     <string name="category_style_options">Special Options for specific Style</string>
     <string name="category_style_options_summary">Not all options are appliable for all Batteries</string>
+    <string name="category_custom_background">Custom Background</string>
+    <string name="category_colored_background">Colored Background</string>
+    
+    
     <string name="opacity">Opacity</string>
     <string name="opacity_summary">How much of the Background-Image should shine through</string>
     <string name="style">Battery Style</string>
@@ -25,15 +31,17 @@
 	<string name="color">Color</string>
     <string name="color_zeiger">Pointer Color</string>
     <string name="color_zeiger_summary">Some Batteries have a Pointer - set its color here</string>
+
     <string name="header_title_battery">Battery Style</string>
 	<string name="header_summary_battery">Battery Style ....</string>
 	<string name="header_title_battery_options">Global Battery Options</string>
 	<string name="header_summary_battery_options">Colors, Opacity, ....</string>
-	<string name="header_title_background_options">Background Wallpaper</string>
+	<string name="header_title_background_options">Wallpaper Background</string>
 	<string name="header_summary_background_options">Choose custom Wallpaper from Gallery....</string>
     <string name="header_about_options">About</string>
     <string name="header_about_options_summary">Info, Links and more about this App....</string>
-	<string name="threshold_low">Threshold for low battery</string>
+
+    <string name="threshold_low">Threshold for low battery</string>
 	<string name="threshold_low_summary">Threshold for low battery levels</string>
 	<string name="threshold_mid">Threshold for mid battery</string>
 	<string name="threshold_mid_summary">Threshold for mid battery levels</string>

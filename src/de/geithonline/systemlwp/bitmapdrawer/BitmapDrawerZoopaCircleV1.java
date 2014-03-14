@@ -26,6 +26,7 @@ public class BitmapDrawerZoopaCircleV1 implements IBitmapDrawer {
 	private int level = -99;
 
 	public BitmapDrawerZoopaCircleV1() {
+
 	}
 
 	private void initDimensions(final Canvas canvas) {

@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -57,7 +56,6 @@ public class LiveWallpaperService extends WallpaperService {
 		private int width = 0;
 		private int height = 0;
 		private float dx = 0.0f;
-		private String filePath = "aaa";
 		private int oldWidth = 0;
 		private int oldHeight = 0;
 
@@ -108,9 +106,12 @@ public class LiveWallpaperService extends WallpaperService {
 					width = canvas.getWidth();
 					height = canvas.getHeight();
 					// clear the canvas
-					canvas.drawColor(Color.BLACK);
-					// drawing the bgImage
-					drawBackgroundImage(canvas);
+					if (Settings.isLoadCustomBackground()) {
+						// canvas.drawColor(Settings.getPlainWallpaterBackgroundColor());
+						drawBackgroundImage(canvas);
+					} else {
+						canvas.drawPaint(Settings.getWallpaperBackgroundPaint(width, height));
+					}
 					// schaun, ob der Bitmapdrawer sich geändert hat
 					bitmapDrawer = Settings.getBatteryStyle();
 					if (!isCharging) {
@@ -137,7 +138,7 @@ public class LiveWallpaperService extends WallpaperService {
 		}
 
 		/**
-		 * TODO comment drawBackground
+		 * drawBackground
 		 * 
 		 * @param canvas
 		 * @param width
@@ -146,7 +147,7 @@ public class LiveWallpaperService extends WallpaperService {
 		private void drawBackgroundImage(final Canvas canvas) {
 			// draw the background image and stretch it to canvas
 			if (backgroundImage == null //
-					|| !filePath.equals(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa")) //
+					|| Settings.customBackgroundChanged() //
 					|| width != oldWidth //
 					|| height != oldHeight) {
 				backgroundImage = getBackgroundImage();
@@ -160,13 +161,13 @@ public class LiveWallpaperService extends WallpaperService {
 		}
 
 		/**
-		 * TODO comment initBackgroundImage
+		 * initBackgroundImage
 		 */
 		private Bitmap getBackgroundImage() {
 			Bitmap bg;
 			// sollen wir ein custom BG laden ?
-			if (prefs.getBoolean("customBackground", false)) {
-				bg = getCustomBackground();
+			if (Settings.isLoadCustomBackground()) {
+				bg = Settings.getCustomBackground();
 				if (bg == null)
 					bg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 			} else {
@@ -200,18 +201,6 @@ public class LiveWallpaperService extends WallpaperService {
 				bg = Bitmap.createScaledBitmap(bg, dstW, dstH, true);
 			}
 
-			return bg;
-		}
-
-		private Bitmap getCustomBackground() {
-			Bitmap bg = null;
-			filePath = prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa");
-			if (!filePath.equals("aaa")) {
-				final BitmapFactory.Options options = new BitmapFactory.Options();
-				options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-				bg = BitmapFactory.decodeFile(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa"), options);
-			}
-			Log.i("Geith", "Custom BG = " + filePath);
 			return bg;
 		}
 
@@ -268,8 +257,6 @@ public class LiveWallpaperService extends WallpaperService {
 		public void onOffsetsChanged(final float xOffset, final float yOffset, final float xStep, final float yStep, final int xPixels, final int yPixels) {
 			if (backgroundImage != null) {
 				dx = (width - backgroundImage.getWidth()) * (xOffset);
-				// dx = (width - backgroundImage.getWidth()) * (1 - xOffset);
-				// dx = (width) * (xOffset);
 			}
 			drawMe();
 		}
