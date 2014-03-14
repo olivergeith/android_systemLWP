@@ -28,31 +28,34 @@ public class BitmapDrawerZoopaCircleV1 implements IBitmapDrawer {
 	public BitmapDrawerZoopaCircleV1() {
 	}
 
+	private void initDimensions(final Canvas canvas) {
+		cWidth = canvas.getWidth();
+		cHeight = canvas.getHeight();
+		// welche kantge ist schmaler?
+		if (cWidth < cHeight) {
+			bWidth = cWidth;
+			bHeight = cWidth;
+		} else {
+			bWidth = cHeight;
+			bHeight = cHeight;
+		}
+		bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
+		bitmapCanvas = new Canvas(bitmap);
+
+		bogenDicke = Math.round(bWidth * 0.035f);
+		skaleDicke = Math.round(bWidth * 0.14f);
+		offset = Math.round(bWidth * 0.02f);
+		abstand = Math.round(bWidth * 0.015f);
+		fontSize = Math.round(bWidth * 0.35f);
+	}
+
 	@Override
 	public void draw(final int level, final Canvas canvas) {
 
 		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
 		// anders
 		if (this.level != level || canvas.getWidth() != cWidth || canvas.getHeight() != cHeight) {
-			cWidth = canvas.getWidth();
-			cHeight = canvas.getHeight();
-			// welche kantge ist schmaler?
-			if (cWidth < cHeight) {
-				bWidth = cWidth;
-				bHeight = cWidth;
-			} else {
-				bWidth = cHeight;
-				bHeight = cHeight;
-			}
-			bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
-			bitmapCanvas = new Canvas(bitmap);
-
-			bogenDicke = Math.round(bWidth * 0.035f);
-			skaleDicke = Math.round(bWidth * 0.14f);
-			offset = Math.round(bWidth * 0.02f);
-			abstand = Math.round(bWidth * 0.015f);
-			fontSize = Math.round(bWidth * 0.35f);
-
+			initDimensions(canvas);
 			drawBogen(level);
 			drawSegmente(level);
 			drawZeiger(level);
@@ -135,9 +138,6 @@ public class BitmapDrawerZoopaCircleV1 implements IBitmapDrawer {
 		p.setTextAlign(Align.CENTER);
 		final PointF point = getTextCenterToDraw(text, getRectForOffset(0), p);
 		bitmapCanvas.drawText(text, point.x, point.y, p);
-		// draw percentage Number
-		// bitmapCanvas.drawText(text, bWidth / 2, bHeight / 2 - bounds.height()
-		// / 2, p);
 	}
 
 	private RectF getRectForOffset(final int offset) {
