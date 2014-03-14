@@ -31,6 +31,8 @@
 	<string name="header_summary_battery_options">Colors, Opacity, ....</string>
 	<string name="header_title_background_options">Background Wallpaper</string>
 	<string name="header_summary_background_options">Choose custom Wallpaper from Gallery....</string>
+    <string name="header_about_options">About</string>
+    <string name="header_about_options_summary">Info, Links and more about this App....</string>
 	<string name="threshold_low">Threshold for low battery</string>
 	<string name="threshold_low_summary">Threshold for low battery levels</string>
 	<string name="threshold_mid">Threshold for mid battery</string>

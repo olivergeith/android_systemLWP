@@ -71,6 +71,17 @@ public class PreferencesActivity extends PreferenceActivity {
 	/**
 	 * This fragment shows the preferences for the first header.
 	 */
+	public static class AboutFragment extends PreferenceFragment {
+		@Override
+		public void onCreate(final Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(R.xml.preferences_about);
+		}
+	}
+
+	/**
+	 * This fragment shows the preferences for the first header.
+	 */
 	public static class BattPreferencesFragment extends PreferenceFragment {
 		@Override
 		public void onCreate(final Bundle savedInstanceState) {
@@ -111,7 +122,7 @@ public class PreferencesActivity extends PreferenceActivity {
 					MediaStore.Images.Media.DATA
 				};
 
-				final Cursor cursor = this.getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+				final Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 				cursor.moveToFirst();
 				final int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 				final String filePath = cursor.getString(columnIndex);

@@ -19,4 +19,11 @@
             android:summary="@string/header_summary_background_options"
             />
 
+    <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$AboutFragment"
+            android:icon="@drawable/icon"
+            android:title="@string/header_about_options"
+            android:summary="@string/header_about_options_summary"
+            />
+    
+    
 </preference-headers>
