@@ -25,6 +25,10 @@ public class Settings {
 	private static String style = "aaa";
 	private static IBitmapDrawer bitmapDrawer;
 
+	public static boolean isCenteredBattery() {
+		return prefs.getBoolean("centerBattery", true);
+	}
+
 	private static int getFontSize100() {
 		final int size = Integer.valueOf(prefs.getString("fontsize100", "100"));
 		return size;

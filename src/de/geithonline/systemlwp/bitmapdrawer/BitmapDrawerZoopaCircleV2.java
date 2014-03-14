@@ -58,15 +58,17 @@ public class BitmapDrawerZoopaCircleV2 implements IBitmapDrawer {
 		}
 
 		// draw mittig
-		// canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 -
-		// bHeight / 2, null);
-		// draw unten
-		if (cWidth < cHeight) {
-			// unten
-			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight, null);
+		if (Settings.isCenteredBattery()) {
+			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 - bHeight / 2, null);
 		} else {
-			// links
-			canvas.drawBitmap(bitmap, cWidth - bWidth, cHeight / 2 - bHeight / 2, null);
+			// draw unten
+			if (cWidth < cHeight) {
+				// unten
+				canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight, null);
+			} else {
+				// links
+				canvas.drawBitmap(bitmap, cWidth - bWidth, cHeight / 2 - bHeight / 2, null);
+			}
 		}
 
 		this.level = level;

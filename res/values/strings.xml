@@ -43,4 +43,6 @@
 	<string name="gradient_colors_mid_summary">Gradient Color according to the Battery Level</string>
     <string name="fontsize100">Reduce fontsize in 100 percent Batt-Level</string>
     <string name="fontsize100_summary">Size reduction of font when Battery-Level is on 100 percent</string>
+    <string name="centerBattery">Center Battery</string>
+    <string name="centerBattery_summary">Some Batteries can be centered - set it here</string>
 </resources>

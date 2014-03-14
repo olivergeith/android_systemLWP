@@ -27,6 +27,14 @@
             android:summary="@string/color_zeiger_summary"
             android:defaultValue="@integer/COLOR_WHITE"
             />
+        
+        <CheckBoxPreference 
+            android:key="centerBattery"
+            android:title="@string/centerBattery"
+            android:summary="@string/centerBattery_summary"
+            android:defaultValue="true"
+        />
+        
 
     </PreferenceCategory>
         
