@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">BatteryWallpaper V1.0 - Beta 10</string>
-	<string name="wallpaper_description">BatteryWallpaper V1.0 - Beta</string>
+	<string name="app_name">BatteryWallpaper V1.0-Beta11</string>
+	<string name="wallpaper_description">BatteryWallpaper V1.0-Beta</string>
 	
 	<string name="about">About</string>
 	<string name="settings">Settings</string>

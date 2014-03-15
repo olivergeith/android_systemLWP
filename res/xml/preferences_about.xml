@@ -4,7 +4,14 @@
     <PreferenceCategory android:title="@string/app_name">
     
 	    <Preference 
-	        android:title="Visit me on XDA" >
+	        android:title="The Battery Wallpaper on XDA" >
+	        <intent android:action="android.intent.action.VIEW"
+	            android:data="http://forum.xda-developers.com/showthread.php?t=2682604" />
+	    </Preference>
+        
+        <Preference 
+	        android:title="The Rom Fumbler on XDA" 
+	        android:summary="My other Tool on XDA...">
 	        <intent android:action="android.intent.action.VIEW"
 	            android:data="http://forum.xda-developers.com/showthread.php?t=1918500" />
 	    </Preference>
