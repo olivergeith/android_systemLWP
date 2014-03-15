@@ -6,45 +6,38 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 
-public class BitmapDrawerZoopaWideV1 implements IBitmapDrawer {
+public class BitmapDrawerZoopaWideV1 extends BitmapDrawer {
 
-	private int cHeight;
-	private int cWidth;
 	private int offset = 5;
 	private int einerDicke = 30;
 	private int zehnerDicke = 100;
 	private int abstand = 8;
 	private final float gap = 2f;
 	private int fontSize = 150;
-	private Bitmap bitmap;
 	private Canvas bitmapCanvas;
-	private int level = -99;
 
 	public BitmapDrawerZoopaWideV1() {
 	}
 
 	@Override
-	public void draw(final int level, final Canvas canvas) {
+	public Bitmap drawBitmap(final int level, final Canvas canvas) {
 
-		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
-		// anders
-		if (this.level != level || canvas.getWidth() != cWidth || canvas.getHeight() != cHeight) {
-			cWidth = canvas.getWidth();
-			cHeight = canvas.getHeight();
-			bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
-			bitmapCanvas = new Canvas(bitmap);
+		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
+		bitmapCanvas = new Canvas(bitmap);
 
-			einerDicke = Math.round(cWidth * 0.05f);
-			zehnerDicke = Math.round(cWidth * 0.12f);
-			offset = Math.round(cWidth * 0.011f);
-			abstand = Math.round(cWidth * 0.015f);
-			fontSize = Math.round(cWidth * 0.25f);
+		einerDicke = Math.round(cWidth * 0.05f);
+		zehnerDicke = Math.round(cWidth * 0.12f);
+		offset = Math.round(cWidth * 0.011f);
+		abstand = Math.round(cWidth * 0.015f);
+		fontSize = Math.round(cWidth * 0.25f);
 
-			drawSegmente(level);
-		}
+		drawSegmente(level);
+		return bitmap;
+	}
 
+	@Override
+	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
 		canvas.drawBitmap(bitmap, 0, cHeight - cWidth / 2 - 5, null);
-		this.level = level;
 	}
 
 	private void drawSegmente(final int level) {

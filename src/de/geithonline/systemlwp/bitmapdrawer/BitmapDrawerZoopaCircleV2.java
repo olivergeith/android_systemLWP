@@ -9,10 +9,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 
-public class BitmapDrawerZoopaCircleV2 implements IBitmapDrawer {
+public class BitmapDrawerZoopaCircleV2 extends BitmapDrawer {
 
-	private int cHeight;
-	private int cWidth;
 	private int bWidth = 0;
 	private int bHeight = 0;
 	private int offset = 10;
@@ -21,42 +19,37 @@ public class BitmapDrawerZoopaCircleV2 implements IBitmapDrawer {
 	private int abstand = 8;
 	private final float gap = 2f;
 	private int fontSize = 150;
-	private Bitmap bitmap;
 	private Canvas bitmapCanvas;
-	private int level = -99;
 
 	public BitmapDrawerZoopaCircleV2() {
 	}
 
 	@Override
-	public void draw(final int level, final Canvas canvas) {
-
-		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
-		// anders
-		if (this.level != level || canvas.getWidth() != cWidth || canvas.getHeight() != cHeight) {
-			cWidth = canvas.getWidth();
-			cHeight = canvas.getHeight();
-			// welche kantge ist schmaler?
-			if (cWidth < cHeight) {
-				bWidth = cWidth;
-				bHeight = cWidth;
-			} else {
-				bWidth = cHeight;
-				bHeight = cHeight;
-			}
-			bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
-			bitmapCanvas = new Canvas(bitmap);
-
-			einerDicke = Math.round(bWidth * 0.05f);
-			zehnerDicke = Math.round(bWidth * 0.12f);
-			offset = Math.round(bWidth * 0.011f);
-			abstand = Math.round(bWidth * 0.015f);
-			fontSize = Math.round(bWidth * 0.35f);
-
-			drawSegmente(level);
-			drawNumber(level);
+	public Bitmap drawBitmap(final int level, final Canvas canvas) {
+		// welche kantge ist schmaler?
+		if (cWidth < cHeight) {
+			bWidth = cWidth;
+			bHeight = cWidth;
+		} else {
+			bWidth = cHeight;
+			bHeight = cHeight;
 		}
+		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
+		bitmapCanvas = new Canvas(bitmap);
 
+		einerDicke = Math.round(bWidth * 0.05f);
+		zehnerDicke = Math.round(bWidth * 0.12f);
+		offset = Math.round(bWidth * 0.011f);
+		abstand = Math.round(bWidth * 0.015f);
+		fontSize = Math.round(bWidth * 0.35f);
+
+		drawSegmente(level);
+		drawNumber(level);
+		return bitmap;
+	}
+
+	@Override
+	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
 		// draw mittig
 		if (Settings.isCenteredBattery()) {
 			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 - bHeight / 2, null);
@@ -70,8 +63,6 @@ public class BitmapDrawerZoopaCircleV2 implements IBitmapDrawer {
 				canvas.drawBitmap(bitmap, cWidth - bWidth, cHeight / 2 - bHeight / 2, null);
 			}
 		}
-
-		this.level = level;
 	}
 
 	private void drawSegmente(final int level) {

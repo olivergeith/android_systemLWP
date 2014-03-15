@@ -63,27 +63,6 @@
          	/>
     </PreferenceCategory>>
         
-    <PreferenceCategory android:title="@string/category_font_options">
-        
-        <CheckBoxPreference 
-		    android:key="colored_numbers"
-    		android:defaultValue="true"
-		    android:title="@string/colored_numbers" 
-		    android:summary="@string/colored_numbers_summary"
-            />
-
-        <ListPreference
-            android:defaultValue="100"
-            android:title="@string/fontsize100" 
-            android:summary="@string/fontsize100_summary" 
-            android:dialogTitle="@string/fontsize100"
-            android:entries="@array/fontsize100"
-            android:entryValues="@array/fontsize100Values"
-            android:key="fontsize100"
-            />
-        
-	</PreferenceCategory>>
-    
     <PreferenceCategory android:title="@string/category_battery_background_options">
         
 	        <!-- alphaSlider="true" -->
@@ -104,6 +83,27 @@
 	        android:entryValues="@array/opacitiesValues"
 	        />
 	    	    
+	</PreferenceCategory>>
+
+    <PreferenceCategory android:title="@string/category_font_options">
+        
+        <CheckBoxPreference 
+		    android:key="colored_numbers"
+    		android:defaultValue="true"
+		    android:title="@string/colored_numbers" 
+		    android:summary="@string/colored_numbers_summary"
+            />
+
+        <ListPreference
+            android:defaultValue="100"
+            android:title="@string/fontsize100" 
+            android:summary="@string/fontsize100_summary" 
+            android:dialogTitle="@string/fontsize100"
+            android:entries="@array/fontsize100"
+            android:entryValues="@array/fontsize100Values"
+            android:key="fontsize100"
+            />
+        
 	</PreferenceCategory>>
 
     <PreferenceCategory android:title="@string/category_animation_options">

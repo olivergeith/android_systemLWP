@@ -34,6 +34,10 @@ public class Settings {
 	public static final int ANIMATION_STYLE_0_TO_100 = 1;
 	public static final int ANIMATION_STYLE_0_TO_LEVEL = 2;
 
+	public static boolean isDebugging() {
+		return prefs.getBoolean("debug", false);
+	}
+
 	public static int getAnimationStyle() {
 		final int size = Integer.valueOf(prefs.getString("animationStyle", "1"));
 		return size;

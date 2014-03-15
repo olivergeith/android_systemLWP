@@ -7,42 +7,37 @@ import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
-public class BitmapDrawerTachoWideV5 implements IBitmapDrawer {
+public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 
-	private int cHeight;
-	private int cWidth;
 	private int offset = 5;
 	private int bogenDicke = 5;
 	private int skaleDicke = 100;
 	private int fontSize = 150;
-	private Bitmap bitmap;
-	private Canvas bitmapCanvas;
-	private int level = -99;
+	protected Canvas bitmapCanvas;
 
 	public BitmapDrawerTachoWideV5() {
 	}
 
 	@Override
-	public void draw(final int level, final Canvas canvas) {
+	public Bitmap drawBitmap(final int level, final Canvas canvas) {
 
 		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
 		// anders
-		if (this.level != level || canvas.getWidth() != cWidth || canvas.getHeight() != cHeight) {
-			cWidth = canvas.getWidth();
-			cHeight = canvas.getHeight();
-			bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
-			bitmapCanvas = new Canvas(bitmap);
+		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
+		bitmapCanvas = new Canvas(bitmap);
 
-			bogenDicke = Math.round(cWidth * 0.01f);
-			skaleDicke = Math.round(cWidth * 0.12f);
-			offset = Math.round(cWidth * 0.011f);
-			fontSize = Math.round(cWidth * 0.30f);
+		bogenDicke = Math.round(cWidth * 0.01f);
+		skaleDicke = Math.round(cWidth * 0.12f);
+		offset = Math.round(cWidth * 0.011f);
+		fontSize = Math.round(cWidth * 0.30f);
 
-			drawBogen(level);
-		}
+		drawBogen(level);
+		return bitmap;
+	}
 
+	@Override
+	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
 		canvas.drawBitmap(bitmap, 0, cHeight - cWidth / 2 - 5, null);
-		this.level = level;
 	}
 
 	private void drawBogen(final int level) {

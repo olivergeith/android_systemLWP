@@ -20,8 +20,15 @@
             <intent android:action="android.intent.action.VIEW"
                 android:data="https://twitter.com/OliverGeith" />
         </Preference>
+    </PreferenceCategory>
 	    
-	    	    
+    <PreferenceCategory android:title="Special internal Options">
+	    <CheckBoxPreference 
+		    android:key="debug"
+    		android:defaultValue="false"
+		    android:title="Debugging" 
+		    android:summary="Enables Debugging within the LWP. This will cost lots of performance! Do not enable unless you know what you do!!!"
+            />
     </PreferenceCategory>
     
 </PreferenceScreen>
