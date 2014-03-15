@@ -116,6 +116,23 @@
 	        android:entryValues="@array/animation_stylValues"
 	        android:key="animationStyle"
 	        />
+        <EditTextPreference
+		    android:key="animation_delay"
+    		android:defaultValue="50"
+		    android:title="@string/animation_delay" 
+    		android:dialogTitle="@string/animation_delay"
+		    android:inputType="number"
+		    android:summary="@string/animation_delay_summary"
+         	/>
+        <EditTextPreference
+		    android:key="animation_delay_level"
+    		android:defaultValue="2500"
+		    android:title="@string/animation_delay_level" 
+    		android:dialogTitle="@string/animation_delay_level"
+		    android:inputType="number"
+		    android:summary="@string/animation_delay_level_summary"
+         	/>
+        
 	</PreferenceCategory>>
         
 

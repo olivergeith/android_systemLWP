@@ -30,9 +30,19 @@ public class Settings {
 	public final static SharedPreferences prefs = LiveWallpaperService.prefs;
 	private static String style = "aaa";
 	private static IBitmapDrawer bitmapDrawer;
-	private static String filePath = "aaa";
 	public static final int ANIMATION_STYLE_0_TO_100 = 1;
 	public static final int ANIMATION_STYLE_0_TO_LEVEL = 2;
+	private static Bitmap backgroundImage = null;
+
+	public static int getAnimationDelaý() {
+		final int thr = Integer.valueOf(prefs.getString("animation_delay", "50"));
+		return thr;
+	}
+
+	public static int getAnimationDelaýOnCurrentLevel() {
+		final int thr = Integer.valueOf(prefs.getString("animation_delay_level", "2500"));
+		return thr;
+	}
 
 	public static boolean isDebugging() {
 		return prefs.getBoolean("debug", false);
@@ -255,23 +265,15 @@ public class Settings {
 		return prefs.getBoolean("customBackground", false);
 	}
 
-	public static boolean customBackgroundChanged() {
-		if (!filePath.equals(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa"))) {
-			return true;
-		}
-		return false;
-	}
-
 	public static Bitmap getCustomBackground() {
-		Bitmap bg = null;
-		filePath = prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa");
+		final String filePath = prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa");
 		if (!filePath.equals("aaa")) {
 			final BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-			bg = BitmapFactory.decodeFile(prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa"), options);
+			backgroundImage = BitmapFactory.decodeFile(filePath, options);
 		}
 		Log.i("Geith", "Custom BG = " + filePath);
-		return bg;
+		return backgroundImage;
 	}
 
 	private static int getBackgroundColor1() {

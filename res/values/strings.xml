@@ -25,6 +25,10 @@
     <string name="category_colored_background">Colored Background</string>
     <string name="category_animation_options">Charge Animation Style</string>
     
+    <string name="animation_delay">Animation delay</string>
+    <string name="animation_delay_summary">Delaytime between the images in millieseconds. 50 is default</string>
+    <string name="animation_delay_level">Animation delay on current level</string>
+    <string name="animation_delay_level_summary">The delaytime, when the animation shows the current battery level. Default is 2500 millieseconds</string>
     <string name="animation_style">Charge Animation Style</string>
 	<string name="animation_style_summary">Choose a Charge Animation Style</string>
     

@@ -51,6 +51,7 @@ public class LiveWallpaperService extends WallpaperService {
 		private int i;
 		private final Handler handler = new Handler();
 		private boolean visible = true;
+		private String filePath = "aaa";
 		private Bitmap backgroundImage = null;
 		private IBitmapDrawer bitmapDrawer = Settings.getBatteryStyle();
 		private int width = 0;
@@ -123,9 +124,9 @@ public class LiveWallpaperService extends WallpaperService {
 						// Ret animationlevel
 						// Level länger anzeigen
 						if (i == level)
-							millies = 2500;
+							millies = Settings.getAnimationDelaýOnCurrentLevel();
 						else
-							millies = 50;
+							millies = Settings.getAnimationDelaý();
 
 						i += 1;
 						if (i > getAnimationResetLevel()) {
@@ -167,7 +168,7 @@ public class LiveWallpaperService extends WallpaperService {
 		private void drawBackgroundImage(final Canvas canvas) {
 			// draw the background image and stretch it to canvas
 			if (backgroundImage == null //
-					|| Settings.customBackgroundChanged() //
+					|| customBackgroundChanged() //
 					|| width != oldWidth //
 					|| height != oldHeight) {
 				backgroundImage = getBackgroundImage();
@@ -180,19 +181,24 @@ public class LiveWallpaperService extends WallpaperService {
 			canvas.restore();
 		}
 
+		private boolean customBackgroundChanged() {
+			final String currentPathFromSettings = prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa");
+			if (!filePath.equals(currentPathFromSettings)) {
+				filePath = currentPathFromSettings;
+				return true;
+			}
+			return false;
+		}
+
 		/**
 		 * initBackgroundImage
 		 */
 		private Bitmap getBackgroundImage() {
 			Bitmap bg;
 			// sollen wir ein custom BG laden ?
-			if (Settings.isLoadCustomBackground()) {
-				bg = Settings.getCustomBackground();
-				if (bg == null)
-					bg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-			} else {
+			bg = Settings.getCustomBackground();
+			if (bg == null)
 				bg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-			}
 			// now we should have a BG
 			// lets scale it
 			final int w = bg.getWidth();

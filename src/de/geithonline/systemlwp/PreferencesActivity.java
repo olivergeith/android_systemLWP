@@ -62,8 +62,8 @@ public class PreferencesActivity extends PreferenceActivity {
 
 			final String data = sharedPref.getString(BACKGROUND_PICKER_KEY, "");
 
-			Log.d(BACKGROUND_PICKER_KEY, "Data Recieved! " + data);
-			Log.d(BACKGROUND_PICKER_KEY, "Data Recieved! " + filePath);
+			Log.i("GEITH", "Image Recieved! " + data);
+			Log.i("GEITH", "Image Recieved! " + filePath);
 
 		}
 	}
@@ -136,8 +136,8 @@ public class PreferencesActivity extends PreferenceActivity {
 
 				final String data = sharedPref.getString(BACKGROUND_PICKER_KEY, "");
 
-				Log.d(BACKGROUND_PICKER_KEY, "Data Recieved! " + data);
-				Log.d(BACKGROUND_PICKER_KEY, "Data Recieved! " + filePath);
+				Log.i("GEITH", "Data Recieved! " + data);
+				Log.i("GEITH", "Data Recieved! " + filePath);
 
 			}
 		}
