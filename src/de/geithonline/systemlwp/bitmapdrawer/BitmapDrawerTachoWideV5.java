@@ -20,9 +20,6 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 
 	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
-
-		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
-		// anders
 		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
 

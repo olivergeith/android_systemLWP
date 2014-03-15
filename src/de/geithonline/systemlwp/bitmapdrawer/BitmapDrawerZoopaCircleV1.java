@@ -26,6 +26,7 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 	}
 
 	private Bitmap initDimensions(final Canvas canvas) {
+
 		// welche kantge ist schmaler?
 		if (cWidth < cHeight) {
 			bWidth = cWidth;

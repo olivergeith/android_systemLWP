@@ -11,11 +11,13 @@ public class BitmapSaver {
 
 	public static void saveBitmap(final Bitmap bitmap, final String style, final int level) {
 		String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-		extStorageDirectory += File.separator + "Pictures" + File.separator + style;
+		extStorageDirectory += File.separator + "Pictures" + File.separator + style + File.separator;
 		final String filename = style + "_" + level + ".png";
 		OutputStream outStream = null;
-
-		Log.i("GEITH", "Writing Bitmap to " + extStorageDirectory + File.separator + filename);
+		// Ordner anlegen fal snicht vorhanden
+		final File out = new File(extStorageDirectory);
+		out.mkdirs();
+		Log.i("GEITH", "Writing Bitmap to " + extStorageDirectory + filename);
 		final File file = new File(extStorageDirectory, filename);
 		try {
 			outStream = new FileOutputStream(file);
