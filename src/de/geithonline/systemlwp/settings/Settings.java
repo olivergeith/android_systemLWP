@@ -26,6 +26,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV4;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
@@ -151,6 +152,10 @@ public class Settings {
 				bitmapDrawer = new BitmapDrawerZoopaWideV4();
 				return bitmapDrawer;
 			}
+			if (style.equals("ZoopaWideV5")) {
+				bitmapDrawer = new BitmapDrawerZoopaWideV5();
+				return bitmapDrawer;
+			}
 
 			if (style.equals("ZoopaCircleV1")) {
 				bitmapDrawer = new BitmapDrawerZoopaCircleV1();
@@ -251,12 +256,29 @@ public class Settings {
 		return paint;
 	}
 
+	public static Paint getEraserTextPaint(final int fontSize) {
+		final Paint paint = getErasurePaint();
+		final int fSize = fontSize;
+		paint.setTextSize(fSize);
+		paint.setFakeBoldText(true);
+		paint.setTypeface(Typeface.DEFAULT_BOLD);
+		paint.setTextAlign(Align.CENTER);
+		return paint;
+	}
+
 	public static Paint getBatteryPaint(final int level) {
 		final Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setColor(getColorForLevel(level));
 		paint.setAlpha(getOpacity());
 		paint.setStyle(Style.FILL);
+		return paint;
+	}
+
+	public static Paint getBatteryPaintSourceIn(final int level) {
+		final Paint paint = getBatteryPaint(level);
+		final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.SRC_IN);
+		paint.setXfermode(xfermode);
 		return paint;
 	}
 
