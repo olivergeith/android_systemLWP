@@ -37,7 +37,8 @@
     <string name="style">Battery Style</string>
 	<string name="style_summary">Choose a Battery Style</string>
 	<string name="color">Color</string>
-    <string name="color_zeiger">Pointer Color</string>
+    <string name="show_zeiger">Show Pointer</string>
+	<string name="color_zeiger">Pointer Color</string>
     <string name="color_zeiger_summary">Some Batteries have a Pointer - set its color here</string>
 
     <string name="header_title_battery">Battery Style</string>

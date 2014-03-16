@@ -21,6 +21,12 @@
         android:title="@string/category_style_options"
         android:summary="@string/category_style_options_summary">
         
+        <CheckBoxPreference 
+            android:key="show_zeiger"
+            android:title="@string/show_zeiger"
+            android:defaultValue="true"
+            />
+        
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="color_zeiger"
             android:title="@string/color_zeiger" 

@@ -18,6 +18,7 @@ import de.geithonline.systemlwp.PreferencesActivity;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV2;
@@ -35,6 +36,10 @@ public class Settings {
 	public static final int ANIMATION_STYLE_0_TO_100 = 1;
 	public static final int ANIMATION_STYLE_0_TO_LEVEL = 2;
 	private static Bitmap backgroundImage = null;
+
+	public static boolean isShowZeiger() {
+		return prefs.getBoolean("show_zeiger", true);
+	}
 
 	public static int getAnimationDelaý() {
 		final int thr = Integer.valueOf(prefs.getString("animation_delay", "50"));
@@ -169,7 +174,10 @@ public class Settings {
 				bitmapDrawer = new BitmapDrawerBarGraphV2();
 				return bitmapDrawer;
 			}
-
+			if (style.equals("BarGraphVerticalV2")) {
+				bitmapDrawer = new BitmapDrawerBarGraphVerticalV2();
+				return bitmapDrawer;
+			}
 			bitmapDrawer = new BitmapDrawerZoopaWideV3();
 			return bitmapDrawer;
 		}
