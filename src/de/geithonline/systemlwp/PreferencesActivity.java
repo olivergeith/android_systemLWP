@@ -17,6 +17,15 @@ public class PreferencesActivity extends PreferenceActivity {
 	public static final String BACKGROUND_PICKER_KEY = "backgroundPicker";
 	private final int PICK_IMAGE = 1;
 
+	protected boolean isValidFragment(final String fragmentName) {
+		Log.i("GEITH", "isValidFragment Called for " + fragmentName);
+
+		return AboutFragment.class.getName().equals(fragmentName) //
+				|| BattPreferencesFragment.class.getName().equals(fragmentName) //
+				|| BattColorPreferencesFragment.class.getName().equals(fragmentName) //
+				|| BackgroundPreferencesFragment.class.getName().equals(fragmentName);
+	}
+
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
