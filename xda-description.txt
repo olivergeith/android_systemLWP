@@ -1,0 +1,52 @@
+[B][SIZE="6"]Welcome to the ......[/SIZE][/B]
+[IMG]http://forum.xda-developers.com/attachment.php?attachmentid=2632340&d=1394904405[/IMG]
+
+[B][SIZE="4"]What is this ?[/SIZE][/B]
+This is a Life Wallpaper, that shows the current Battery Level in a "different" fancy way! It is customizable with different styles.
+But it is not too fancy. I want it to match the current plain, simple and clean look of Android 4.4.
+
+[B][SIZE="4"]Why this ?[/SIZE][/B]
+Some of you may know me from my other thread [URL="http://forum.xda-developers.com/showthread.php?t=1918500"]"The Rom Fumbler"[/URL]. That is a tool to render and create Battery icons.
+Now with Android 4.4 battery icons are drawn on the fly by some Java Class inside your ROM. 
+The good old 204 png's are gone. And it is much more complicated to modify your Battery icon.
+Even more: Now we have "Immersive Mode", Pie and so on, making the statusbar invisible.
+
+[B]So I had some reasons to develope this app:[/B]
+[LIST=1]
+[*]My Rom Fumbler is a little bit useless at the moment!
+[*]I want to have a good look at my Battery level all the time!
+[*]I dont want to waste real estate of my screen with a battery widget!
+[*]I wanted to dive more into android app developement!
+[*]I wanted to have my Rom Fumbler icon-styles back!
+[*]Good thing ...now I have much more space to draw my Icons!
+[/LIST]
+
+[B][SIZE="4"]Features[/SIZE][/B]
+[LIST]
+[*]Seven different Styles (more to come!)
+[*]Animated on charge
+[*]Colors custommizable
+[*]Opacity customizable
+[*]Background image selectable from gallery
+[*]scrolling background image on swipe between launcher pages
+[*]plain colored backgrounds
+[*]No junk, no advertising, no internet connection ...
+[*]fast and no battery drain
+[/LIST]
+
+[B][SIZE="4"]Rights[/SIZE][/B]
+[COLOR="Blue"]<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />[/COLOR]
+Read for getting the custom Background images
+Write for debug purposes...(if you switch on the debugging option) the generated Battery-Images are written to /sdcard/Pictures/<stylename>/*.png
+
+[B][SIZE="4"]Changelog[/SIZE][/B]
+2014-03-15 : initial version (beta stage)
+
+[B][SIZE="4"]download[/SIZE][/B]
+See attachments of this post (in a few minutes)
+
+
+[B][SIZE="4"]Screenshots[/SIZE][/B]
+[IMG]http://forum.xda-developers.com/attachment.php?attachmentid=2632417&d=1394905997[/IMG]
+[IMG]http://forum.xda-developers.com/attachment.php?attachmentid=2632416&d=1394905997[/IMG]

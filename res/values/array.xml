@@ -49,6 +49,8 @@
         <item name="10">ZoopaCircleV1</item>
         <item name="11">ZoopaCircleV2</item>
         <item name="20">TachoWideV5</item>
+        <item name="30">BarGraphV1</item>
+        <item name="31">BarGraphV2</item>
         </string-array>
     
     <string-array name="stylValues">
@@ -59,7 +61,9 @@
         <item name="10">ZoopaCircleV1</item>
         <item name="11">ZoopaCircleV2</item>
         <item name="20">TachoWideV5</item>
-    </string-array>
+        <item name="30">BarGraphV1</item>
+        <item name="31">BarGraphV2</item>
+        </string-array>
     
     <string-array name="animation_styl">
         <item name="1">0 to 100 percent</item>

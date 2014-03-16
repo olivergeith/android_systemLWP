@@ -16,6 +16,8 @@ import android.util.Log;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.PreferencesActivity;
 import de.geithonline.systemlwp.R;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV2;
@@ -158,6 +160,16 @@ public class Settings {
 				bitmapDrawer = new BitmapDrawerTachoWideV5();
 				return bitmapDrawer;
 			}
+
+			if (style.equals("BarGraphV1")) {
+				bitmapDrawer = new BitmapDrawerBarGraphV1();
+				return bitmapDrawer;
+			}
+			if (style.equals("BarGraphV2")) {
+				bitmapDrawer = new BitmapDrawerBarGraphV2();
+				return bitmapDrawer;
+			}
+
 			bitmapDrawer = new BitmapDrawerZoopaWideV3();
 			return bitmapDrawer;
 		}
