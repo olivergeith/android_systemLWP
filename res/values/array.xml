@@ -52,6 +52,7 @@
         <item name="20">TachoWideV5</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
+        <item name="40">BarGraphVerticalV1</item>
         <item name="41">BarGraphVerticalV2</item>
         </string-array>
     
@@ -66,6 +67,7 @@
         <item name="20">TachoWideV5</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
+        <item name="40">BarGraphVerticalV1</item>
         <item name="41">BarGraphVerticalV2</item>
         </string-array>
     

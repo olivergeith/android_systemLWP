@@ -18,6 +18,7 @@ import de.geithonline.systemlwp.PreferencesActivity;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
@@ -179,6 +180,10 @@ public class Settings {
 				bitmapDrawer = new BitmapDrawerBarGraphV2();
 				return bitmapDrawer;
 			}
+			if (style.equals("BarGraphVerticalV1")) {
+				bitmapDrawer = new BitmapDrawerBarGraphVerticalV1();
+				return bitmapDrawer;
+			}
 			if (style.equals("BarGraphVerticalV2")) {
 				bitmapDrawer = new BitmapDrawerBarGraphVerticalV2();
 				return bitmapDrawer;
@@ -228,6 +233,7 @@ public class Settings {
 	// #####################################################################################
 	public static Paint getErasurePaint() {
 		final Paint paint = new Paint();
+		paint.setAntiAlias(true);
 		paint.setColor(Color.TRANSPARENT);
 		final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
 		paint.setXfermode(xfermode);
@@ -237,6 +243,7 @@ public class Settings {
 
 	public static Paint getTextPaint(final int level, final int fontSize) {
 		final Paint paint = new Paint();
+		paint.setAntiAlias(true);
 		if (isColoredNumber()) {
 			paint.setColor(getColorForLevel(level));
 		} else {
@@ -256,9 +263,12 @@ public class Settings {
 		return paint;
 	}
 
-	public static Paint getEraserTextPaint(final int fontSize) {
+	public static Paint getEraserTextPaint(final int level, final int fontSize) {
 		final Paint paint = getErasurePaint();
-		final int fSize = fontSize;
+		int fSize = fontSize;
+		if (level == 100) {
+			fSize = Math.round(fontSize * getFontSize100() / 100f);
+		}
 		paint.setTextSize(fSize);
 		paint.setFakeBoldText(true);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);

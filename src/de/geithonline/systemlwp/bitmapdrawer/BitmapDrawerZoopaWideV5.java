@@ -61,7 +61,8 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 			final int winkel = -81 + (i * 18);
 			bitmapCanvas.save();
 			bitmapCanvas.rotate(winkel, cWidth / 2, cWidth / 2);
-			bitmapCanvas.drawText("" + (i + 1) * 10, cWidth / 2, offset + bogenDicke + offset + skaleDicke * 2 / 3, Settings.getEraserTextPaint(fontSize / 4));
+			bitmapCanvas.drawText("" + (i + 1) * 10, cWidth / 2, offset + bogenDicke + offset + skaleDicke * 2 / 3,
+					Settings.getEraserTextPaint(level, fontSize / 4));
 			bitmapCanvas.restore();
 
 		}
