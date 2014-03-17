@@ -1,8 +1,6 @@
 package de.geithonline.systemlwp.utils;
 
 import de.geithonline.systemlwp.R;
-import de.geithonline.systemlwp.R.id;
-import de.geithonline.systemlwp.R.layout;
 import android.app.Activity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
