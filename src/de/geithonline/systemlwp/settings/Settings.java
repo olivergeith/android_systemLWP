@@ -39,6 +39,15 @@ public class Settings {
 	public static final int ANIMATION_STYLE_0_TO_LEVEL = 2;
 	private static Bitmap backgroundImage = null;
 
+	public static final int ORIENTATION_BOTTOM = 0;
+	public static final int ORIENTATION_LEFT = 90;
+	public static final int ORIENTATION_RIGHT = 270;
+
+	public static int getOrientation() {
+		final int size = Integer.valueOf(prefs.getString("rotation", "0"));
+		return size;
+	}
+
 	public static boolean isShowZeiger() {
 		return prefs.getBoolean("show_zeiger", true);
 	}
@@ -135,63 +144,79 @@ public class Settings {
 		// wenns den drawer noch nicht gibt, oder der style sich geändert hat
 		if (bitmapDrawer == null || !style.equals(prefs.getString("batt_style", "ZoopaWideV3"))) {
 			// getting Style from Settings
-			style = prefs.getString("batt_style", "ZoopaWideV3");
+			style = getStyle();
 			// returning the right Style
-			if (style.equals("ZoopaWideV1")) {
-				bitmapDrawer = new BitmapDrawerZoopaWideV1();
-				return bitmapDrawer;
-			}
-			if (style.equals("ZoopaWideV2")) {
-				bitmapDrawer = new BitmapDrawerZoopaWideV2();
-				return bitmapDrawer;
-			}
-			if (style.equals("ZoopaWideV3")) {
-				bitmapDrawer = new BitmapDrawerZoopaWideV3();
-				return bitmapDrawer;
-			}
-			if (style.equals("ZoopaWideV4")) {
-				bitmapDrawer = new BitmapDrawerZoopaWideV4();
-				return bitmapDrawer;
-			}
-			if (style.equals("ZoopaWideV5")) {
-				bitmapDrawer = new BitmapDrawerZoopaWideV5();
-				return bitmapDrawer;
-			}
-
-			if (style.equals("ZoopaCircleV1")) {
-				bitmapDrawer = new BitmapDrawerZoopaCircleV1();
-				return bitmapDrawer;
-			}
-			if (style.equals("ZoopaCircleV2")) {
-				bitmapDrawer = new BitmapDrawerZoopaCircleV2();
-				return bitmapDrawer;
-			}
-
-			if (style.equals("TachoWideV5")) {
-				bitmapDrawer = new BitmapDrawerTachoWideV5();
-				return bitmapDrawer;
-			}
-
-			if (style.equals("BarGraphV1")) {
-				bitmapDrawer = new BitmapDrawerBarGraphV1();
-				return bitmapDrawer;
-			}
-			if (style.equals("BarGraphV2")) {
-				bitmapDrawer = new BitmapDrawerBarGraphV2();
-				return bitmapDrawer;
-			}
-			if (style.equals("BarGraphVerticalV1")) {
-				bitmapDrawer = new BitmapDrawerBarGraphVerticalV1();
-				return bitmapDrawer;
-			}
-			if (style.equals("BarGraphVerticalV2")) {
-				bitmapDrawer = new BitmapDrawerBarGraphVerticalV2();
-				return bitmapDrawer;
-			}
-			bitmapDrawer = new BitmapDrawerZoopaWideV3();
+			bitmapDrawer = getDrawerForStyle(style);
 			return bitmapDrawer;
 		}
 		return bitmapDrawer;
+	}
+
+	/**
+	 * TODO comment getStyle
+	 */
+	public static String getStyle() {
+		return prefs.getString("batt_style", "ZoopaWideV3");
+	}
+
+	/**
+	 * TODO comment getDrawerForStyle
+	 */
+	public static IBitmapDrawer getDrawerForStyle(final String battStyle) {
+		IBitmapDrawer drawer;
+		if (battStyle.equals("ZoopaWideV1")) {
+			drawer = new BitmapDrawerZoopaWideV1();
+			return drawer;
+		}
+		if (battStyle.equals("ZoopaWideV2")) {
+			drawer = new BitmapDrawerZoopaWideV2();
+			return drawer;
+		}
+		if (battStyle.equals("ZoopaWideV3")) {
+			drawer = new BitmapDrawerZoopaWideV3();
+			return drawer;
+		}
+		if (battStyle.equals("ZoopaWideV4")) {
+			drawer = new BitmapDrawerZoopaWideV4();
+			return drawer;
+		}
+		if (battStyle.equals("ZoopaWideV5")) {
+			drawer = new BitmapDrawerZoopaWideV5();
+			return drawer;
+		}
+
+		if (battStyle.equals("ZoopaCircleV1")) {
+			drawer = new BitmapDrawerZoopaCircleV1();
+			return drawer;
+		}
+		if (battStyle.equals("ZoopaCircleV2")) {
+			drawer = new BitmapDrawerZoopaCircleV2();
+			return drawer;
+		}
+
+		if (battStyle.equals("TachoWideV5")) {
+			drawer = new BitmapDrawerTachoWideV5();
+			return drawer;
+		}
+
+		if (battStyle.equals("BarGraphV1")) {
+			drawer = new BitmapDrawerBarGraphV1();
+			return drawer;
+		}
+		if (battStyle.equals("BarGraphV2")) {
+			drawer = new BitmapDrawerBarGraphV2();
+			return drawer;
+		}
+		if (battStyle.equals("BarGraphVerticalV1")) {
+			drawer = new BitmapDrawerBarGraphVerticalV1();
+			return drawer;
+		}
+		if (battStyle.equals("BarGraphVerticalV2")) {
+			drawer = new BitmapDrawerBarGraphVerticalV2();
+			return drawer;
+		}
+		drawer = new BitmapDrawerZoopaWideV3();
+		return drawer;
 	}
 
 	// #####################################################################################

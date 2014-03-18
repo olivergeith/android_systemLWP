@@ -20,6 +20,19 @@
         <item name="255">255</item>
     </string-array>
 
+    <string-array name="rotation">
+        <item name="0">Bottom</item>
+        <item name="1">Left</item>
+        <item name="2">Right</item>
+    </string-array>
+    
+    <string-array name="rotationValues">
+        <item name="0">0</item>
+        <item name="1">90</item>
+        <item name="2">270</item>
+    </string-array>
+    
+    
     
     <string-array name="fontsize100">
         <item name="100">100%</item>

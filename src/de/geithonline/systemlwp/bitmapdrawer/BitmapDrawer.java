@@ -3,7 +3,7 @@ package de.geithonline.systemlwp.bitmapdrawer;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import de.geithonline.systemlwp.settings.Settings;
-import de.geithonline.systemlwp.utils.BitmapSaver;
+import de.geithonline.systemlwp.utils.BitmapHelper;
 
 public abstract class BitmapDrawer implements IBitmapDrawer {
 	protected int cHeight = 0;
@@ -27,9 +27,29 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 		// den aktuellen level merken
 		this.level = level;
 		if (Settings.isDebugging()) {
-			BitmapSaver.saveBitmap(bitmap, getClass().getSimpleName(), level);
+			BitmapHelper.saveBitmap(bitmap, getClass().getSimpleName(), level);
 		}
 		drawOnCanvas(bitmap, canvas);
+	}
+
+	@Override
+	public boolean supportsOrientation() {
+		return false;
+	}
+
+	@Override
+	public boolean supportsCenter() {
+		return false;
+	}
+
+	@Override
+	public boolean supportsShowPointer() {
+		return false;
+	}
+
+	@Override
+	public boolean supportsPointerColor() {
+		return false;
 	}
 
 }

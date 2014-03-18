@@ -22,6 +22,11 @@ public class BitmapDrawerBarGraphV1 extends BitmapDrawer {
 	}
 
 	@Override
+	public boolean supportsPointerColor() {
+		return true;
+	}
+
+	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
 		bWidth = cWidth;
 		bHeight = cWidth / 2;

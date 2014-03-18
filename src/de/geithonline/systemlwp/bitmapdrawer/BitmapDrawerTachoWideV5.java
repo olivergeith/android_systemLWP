@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
+import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
@@ -15,18 +16,39 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 	private int fontSize = 150;
 	protected Canvas bitmapCanvas;
 
+	private int bWidth = 0;
+	private int bHeight = 0;
+
 	public BitmapDrawerTachoWideV5() {
 	}
 
 	@Override
+	public boolean supportsOrientation() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsPointerColor() {
+		return true;
+	}
+
+	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
-		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
+		if (Settings.getOrientation() == Settings.ORIENTATION_BOTTOM) {
+			bWidth = cWidth;
+			bHeight = cWidth / 2;
+		} else {
+			bWidth = cHeight;
+			bHeight = cHeight / 2;
+		}
+
+		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
 
-		bogenDicke = Math.round(cWidth * 0.01f);
-		skaleDicke = Math.round(cWidth * 0.12f);
-		offset = Math.round(cWidth * 0.011f);
-		fontSize = Math.round(cWidth * 0.30f);
+		bogenDicke = Math.round(bWidth * 0.01f);
+		skaleDicke = Math.round(bWidth * 0.12f);
+		offset = Math.round(bWidth * 0.011f);
+		fontSize = Math.round(bWidth * 0.30f);
 
 		drawBogen(level);
 		return bitmap;
@@ -34,7 +56,19 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 
 	@Override
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		canvas.drawBitmap(bitmap, 0, cHeight - cWidth / 2 - 5, null);
+
+		switch (Settings.getOrientation()) {
+			default:
+			case Settings.ORIENTATION_BOTTOM:
+				canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5, null);
+				break;
+			case Settings.ORIENTATION_LEFT:
+				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
+				break;
+			case Settings.ORIENTATION_RIGHT:
+				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
+				break;
+		}
 	}
 
 	private void drawBogen(final int level) {
@@ -60,12 +94,12 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, Settings.getErasurePaint());
 
 		// draw percentage Number
-		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, Settings.getTextPaint(level, fontSize));
+		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, Settings.getTextPaint(level, fontSize));
 
 	}
 
 	private RectF getRectForOffset(final int offset) {
-		return new RectF(offset, offset, cWidth - offset, cWidth - offset);
+		return new RectF(offset, offset, bWidth - offset, bWidth - offset);
 	}
 
 }

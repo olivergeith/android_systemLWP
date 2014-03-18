@@ -41,6 +41,18 @@
             android:defaultValue="true"
         />
         
+        <ListPreference
+	        android:defaultValue="0"
+	        android:title="@string/rotation" 
+            android:summary="@string/rotation_summary" 
+	        android:dialogTitle="@string/rotation"
+	        android:entries="@array/rotation"
+	        android:entryValues="@array/rotationValues"
+	        android:key="rotation"
+	        android:enabled="false"
+	        />
+        
+        
 
     </PreferenceCategory>
         

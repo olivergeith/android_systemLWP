@@ -3,7 +3,7 @@
 <preference-headers
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$BattPreferencesFragment"
+    <header android:fragment="de.geithonline.systemlwp.BattPreferencesFragment"
             android:icon="@drawable/icon"
             android:title="@string/header_title_battery"
             android:summary="@string/header_summary_battery" />
@@ -13,7 +13,7 @@
             android:title="@string/header_title_battery_options"
             android:summary="@string/header_summary_battery_options" />
 
-    <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$BackgroundPreferencesFragment"
+    <header android:fragment="de.geithonline.systemlwp.BackgroundPreferencesFragment"
             android:icon="@drawable/wallpaper"
             android:title="@string/header_title_background_options"
             android:summary="@string/header_summary_background_options"
