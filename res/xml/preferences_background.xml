@@ -5,7 +5,7 @@
 	    <CheckBoxPreference 
 	  	    android:key="customBackground"
 	    	android:title="@string/enable_custom_background"
-	    	android:defaultValue="false"
+	    	android:defaultValue="true"
 	    	/>
 	  	
 	    <Preference

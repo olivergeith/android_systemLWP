@@ -18,7 +18,9 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences_style);
 		// initialize Properties
-		enableSettingsForStyle(Settings.getStyle());
+		if (LiveWallpaperService.prefs != null) {
+			enableSettingsForStyle(Settings.getStyle());
+		}
 
 		// connection the backgroundpicker with an intent
 		final Preference style = findPreference(STYLE_PICKER_KEY);
@@ -39,7 +41,7 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		final Preference zeiger = findPreference("show_zeiger");
 		final Preference center = findPreference("centerBattery");
 		final Preference colorZeiger = findPreference("color_zeiger");
-		final Preference battstyle = findPreference("battStyle");
+		final Preference battstyle = findPreference("batt_style");
 
 		rotation.setEnabled(drawer.supportsOrientation());
 		zeiger.setEnabled(drawer.supportsShowPointer());

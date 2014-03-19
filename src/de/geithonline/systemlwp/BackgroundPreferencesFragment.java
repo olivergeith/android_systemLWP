@@ -3,7 +3,6 @@ package de.geithonline.systemlwp;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -22,19 +21,14 @@ import de.geithonline.systemlwp.utils.BitmapHelper;
 public class BackgroundPreferencesFragment extends PreferenceFragment {
 	private final int PICK_IMAGE = 1;
 	public static final String BACKGROUND_PICKER_KEY = "backgroundPicker";
-	private final Preference backgroundPicker = findPreference(BACKGROUND_PICKER_KEY);
+	private Preference backgroundPicker;
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences_background);
-
-		// backgroundPicker.setSummary(Settings.getCustomBackgroundFilePath());
-		// backgroundPicker.setIcon(new BitmapDrawable(getResources(),
-		// Settings.getCustomBackground()));
-		final Resources resources = getResources();
-		Resources.getSystem();
 		// connection the backgroundpicker with an intent
+		backgroundPicker = findPreference(BACKGROUND_PICKER_KEY);
 		backgroundPicker.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(final Preference preference) {
@@ -45,12 +39,17 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 				return true;
 			}
 		});
+		setBackgroundPickerData();
 	}
 
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent imageReturnedIntent) {
 		super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-		Log.d(this.getClass().getSimpleName(), "onActivityResult: Data Recieved: " + imageReturnedIntent.toString());
+		if (imageReturnedIntent == null) {
+			Log.e(this.getClass().getSimpleName(), "onActivityResult: Data Recieved: " + imageReturnedIntent);
+			return;
+		}
+		Log.i(this.getClass().getSimpleName(), "onActivityResult: Data Recieved: " + imageReturnedIntent.toString());
 
 		if (resultCode == Activity.RESULT_OK) {
 			final Uri selectedImage = imageReturnedIntent.getData();
@@ -74,6 +73,7 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 
 			Log.i(this.getClass().getSimpleName(), "Data Recieved! " + data);
 			Log.i(this.getClass().getSimpleName(), "Data Recieved! " + filePath);
+			setBackgroundPickerData();
 
 		}
 	}

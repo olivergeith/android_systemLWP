@@ -154,6 +154,9 @@ public class Settings {
 	}
 
 	public static String getStyle() {
+		if (prefs == null) {
+			return "ZoopaWideV3";
+		}
 		return prefs.getString("batt_style", "ZoopaWideV3");
 	}
 
@@ -341,7 +344,7 @@ public class Settings {
 	// Custom Background
 	// #####################################################################################
 	public static boolean isLoadCustomBackground() {
-		return prefs.getBoolean("customBackground", false);
+		return prefs.getBoolean("customBackground", true);
 	}
 
 	/**
@@ -359,6 +362,9 @@ public class Settings {
 	}
 
 	public static String getCustomBackgroundFilePath() {
+		if (prefs == null) {
+			return "aaa";
+		}
 		final String filePath = prefs.getString(BackgroundPreferencesFragment.BACKGROUND_PICKER_KEY, "aaa");
 		return filePath;
 	}
