@@ -8,7 +8,7 @@
             android:title="@string/header_title_battery"
             android:summary="@string/header_summary_battery" />
     
-    <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$BattColorPreferencesFragment"
+    <header android:fragment="de.geithonline.systemlwp.BattColorPreferencesFragment"
             android:icon="@drawable/color"
             android:title="@string/header_title_battery_options"
             android:summary="@string/header_summary_battery_options" />
@@ -19,7 +19,7 @@
             android:summary="@string/header_summary_background_options"
             />
 
-    <header android:fragment="de.geithonline.systemlwp.PreferencesActivity$AboutFragment"
+    <header android:fragment="de.geithonline.systemlwp.AboutFragment"
             android:icon="@drawable/about"
             android:title="@string/header_about_options"
             android:summary="@string/header_about_options_summary"

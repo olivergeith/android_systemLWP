@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceFragment;
 import android.util.Log;
 
 public class PreferencesActivity extends PreferenceActivity {
@@ -38,25 +37,4 @@ public class PreferencesActivity extends PreferenceActivity {
 		loadHeadersFromResource(R.xml.preferences_header, target);
 	}
 
-	/**
-	 * This fragment shows the preferences for the first header.
-	 */
-	public static class AboutFragment extends PreferenceFragment {
-		@Override
-		public void onCreate(final Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			addPreferencesFromResource(R.xml.preferences_about);
-		}
-	}
-
-	/**
-	 * This fragment shows the preferences for the first header.
-	 */
-	public static class BattColorPreferencesFragment extends PreferenceFragment {
-		@Override
-		public void onCreate(final Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			addPreferencesFromResource(R.xml.preferences1);
-		}
-	}
 }
