@@ -16,11 +16,13 @@ import android.util.Log;
 import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV2;
@@ -216,6 +218,14 @@ public class Settings {
 
 		if (battStyle.equals("SimpleCircleV1")) {
 			drawer = new BitmapDrawerSimpleCircleV1();
+			return drawer;
+		}
+		if (battStyle.equals("SimpleCircleV2")) {
+			drawer = new BitmapDrawerSimpleCircleV2();
+			return drawer;
+		}
+		if (battStyle.equals("AokpCircleV1")) {
+			drawer = new BitmapDrawerAokpCircleV1();
 			return drawer;
 		}
 		drawer = new BitmapDrawerZoopaWideV3();

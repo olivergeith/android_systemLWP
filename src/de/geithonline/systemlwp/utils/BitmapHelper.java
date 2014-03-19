@@ -57,4 +57,8 @@ public class BitmapHelper {
 		return resizeToIcon(bitmap, 64, 64);
 	}
 
+	public static Drawable resizeToIcon128(final Bitmap bitmap) {
+		return resizeToIcon(bitmap, 128, 128);
+	}
+
 }

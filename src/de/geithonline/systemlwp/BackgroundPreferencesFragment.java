@@ -81,7 +81,7 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 	private void setBackgroundPickerData() {
 		final Bitmap b = Settings.getCustomBackground();
 		if (b != null) {
-			final Drawable dr = BitmapHelper.resizeToIcon64(b);
+			final Drawable dr = BitmapHelper.resizeToIcon128(b);
 			backgroundPicker.setSummary(Settings.getCustomBackgroundFilePath());
 			backgroundPicker.setIcon(dr);
 		} else {
