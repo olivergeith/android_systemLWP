@@ -39,11 +39,13 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		final Preference zeiger = findPreference("show_zeiger");
 		final Preference center = findPreference("centerBattery");
 		final Preference colorZeiger = findPreference("color_zeiger");
+		final Preference battstyle = findPreference("battStyle");
 
 		rotation.setEnabled(drawer.supportsOrientation());
 		zeiger.setEnabled(drawer.supportsShowPointer());
 		colorZeiger.setEnabled(drawer.supportsPointerColor());
 		center.setEnabled(drawer.supportsCenter());
+		battstyle.setSummary("Current style: " + style);
 	}
 
 }
