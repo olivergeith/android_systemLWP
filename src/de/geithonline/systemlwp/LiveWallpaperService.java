@@ -76,8 +76,9 @@ public class LiveWallpaperService extends WallpaperService {
 
 		public synchronized void drawMe() {
 			handler.removeCallbacks(drawRunner);
-			if (visible && initialized)
+			if (visible && initialized) {
 				handler.post(drawRunner);
+			}
 		}
 
 		private final BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
@@ -123,10 +124,11 @@ public class LiveWallpaperService extends WallpaperService {
 						bitmapDrawer.draw(i, canvas);
 						// Ret animationlevel
 						// Level länger anzeigen
-						if (i == level)
+						if (i == level) {
 							millies = Settings.getAnimationDelaýOnCurrentLevel();
-						else
+						} else {
 							millies = Settings.getAnimationDelaý();
+						}
 
 						i += 1;
 						if (i > getAnimationResetLevel()) {
@@ -138,8 +140,9 @@ public class LiveWallpaperService extends WallpaperService {
 			} catch (final IllegalArgumentException ex) {
 				// do nothing
 			} finally {
-				if (canvas != null)
+				if (canvas != null) {
 					holder.unlockCanvasAndPost(canvas);
+				}
 			}
 
 			handler.removeCallbacks(drawRunner);
@@ -182,7 +185,7 @@ public class LiveWallpaperService extends WallpaperService {
 		}
 
 		private boolean customBackgroundChanged() {
-			final String currentPathFromSettings = prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa");
+			final String currentPathFromSettings = Settings.getCustomBackgroundFilePath();
 			if (!filePath.equals(currentPathFromSettings)) {
 				filePath = currentPathFromSettings;
 				return true;
@@ -197,8 +200,9 @@ public class LiveWallpaperService extends WallpaperService {
 			Bitmap bg;
 			// sollen wir ein custom BG laden ?
 			bg = Settings.getCustomBackground();
-			if (bg == null)
+			if (bg == null) {
 				bg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+			}
 			// now we should have a BG
 			// lets scale it
 			final int w = bg.getWidth();

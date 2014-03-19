@@ -3,8 +3,12 @@ package de.geithonline.systemlwp.utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.util.Log;
 
@@ -41,6 +45,16 @@ public class BitmapHelper {
 		m.preScale(1, -1);
 		final Bitmap dst = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), m, true);
 		return dst;
+	}
+
+	public static Drawable resizeToIcon(final Bitmap bitmap, final int width, final int height) {
+		final Bitmap b = Bitmap.createScaledBitmap(bitmap, width, height, true);
+		final Drawable d = new BitmapDrawable(Resources.getSystem(), b);
+		return d;
+	}
+
+	public static Drawable resizeToIcon64(final Bitmap bitmap) {
+		return resizeToIcon(bitmap, 64, 64);
 	}
 
 }

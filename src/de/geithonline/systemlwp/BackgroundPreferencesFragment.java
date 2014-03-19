@@ -3,13 +3,18 @@ package de.geithonline.systemlwp;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.provider.MediaStore;
 import android.util.Log;
+import de.geithonline.systemlwp.settings.Settings;
+import de.geithonline.systemlwp.utils.BitmapHelper;
 
 /**
  * This fragment shows the preferences for the second header.
@@ -17,14 +22,19 @@ import android.util.Log;
 public class BackgroundPreferencesFragment extends PreferenceFragment {
 	private final int PICK_IMAGE = 1;
 	public static final String BACKGROUND_PICKER_KEY = "backgroundPicker";
+	private final Preference backgroundPicker = findPreference(BACKGROUND_PICKER_KEY);
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences_background);
 
+		// backgroundPicker.setSummary(Settings.getCustomBackgroundFilePath());
+		// backgroundPicker.setIcon(new BitmapDrawable(getResources(),
+		// Settings.getCustomBackground()));
+		final Resources resources = getResources();
+		Resources.getSystem();
 		// connection the backgroundpicker with an intent
-		final Preference backgroundPicker = findPreference(BACKGROUND_PICKER_KEY);
 		backgroundPicker.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(final Preference preference) {
@@ -65,6 +75,18 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 			Log.i(this.getClass().getSimpleName(), "Data Recieved! " + data);
 			Log.i(this.getClass().getSimpleName(), "Data Recieved! " + filePath);
 
+		}
+	}
+
+	private void setBackgroundPickerData() {
+		final Bitmap b = Settings.getCustomBackground();
+		if (b != null) {
+			final Drawable dr = BitmapHelper.resizeToIcon64(b);
+			backgroundPicker.setSummary(Settings.getCustomBackgroundFilePath());
+			backgroundPicker.setIcon(dr);
+		} else {
+			backgroundPicker.setSummary(R.string.choose_background_summary);
+			backgroundPicker.setIcon(R.drawable.icon); // TODO anderes Icon
 		}
 	}
 

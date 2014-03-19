@@ -13,8 +13,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.util.Log;
+import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
-import de.geithonline.systemlwp.PreferencesActivity;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
@@ -344,8 +344,11 @@ public class Settings {
 		return prefs.getBoolean("customBackground", false);
 	}
 
+	/**
+	 * @return Bitmap or null...
+	 */
 	public static Bitmap getCustomBackground() {
-		final String filePath = prefs.getString(PreferencesActivity.BACKGROUND_PICKER_KEY, "aaa");
+		final String filePath = getCustomBackgroundFilePath();
 		if (!filePath.equals("aaa")) {
 			final BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -353,6 +356,11 @@ public class Settings {
 		}
 		Log.i("Geith", "Custom BG = " + filePath);
 		return backgroundImage;
+	}
+
+	public static String getCustomBackgroundFilePath() {
+		final String filePath = prefs.getString(BackgroundPreferencesFragment.BACKGROUND_PICKER_KEY, "aaa");
+		return filePath;
 	}
 
 	private static int getBackgroundColor1() {
