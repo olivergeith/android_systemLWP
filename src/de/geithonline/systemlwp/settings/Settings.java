@@ -224,18 +224,20 @@ public class Settings {
 	// #####################################################################################
 	public static int getColorForLevel(final int level) {
 		if (level > getMidThreshold()) {
-			if (isGradientColors())
+			if (isGradientColors()) {
 				return getGradientColorForLevel(level);
-			else
+			} else {
 				return getBattColor();
+			}
 		} else {
 			if (level < getLowThreshold()) {
 				return getBattColorLow();
 			} else {
-				if (isGradientColorsMid())
+				if (isGradientColorsMid()) {
 					return getGradientColorForLevel(level);
-				else
+				} else {
 					return getBattColorMid();
+				}
 			}
 		}
 	}

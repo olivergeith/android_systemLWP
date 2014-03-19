@@ -1,6 +1,7 @@
 package de.geithonline.systemlwp;
 
 import java.util.List;
+
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -9,6 +10,7 @@ import android.util.Log;
 public class PreferencesActivity extends PreferenceActivity {
 	public static final String BACKGROUND_PICKER_KEY = "backgroundPicker";
 
+	@Override
 	protected boolean isValidFragment(final String fragmentName) {
 		Log.i("GEITH", "isValidFragment Called for " + fragmentName);
 

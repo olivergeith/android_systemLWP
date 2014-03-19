@@ -9,15 +9,19 @@
 
     <!-- For Accessing Gallery images -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
-     <uses-feature
+    <!-- For Writing Debug images -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- For Accessing Gallery images across users -->
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+     
+    <uses-feature
         android:name="android.software.live_wallpaper"
         android:required="true" >
     </uses-feature>
-
+ 
     <application
         android:icon="@drawable/icon"
+        android:allowBackup="true"
         android:label="@string/app_name">
         <service
             android:name="LiveWallpaperService"

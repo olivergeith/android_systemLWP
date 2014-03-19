@@ -40,15 +40,13 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent imageReturnedIntent) {
 		super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-		Log.d(BACKGROUND_PICKER_KEY, "Data Recieved! ");
+		Log.d(this.getClass().getSimpleName(), "onActivityResult: Data Recieved: " + imageReturnedIntent.toString());
 
 		if (resultCode == Activity.RESULT_OK) {
 			final Uri selectedImage = imageReturnedIntent.getData();
 
 			// filepath ermitteln....
-			final String[] filePathColumn = {
-				MediaStore.Images.Media.DATA
-			};
+			final String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
 			final Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 			cursor.moveToFirst();
@@ -64,8 +62,8 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 
 			final String data = sharedPref.getString(BACKGROUND_PICKER_KEY, "");
 
-			Log.i("GEITH", "Data Recieved! " + data);
-			Log.i("GEITH", "Data Recieved! " + filePath);
+			Log.i(this.getClass().getSimpleName(), "Data Recieved! " + data);
+			Log.i(this.getClass().getSimpleName(), "Data Recieved! " + filePath);
 
 		}
 	}
