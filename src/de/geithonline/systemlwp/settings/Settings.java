@@ -20,6 +20,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV2;
@@ -142,7 +143,7 @@ public class Settings {
 	// #####################################################################################
 	public static IBitmapDrawer getBatteryStyle() {
 		// wenns den drawer noch nicht gibt, oder der style sich geändert hat
-		if (bitmapDrawer == null || !style.equals(prefs.getString("batt_style", "ZoopaWideV3"))) {
+		if (bitmapDrawer == null || !style.equals(getStyle())) {
 			// getting Style from Settings
 			style = getStyle();
 			// returning the right Style
@@ -152,16 +153,10 @@ public class Settings {
 		return bitmapDrawer;
 	}
 
-	/**
-	 * TODO comment getStyle
-	 */
 	public static String getStyle() {
 		return prefs.getString("batt_style", "ZoopaWideV3");
 	}
 
-	/**
-	 * TODO comment getDrawerForStyle
-	 */
 	public static IBitmapDrawer getDrawerForStyle(final String battStyle) {
 		IBitmapDrawer drawer;
 		if (battStyle.equals("ZoopaWideV1")) {
@@ -213,6 +208,11 @@ public class Settings {
 		}
 		if (battStyle.equals("BarGraphVerticalV2")) {
 			drawer = new BitmapDrawerBarGraphVerticalV2();
+			return drawer;
+		}
+
+		if (battStyle.equals("SimpleCircleV1")) {
+			drawer = new BitmapDrawerSimpleCircleV1();
 			return drawer;
 		}
 		drawer = new BitmapDrawerZoopaWideV3();
