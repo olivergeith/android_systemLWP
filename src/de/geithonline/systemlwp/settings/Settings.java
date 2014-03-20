@@ -46,100 +46,182 @@ public class Settings {
 	public static final int ORIENTATION_LEFT = 90;
 	public static final int ORIENTATION_RIGHT = 270;
 
+	private static boolean isVerticalPositionOffsetOnlyInPortrait() {
+		if (prefs == null) {
+			return true;
+		}
+		return prefs.getBoolean("vertical_position_only_portrait", true);
+	}
+
+	public static int getVerticalPositionOffset(final boolean inPortrait) {
+		final int defVal = 0;
+		if (prefs == null) {
+			return defVal;
+		}
+		if (!inPortrait && isVerticalPositionOffsetOnlyInPortrait()) {
+			return 0;
+		}
+		final int thr = Integer.valueOf(prefs.getString("vertical_position", "0"));
+		return thr;
+	}
+
 	public static boolean isAnimationEnabled() {
+		if (prefs == null) {
+			return true;
+		}
 		return prefs.getBoolean("animation_enable", true);
 	}
 
 	public static int getOrientation() {
+		if (prefs == null) {
+			return 0;
+		}
 		final int size = Integer.valueOf(prefs.getString("rotation", "0"));
 		return size;
 	}
 
 	public static boolean isShowZeiger() {
+		if (prefs == null) {
+			return true;
+		}
 		return prefs.getBoolean("show_zeiger", true);
 	}
 
 	public static int getAnimationDelaý() {
+		if (prefs == null) {
+			return 50;
+		}
 		final int thr = Integer.valueOf(prefs.getString("animation_delay", "50"));
 		return thr;
 	}
 
 	public static int getAnimationDelaýOnCurrentLevel() {
+		if (prefs == null) {
+			return 2500;
+		}
 		final int thr = Integer.valueOf(prefs.getString("animation_delay_level", "2500"));
 		return thr;
 	}
 
 	public static boolean isDebugging() {
+		if (prefs == null) {
+			return false;
+		}
 		return prefs.getBoolean("debug", false);
 	}
 
 	public static int getAnimationStyle() {
+		if (prefs == null) {
+			return 1;
+		}
 		final int size = Integer.valueOf(prefs.getString("animationStyle", "1"));
 		return size;
 	}
 
 	public static boolean isCenteredBattery() {
+		if (prefs == null) {
+			return true;
+		}
 		return prefs.getBoolean("centerBattery", true);
 	}
 
 	private static int getFontSize100() {
+		if (prefs == null) {
+			return 100;
+		}
 		final int size = Integer.valueOf(prefs.getString("fontsize100", "100"));
 		return size;
 	}
 
 	private static boolean isColoredNumber() {
+		if (prefs == null) {
+			return false;
+		}
 		return prefs.getBoolean("colored_numbers", false);
 	}
 
 	private static boolean isGradientColors() {
+		if (prefs == null) {
+			return false;
+		}
 		return prefs.getBoolean("gradient_colors", false);
 	}
 
 	private static boolean isGradientColorsMid() {
+		if (prefs == null) {
+			return false;
+		}
 		return prefs.getBoolean("gradient_colors_mid", false);
 	}
 
 	private static int getMidThreshold() {
+		if (prefs == null) {
+			return 30;
+		}
 		final int thr = Integer.valueOf(prefs.getString("threshold_mid", "30"));
 		return thr;
 	}
 
 	private static int getLowThreshold() {
+		if (prefs == null) {
+			return 10;
+		}
 		final int thr = Integer.valueOf(prefs.getString("threshold_low", "10"));
 		return thr;
 	}
 
 	private static int getOpacity() {
+		if (prefs == null) {
+			return 128;
+		}
 		final int op = Integer.valueOf(prefs.getString("opacity", "128"));
 		return op;
 	}
 
 	private static int getBackgroundOpacity() {
+		if (prefs == null) {
+			return 128;
+		}
 		final int op = Integer.valueOf(prefs.getString("background_opacity", "128"));
 		return op;
 	}
 
 	private static int getBackgroundColor() {
+		if (prefs == null) {
+			return R.integer.COLOR_DARKGRAY;
+		}
 		final int col = prefs.getInt("background_color", R.integer.COLOR_DARKGRAY);
 		return col;
 	}
 
 	private static int getBattColor() {
+		if (prefs == null) {
+			return R.integer.COLOR_WHITE;
+		}
 		final int col = prefs.getInt("battery_color", R.integer.COLOR_WHITE);
 		return col;
 	}
 
 	private static int getZeigerColor() {
+		if (prefs == null) {
+			return R.integer.COLOR_WHITE;
+		}
 		final int col = prefs.getInt("color_zeiger", R.integer.COLOR_WHITE);
 		return col;
 	}
 
 	private static int getBattColorMid() {
+		if (prefs == null) {
+			return R.integer.COLOR_ORANGE;
+		}
 		final int col = prefs.getInt("battery_color_mid", R.integer.COLOR_ORANGE);
 		return col;
 	}
 
 	private static int getBattColorLow() {
+		if (prefs == null) {
+			return R.integer.COLOR_RED;
+		}
 		final int col = prefs.getInt("battery_color_low", R.integer.COLOR_RED);
 		return col;
 	}
@@ -358,6 +440,9 @@ public class Settings {
 	// Custom Background
 	// #####################################################################################
 	public static boolean isLoadCustomBackground() {
+		if (prefs == null) {
+			return true;
+		}
 		return prefs.getBoolean("customBackground", true);
 	}
 
@@ -384,16 +469,25 @@ public class Settings {
 	}
 
 	private static int getBackgroundColor1() {
+		if (prefs == null) {
+			return R.integer.COLOR_BLACK;
+		}
 		final int col = prefs.getInt("color_plain_bgrnd", R.integer.COLOR_BLACK);
 		return col;
 	}
 
 	private static int getBackgroundColor2() {
+		if (prefs == null) {
+			return R.integer.COLOR_WHITE;
+		}
 		final int col = prefs.getInt("color2_plain_bgrnd", R.integer.COLOR_WHITE);
 		return col;
 	}
 
 	private static boolean isGradientBackground() {
+		if (prefs == null) {
+			return false;
+		}
 		return prefs.getBoolean("gradientBackground", false);
 	}
 

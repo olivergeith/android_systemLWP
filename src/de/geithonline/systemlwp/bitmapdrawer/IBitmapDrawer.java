@@ -7,6 +7,8 @@ public interface IBitmapDrawer {
 
 	public boolean supportsOrientation();
 
+	public boolean supportsMoveUP();
+
 	public boolean supportsCenter();
 
 	public boolean supportsShowPointer();
