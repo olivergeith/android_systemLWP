@@ -43,7 +43,7 @@
             </meta-data>
         </service>
         <activity
-            android:name=".PreferencesActivity"
+            android:name="de.geithonline.systemlwp.settings.PreferencesActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.DeviceDefault.Wallpaper" >

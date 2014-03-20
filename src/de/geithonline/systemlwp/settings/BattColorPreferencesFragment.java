@@ -1,5 +1,7 @@
-package de.geithonline.systemlwp;
+package de.geithonline.systemlwp.settings;
 
+import de.geithonline.systemlwp.R;
+import de.geithonline.systemlwp.R.xml;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
