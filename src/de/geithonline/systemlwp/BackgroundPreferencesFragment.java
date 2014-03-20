@@ -3,17 +3,16 @@ package de.geithonline.systemlwp;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.provider.MediaStore;
 import android.util.Log;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
+import de.geithonline.systemlwp.utils.URIHelper;
 
 /**
  * This fragment shows the preferences for the second header.
@@ -43,39 +42,49 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 	}
 
 	@Override
-	public void onActivityResult(final int requestCode, final int resultCode, final Intent imageReturnedIntent) {
-		super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-		if (imageReturnedIntent == null) {
-			Log.e(this.getClass().getSimpleName(), "onActivityResult: Data Recieved: " + imageReturnedIntent);
+	public void onActivityResult(final int requestCode, final int resultCode, final Intent resultData) {
+		super.onActivityResult(requestCode, resultCode, resultData);
+		if (resultData == null) {
+			Log.e(this.getClass().getSimpleName(), "onActivityResult: Data Recieved was null !!");
 			return;
 		}
-		Log.i(this.getClass().getSimpleName(), "onActivityResult: Data Recieved: " + imageReturnedIntent.toString());
+		Log.i(this.getClass().getSimpleName(), "onActivityResult: Data Recieved: " + resultData.toString());
 
-		if (resultCode == Activity.RESULT_OK) {
-			final Uri selectedImage = imageReturnedIntent.getData();
-
-			// filepath ermitteln....
-			final String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-			final Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-			cursor.moveToFirst();
-			final int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-			final String filePath = cursor.getString(columnIndex);
-			cursor.close();
-
-			// und in die SharedPreferences schreiben
-			final SharedPreferences sharedPref = LiveWallpaperService.prefs;
-			final SharedPreferences.Editor editor = sharedPref.edit();
-			editor.putString(BACKGROUND_PICKER_KEY, filePath);
-			editor.commit();
-
-			final String data = sharedPref.getString(BACKGROUND_PICKER_KEY, "");
-
-			Log.i(this.getClass().getSimpleName(), "Data Recieved! " + data);
-			Log.i(this.getClass().getSimpleName(), "Data Recieved! " + filePath);
-			setBackgroundPickerData();
-
+		if (resultCode != Activity.RESULT_OK) {
+			Log.i(this.getClass().getSimpleName(), "No ImagePath Received -> Cancel");
+			return;
 		}
+		if (requestCode != PICK_IMAGE) {
+			Log.i(this.getClass().getSimpleName(), "No ImagePath Received -> RequestCode wrong...: " + requestCode);
+			return;
+		}
+
+		final Uri selectedImage = resultData.getData();
+
+		// Pfad zum Image suchen
+		final String filePath = URIHelper.getPath(getActivity().getApplicationContext(), selectedImage);
+		Log.i(this.getClass().getSimpleName(), "ImagePath Received via URIHelper! " + filePath);
+
+		// filepath ermitteln....
+		// final String[] filePathColumn = { MediaStore.Images.Media.DATA };
+		//
+		// final Cursor cursor =
+		// getActivity().getContentResolver().query(selectedImage,
+		// filePathColumn, null, null, null);
+		// cursor.moveToFirst();
+		// final int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+		// final String filePath = cursor.getString(columnIndex);
+		// cursor.close();
+
+		// und in die SharedPreferences schreiben
+		final SharedPreferences sharedPref = LiveWallpaperService.prefs;
+		final SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putString(BACKGROUND_PICKER_KEY, filePath);
+		Log.i(this.getClass().getSimpleName(), "ImagePath written to preferences: " + filePath);
+		editor.commit();
+
+		setBackgroundPickerData();
+
 	}
 
 	private void setBackgroundPickerData() {
