@@ -20,6 +20,11 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 	}
 
 	@Override
+	public boolean supportsMoveUP() {
+		return true;
+	}
+
+	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
 
 		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
@@ -39,7 +44,7 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 
 	@Override
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		canvas.drawBitmap(bitmap, 0, cHeight - cWidth / 2 - 5, null);
+		canvas.drawBitmap(bitmap, 0, cHeight - cWidth / 2 - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
 	}
 
 	private void drawBogen(final int level) {
@@ -87,8 +92,9 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 
 		// Skala Hintergergrund einer
 		final Paint paint = Settings.getBatteryPaint(level);
-		if (zehner == 10)
+		if (zehner == 10) {
 			zehner = 9;
+		}
 		final float startwinkel = 180f + zehner * (winkelOneSegment + gap);
 
 		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke - radiusDelta), startwinkel, winkelOneSegment, true, paint);

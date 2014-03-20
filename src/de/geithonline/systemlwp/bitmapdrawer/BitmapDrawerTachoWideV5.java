@@ -33,6 +33,11 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 	}
 
 	@Override
+	public boolean supportsMoveUP() {
+		return true;
+	}
+
+	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
 		if (Settings.getOrientation() == Settings.ORIENTATION_BOTTOM) {
 			bWidth = cWidth;
@@ -60,7 +65,7 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 		switch (Settings.getOrientation()) {
 			default:
 			case Settings.ORIENTATION_BOTTOM:
-				canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5, null);
+				canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
 				break;
 			case Settings.ORIENTATION_LEFT:
 				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);

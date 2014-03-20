@@ -1,0 +1,26 @@
+This is a Live Wallpaper, that displays the current batterylevel in a fancy and stylish way.
+I wanted it to play along the new clean style of Android Kitkat 4.4!
+As this is displayed in the back of your homescreen, it won't cost "real estate" on your screen like for example a fancy widget.
+
+There is a free and a paid version of this app. The paid version is basicly the same as the free version. Both versions are add-free! 
+But the paid version will be updated more often. Will get new features, new styles and bugfixes faster than the free version!
+
+Features:
+- There are lots of styles to choose from.
+- animation on charge 
+- custom backgrounds (choose from gallery)
+- background is sliding, wenn swiping through homescreen pages
+- lots of settings to customize the battery
+- ...like colors, opacity and so on...
+- low battery-drain, as it is not really "live"
+- no adds
+- no internet connection
+
+Rights explained:
+- "android.permission.READ_EXTERNAL_STORAGE"
+- "android.permission.WRITE_EXTERNAL_STORAGE"
+READ for getting the custom background images
+WRITE for debug purposes...(if you switch on the debugging option) the generated Battery-Images are written to /sdcard/Pictures/<stylename>/*.png
+
+
+

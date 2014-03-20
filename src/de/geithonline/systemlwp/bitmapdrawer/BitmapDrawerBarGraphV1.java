@@ -27,6 +27,11 @@ public class BitmapDrawerBarGraphV1 extends BitmapDrawer {
 	}
 
 	@Override
+	public boolean supportsMoveUP() {
+		return true;
+	}
+
+	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
 		bWidth = cWidth;
 		bHeight = cWidth / 2;
@@ -44,7 +49,7 @@ public class BitmapDrawerBarGraphV1 extends BitmapDrawer {
 
 	@Override
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		canvas.drawBitmap(bitmap, 0, cHeight - cWidth / 2 - 5, null);
+		canvas.drawBitmap(bitmap, 0, cHeight - cWidth / 2 - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
 	}
 
 	private void drawSegmente(final int level) {

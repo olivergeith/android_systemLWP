@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">BatteryLWP V1.0-Beta15</string>
-	<string name="wallpaper_description">BatteryLWP V1.0-Beta</string>
+	<string name="app_version">1.0</string>
+    <string name="app_name">BatteryLWP V1.0 free</string>
+	<string name="wallpaper_description">BatteryLWP V1.0 free</string>
 	
 	<string name="about">About</string>
 	<string name="settings">Settings</string>
@@ -42,7 +43,11 @@
     <string name="show_zeiger">Show Pointer</string>
 	<string name="color_zeiger">Pointer Color</string>
     <string name="color_zeiger_summary">Some Batteries have a Pointer - set its color here</string>
-
+	<string name="vertical_position">Vertical offset</string>
+	<string name="vertical_position_summary">Move the Battery up a few pixel if displayed es the bottom of the screen</string>
+	<string name="vertical_position_only_portrait">Vertical offset only portraitmode</string>
+	<string name="vertical_position_only_portrait_summary">Move the Battery up a few pixel only if in portraitmode</string>
+	
     <string name="header_title_battery">Battery Style</string>
 	<string name="header_summary_battery">Battery Style ....</string>
 	<string name="header_title_battery_options">Global Battery Options</string>
@@ -69,4 +74,5 @@
 	<string name="rotation">Orientation</string>
 	<string name="rotation_summary">Bottom, Left, Right, Top....</string>
 
+	
 </resources>

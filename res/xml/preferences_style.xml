@@ -52,6 +52,22 @@
 	        android:enabled="false"
 	        />
         
+        <EditTextPreference
+		    android:key="vertical_position"
+    		android:defaultValue="0"
+		    android:title="@string/vertical_position" 
+    		android:dialogTitle="@string/vertical_position"
+		    android:inputType="number"
+		    android:summary="@string/vertical_position_summary"
+         	/>
+        
+        <CheckBoxPreference 
+            android:key="vertical_position_only_portrait"
+            android:title="@string/vertical_position_only_portrait"
+            android:summary="@string/vertical_position_only_portrait_summary"
+            android:defaultValue="true"
+        />
+        
         
 
     </PreferenceCategory>

@@ -32,6 +32,19 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 		drawOnCanvas(bitmap, canvas);
 	}
 
+	protected boolean isPortrait() {
+		return cHeight > cWidth;
+	}
+
+	protected boolean isLandscape() {
+		return cHeight < cWidth;
+	}
+
+	@Override
+	public boolean supportsMoveUP() {
+		return false;
+	}
+
 	@Override
 	public boolean supportsOrientation() {
 		return false;
