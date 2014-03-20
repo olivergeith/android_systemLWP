@@ -46,6 +46,10 @@ public class Settings {
 	public static final int ORIENTATION_LEFT = 90;
 	public static final int ORIENTATION_RIGHT = 270;
 
+	public static boolean isAnimationEnabled() {
+		return prefs.getBoolean("animation_enable", true);
+	}
+
 	public static int getOrientation() {
 		final int size = Integer.valueOf(prefs.getString("rotation", "0"));
 		return size;

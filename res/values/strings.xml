@@ -31,7 +31,9 @@
     <string name="animation_delay_level_summary">The delaytime, when the animation shows the current battery level. Default is 2500 millieseconds</string>
     <string name="animation_style">Charge Animation Style</string>
 	<string name="animation_style_summary">Choose a Charge Animation Style</string>
-    
+	<string name="animation_enable">Enable Charge Animation</string>
+	<string name="animation_enable_summary">Battery will animate on charge...</string>
+	
     <string name="opacity">Opacity</string>
     <string name="opacity_summary">How much of the Background-Image should shine through</string>
     <string name="style">Battery Style</string>
@@ -66,4 +68,5 @@
     <string name="centerBattery_summary">Some Batteries can be centered - set it here</string>
 	<string name="rotation">Orientation</string>
 	<string name="rotation_summary">Bottom, Left, Right, Top....</string>
+
 </resources>

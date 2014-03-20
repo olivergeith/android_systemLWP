@@ -117,10 +117,9 @@ public class LiveWallpaperService extends WallpaperService {
 					}
 					// schaun, ob der Bitmapdrawer sich geändert hat
 					bitmapDrawer = Settings.getBatteryStyle();
-					if (!isCharging) {
+					if (!isCharging || Settings.isAnimationEnabled() == false) {
 						bitmapDrawer.draw(level, canvas);
-					}
-					if (isCharging) {
+					} else {
 						bitmapDrawer.draw(i, canvas);
 						// Ret animationlevel
 						// Level länger anzeigen
@@ -224,7 +223,7 @@ public class LiveWallpaperService extends WallpaperService {
 				// bild ist zu breit ;-) also skalierten wir es auf die
 				// canvashöhe
 				final int dstH = height;
-				final float factor = (float) height / (float) h;
+				final float factor = (float) height / h;
 				final int dstW = Math.round(w * factor);
 				Log.i("GEITH", "dstW = " + dstW);
 				Log.i("GEITH", "dstH = " + dstH);
