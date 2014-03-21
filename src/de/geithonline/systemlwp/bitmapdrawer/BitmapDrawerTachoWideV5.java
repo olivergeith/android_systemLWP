@@ -3,6 +3,7 @@ package de.geithonline.systemlwp.bitmapdrawer;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
@@ -14,6 +15,7 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 	private int bogenDicke = 5;
 	private int skaleDicke = 100;
 	private int fontSize = 150;
+	private int fontSizeArc = 20;
 	protected Canvas bitmapCanvas;
 
 	private int bWidth = 0;
@@ -54,8 +56,10 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 		skaleDicke = Math.round(bWidth * 0.12f);
 		offset = Math.round(bWidth * 0.011f);
 		fontSize = Math.round(bWidth * 0.30f);
+		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawBogen(level);
+		drawArcText(level);
 		return bitmap;
 	}
 
@@ -63,16 +67,16 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
 
 		switch (Settings.getOrientation()) {
-			default:
-			case Settings.ORIENTATION_BOTTOM:
-				canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
-				break;
-			case Settings.ORIENTATION_LEFT:
-				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
-				break;
-			case Settings.ORIENTATION_RIGHT:
-				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
-				break;
+		default:
+		case Settings.ORIENTATION_BOTTOM:
+			canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
+			break;
+		case Settings.ORIENTATION_LEFT:
+			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
+			break;
+		case Settings.ORIENTATION_RIGHT:
+			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
+			break;
 		}
 	}
 
@@ -101,6 +105,16 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, Settings.getTextPaint(level, fontSize));
 
+	}
+
+	private void drawArcText(final int level) {
+		if (Settings.isCharging && Settings.isShowChargeState()) {
+			final Path mArc = new Path();
+			final RectF oval = getRectForOffset(offset / 2);
+			mArc.addArc(oval, 200, 180);
+			final String text = Settings.getChargingText();
+			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
+		}
 	}
 
 	private RectF getRectForOffset(final int offset) {

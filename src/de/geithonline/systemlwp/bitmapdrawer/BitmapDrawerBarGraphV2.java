@@ -3,6 +3,7 @@ package de.geithonline.systemlwp.bitmapdrawer;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 
@@ -13,6 +14,8 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 	private int zehnerDicke = 100;
 	private final float gap = 5f;
 	private int fontSize = 150;
+	private int fontSizeArc = 20;
+
 	private Canvas bitmapCanvas;
 	private int bWidth;
 	private int bHeight;
@@ -46,8 +49,11 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		einerDicke = Math.round(bHeight * 0.08f);
 		zehnerDicke = Math.round(cWidth * 0.6f);
 		fontSize = Math.round(cWidth * 0.25f);
+		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawSegmente(level);
+		drawArcText(level);
+
 		return bitmap;
 	}
 
@@ -104,16 +110,32 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		}
 
 		// delete inner Circle
-		final RectF er = new RectF();
-		er.left = -bWidth;
-		er.right = bWidth;
-		er.top = -bHeight;
-		er.bottom = bHeight - 2 * offset - einerDicke - einerDicke;
+		final RectF er = getCutOutRect();
 		bitmapCanvas.drawArc(er, 0, 360, true, Settings.getErasurePaint());
 
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 3 * einerDicke - 3 * offset, Settings.getTextPaint(level, fontSize));
 
+	}
+
+	private void drawArcText(final int level) {
+		if (Settings.isCharging && Settings.isShowChargeState()) {
+			final Path mArc = new Path();
+			final RectF oval = getCutOutRect();
+			oval.offset(0, -5);
+			mArc.addArc(oval, 89, -90);
+			final String text = Settings.getChargingText();
+			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
+		}
+	}
+
+	private RectF getCutOutRect() {
+		final RectF er = new RectF();
+		er.left = -bWidth;
+		er.right = bWidth;
+		er.top = -bHeight;
+		er.bottom = bHeight - 2 * offset - einerDicke - einerDicke;
+		return er;
 	}
 
 }

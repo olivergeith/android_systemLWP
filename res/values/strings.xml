@@ -25,6 +25,7 @@
     <string name="category_custom_background">Custom Background</string>
     <string name="category_colored_background">Colored Background</string>
     <string name="category_animation_options">Charge Animation Style</string>
+    <string name="category_charge_options">Charge Options</string>
     
     <string name="animation_delay">Animation delay</string>
     <string name="animation_delay_summary">Delaytime between the images in millieseconds. 50 is default</string>
@@ -76,6 +77,8 @@
 	<string name="Charging">Charging...</string>
 	<string name="ChargingUSB">Charging on USB</string>
 	<string name="ChargingAC">Charging on AC</string>
-		
+	<string name="charge_enable">Show Charge Status</string>
+	<string name="charge_enable_summary">Show if AC/USB-Charging</string>
+				
 	
 </resources>

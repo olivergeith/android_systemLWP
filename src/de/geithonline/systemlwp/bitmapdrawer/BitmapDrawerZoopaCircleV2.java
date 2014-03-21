@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -20,6 +21,7 @@ public class BitmapDrawerZoopaCircleV2 extends BitmapDrawer {
 	private final float gap = 2f;
 	private int fontSize = 150;
 	private Canvas bitmapCanvas;
+	private int fontSizeArc = 20;
 
 	public BitmapDrawerZoopaCircleV2() {
 	}
@@ -52,9 +54,12 @@ public class BitmapDrawerZoopaCircleV2 extends BitmapDrawer {
 		offset = Math.round(bWidth * 0.011f);
 		abstand = Math.round(bWidth * 0.015f);
 		fontSize = Math.round(bWidth * 0.35f);
+		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawSegmente(level);
 		drawNumber(level);
+		drawArcText(level);
+
 		return bitmap;
 	}
 
@@ -110,6 +115,20 @@ public class BitmapDrawerZoopaCircleV2 extends BitmapDrawer {
 		}
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke + abstand + zehnerDicke), 0, 360, true, Settings.getErasurePaint());
+	}
+
+	private void drawArcText(final int level) {
+		if (Settings.isCharging && Settings.isShowChargeState()) {
+			final long winkel = 180 + Math.round(level * 3.6);
+
+			final Path mArc = new Path();
+			final RectF oval = getRectForOffset(offset + einerDicke + abstand + zehnerDicke + fontSizeArc);
+			mArc.addArc(oval, winkel, 180);
+			final String text = Settings.getChargingText();
+			final Paint p = Settings.getTextArcPaint(level, fontSizeArc);
+			p.setTextAlign(Align.CENTER);
+			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
+		}
 	}
 
 	private void drawNumber(final int level) {

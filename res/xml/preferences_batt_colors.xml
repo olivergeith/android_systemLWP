@@ -142,8 +142,17 @@
 		    android:summary="@string/animation_delay_level_summary"
 	        android:dependency="animation_enable"
          	/>
+ 	</PreferenceCategory>>
+
+   <PreferenceCategory android:title="@string/category_charge_options">
+        <CheckBoxPreference 
+		    android:key="charge_enable"
+    		android:defaultValue="true"
+		    android:title="@string/charge_enable" 
+		    android:summary="@string/charge_enable_summary"
+            />
         
-	</PreferenceCategory>>
+ 	</PreferenceCategory>>
         
 
 

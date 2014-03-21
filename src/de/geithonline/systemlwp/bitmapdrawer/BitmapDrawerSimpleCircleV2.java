@@ -87,7 +87,7 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 	}
 
 	private void drawArcText(final int level) {
-		if (Settings.isCharging) {
+		if (Settings.isCharging && Settings.isShowChargeState()) {
 			final long winkel = 270 + Math.round(level * 3.6);
 
 			final Path mArc = new Path();

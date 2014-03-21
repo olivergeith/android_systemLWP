@@ -3,6 +3,7 @@ package de.geithonline.systemlwp.bitmapdrawer;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 
@@ -15,6 +16,7 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 	private final float gap = 2f;
 	private int fontSize = 150;
 	private Canvas bitmapCanvas;
+	private int fontSizeArc = 20;
 
 	public BitmapDrawerZoopaWideV3() {
 	}
@@ -35,10 +37,13 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 		offset = Math.round(cWidth * 0.011f);
 		abstand = Math.round(cWidth * 0.015f);
 		fontSize = Math.round(cWidth * 0.25f);
+		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawBogen(level);
 		drawSegmente(level);
 		drawZeiger(level);
+		drawArcText(level);
+
 		return bitmap;
 	}
 
@@ -104,6 +109,16 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, Settings.getTextPaint(level, fontSize));
+	}
+
+	private void drawArcText(final int level) {
+		if (Settings.isCharging && Settings.isShowChargeState()) {
+			final Path mArc = new Path();
+			final RectF oval = getRectForOffset(offset / 2);
+			mArc.addArc(oval, 200, 180);
+			final String text = Settings.getChargingText();
+			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
+		}
 	}
 
 	private RectF getRectForOffset(final int offset) {

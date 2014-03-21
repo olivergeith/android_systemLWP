@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -20,6 +21,7 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 	private final float gap = 2f;
 	private int fontSize = 150;
 	private Canvas bitmapCanvas;
+	private int fontSizeArc = 20;
 
 	public BitmapDrawerZoopaCircleV1() {
 
@@ -48,6 +50,8 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 		offset = Math.round(bWidth * 0.02f);
 		abstand = Math.round(bWidth * 0.015f);
 		fontSize = Math.round(bWidth * 0.35f);
+		fontSizeArc = Math.round(cWidth * 0.04f);
+
 		return bitmap;
 	}
 
@@ -58,6 +62,8 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 		drawSegmente(level);
 		drawZeiger(level);
 		drawNumber(level);
+		drawArcText(level);
+
 		return bitmap;
 	}
 
@@ -84,6 +90,20 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset), 270, Math.round(level * 3.6), true, Settings.getBatteryPaint(level));
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
+	}
+
+	private void drawArcText(final int level) {
+		if (Settings.isCharging && Settings.isShowChargeState()) {
+			final int segmente = 101;
+			final float winkelOneSegment = (360f - (segmente - 0) * gap) / segmente;
+			final float startwinkel = 270f + level * (winkelOneSegment + gap) + gap / 2;
+
+			final Path mArc = new Path();
+			final RectF oval = getRectForOffset(offset + bogenDicke);
+			mArc.addArc(oval, startwinkel, 180);
+			final String text = Settings.getChargingText();
+			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
+		}
 	}
 
 	private void drawSegmente(final int level) {
@@ -122,8 +142,9 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 
 		// Skala Hintergergrund einer
 		final Paint paint = Settings.getBatteryPaint(level);
-		if (zehner == 10)
+		if (zehner == 10) {
 			zehner = 9;
+		}
 		final float startwinkel = 270f + zehner * (winkelOneSegment + gap) + gap / 2;
 
 		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke - radiusDelta), startwinkel, winkelOneSegment, true, paint);

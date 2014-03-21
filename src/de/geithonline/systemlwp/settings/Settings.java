@@ -50,6 +50,13 @@ public class Settings {
 	public static boolean isChargeUSB = false;
 	public static boolean isChargeAC = false;
 
+	public static boolean isShowChargeState() {
+		if (prefs == null) {
+			return true;
+		}
+		return prefs.getBoolean("charge_enable", true);
+	}
+
 	public static String getChargingText() {
 		String text;
 		if (isChargeUSB) {

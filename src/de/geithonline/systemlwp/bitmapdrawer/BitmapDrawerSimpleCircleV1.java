@@ -19,7 +19,6 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 	private final float gap = 0.6f;
 	private int fontSize = 150;
 	private int fontSizeArc = 20;
-
 	private Canvas bitmapCanvas;
 
 	public BitmapDrawerSimpleCircleV1() {
@@ -107,7 +106,7 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 	}
 
 	private void drawArcText(final int level) {
-		if (Settings.isCharging) {
+		if (Settings.isCharging && Settings.isShowChargeState()) {
 			final int segmente = 101;
 			final float winkelOneSegment = (360f - (segmente - 0) * gap) / segmente;
 			final float startwinkel = 270f + level * (winkelOneSegment + gap) + gap / 2;
