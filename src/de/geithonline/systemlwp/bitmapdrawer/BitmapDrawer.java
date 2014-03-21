@@ -16,10 +16,10 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 	public abstract void drawOnCanvas(Bitmap bitmap, Canvas canvas);
 
 	@Override
-	public void draw(final int level, final Canvas canvas) {
+	public void draw(final int level, final Canvas canvas, final boolean forcedraw) {
 		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
 		// anders
-		if (this.level != level || canvas.getWidth() != cWidth || canvas.getHeight() != cHeight || bitmap == null) {
+		if (this.level != level || canvas.getWidth() != cWidth || canvas.getHeight() != cHeight || bitmap == null || forcedraw) {
 			cWidth = canvas.getWidth();
 			cHeight = canvas.getHeight();
 			bitmap = drawBitmap(level, canvas);

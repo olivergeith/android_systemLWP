@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -25,14 +26,13 @@ public class LiveWallpaperService extends WallpaperService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		Settings.initPrefs(prefs);
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		// unregisterReceiver(mBatInfoReceiver);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class LiveWallpaperService extends WallpaperService {
 	// #####################################################################################
 	// Wallpaper Engine
 	// #####################################################################################
-	class MyWallpaperEngine extends Engine {
+	class MyWallpaperEngine extends Engine implements OnSharedPreferenceChangeListener {
 		private boolean initialized = false;
 		private int level = 0;
 		// private boolean isCharging = false;
@@ -61,6 +61,7 @@ public class LiveWallpaperService extends WallpaperService {
 		private int oldWidth = 0;
 		private int oldHeight = 0;
 		private int millies = 50;
+		private boolean forcedraw = false;
 
 		MyWallpaperEngine() {
 			registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
@@ -119,9 +120,9 @@ public class LiveWallpaperService extends WallpaperService {
 					// schaun, ob der Bitmapdrawer sich geändert hat
 					bitmapDrawer = Settings.getBatteryStyle();
 					if (!Settings.isCharging || Settings.isAnimationEnabled() == false) {
-						bitmapDrawer.draw(level, canvas);
+						bitmapDrawer.draw(level, canvas, forcedraw);
 					} else {
-						bitmapDrawer.draw(i, canvas);
+						bitmapDrawer.draw(i, canvas, forcedraw);
 						// Ret animationlevel
 						// Level länger anzeigen
 						if (i == level) {
@@ -144,7 +145,7 @@ public class LiveWallpaperService extends WallpaperService {
 					holder.unlockCanvasAndPost(canvas);
 				}
 			}
-
+			forcedraw = false;
 			handler.removeCallbacks(drawRunner);
 			if (visible && Settings.isCharging) {
 				handler.postDelayed(drawRunner, millies); // delay mileseconds
@@ -153,11 +154,11 @@ public class LiveWallpaperService extends WallpaperService {
 
 		private int getAnimationResetLevel() {
 			switch (Settings.getAnimationStyle()) {
-				default:
-				case Settings.ANIMATION_STYLE_0_TO_100:
-					return 100;
-				case Settings.ANIMATION_STYLE_0_TO_LEVEL:
-					return level;
+			default:
+			case Settings.ANIMATION_STYLE_0_TO_100:
+				return 100;
+			case Settings.ANIMATION_STYLE_0_TO_LEVEL:
+				return level;
 			}
 		}
 
@@ -237,6 +238,15 @@ public class LiveWallpaperService extends WallpaperService {
 		@Override
 		public void onCreate(final SurfaceHolder surfaceHolder) {
 			super.onCreate(surfaceHolder);
+			Log.i("GEITH", "Register listener 2" + prefs);
+			prefs.registerOnSharedPreferenceChangeListener(this);
+			drawMe();
+		}
+
+		@Override
+		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
+			Log.i("GEITH", "Settings changed: " + key + "  --> redraw!");
+			forcedraw = true;
 			drawMe();
 		}
 
@@ -284,7 +294,8 @@ public class LiveWallpaperService extends WallpaperService {
 		}
 
 		@Override
-		public void onOffsetsChanged(final float xOffset, final float yOffset, final float xStep, final float yStep, final int xPixels, final int yPixels) {
+		public void onOffsetsChanged(final float xOffset, final float yOffset, final float xStep, final float yStep, final int xPixels,
+				final int yPixels) {
 			if (backgroundImage != null) {
 				dx = (width - backgroundImage.getWidth()) * (xOffset);
 			}
