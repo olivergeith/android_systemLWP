@@ -3,6 +3,7 @@ package de.geithonline.systemlwp.bitmapdrawer;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 
@@ -15,6 +16,7 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 	private final float gap = 0.8f;
 	private int fontSize = 150;
 	private Canvas bitmapCanvas;
+	private int fontSizeArc = 20;
 
 	public BitmapDrawerZoopaWideV5() {
 	}
@@ -35,8 +37,10 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 		offset = Math.round(cWidth * 0.011f);
 		abstand = Math.round(cWidth * 0.015f);
 		fontSize = Math.round(cWidth * 0.25f);
+		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawSegmente(level);
+		drawArcText(level);
 		drawNumber(level);
 		return bitmap;
 	}
@@ -82,6 +86,16 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
 
+	}
+
+	private void drawArcText(final int level) {
+		if (Settings.isCharging) {
+			final Path mArc = new Path();
+			final RectF oval = getRectForOffset(offset / 2);
+			mArc.addArc(oval, 200, 180);
+			final String text = Settings.getChargingText();
+			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
+		}
 	}
 
 	private void drawNumber(final int level) {

@@ -46,9 +46,9 @@ public class LiveWallpaperService extends WallpaperService {
 	class MyWallpaperEngine extends Engine {
 		private boolean initialized = false;
 		private int level = 0;
-		private boolean isCharging = false;
-		private boolean usbCharge = false;
-		private boolean acCharge = false;
+		// private boolean isCharging = false;
+		// private boolean usbCharge = false;
+		// private boolean acCharge = false;
 		private int i;
 		private final Handler handler = new Handler();
 		private boolean visible = true;
@@ -91,11 +91,11 @@ public class LiveWallpaperService extends WallpaperService {
 				// intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 				final int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
 				// Are we charging charged?
-				isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
+				Settings.isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
 				// How are we charging?
 				final int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-				usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
-				acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+				Settings.isChargeUSB = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
+				Settings.isChargeAC = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
 				drawMe();
 			}
 		};
@@ -118,7 +118,7 @@ public class LiveWallpaperService extends WallpaperService {
 					}
 					// schaun, ob der Bitmapdrawer sich geändert hat
 					bitmapDrawer = Settings.getBatteryStyle();
-					if (!isCharging || Settings.isAnimationEnabled() == false) {
+					if (!Settings.isCharging || Settings.isAnimationEnabled() == false) {
 						bitmapDrawer.draw(level, canvas);
 					} else {
 						bitmapDrawer.draw(i, canvas);
@@ -146,7 +146,7 @@ public class LiveWallpaperService extends WallpaperService {
 			}
 
 			handler.removeCallbacks(drawRunner);
-			if (visible && isCharging) {
+			if (visible && Settings.isCharging) {
 				handler.postDelayed(drawRunner, millies); // delay mileseconds
 			}
 		}

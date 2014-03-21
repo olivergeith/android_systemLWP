@@ -46,6 +46,22 @@ public class Settings {
 	public static final int ORIENTATION_LEFT = 90;
 	public static final int ORIENTATION_RIGHT = 270;
 
+	public static boolean isCharging = false;
+	public static boolean isChargeUSB = false;
+	public static boolean isChargeAC = false;
+
+	public static String getChargingText() {
+		String text;
+		if (isChargeUSB) {
+			text = "Charging on USB";
+		} else if (isChargeAC) {
+			text = "Charging on USB";
+		} else {
+			text = "Charging...";
+		}
+		return text;
+	}
+
 	private static boolean isVerticalPositionOffsetOnlyInPortrait() {
 		if (prefs == null) {
 			return true;
@@ -389,6 +405,13 @@ public class Settings {
 		return paint;
 	}
 
+	public static Paint getTextArcPaint(final int level, final int fontSize) {
+		final Paint paint = getTextPaint(level, fontSize);
+		paint.setStyle(Paint.Style.FILL_AND_STROKE);
+		paint.setTextAlign(Align.LEFT);
+		return paint;
+	}
+
 	public static Paint getEraserTextPaint(final int level, final int fontSize) {
 		final Paint paint = getErasurePaint();
 		int fSize = fontSize;
@@ -414,6 +437,13 @@ public class Settings {
 	public static Paint getBatteryPaintSourceIn(final int level) {
 		final Paint paint = getBatteryPaint(level);
 		final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.SRC_IN);
+		// because of SRC in the alphas of background and overpaint somhow "add"
+		// so the SRC in must be mor opacid then normal
+		int alpha = getOpacity() + getBackgroundOpacity();
+		if (alpha > 255) {
+			alpha = 255;
+		}
+		paint.setAlpha(alpha);
 		paint.setXfermode(xfermode);
 		return paint;
 	}
