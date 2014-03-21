@@ -1,13 +1,13 @@
-package de.geithonline.systemlwp.settings;
+package de.geithonline.systemlwp;
 
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
-import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.R.xml;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.settings.Settings;
 
 /**
  * This fragment shows the preferences for the first header.

@@ -1,4 +1,4 @@
-package de.geithonline.systemlwp.settings;
+package de.geithonline.systemlwp;
 
 public class PROVersion {
 	public static final int VERSION_PRO = 1;

@@ -1,4 +1,4 @@
-package de.geithonline.systemlwp.settings;
+package de.geithonline.systemlwp;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,11 +10,11 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.util.Log;
-import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.R.drawable;
 import de.geithonline.systemlwp.R.string;
 import de.geithonline.systemlwp.R.xml;
+import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.URIHelper;
 

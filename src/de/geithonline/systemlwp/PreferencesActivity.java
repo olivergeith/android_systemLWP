@@ -1,4 +1,4 @@
-package de.geithonline.systemlwp.settings;
+package de.geithonline.systemlwp;
 
 import java.util.List;
 

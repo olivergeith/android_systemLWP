@@ -13,6 +13,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.util.Log;
+import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV1;
@@ -500,4 +501,23 @@ public class Settings {
 		}
 		return paint;
 	}
+
+	/**
+	 * Initializes some preferences on first run with defaults
+	 * 
+	 * @param prefs
+	 */
+	public static void initPrefs(final SharedPreferences prefs) {
+		if (prefs.getBoolean("firstrun", true)) {
+			Log.i("GEITH", "FirstRun --> initializing the SharedPreferences with some colors...");
+			prefs.edit().putBoolean("firstrun", false).commit();
+			// init colors
+			prefs.edit().putInt("battery_color", Color.WHITE).commit();
+			prefs.edit().putInt("background_color", Color.DKGRAY).commit();
+			prefs.edit().putInt("battery_color_mid", Color.YELLOW).commit();
+			prefs.edit().putInt("battery_color_low", Color.RED).commit();
+			prefs.edit().putInt("color_zeiger", Color.WHITE).commit();
+		}
+	}
+
 }

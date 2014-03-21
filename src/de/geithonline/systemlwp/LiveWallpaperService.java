@@ -26,6 +26,7 @@ public class LiveWallpaperService extends WallpaperService {
 	public void onCreate() {
 		super.onCreate();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		Settings.initPrefs(prefs);
 	}
 
 	@Override
