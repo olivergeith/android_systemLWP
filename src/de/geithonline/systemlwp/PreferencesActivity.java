@@ -2,8 +2,6 @@ package de.geithonline.systemlwp;
 
 import java.util.List;
 
-import de.geithonline.systemlwp.R;
-import de.geithonline.systemlwp.R.xml;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.util.Log;
@@ -17,6 +15,7 @@ public class PreferencesActivity extends PreferenceActivity {
 		return AboutFragment.class.getName().equals(fragmentName) //
 				|| BattPreferencesFragment.class.getName().equals(fragmentName) //
 				|| BattColorPreferencesFragment.class.getName().equals(fragmentName) //
+				|| BattChargingPreferencesFragment.class.getName().equals(fragmentName) //
 				|| BackgroundPreferencesFragment.class.getName().equals(fragmentName);
 	}
 

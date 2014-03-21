@@ -12,7 +12,12 @@
             android:icon="@drawable/color"
             android:title="@string/header_title_battery_options"
             android:summary="@string/header_summary_battery_options" />
-
+    
+    <header android:fragment="de.geithonline.systemlwp.BattChargingPreferencesFragment"
+            android:icon="@drawable/charge"
+            android:title="@string/header_title_charge_options"
+            android:summary="@string/header_summary_charge_options" />
+    
     <header android:fragment="de.geithonline.systemlwp.BackgroundPreferencesFragment"
             android:icon="@drawable/wallpaper"
             android:title="@string/header_title_background_options"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_version">1.1</string>
-    <string name="app_name">BatteryLWP V1.1</string>
-	<string name="wallpaper_description">BatteryLWP V1.1</string>
+	<string name="app_version">1.2</string>
+    <string name="app_name">BatteryLWP V1.2</string>
+	<string name="wallpaper_description">BatteryLWP V1.2</string>
 	
 	<string name="about">About</string>
 	<string name="settings">Settings</string>
@@ -57,7 +57,9 @@
 	<string name="header_summary_background_options">Choose custom Wallpaper from Gallery....</string>
     <string name="header_about_options">About</string>
     <string name="header_about_options_summary">Info, Links and more about this App....</string>
-
+	<string name="header_title_charge_options">Global Charge Options</string>
+	<string name="header_summary_charge_options">Options defining the behaviour on charge...</string>
+    
     <string name="threshold_low">Threshold for low battery</string>
 	<string name="threshold_low_summary">Threshold for low battery levels</string>
 	<string name="threshold_mid">Threshold for mid battery</string>
