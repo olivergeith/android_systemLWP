@@ -484,6 +484,15 @@ public class Settings {
 		if (!filePath.equals("aaa")) {
 			final BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+			options.inDither = false; // Disable Dithering mode
+			options.inPurgeable = true; // Tell to gc that whether it needs free
+										// memory, the Bitmap can be cleared
+			options.inInputShareable = true; // Which kind of reference will be
+												// used to recover the Bitmap
+												// data after being clear, when
+												// it will be used in the future
+			options.inTempStorage = new byte[32 * 1024];
+
 			backgroundImage = BitmapFactory.decodeFile(filePath, options);
 		}
 		Log.i("Geith", "Custom BG = " + filePath);
