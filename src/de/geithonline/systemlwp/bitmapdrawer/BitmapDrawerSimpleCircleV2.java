@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -17,6 +18,7 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 	private int einerDicke = 70;
 	private int abstand = 8;
 	private int fontSize = 150;
+	private int fontSizeArc = 20;
 	private Canvas bitmapCanvas;
 
 	public BitmapDrawerSimpleCircleV2() {
@@ -39,13 +41,15 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 		}
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
-		abstand = Math.round(bWidth * 0.05f);
-		einerDicke = Math.round(bWidth * 0.15f);
+		abstand = Math.round(bWidth * 0.04f);
+		einerDicke = Math.round(bWidth * 0.10f);
 		offset = Math.round(bWidth * 0.011f);
 		fontSize = Math.round(bWidth * 0.35f);
+		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawSegmente(level);
 		drawNumber(level);
+		drawArcText(level);
 		return bitmap;
 	}
 
@@ -80,6 +84,18 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset), 270, winkel, true, Settings.getBatteryPaint(level));
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, Settings.getErasurePaint());
+	}
+
+	private void drawArcText(final int level) {
+		if (Settings.isCharging) {
+			final long winkel = 270 + Math.round(level * 3.6);
+
+			final Path mArc = new Path();
+			final RectF oval = getRectForOffset(offset + einerDicke + fontSizeArc);
+			mArc.addArc(oval, winkel, 180);
+			final String text = Settings.getChargingText();
+			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
+		}
 	}
 
 	private void drawNumber(final int level) {

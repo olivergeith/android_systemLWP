@@ -55,7 +55,7 @@ public class Settings {
 		if (isChargeUSB) {
 			text = "Charging on USB";
 		} else if (isChargeAC) {
-			text = "Charging on USB";
+			text = "Charging on AC";
 		} else {
 			text = "Charging...";
 		}

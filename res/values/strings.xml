@@ -73,6 +73,9 @@
     <string name="centerBattery_summary">Some Batteries can be centered - set it here</string>
 	<string name="rotation">Orientation</string>
 	<string name="rotation_summary">Bottom, Left, Right, Top....</string>
-
+	<string name="Charging">Charging...</string>
+	<string name="ChargingUSB">Charging on USB</string>
+	<string name="ChargingAC">Charging on AC</string>
+		
 	
 </resources>
