@@ -500,15 +500,4 @@ public class Settings {
 		}
 		return paint;
 	}
-
-	public static void initPrefs(final SharedPreferences prefs) {
-		if (prefs.getBoolean("firstrun", true)) {
-			prefs.edit().putBoolean("firstrun", false).commit();
-			prefs.edit().putInt("battery_color", Color.WHITE).commit();
-			prefs.edit().putInt("background_color", Color.DKGRAY).commit();
-			prefs.edit().putInt("battery_color_mid", Color.YELLOW).commit();
-			prefs.edit().putInt("battery_color_low", Color.RED).commit();
-			prefs.edit().putInt("color_zeiger", Color.WHITE).commit();
-		}
-	}
 }
