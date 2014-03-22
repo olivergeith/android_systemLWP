@@ -67,6 +67,7 @@
         <item name="31">BarGraphV2</item>
         <item name="40">BarGraphVerticalV1</item>
         <item name="41">BarGraphVerticalV2</item>
+        <item name="42">BarGraphVerticalV3</item>
         <item name="50">SimpleCircleV1</item>
         <item name="50">SimpleCircleV2</item>
         <item name="60">AokpCircleV1</item>
@@ -85,6 +86,7 @@
         <item name="31">BarGraphV2</item>
         <item name="40">BarGraphVerticalV1</item>
         <item name="41">BarGraphVerticalV2</item>
+        <item name="42">BarGraphVerticalV3</item>
         <item name="50">SimpleCircleV1</item>
         <item name="50">SimpleCircleV2</item>
         <item name="60">AokpCircleV1</item>
