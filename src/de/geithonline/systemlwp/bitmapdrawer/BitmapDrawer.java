@@ -22,6 +22,11 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 		if (this.level != level || canvas.getWidth() != cWidth || canvas.getHeight() != cHeight || bitmap == null || forcedraw) {
 			cWidth = canvas.getWidth();
 			cHeight = canvas.getHeight();
+			// Memory frei geben für altes bitmap
+			if (bitmap != null) {
+				bitmap.recycle();
+			}
+			// Bitnmap neu berechnen
 			bitmap = drawBitmap(level, canvas);
 		}
 		// den aktuellen level merken

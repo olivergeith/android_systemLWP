@@ -32,6 +32,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class Settings {
@@ -501,8 +502,8 @@ public class Settings {
 			options.inTempStorage = new byte[32 * 1024];
 
 			backgroundImage = BitmapFactory.decodeFile(filePath, options);
+			BitmapHelper.logBackgroundFileInfo(filePath);
 		}
-		Log.i("Geith", "Custom BG = " + filePath);
 		return backgroundImage;
 	}
 

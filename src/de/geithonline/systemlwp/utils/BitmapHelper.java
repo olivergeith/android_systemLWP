@@ -61,4 +61,19 @@ public class BitmapHelper {
 		return resizeToIcon(bitmap, 128, 128);
 	}
 
+	public static void logBackgroundFileInfo(final String path) {
+		Log.i("Geith", "Custom BG = " + path);
+		final File f = new File(path);
+		if (!f.exists()) {
+			Log.i("Geith", "Custom BG = " + path + " does not exist!");
+			return;
+		}
+		if (f.isDirectory()) {
+			Log.i("Geith", "Custom BG = " + path + " is a Directory!");
+			return;
+		}
+		final long size = f.length();
+		Log.i("Geith", "Custom BG = " + path + " -> size is: " + size);
+	}
+
 }

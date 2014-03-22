@@ -135,7 +135,8 @@ public class LiveWallpaperService extends WallpaperService {
 						if (i > getAnimationResetLevel()) {
 							i = 0;
 						}
-
+						handler.removeCallbacks(drawRunner);
+						handler.postDelayed(drawRunner, millies);
 					}
 				}
 			} catch (final IllegalArgumentException ex) {
@@ -146,10 +147,10 @@ public class LiveWallpaperService extends WallpaperService {
 				}
 			}
 			forcedraw = false;
-			handler.removeCallbacks(drawRunner);
-			if (visible && Settings.isCharging) {
-				handler.postDelayed(drawRunner, millies); // delay mileseconds
-			}
+			// handler.removeCallbacks(drawRunner);
+			// if (visible && Settings.isCharging) {
+			// handler.postDelayed(drawRunner, millies); // delay mileseconds
+			// }
 		}
 
 		private int getAnimationResetLevel() {
@@ -170,15 +171,19 @@ public class LiveWallpaperService extends WallpaperService {
 		 * @param height
 		 */
 		private void drawBackgroundImage(final Canvas canvas) {
-			// draw the background image and stretch it to canvas
+			// do we need to create a new backgroundimage?
 			if (backgroundImage == null //
 					|| customBackgroundChanged() //
 					|| width != oldWidth //
 					|| height != oldHeight) {
+				if (backgroundImage != null) {
+					backgroundImage.recycle();
+				}
 				backgroundImage = getBackgroundImage();
 				oldWidth = width;
 				oldHeight = height;
 			}
+			// draw the background image
 			canvas.save();
 			canvas.translate(dx, 0);
 			canvas.drawBitmap(backgroundImage, 0, 0, null);
@@ -198,16 +203,18 @@ public class LiveWallpaperService extends WallpaperService {
 		 * initBackgroundImage
 		 */
 		private Bitmap getBackgroundImage() {
-			Bitmap bg;
+			Bitmap bgInput;
+			Bitmap bgReturn;
 			// sollen wir ein custom BG laden ?
-			bg = Settings.getCustomBackground();
-			if (bg == null) {
-				bg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+			bgInput = Settings.getCustomBackground();
+			// if it is null...
+			if (bgInput == null) {
+				bgInput = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 			}
 			// now we should have a BG
 			// lets scale it
-			final int w = bg.getWidth();
-			final int h = bg.getHeight();
+			final int w = bgInput.getWidth();
+			final int h = bgInput.getHeight();
 			final float aspectCanvas = (float) width / (float) height;
 			final float aspectBG = (float) w / (float) h;
 
@@ -220,7 +227,7 @@ public class LiveWallpaperService extends WallpaperService {
 				final int dstH = Math.round(dstW * aspectBG);
 				Log.i("GEITH", "dstW = " + dstW);
 				Log.i("GEITH", "dstH = " + dstH);
-				bg = Bitmap.createScaledBitmap(bg, dstW, dstH, true);
+				bgReturn = Bitmap.createScaledBitmap(bgInput, dstW, dstH, true);
 			} else {
 				// bild ist zu breit ;-) also skalierten wir es auf die
 				// canvashöhe
@@ -229,10 +236,10 @@ public class LiveWallpaperService extends WallpaperService {
 				final int dstW = Math.round(w * factor);
 				Log.i("GEITH", "dstW = " + dstW);
 				Log.i("GEITH", "dstH = " + dstH);
-				bg = Bitmap.createScaledBitmap(bg, dstW, dstH, true);
+				bgReturn = Bitmap.createScaledBitmap(bgInput, dstW, dstH, true);
 			}
-
-			return bg;
+			bgInput.recycle();
+			return bgReturn;
 		}
 
 		@Override

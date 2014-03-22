@@ -10,10 +10,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.util.Log;
-import de.geithonline.systemlwp.R;
-import de.geithonline.systemlwp.R.drawable;
-import de.geithonline.systemlwp.R.string;
-import de.geithonline.systemlwp.R.xml;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.URIHelper;
@@ -69,17 +65,6 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 		final String filePath = URIHelper.getPath(getActivity().getApplicationContext(), selectedImage);
 		Log.i(this.getClass().getSimpleName(), "ImagePath Received via URIHelper! " + filePath);
 
-		// filepath ermitteln....
-		// final String[] filePathColumn = { MediaStore.Images.Media.DATA };
-		//
-		// final Cursor cursor =
-		// getActivity().getContentResolver().query(selectedImage,
-		// filePathColumn, null, null, null);
-		// cursor.moveToFirst();
-		// final int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-		// final String filePath = cursor.getString(columnIndex);
-		// cursor.close();
-
 		// und in die SharedPreferences schreiben
 		final SharedPreferences sharedPref = LiveWallpaperService.prefs;
 		final SharedPreferences.Editor editor = sharedPref.edit();
@@ -87,8 +72,8 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 		Log.i(this.getClass().getSimpleName(), "ImagePath written to preferences: " + filePath);
 		editor.commit();
 
+		// Summaries usw updaten
 		setBackgroundPickerData();
-
 	}
 
 	private void setBackgroundPickerData() {
