@@ -60,6 +60,7 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 
 		drawBogen(level);
 		drawArcText(level);
+		drawNumber(level);
 		return bitmap;
 	}
 
@@ -102,9 +103,11 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, Settings.getErasurePaint());
 
+	}
+
+	private void drawNumber(final int level) {
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, Settings.getTextPaint(level, fontSize));
-
 	}
 
 	private void drawArcText(final int level) {

@@ -32,6 +32,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV5;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV6;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.ColorHelper;
@@ -308,6 +309,10 @@ public class Settings {
 		}
 		if (battStyle.equals("ZoopaWideV5")) {
 			drawer = new BitmapDrawerZoopaWideV5();
+			return drawer;
+		}
+		if (battStyle.equals("ZoopaWideV6")) {
+			drawer = new BitmapDrawerZoopaWideV6();
 			return drawer;
 		}
 
