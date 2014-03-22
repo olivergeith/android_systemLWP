@@ -8,7 +8,13 @@
 	        <intent android:action="android.intent.action.VIEW"
 	            android:data="http://forum.xda-developers.com/showthread.php?t=2682604" />
 	    </Preference>
-        
+
+	    <Preference 
+	        android:title="The Battery Wallpaper on Google Play" >
+	        <intent android:action="android.intent.action.VIEW"
+	            android:data="https://play.google.com/store/apps/details?id=de.geithonline.systemlwp" />
+	    </Preference>
+	    
         <Preference 
 	        android:title="The Rom Fumbler on XDA" 
 	        android:summary="My other Tool on XDA...">

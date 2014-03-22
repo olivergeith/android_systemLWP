@@ -48,6 +48,25 @@
             />
         
  	</PreferenceCategory>>
+
+  <PreferenceCategory android:title="@string/category_charge_colors">
+        <CheckBoxPreference 
+		    android:key="charge_colors_enable"
+    		android:defaultValue="false"
+		    android:title="@string/charge_colors_enable" 
+		    android:summary="@string/charge_colors_enable_summary"
+            />
+ 	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	        android:key="charge_color"
+	        android:title="@string/charge_color" 
+	        android:summary="Battery --> Color on charge"
+	        android:defaultValue="@integer/COLOR_GREEN"
+	        android:dependency="charge_colors_enable"
+	        />
+        
+ 	</PreferenceCategory>>
+ 
+ 
         
 
 

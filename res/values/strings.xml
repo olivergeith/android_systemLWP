@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_version">1.3</string>
-    <string name="app_name">BatteryLWP V1.3</string>
-	<string name="wallpaper_description">BatteryLWP V1.3</string>
+	<string name="app_version">1.4</string>
+    <string name="app_name">BatteryLWP V1.4</string>
+	<string name="wallpaper_description">BatteryLWP V1.4</string>
 	
 	<string name="about">About</string>
 	<string name="settings">Settings</string>
@@ -26,6 +26,7 @@
     <string name="category_colored_background">Colored Background</string>
     <string name="category_animation_options">Charge Animation Style</string>
     <string name="category_charge_options">Charge Options</string>
+    <string name="category_charge_colors">Charge Colors</string>
     
     <string name="animation_delay">Animation delay</string>
     <string name="animation_delay_summary">Delaytime between the images in millieseconds. 50 is default</string>
@@ -81,6 +82,9 @@
 	<string name="ChargingAC">Charging on AC</string>
 	<string name="charge_enable">Show Charge Status</string>
 	<string name="charge_enable_summary">Show if AC/USB-Charging</string>
-				
+	<string name="charge_colors_enable">Use different color on charge</string>
+	<string name="charge_colors_enable_summary">Use different color on charge</string>
+	<string name="charge_color">Color on charge</string>
+						
 	
 </resources>

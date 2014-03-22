@@ -51,6 +51,21 @@ public class Settings {
 	public static boolean isChargeUSB = false;
 	public static boolean isChargeAC = false;
 
+	private static int getChargeColor() {
+		if (prefs == null) {
+			return R.integer.COLOR_GREEN;
+		}
+		final int col = prefs.getInt("charge_color", R.integer.COLOR_GREEN);
+		return col;
+	}
+
+	public static boolean isUseChargeColors() {
+		if (prefs == null) {
+			return false;
+		}
+		return prefs.getBoolean("charge_colors_enable", false);
+	}
+
 	public static boolean isShowChargeState() {
 		if (prefs == null) {
 			return true;
@@ -346,6 +361,9 @@ public class Settings {
 	// LevelColors
 	// #####################################################################################
 	public static int getColorForLevel(final int level) {
+		if (Settings.isCharging && isUseChargeColors()) {
+			return getChargeColor();
+		}
 		if (level > getMidThreshold()) {
 			if (isGradientColors()) {
 				return getGradientColorForLevel(level);
@@ -559,6 +577,7 @@ public class Settings {
 			Log.i("GEITH", "FirstRun --> initializing the SharedPreferences with some colors...");
 			prefs.edit().putBoolean("firstrun", false).commit();
 			// init colors
+			prefs.edit().putInt("charge_color", Color.GREEN).commit();
 			prefs.edit().putInt("battery_color", Color.WHITE).commit();
 			prefs.edit().putInt("background_color", Color.DKGRAY).commit();
 			prefs.edit().putInt("battery_color_mid", Color.YELLOW).commit();
