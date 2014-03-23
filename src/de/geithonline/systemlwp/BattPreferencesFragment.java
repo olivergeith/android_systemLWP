@@ -4,8 +4,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
-import de.geithonline.systemlwp.R;
-import de.geithonline.systemlwp.R.xml;
+import android.preference.PreferenceManager;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.settings.Settings;
 
@@ -20,9 +19,7 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences_style);
 		// initialize Properties
-		if (LiveWallpaperService.prefs != null) {
-			enableSettingsForStyle(Settings.getStyle());
-		}
+		enableSettingsForStyle(Settings.getStyle());
 
 		// connection the backgroundpicker with an intent
 		final Preference style = findPreference(STYLE_PICKER_KEY);
@@ -37,6 +34,9 @@ public class BattPreferencesFragment extends PreferenceFragment {
 	}
 
 	private void enableSettingsForStyle(final String style) {
+		if (Settings.prefs == null) {
+			Settings.prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+		}
 		// Find a Drawer for this Style
 		final IBitmapDrawer drawer = Settings.getDrawerForStyle(style);
 		final Preference rotation = findPreference("rotation");
