@@ -52,6 +52,7 @@ public class Settings {
 	public static boolean isCharging = false;
 	public static boolean isChargeUSB = false;
 	public static boolean isChargeAC = false;
+	private static boolean isPremium = false;
 
 	private static int getChargeColor() {
 		if (prefs == null) {
@@ -142,6 +143,13 @@ public class Settings {
 		}
 		final int thr = Integer.valueOf(prefs.getString("animation_delay_level", "2500"));
 		return thr;
+	}
+
+	public static boolean isDebuggingMessages() {
+		if (prefs == null) {
+			return false;
+		}
+		return prefs.getBoolean("debug2", false);
 	}
 
 	public static boolean isDebugging() {
@@ -595,6 +603,28 @@ public class Settings {
 			prefs.edit().putInt("battery_color_low", Color.RED).commit();
 			prefs.edit().putInt("color_zeiger", Color.WHITE).commit();
 		}
+	}
+
+	// ############################################################################
+	// POremium
+	// ############################################################################
+	/**
+	 * Initializes some preferences on first run with defaults
+	 * 
+	 * @param preferences
+	 */
+	public static void saveProStatus(final boolean isPre) {
+		if (prefs != null) {
+			prefs.edit().putBoolean("muimerp", isPre).commit();
+		}
+		isPremium = isPre;
+	}
+
+	public static boolean isPremiumApp() {
+		if (prefs == null) {
+			return isPremium;
+		}
+		return prefs.getBoolean("muimerp", false);
 	}
 
 }

@@ -5,8 +5,13 @@ import java.util.List;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class PreferencesActivity extends PreferenceActivity {
+
+	private BillingManager billingManager;
 
 	@Override
 	protected boolean isValidFragment(final String fragmentName) {
@@ -22,11 +27,23 @@ public class PreferencesActivity extends PreferenceActivity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		final Button button = new Button(this);
+		billingManager = new BillingManager(this, button);
+		billingManager.setupBilling();
+		final boolean isPremium = billingManager.isPremium();
+
 		// Add a button to the header list.
-		if (hasHeaders()) {
-			// final Button button = new Button(this);
-			// button.setText("Some action");
-			// setListFooter(button);
+		if (!isPremium) {
+			button.setText("Upgrade to Premium-Version");
+			setListFooter(button);
+			button.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(final View v) {
+					billingManager.onUpgradeAppButtonClicked(v);
+				}
+			});
 		}
 	}
 
@@ -38,4 +55,9 @@ public class PreferencesActivity extends PreferenceActivity {
 		loadHeadersFromResource(R.xml.preferences_header, target);
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		billingManager.onDestroy();
+	}
 }

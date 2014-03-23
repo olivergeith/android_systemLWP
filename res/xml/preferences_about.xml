@@ -52,6 +52,14 @@
 		    android:title="Debugging" 
 		    android:summary="Enables Debugging within the LWP. This will cost lots of performance! Do not enable unless you know what you do!!!"
             />
-    </PreferenceCategory>
+	    <CheckBoxPreference 
+		    android:key="debug2"
+    		android:defaultValue="false"
+		    android:title="DebuggingMessages" 
+		    android:summary="Enables DebuggMessages"
+            />
+	    </PreferenceCategory>
+
+    
     
 </PreferenceScreen>
