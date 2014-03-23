@@ -9,9 +9,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
+import de.geithonline.systemlwp.utils.Toaster;
 import de.geithonline.systemlwp.utils.URIHelper;
 
 /**
@@ -66,17 +68,31 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 		Log.i(this.getClass().getSimpleName(), "ImagePath Received via URIHelper! " + filePath);
 
 		// und in die SharedPreferences schreiben
-		final SharedPreferences sharedPref = LiveWallpaperService.prefs;
+		final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+
+		if (sharedPref == null) {
+			Log.e(this.getClass().getSimpleName(), "SharedPreferences were null!!");
+			Toaster.showErrorToast(
+					getActivity(),
+					"Could not save imagepath "
+							+ filePath
+							+ "Sharedfreferences not found!!! (null). Make sure you set the Wallpaper at least once before editing preferences of it (SystemSettings->Display->Wallpaper->LiveWallpaper->Choose BatteryLWP and set it!");
+			return;
+		}
 		final SharedPreferences.Editor editor = sharedPref.edit();
 		editor.putString(BACKGROUND_PICKER_KEY, filePath);
 		Log.i(this.getClass().getSimpleName(), "ImagePath written to preferences: " + filePath);
 		editor.commit();
+		Toaster.showInfoToast(getActivity(), "SetBG to " + filePath);
 
 		// Summaries usw updaten
 		setBackgroundPickerData();
 	}
 
 	private void setBackgroundPickerData() {
+		if (Settings.prefs == null) {
+			Settings.prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+		}
 		final Bitmap b = Settings.getCustomBackground();
 		if (b != null) {
 			final Drawable dr = BitmapHelper.resizeToIcon128(b);

@@ -38,7 +38,7 @@ import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class Settings {
-	public final static SharedPreferences prefs = LiveWallpaperService.prefs;
+	public static SharedPreferences prefs = LiveWallpaperService.prefs;
 	private static String style = "aaa";
 	private static IBitmapDrawer bitmapDrawer;
 	public static final int ANIMATION_STYLE_0_TO_100 = 1;
@@ -580,9 +580,10 @@ public class Settings {
 	/**
 	 * Initializes some preferences on first run with defaults
 	 * 
-	 * @param prefs
+	 * @param preferences
 	 */
-	public static void initPrefs(final SharedPreferences prefs) {
+	public static void initPrefs(final SharedPreferences preferences) {
+		prefs = preferences;
 		if (prefs.getBoolean("firstrun", true)) {
 			Log.i("GEITH", "FirstRun --> initializing the SharedPreferences with some colors...");
 			prefs.edit().putBoolean("firstrun", false).commit();

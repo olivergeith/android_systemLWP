@@ -1,6 +1,5 @@
 package de.geithonline.systemlwp.utils;
 
-import de.geithonline.systemlwp.R;
 import android.app.Activity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,11 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.geithonline.systemlwp.R;
 
 public class Toaster {
 
-	private static final int	TYPE_ERROR	= 0;
-	private static final int	TYPE_INFO	= 1;
+	private static final int TYPE_ERROR = 0;
+	private static final int TYPE_INFO = 1;
 
 	public static void showInfoToast(final Activity activity, final String msg) {
 		showToast(TYPE_INFO, activity, msg);
@@ -38,7 +38,7 @@ public class Toaster {
 
 		final Toast toast = new Toast(activity.getApplicationContext());
 		toast.setGravity(Gravity.BOTTOM, 0, 0);
-		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setDuration(Toast.LENGTH_LONG);
 		toast.setView(layout);
 		toast.show();
 	}

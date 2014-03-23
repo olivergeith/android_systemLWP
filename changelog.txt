@@ -2,6 +2,8 @@ Version 1.4
 - Different battery color on charge
 - new style BarGraphVerticalV3
 - new style ZoopaWideV6
+- bugfix crash NullpointerException in BackgroundSettings
+- bugfix crash when custom background image needs no scaling!
 Version 1.3
 - more heapspace
 - fix cpu usage on charge with disabled charge animation

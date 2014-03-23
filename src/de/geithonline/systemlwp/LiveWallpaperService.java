@@ -55,8 +55,8 @@ public class LiveWallpaperService extends WallpaperService {
 		private String filePath = "aaa";
 		private Bitmap backgroundImage = null;
 		private IBitmapDrawer bitmapDrawer = Settings.getBatteryStyle();
-		private int width = 0;
-		private int height = 0;
+		private int cWidth = 0;
+		private int cHeight = 0;
 		private float dx = 0.0f;
 		private int oldWidth = 0;
 		private int oldHeight = 0;
@@ -108,14 +108,14 @@ public class LiveWallpaperService extends WallpaperService {
 				canvas = holder.lockCanvas();
 				// get the size of canvas
 				if (canvas != null) {
-					width = canvas.getWidth();
-					height = canvas.getHeight();
+					cWidth = canvas.getWidth();
+					cHeight = canvas.getHeight();
 					// clear the canvas
 					if (Settings.isLoadCustomBackground()) {
 						// canvas.drawColor(Settings.getPlainWallpaterBackgroundColor());
 						drawBackgroundImage(canvas);
 					} else {
-						canvas.drawPaint(Settings.getWallpaperBackgroundPaint(width, height));
+						canvas.drawPaint(Settings.getWallpaperBackgroundPaint(cWidth, cHeight));
 					}
 					// schaun, ob der Bitmapdrawer sich geändert hat
 					bitmapDrawer = Settings.getBatteryStyle();
@@ -167,21 +167,21 @@ public class LiveWallpaperService extends WallpaperService {
 		 * drawBackground
 		 * 
 		 * @param canvas
-		 * @param width
-		 * @param height
+		 * @param cWidth
+		 * @param cHeight
 		 */
 		private void drawBackgroundImage(final Canvas canvas) {
 			// do we need to create a new backgroundimage?
 			if (backgroundImage == null //
 					|| customBackgroundChanged() //
-					|| width != oldWidth //
-					|| height != oldHeight) {
+					|| cWidth != oldWidth //
+					|| cHeight != oldHeight) {
 				if (backgroundImage != null) {
 					backgroundImage.recycle();
 				}
 				backgroundImage = getBackgroundImage();
-				oldWidth = width;
-				oldHeight = height;
+				oldWidth = cWidth;
+				oldHeight = cHeight;
 			}
 			// draw the background image
 			canvas.save();
@@ -215,7 +215,7 @@ public class LiveWallpaperService extends WallpaperService {
 			// lets scale it
 			final int w = bgInput.getWidth();
 			final int h = bgInput.getHeight();
-			final float aspectCanvas = (float) width / (float) height;
+			final float aspectCanvas = (float) cWidth / (float) cHeight;
 			final float aspectBG = (float) w / (float) h;
 
 			Log.i("GEITH", "Aspect BG = " + aspectBG);
@@ -223,7 +223,7 @@ public class LiveWallpaperService extends WallpaperService {
 			// bild ist schmaler aber länger
 			if (aspectBG <= aspectCanvas) {
 				//
-				final int dstW = (int) (width * 1.4);
+				final int dstW = (int) (cWidth * 1.4);
 				final int dstH = Math.round(dstW * aspectBG);
 				Log.i("GEITH", "dstW = " + dstW);
 				Log.i("GEITH", "dstH = " + dstH);
@@ -231,14 +231,16 @@ public class LiveWallpaperService extends WallpaperService {
 			} else {
 				// bild ist zu breit ;-) also skalierten wir es auf die
 				// canvashöhe
-				final int dstH = height;
-				final float factor = (float) height / h;
+				final int dstH = cHeight;
+				final float factor = (float) cHeight / h;
 				final int dstW = Math.round(w * factor);
 				Log.i("GEITH", "dstW = " + dstW);
 				Log.i("GEITH", "dstH = " + dstH);
 				bgReturn = Bitmap.createScaledBitmap(bgInput, dstW, dstH, true);
 			}
-			bgInput.recycle();
+			if (!bgReturn.equals(bgInput)) {
+				bgInput.recycle();
+			}
 			return bgReturn;
 		}
 
@@ -304,7 +306,7 @@ public class LiveWallpaperService extends WallpaperService {
 		public void onOffsetsChanged(final float xOffset, final float yOffset, final float xStep, final float yStep, final int xPixels,
 				final int yPixels) {
 			if (backgroundImage != null) {
-				dx = (width - backgroundImage.getWidth()) * (xOffset);
+				dx = (cWidth - backgroundImage.getWidth()) * (xOffset);
 			}
 			drawMe();
 		}
