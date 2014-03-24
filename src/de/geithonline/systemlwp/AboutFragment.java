@@ -22,8 +22,10 @@ public class AboutFragment extends PreferenceFragment {
 
 		if (Settings.isPremium()) {
 			proBox.setTitle("This is the Premium Version");
+			proBox.setIcon(R.drawable.icon_premium);
 		} else {
 			proBox.setTitle("This is the Free Version");
+			proBox.setIcon(R.drawable.icon);
 		}
 	}
 

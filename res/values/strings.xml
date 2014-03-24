@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_version">1.6</string>
-    <string name="app_name">BatteryLWP V1.6</string>
-	<string name="wallpaper_description">BatteryLWP V1.6</string>
+	<string name="app_version">1.8</string>
+    <string name="app_name">BatteryLWP V1.8</string>
+	<string name="wallpaper_description">BatteryLWP V1.8</string>
 	
 	<string name="about">About</string>
 	<string name="settings">Settings</string>
