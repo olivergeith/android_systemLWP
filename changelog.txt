@@ -1,3 +1,7 @@
+Version 1.5
+- added InAppBilling for future Premium Version (new android-right required because of this)
+- button to set Wallpaper from Settings, when not already running
+- another bugfix to go around these ugly OutOfMemory crashes (bitmap recycle)
 Version 1.4
 - Different battery color on charge
 - new style BarGraphVerticalV3

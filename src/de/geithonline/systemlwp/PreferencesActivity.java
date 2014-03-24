@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 public class PreferencesActivity extends PreferenceActivity {
 
 	private BillingManager billingManager;
+	private static final int REQUEST = 999;
+	private Button buttonSetWP;
 
 	@Override
 	protected boolean isValidFragment(final String fragmentName) {
@@ -42,9 +44,9 @@ public class PreferencesActivity extends PreferenceActivity {
 		billingManager = new BillingManager(this);
 		final boolean isPremium = billingManager.isPremium();
 		// A button to set us as Wallpaper
-		final Button b = new Button(this);
-		b.setText("Set Wallpaper");
-		b.setOnClickListener(new OnClickListener() {
+		buttonSetWP = new Button(this);
+		buttonSetWP.setText("Set Wallpaper");
+		buttonSetWP.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(final View v) {
@@ -57,9 +59,8 @@ public class PreferencesActivity extends PreferenceActivity {
 		ll.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		ll.setGravity(Gravity.CENTER);
 		if (!isMyServiceRunning(LiveWallpaperService.class.getName())) {
-			ll.addView(b);
+			ll.addView(buttonSetWP);
 		} else {
-			// do nothing ll.addView(new Button(this));
 		}
 
 		// Add a button to the header list.
@@ -98,7 +99,7 @@ public class PreferencesActivity extends PreferenceActivity {
 		} else {
 			i.setAction(WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER);
 		}
-		startActivityForResult(i, 0);
+		startActivityForResult(i, REQUEST);
 	}
 
 	private boolean isMyServiceRunning(final String className) {
