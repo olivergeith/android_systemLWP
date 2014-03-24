@@ -83,7 +83,9 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 		editor.putString(BACKGROUND_PICKER_KEY, filePath);
 		Log.i(this.getClass().getSimpleName(), "ImagePath written to preferences: " + filePath);
 		editor.commit();
-		Toaster.showInfoToast(getActivity(), "SetBG to " + filePath);
+		if (Settings.isDebuggingMessages()) {
+			Toaster.showInfoToast(getActivity(), "SetBG to " + filePath);
+		}
 
 		// Summaries usw updaten
 		setBackgroundPickerData();

@@ -15,6 +15,7 @@ import de.geithonline.systemlwp.billinghelper.IabHelper;
 import de.geithonline.systemlwp.billinghelper.IabResult;
 import de.geithonline.systemlwp.billinghelper.Inventory;
 import de.geithonline.systemlwp.billinghelper.Purchase;
+import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.Toaster;
 
 /**
@@ -85,11 +86,15 @@ public class BillingManager {
 		mIsPremium = readProStatus();
 		if (mIsPremium) {
 			Log.i(TAG, "Is Premium Connection zum Billing wird gar nicht erst aufgebaut!");
-			Toaster.showInfoToast(activity, "This is the Premium Version");
+			if (Settings.isDebuggingMessages()) {
+				Toaster.showInfoToast(activity, "This is the Premium Version");
+			}
 			saveProStatusToPrefs(true);
 			return;
 		} else {
-			Toaster.showInfoToast(activity, "This is the Free Version");
+			if (Settings.isDebuggingMessages()) {
+				Toaster.showInfoToast(activity, "This is the Free Version");
+			}
 		}
 		mHelper = new IabHelper(activity.getApplicationContext(), base64EncodedPublicKey);
 		// enable debug logging (for a production application, you should set
