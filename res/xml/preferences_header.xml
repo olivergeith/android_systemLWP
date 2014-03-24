@@ -12,6 +12,11 @@
             android:icon="@drawable/color"
             android:title="@string/header_title_battery_options"
             android:summary="@string/header_summary_battery_options" />
+
+    <header android:fragment="de.geithonline.systemlwp.BattNumberPreferencesFragment"
+            android:icon="@drawable/number"
+            android:title="@string/header_title_number_options"
+            android:summary="@string/header_summary_number_options" />
     
     <header android:fragment="de.geithonline.systemlwp.BattChargingPreferencesFragment"
             android:icon="@drawable/charge"

@@ -61,7 +61,9 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 		drawBogen(level);
 		drawSegmente(level);
 		drawZeiger(level);
-		drawNumber(level);
+		if (Settings.isShowNumber()) {
+			drawNumber(level);
+		}
 		drawArcText(level);
 
 		return bitmap;

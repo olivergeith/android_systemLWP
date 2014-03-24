@@ -46,6 +46,9 @@ public class BitmapDrawerZoopaWideV2 extends BitmapDrawer {
 
 		drawSegmente(level);
 		drawArcText(level);
+		if (Settings.isShowNumber()) {
+			drawNumber(level);
+		}
 
 		return bitmap;
 	}
@@ -78,10 +81,11 @@ public class BitmapDrawerZoopaWideV2 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(0), 180 + Math.round(level * 1.8) - 1, 2, true, Settings.getZeigerPaint(level));
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + zehnerDicke + offset), 0, 360, true, Settings.getErasurePaint());
+	}
 
+	private void drawNumber(final int level) {
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, Settings.getTextPaint(level, fontSize));
-
 	}
 
 	private void drawArcText(final int level) {

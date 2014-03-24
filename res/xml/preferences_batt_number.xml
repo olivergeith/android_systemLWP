@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <PreferenceCategory android:title="@string/category_font_options">
+        
+        <CheckBoxPreference 
+		    android:key="show_number"
+    		android:defaultValue="true"
+		    android:title="@string/show_number" 
+		    android:summary="@string/show_number_summary"
+            />
+        
+        <CheckBoxPreference 
+		    android:key="colored_numbers"
+    		android:defaultValue="true"
+		    android:title="@string/colored_numbers" 
+		    android:summary="@string/colored_numbers_summary"
+            />
+
+        <ListPreference
+            android:defaultValue="100"
+            android:title="@string/fontsize100" 
+            android:summary="@string/fontsize100_summary" 
+            android:dialogTitle="@string/fontsize100"
+            android:entries="@array/fontsize100"
+            android:entryValues="@array/fontsize100Values"
+            android:key="fontsize100"
+            />
+        
+	</PreferenceCategory>>
+
+
+</PreferenceScreen>

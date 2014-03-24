@@ -52,6 +52,9 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawSegmente(level);
+		if (Settings.isShowNumber()) {
+			drawNumber(level);
+		}
 		drawArcText(level);
 
 		return bitmap;
@@ -67,7 +70,6 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		final int segmente = 10;
 		final float breiteOneSegment = (bWidth - 2 * offset - (segmente - 1) * gap) / segmente;
 		final int zehner = level / 10;
-		final int einer = level % 10;
 
 		// hintergrund
 		Paint paint = Settings.getBackgroundPaint();
@@ -112,10 +114,11 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		// delete inner Circle
 		final RectF er = getCutOutRect();
 		bitmapCanvas.drawArc(er, 0, 360, true, Settings.getErasurePaint());
+	}
 
+	private void drawNumber(final int level) {
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 3 * einerDicke - 3 * offset, Settings.getTextPaint(level, fontSize));
-
 	}
 
 	private void drawArcText(final int level) {

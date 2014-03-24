@@ -52,6 +52,13 @@ public class Settings {
 	public static boolean isChargeUSB = false;
 	public static boolean isChargeAC = false;
 
+	public static boolean isShowNumber() {
+		if (prefs == null) {
+			return true;
+		}
+		return prefs.getBoolean("show_number", true);
+	}
+
 	public static boolean isPremium() {
 		if (prefs == null) {
 			return false;

@@ -60,7 +60,9 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 
 		drawBogen(level);
 		drawArcText(level);
-		drawNumber(level);
+		if (Settings.isShowNumber()) {
+			drawNumber(level);
+		}
 		return bitmap;
 	}
 

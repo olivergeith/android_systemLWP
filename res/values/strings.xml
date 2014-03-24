@@ -3,7 +3,10 @@
 	<string name="app_version">1.8</string>
     <string name="app_name">BatteryLWP V1.8</string>
 	<string name="wallpaper_description">BatteryLWP V1.8</string>
+
+	<string name="premium_only">Premium Version only</string>
 	
+		
 	<string name="about">About</string>
 	<string name="settings">Settings</string>
 	<string name="Copyright">Copyright by Oliver Geith</string>
@@ -60,13 +63,19 @@
     <string name="header_about_options_summary">Info, Links and more about this App....</string>
 	<string name="header_title_charge_options">Global Charge Options</string>
 	<string name="header_summary_charge_options">Options defining the behaviour on charge...</string>
-    
+	<string name="header_title_number_options">Level Number Options</string>
+	<string name="header_summary_number_options">Colors, Visibility, Size ....</string>
+	
     <string name="threshold_low">Threshold for low battery</string>
 	<string name="threshold_low_summary">Threshold for low battery levels</string>
 	<string name="threshold_mid">Threshold for mid battery</string>
 	<string name="threshold_mid_summary">Threshold for mid battery levels</string>
+
 	<string name="colored_numbers">Numbers are colored</string>
 	<string name="colored_numbers_summary">Numbers are colored like Battery-Level-Color</string>
+	<string name="show_number">Show Battery-Level-Numbers</string>
+	<string name="show_number_summary">Premium Version only</string>
+	
 	<string name="gradient_colors">Gradient Colors</string>
 	<string name="gradient_colors_summary">Gradient Color according to the Battery Level</string>
 	<string name="gradient_colors_mid">Gradient Colors (mid -> low)</string>

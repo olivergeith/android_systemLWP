@@ -60,7 +60,9 @@ public class BitmapDrawerZoopaWideV6 extends BitmapDrawer {
 
 		drawBogen(level);
 		drawSegmente(level);
-		drawNumber(level);
+		if (Settings.isShowNumber()) {
+			drawNumber(level);
+		}
 		drawArcText(level);
 		return bitmap;
 	}

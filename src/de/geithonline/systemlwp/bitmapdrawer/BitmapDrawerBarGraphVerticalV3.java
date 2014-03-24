@@ -43,7 +43,9 @@ public class BitmapDrawerBarGraphVerticalV3 extends BitmapDrawer {
 		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawSegmente(level);
-		drawNumber(level);
+		if (Settings.isShowNumber()) {
+			drawNumber(level);
+		}
 		drawArcText(level);
 		return bitmap;
 	}
