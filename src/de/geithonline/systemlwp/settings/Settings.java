@@ -43,7 +43,6 @@ public class Settings {
 	private static IBitmapDrawer bitmapDrawer;
 	public static final int ANIMATION_STYLE_0_TO_100 = 1;
 	public static final int ANIMATION_STYLE_0_TO_LEVEL = 2;
-	private static Bitmap backgroundImage = null;
 
 	public static final int ORIENTATION_BOTTOM = 0;
 	public static final int ORIENTATION_LEFT = 90;
@@ -536,11 +535,11 @@ public class Settings {
 												// data after being clear, when
 												// it will be used in the future
 			options.inTempStorage = new byte[32 * 1024];
-
-			backgroundImage = BitmapFactory.decodeFile(filePath, options);
+			final Bitmap b = BitmapFactory.decodeFile(filePath, options);
 			BitmapHelper.logBackgroundFileInfo(filePath);
+			return b;
 		}
-		return backgroundImage;
+		return null;
 	}
 
 	public static String getCustomBackgroundFilePath() {
@@ -608,23 +607,23 @@ public class Settings {
 	// ############################################################################
 	// POremium
 	// ############################################################################
-	/**
-	 * Initializes some preferences on first run with defaults
-	 * 
-	 * @param preferences
-	 */
-	public static void saveProStatus(final boolean isPre) {
-		if (prefs != null) {
-			prefs.edit().putBoolean("muimerp", isPre).commit();
-		}
-		isPremium = isPre;
-	}
-
-	public static boolean isPremiumApp() {
-		if (prefs == null) {
-			return isPremium;
-		}
-		return prefs.getBoolean("muimerp", false);
-	}
+	// /**
+	// * Initializes some preferences on first run with defaults
+	// *
+	// * @param preferences
+	// */
+	// public static void saveProStatus(final boolean isPre) {
+	// if (prefs != null) {
+	// prefs.edit().putBoolean("muimerp", isPre).commit();
+	// }
+	// isPremium = isPre;
+	// }
+	//
+	// public static boolean isPremiumApp() {
+	// if (prefs == null) {
+	// return isPremium;
+	// }
+	// return prefs.getBoolean("muimerp", false);
+	// }
 
 }

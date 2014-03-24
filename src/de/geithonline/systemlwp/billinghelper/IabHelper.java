@@ -106,6 +106,7 @@ public class IabHelper {
 
 	// Public key for verifying signature, in base64 encoding
 	String mSignatureBase64 = null;
+	private boolean isBinded = false;
 
 	// Billing response codes
 	public static final int BILLING_RESPONSE_RESULT_OK = 0;
@@ -260,8 +261,7 @@ public class IabHelper {
 					mSetupDone = true;
 				} catch (final RemoteException e) {
 					if (listener != null) {
-						listener.onIabSetupFinished(new IabResult(IABHELPER_REMOTE_EXCEPTION,
-								"RemoteException while setting up in-app billing."));
+						listener.onIabSetupFinished(new IabResult(IABHELPER_REMOTE_EXCEPTION, "RemoteException while setting up in-app billing."));
 					}
 					e.printStackTrace();
 					return;
@@ -280,11 +280,11 @@ public class IabHelper {
 				&& !mContext.getPackageManager().queryIntentServices(serviceIntent, 0).isEmpty()) {
 			// service available to handle that Intent
 			mContext.bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+			isBinded = true;
 		} else {
 			// no service available to handle that Intent
 			if (listener != null) {
-				listener.onIabSetupFinished(new IabResult(BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE,
-						"Billing service unavailable on device."));
+				listener.onIabSetupFinished(new IabResult(BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE, "Billing service unavailable on device."));
 			}
 		}
 	}
@@ -300,7 +300,7 @@ public class IabHelper {
 		mSetupDone = false;
 		if (mServiceConn != null) {
 			logDebug("Unbinding from service.");
-			if (mContext != null) {
+			if (mContext != null && isBinded) {
 				mContext.unbindService(mServiceConn);
 			}
 		}
@@ -351,18 +351,17 @@ public class IabHelper {
 		launchPurchaseFlow(act, sku, requestCode, listener, "");
 	}
 
-	public void launchPurchaseFlow(final Activity act, final String sku, final int requestCode,
-			final OnIabPurchaseFinishedListener listener, final String extraData) {
+	public void launchPurchaseFlow(final Activity act, final String sku, final int requestCode, final OnIabPurchaseFinishedListener listener,
+			final String extraData) {
 		launchPurchaseFlow(act, sku, ITEM_TYPE_INAPP, requestCode, listener, extraData);
 	}
 
-	public void launchSubscriptionPurchaseFlow(final Activity act, final String sku, final int requestCode,
-			final OnIabPurchaseFinishedListener listener) {
+	public void launchSubscriptionPurchaseFlow(final Activity act, final String sku, final int requestCode, final OnIabPurchaseFinishedListener listener) {
 		launchSubscriptionPurchaseFlow(act, sku, requestCode, listener, "");
 	}
 
-	public void launchSubscriptionPurchaseFlow(final Activity act, final String sku, final int requestCode,
-			final OnIabPurchaseFinishedListener listener, final String extraData) {
+	public void launchSubscriptionPurchaseFlow(final Activity act, final String sku, final int requestCode, final OnIabPurchaseFinishedListener listener,
+			final String extraData) {
 		launchPurchaseFlow(act, sku, ITEM_TYPE_SUBS, requestCode, listener, extraData);
 	}
 
@@ -429,8 +428,8 @@ public class IabHelper {
 			mRequestCode = requestCode;
 			mPurchaseListener = listener;
 			mPurchasingItemType = itemType;
-			act.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(), Integer.valueOf(0),
-					Integer.valueOf(0), Integer.valueOf(0));
+			act.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
+					Integer.valueOf(0));
 		} catch (final SendIntentException e) {
 			logError("SendIntentException while launching purchase flow for sku " + sku);
 			e.printStackTrace();
@@ -585,8 +584,7 @@ public class IabHelper {
 	 * @throws IabException
 	 *             if a problem occurs while refreshing the inventory.
 	 */
-	public Inventory queryInventory(final boolean querySkuDetails, final List<String> moreItemSkus, final List<String> moreSubsSkus)
-			throws IabException {
+	public Inventory queryInventory(final boolean querySkuDetails, final List<String> moreItemSkus, final List<String> moreSubsSkus) throws IabException {
 		checkNotDisposed();
 		checkSetupDone("queryInventory");
 		try {
@@ -654,8 +652,7 @@ public class IabHelper {
 	 * @param listener
 	 *            The listener to notify when the refresh operation completes.
 	 */
-	public void queryInventoryAsync(final boolean querySkuDetails, final List<String> moreSkus,
-			final QueryInventoryFinishedListener listener) {
+	public void queryInventoryAsync(final boolean querySkuDetails, final List<String> moreSkus, final QueryInventoryFinishedListener listener) {
 		final Handler handler = new Handler();
 		checkNotDisposed();
 		checkSetupDone("queryInventory");
@@ -814,9 +811,8 @@ public class IabHelper {
 		final String[] iab_msgs = ("0:OK/1:User Canceled/2:Unknown/" + "3:Billing Unavailable/4:Item unavailable/"
 				+ "5:Developer Error/6:Error/7:Item Already Owned/" + "8:Item not owned").split("/");
 		final String[] iabhelper_msgs = ("0:OK/-1001:Remote exception during initialization/" + "-1002:Bad response received/"
-				+ "-1003:Purchase signature verification failed/" + "-1004:Send intent failed/" + "-1005:User cancelled/"
-				+ "-1006:Unknown purchase response/" + "-1007:Missing token/" + "-1008:Unknown error/"
-				+ "-1009:Subscriptions not available/" + "-1010:Invalid consumption attempt").split("/");
+				+ "-1003:Purchase signature verification failed/" + "-1004:Send intent failed/" + "-1005:User cancelled/" + "-1006:Unknown purchase response/"
+				+ "-1007:Missing token/" + "-1008:Unknown error/" + "-1009:Subscriptions not available/" + "-1010:Invalid consumption attempt").split("/");
 
 		if (code <= IABHELPER_ERROR_BASE) {
 			final int index = IABHELPER_ERROR_BASE - code;
@@ -878,8 +874,8 @@ public class IabHelper {
 
 	void flagStartAsync(final String operation) {
 		if (mAsyncInProgress) {
-			throw new IllegalStateException("Can't start async operation (" + operation + ") because another async operation("
-					+ mAsyncOperation + ") is in progress.");
+			throw new IllegalStateException("Can't start async operation (" + operation + ") because another async operation(" + mAsyncOperation
+					+ ") is in progress.");
 		}
 		mAsyncOperation = operation;
 		mAsyncInProgress = true;
@@ -991,8 +987,7 @@ public class IabHelper {
 		return BILLING_RESPONSE_RESULT_OK;
 	}
 
-	void consumeAsyncInternal(final List<Purchase> purchases, final OnConsumeFinishedListener singleListener,
-			final OnConsumeMultiFinishedListener multiListener) {
+	void consumeAsyncInternal(final List<Purchase> purchases, final OnConsumeFinishedListener singleListener, final OnConsumeMultiFinishedListener multiListener) {
 		final Handler handler = new Handler();
 		flagStartAsync("consume");
 		(new Thread(new Runnable() {

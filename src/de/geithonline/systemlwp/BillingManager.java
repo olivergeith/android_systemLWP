@@ -1,33 +1,29 @@
 package de.geithonline.systemlwp;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.os.Bundle;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import de.geithonline.systemlwp.billinghelper.IabHelper;
 import de.geithonline.systemlwp.billinghelper.IabResult;
 import de.geithonline.systemlwp.billinghelper.Inventory;
 import de.geithonline.systemlwp.billinghelper.Purchase;
-import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.Toaster;
 
+/**
+ * @author geith
+ * 
+ */
 public class BillingManager {
 	private final Activity activity;
 	private final Button button;
-
-	public BillingManager(final Activity activity, final Button button) {
-		this.activity = activity;
-		this.button = button;
-		button.setText("Initializing Billing");
-		button.setVisibility(View.GONE);
-	}
 
 	/*
 	 * base64EncodedPublicKey should be YOUR APPLICATION'S PUBLIC KEY (that you
@@ -50,14 +46,32 @@ public class BillingManager {
 	static final String SKU_PREMIUM = "premium";
 	// (arbitrary) request code for the purchase flow
 	static final int RC_REQUEST = 10001;
-	public boolean setupSuccessfull = false;
+	private final SharedPreferences prefs;
 
-	protected void onCreate(final Bundle savedInstanceState) {
+	public BillingManager(final Activity activity) {
+		this.activity = activity;
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+		// Button erzeugen und unsichtbar machen
+		button = new Button(activity);
+		button.setText("Upgrade to Premium-Version");
+		button.setVisibility(View.GONE);
+		button.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(final View v) {
+				onUpgradeAppButtonClicked(v);
+			}
+		});
+
 		setupBilling();
 	}
 
 	public boolean isPremium() {
 		return mIsPremium;
+	}
+
+	public Button getButton() {
+		return button;
 	}
 
 	protected void onDestroy() {
@@ -69,8 +83,16 @@ public class BillingManager {
 		}
 	}
 
-	protected void setupBilling() {
-		setupSuccessfull = false;
+	private void setupBilling() {
+		// schauen wir erstmal local, ob wir premium sind....
+		mIsPremium = readProStatus();
+		if (mIsPremium) {
+			Log.i(TAG, "Is Premium Connection zum Billing wird gar nicht erst aufgebaut!");
+			Toaster.showInfoToast(activity, "This is the Premium Version");
+			return;
+		} else {
+			Toaster.showInfoToast(activity, "This is the Free Version");
+		}
 		mHelper = new IabHelper(activity.getApplicationContext(), base64EncodedPublicKey);
 		// enable debug logging (for a production application, you should set
 		// this to false).
@@ -87,7 +109,7 @@ public class BillingManager {
 				if (!result.isSuccess()) {
 					// Oh noes, there was a problem.
 					complain("Problem setting up in-app billing: " + result);
-					setupSuccessfull = false;
+					button.setVisibility(View.GONE);
 					return;
 				}
 
@@ -100,7 +122,6 @@ public class BillingManager {
 				// own.
 				Log.d(TAG, "Setup successful. Querying inventory.");
 				mHelper.queryInventoryAsync(mGotInventoryListener);
-				setupSuccessfull = true;
 				button.setVisibility(View.VISIBLE);
 			}
 		});
@@ -108,7 +129,7 @@ public class BillingManager {
 
 	// Listener that's called when we finish querying the items and
 	// subscriptions we own
-	IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+	private final IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
 		@Override
 		public void onQueryInventoryFinished(final IabResult result, final Inventory inventory) {
 			Log.d(TAG, "Query inventory finished.");
@@ -142,14 +163,14 @@ public class BillingManager {
 	};
 
 	// User clicked the "Upgrade to Premium" button.
-	public void onUpgradeAppButtonClicked(final View arg0) {
+	private void onUpgradeAppButtonClicked(final View arg0) {
 		Log.d(TAG, "Upgrade button clicked; launching purchase flow for upgrade.");
 		final String payload = "Premiumz";
 		mHelper.launchPurchaseFlow(activity, SKU_PREMIUM, RC_REQUEST, mPurchaseFinishedListener, payload);
 	}
 
 	// Callback for when a purchase is finished
-	IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+	private final IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
 		@Override
 		public void onIabPurchaseFinished(final IabResult result, final Purchase purchase) {
 			Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
@@ -175,13 +196,14 @@ public class BillingManager {
 				Log.d(TAG, "Purchase is premium upgrade. Congratulating user.");
 				alert("Thank you for upgrading to premium!");
 				mIsPremium = true;
+				button.setVisibility(View.GONE);
 				saveStatus();
 			}
 		}
 	};
 
 	/** Verifies the developer payload of a purchase. */
-	boolean verifyDeveloperPayload(final Purchase p) {
+	private boolean verifyDeveloperPayload(final Purchase p) {
 		final String payload = p.getDeveloperPayload();
 		if (payload.equals("Premiumz")) {
 			return true;
@@ -189,12 +211,12 @@ public class BillingManager {
 		return false;
 	}
 
-	void complain(final String message) {
+	private void complain(final String message) {
 		Log.e(TAG, "**** TrivialDrive Error: " + message);
 		alert("Error: " + message);
 	}
 
-	void alert(final String message) {
+	private void alert(final String message) {
 		final AlertDialog.Builder bld = new AlertDialog.Builder(activity);
 		bld.setMessage(message);
 		bld.setNeutralButton("OK", null);
@@ -203,40 +225,63 @@ public class BillingManager {
 	}
 
 	private void saveStatus() {
-		final String username = getUsername();
-		if (Settings.isDebuggingMessages() && username.equalsIgnoreCase("oliver.geith")) {
-			mIsPremium = true;
-			Toaster.showInfoToast(activity, "Username = " + username + "! The Master is here!!!");
-		}
-		Settings.saveProStatus(mIsPremium);
+		saveProStatus(mIsPremium);
 		if (mIsPremium) {
 			button.setVisibility(View.GONE);
 		}
-
 	}
 
-	public String getUsername() {
-		final AccountManager manager = AccountManager.get(activity.getApplicationContext());
-		final Account[] accounts = manager.getAccountsByType("com.google");
-		final List<String> possibleEmails = new LinkedList<String>();
+	// //
+	// ##########################################################################
+	// // Usernamen ermitteln
+	// //
+	// ##########################################################################
+	// private String getUsername() {
+	// final AccountManager manager =
+	// AccountManager.get(activity.getApplicationContext());
+	// final Account[] accounts = manager.getAccountsByType("com.google");
+	// final List<String> possibleEmails = new LinkedList<String>();
+	//
+	// for (final Account account : accounts) {
+	// // TODO: Check possibleEmail against an email regex or treat
+	// // account.name as an email address only for certain account.type
+	// // values.
+	// possibleEmails.add(account.name);
+	// }
+	//
+	// if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
+	// final String email = possibleEmails.get(0);
+	// final String[] parts = email.split("@");
+	// if (parts.length > 0 && parts[0] != null) {
+	// return parts[0];
+	// } else {
+	// return null;
+	// }
+	// } else {
+	// return null;
+	// }
+	// }
 
-		for (final Account account : accounts) {
-			// TODO: Check possibleEmail against an email regex or treat
-			// account.name as an email address only for certain account.type
-			// values.
-			possibleEmails.add(account.name);
-		}
-
-		if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
-			final String email = possibleEmails.get(0);
-			final String[] parts = email.split("@");
-			if (parts.length > 0 && parts[0] != null) {
-				return parts[0];
-			} else {
-				return null;
+	// ##########################################################################
+	// Saving and reading the Premiumstatus on device
+	// ##########################################################################
+	private void saveProStatus(final boolean isPre) {
+		final File file = new File(activity.getFilesDir(), "muimerp.txt");
+		if (isPre) {
+			try {
+				file.createNewFile();
+				Toaster.showInfoToast(activity, file.getAbsolutePath());
+			} catch (final IOException e) {
+				e.printStackTrace();
 			}
 		} else {
-			return null;
+			file.delete();
 		}
 	}
+
+	private boolean readProStatus() {
+		final File file = new File(activity.getFilesDir(), "muimerp.txt");
+		return file.exists();
+	}
+
 }
