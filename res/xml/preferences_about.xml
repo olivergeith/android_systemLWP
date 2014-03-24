@@ -4,6 +4,7 @@
     <PreferenceCategory android:title="@string/app_name">
     
 	    <Preference 
+		    android:key="applink"
 	        android:title="The BatteryLWP on XDA"
 	        android:icon="@drawable/xda"
 	        >
@@ -46,7 +47,12 @@
     </PreferenceCategory>
 	    
     <PreferenceCategory android:title="Special internal Options">
-	    <CheckBoxPreference 
+	    <Preference 
+		    android:key="premium"
+    		android:defaultValue="false"
+		    android:title="Premium" 
+            />
+        <CheckBoxPreference 
 		    android:key="debug"
     		android:defaultValue="false"
 		    android:title="Debugging" 
@@ -58,7 +64,8 @@
 		    android:title="DebuggingMessages" 
 		    android:summary="Enables DebuggMessages"
             />
-	    </PreferenceCategory>
+	    
+    </PreferenceCategory>
 
     
     

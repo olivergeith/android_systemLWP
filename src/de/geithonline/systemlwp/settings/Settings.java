@@ -51,7 +51,13 @@ public class Settings {
 	public static boolean isCharging = false;
 	public static boolean isChargeUSB = false;
 	public static boolean isChargeAC = false;
-	private static boolean isPremium = false;
+
+	public static boolean isPremium() {
+		if (prefs == null) {
+			return false;
+		}
+		return prefs.getBoolean("muimerp", false);
+	}
 
 	private static int getChargeColor() {
 		if (prefs == null) {
