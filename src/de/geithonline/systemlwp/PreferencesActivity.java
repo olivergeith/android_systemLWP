@@ -19,6 +19,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import de.geithonline.systemlwp.utils.IntendHelper;
+import de.geithonline.systemlwp.utils.Toaster;
 
 public class PreferencesActivity extends PreferenceActivity {
 
@@ -90,17 +92,21 @@ public class PreferencesActivity extends PreferenceActivity {
 	@SuppressLint("InlinedApi")
 	private void setWallpaper() {
 		final Intent i = new Intent();
-
+		// Building the set wallpaper intend depending on SDK Version
 		if (Build.VERSION.SDK_INT >= 16) {
 			i.setAction(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-
 			final String p = LiveWallpaperService.class.getPackage().getName();
 			final String c = LiveWallpaperService.class.getCanonicalName();
 			i.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(p, c));
 		} else {
 			i.setAction(WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER);
 		}
-		startActivityForResult(i, REQUEST);
+		// Checking if intend is available
+		if (IntendHelper.isAvailable(getApplicationContext(), i)) {
+			startActivityForResult(i, REQUEST);
+		} else {
+			Toaster.showErrorToast(this, "Intend not available on your device/rom: " + i);
+		}
 	}
 
 	private boolean isMyServiceRunning(final String className) {
@@ -113,4 +119,5 @@ public class PreferencesActivity extends PreferenceActivity {
 		}
 		return false;
 	}
+
 }
