@@ -2,8 +2,13 @@
 - small Bugfix In-App-Purchase
 - new icons here and there
 - disable the Level-Number (Premium)
-- style "NumberOnlyV1" (Premium)
-- Bugfix in style BarGraphVerticalV1 (drawing of numbers when devide is in landscape-mode fixed!)
+- new style "NumberOnlyV1" (Premium)
+- new style "TachoWideV1" (Premium)
+- Bugfix in style BarGraphVerticalV1 (drawing of numbers when device is in landscape-mode fixed!)
+
+[COLOR="blue"]2014-03-24 : V1.7[/COLOR]
+[COLOR="blue"]2014-03-24 : V1.6[/COLOR]
+Noting to mention...mostly In-App-Purchase Tests!
 
 [COLOR="blue"]2014-03-24 : V1.5[/COLOR]
 - added InAppBilling for future Premium Version (new android-right required because of this)

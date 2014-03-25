@@ -2,7 +2,9 @@ package de.geithonline.systemlwp.bitmapdrawer;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.Path;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
@@ -20,6 +22,7 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 
 	private int bWidth = 0;
 	private int bHeight = 0;
+	private int fontSizeScala = 20;
 
 	public BitmapDrawerTachoWideV1() {
 	}
@@ -53,10 +56,11 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 		bitmapCanvas = new Canvas(bitmap);
 
 		bogenDicke = Math.round(bWidth * 0.01f);
-		skaleDicke = Math.round(bWidth * 0.12f);
-		offset = Math.round(bWidth * 0.011f);
+		skaleDicke = Math.round(bWidth * 0.13f);
 		fontSize = Math.round(bWidth * 0.30f);
 		fontSizeArc = Math.round(cWidth * 0.04f);
+		fontSizeScala = Math.round(cWidth * 0.05f);
+		offset = fontSizeArc;
 
 		drawBogen(level);
 		return bitmap;
@@ -81,7 +85,8 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 
 	private void drawBogen(final int level) {
 		final Paint bgPaint = Settings.getBackgroundPaint();
-		bgPaint.setColor(ColorHelper.brighter(bgPaint.getColor()));
+		bgPaint.setColor(Color.WHITE);
+		bgPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 		// ‰uﬂeren Rand
 		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, bgPaint);
 		// delete inner Circle
@@ -94,29 +99,78 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 
+		// Skalatext
+		drawScalaText();
+
+		// Zeiger
+		final Paint zp = Settings.getZeigerPaint(level);
+		zp.setShadowLayer(10, 0, 0, Color.BLACK);
+		bitmapCanvas.drawArc(getRectForOffset(0), 180 + Math.round(level * 1.8) - 1, 2, true, zp);
+		// delete inner Circle
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, Settings.getErasurePaint());
+
 		// innerer Rand
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 180, 180, true, bgPaint);
-		// Zeiger
-		bitmapCanvas.drawArc(getRectForOffset(offset), 180 + Math.round(level * 1.8) - 1, 2, true, Settings.getZeigerPaint(level));
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, Settings.getErasurePaint());
+
+		// innere Fl‰che
+		final Paint bgPaint2 = Settings.getBackgroundPaint();
+		bgPaint2.setColor(ColorHelper.darker(bgPaint2.getColor()));
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 180, 180, true, bgPaint2);
+	}
+
+	private void drawScalaText() {
+		long winkel = 180 + Math.round(level * 1.8f);
+		for (int i = 10; i < 100; i = i + 10) {
+			// final int winkel = -81 + (i * 18);
+			winkel = 171 + Math.round(i * 1.8f);
+			final Path mArc = new Path();
+			final RectF oval = getRectForOffset(offset + bogenDicke + fontSizeScala);
+			mArc.addArc(oval, winkel, 18);
+			final Paint p = Settings.getEraserTextPaint(i, fontSizeScala);
+			p.setTextAlign(Align.CENTER);
+			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
+		}
+		for (int i = 10; i < 100; i = i + 10) {
+			// Zeiger
+			final Paint zp = Settings.getZeigerPaint(level);
+			zp.setShadowLayer(10, 0, 0, Color.BLACK);
+			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (180f + i * 1.8 - 0.5f), 1f,
+					true, zp);
+		}
 
 	}
 
 	@Override
 	public void drawLevelNumber(final int level) {
 		// draw percentage Number
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, Settings.getTextPaint(level, fontSize));
+		final Paint p = Settings.getTextPaint(level, fontSize);
+		p.setShadowLayer(10, 0, 0, Color.BLACK);
+		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, p);
 	}
 
 	@Override
 	public void drawChargeStatusText(final int level) {
+		final long winkel = 182 + Math.round(level * 1.8f);
+
 		final Path mArc = new Path();
-		final RectF oval = getRectForOffset(offset / 2);
-		mArc.addArc(oval, 200, 180);
+		final RectF oval = getRectForOffset(fontSizeArc - 4);
+		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
+		final Paint p = Settings.getTextArcPaint(level, fontSizeArc);
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
+
+	// @Override
+	// public void drawChargeStatusText(final int level) {
+	// final Path mArc = new Path();
+	// final RectF oval = getRectForOffset(offset / 2);
+	// mArc.addArc(oval, 200, 180);
+	// final String text = Settings.getChargingText();
+	// bitmapCanvas.drawTextOnPath(text, mArc, 0, 0,
+	// Settings.getTextArcPaint(level, fontSizeArc));
+	// }
 
 	private RectF getRectForOffset(final int offset) {
 		return new RectF(offset, offset, bWidth - offset, bWidth - offset);
