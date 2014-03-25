@@ -58,8 +58,8 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 		bogenDicke = Math.round(bWidth * 0.01f);
 		skaleDicke = Math.round(bWidth * 0.13f);
 		fontSize = Math.round(bWidth * 0.30f);
-		fontSizeArc = Math.round(cWidth * 0.04f);
-		fontSizeScala = Math.round(cWidth * 0.05f);
+		fontSizeArc = Math.round(bWidth * 0.04f);
+		fontSizeScala = Math.round(bWidth * 0.05f);
 		offset = fontSizeArc;
 
 		drawBogen(level);

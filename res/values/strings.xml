@@ -61,7 +61,7 @@
 	<string name="header_summary_background_options">Choose custom Wallpaper from Gallery....</string>
     <string name="header_about_options">About</string>
     <string name="header_about_options_summary">Info, Links and more about this App....</string>
-	<string name="header_title_charge_options">Global Charge Options</string>
+	<string name="header_title_charge_options">Charge Options</string>
 	<string name="header_summary_charge_options">Options defining the behaviour on charge...</string>
 	<string name="header_title_number_options">Level Number Options</string>
 	<string name="header_summary_number_options">Colors, Visibility, Size ....</string>
