@@ -59,10 +59,7 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawBogen(level);
-		drawArcText(level);
-		if (Settings.isShowNumber()) {
-			drawNumber(level);
-		}
+		drawChargeStatusText(level);
 		return bitmap;
 	}
 
@@ -70,16 +67,16 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
 
 		switch (Settings.getOrientation()) {
-		default:
-		case Settings.ORIENTATION_BOTTOM:
-			canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
-			break;
-		case Settings.ORIENTATION_LEFT:
-			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
-			break;
-		case Settings.ORIENTATION_RIGHT:
-			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
-			break;
+			default:
+			case Settings.ORIENTATION_BOTTOM:
+				canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
+				break;
+			case Settings.ORIENTATION_LEFT:
+				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
+				break;
+			case Settings.ORIENTATION_RIGHT:
+				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
+				break;
 		}
 	}
 
@@ -107,19 +104,19 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 
 	}
 
-	private void drawNumber(final int level) {
+	@Override
+	public void drawLevelNumber(final int level) {
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, Settings.getTextPaint(level, fontSize));
 	}
 
-	private void drawArcText(final int level) {
-		if (Settings.isCharging && Settings.isShowChargeState()) {
-			final Path mArc = new Path();
-			final RectF oval = getRectForOffset(offset / 2);
-			mArc.addArc(oval, 200, 180);
-			final String text = Settings.getChargingText();
-			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
-		}
+	@Override
+	public void drawChargeStatusText(final int level) {
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(offset / 2);
+		mArc.addArc(oval, 200, 180);
+		final String text = Settings.getChargingText();
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
 	}
 
 	private RectF getRectForOffset(final int offset) {

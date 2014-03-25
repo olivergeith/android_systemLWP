@@ -44,9 +44,6 @@ public class BitmapDrawerBarGraphVerticalV2 extends BitmapDrawer {
 		fontSize = Math.round(cWidth * 0.25f);
 
 		drawSegmente(level);
-		if (Settings.isShowNumber()) {
-			drawNumber(level);
-		}
 		return bitmap;
 	}
 
@@ -111,11 +108,16 @@ public class BitmapDrawerBarGraphVerticalV2 extends BitmapDrawer {
 		bitmapCanvas.drawArc(er, 0, 360, true, Settings.getErasurePaint());
 	}
 
-	private void drawNumber(final int level) {
+	@Override
+	public void drawLevelNumber(final int level) {
 		// draw percentage Number
 		final Paint tp = Settings.getTextPaint(level, fontSize);
 		tp.setTextAlign(Align.LEFT);
 		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - offset, Settings.getTextPaint(level, fontSize));
+	}
+
+	@Override
+	public void drawChargeStatusText(final int level) {
 	}
 
 }

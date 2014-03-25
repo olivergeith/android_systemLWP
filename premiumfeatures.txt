@@ -1,1 +1,2 @@
-- disable the bib Level-Number
+- disable the Level-Number
+- style "NumberOnlyV1"

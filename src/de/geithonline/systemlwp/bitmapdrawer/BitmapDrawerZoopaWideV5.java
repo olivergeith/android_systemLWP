@@ -12,7 +12,6 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 	private int offset = 5;
 	private int bogenDicke = 30;
 	private int skaleDicke = 100;
-	private int abstand = 8;
 	private final float gap = 0.8f;
 	private int fontSize = 150;
 	private Canvas bitmapCanvas;
@@ -35,15 +34,11 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 		bogenDicke = Math.round(cWidth * 0.01f);
 		skaleDicke = Math.round(cWidth * 0.14f);
 		offset = Math.round(cWidth * 0.011f);
-		abstand = Math.round(cWidth * 0.015f);
 		fontSize = Math.round(cWidth * 0.25f);
 		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawSegmente(level);
-		drawArcText(level);
-		if (Settings.isShowNumber()) {
-			drawNumber(level);
-		}
+		drawChargeStatusText(level);
 		return bitmap;
 	}
 
@@ -81,29 +76,26 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 
 		// Bogen 2
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset), 180, 180, true,
-				Settings.getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset), 180, 180, true, Settings.getBackgroundPaint());
 
 		// overpaint level
 		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, Settings.getBatteryPaintSourceIn(level));
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset + bogenDicke), 0, 360, true,
-				Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
 
 	}
 
-	private void drawArcText(final int level) {
-		if (Settings.isCharging && Settings.isShowChargeState()) {
-			final Path mArc = new Path();
-			final RectF oval = getRectForOffset(offset / 2);
-			mArc.addArc(oval, 200, 180);
-			final String text = Settings.getChargingText();
-			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
-		}
+	@Override
+	public void drawChargeStatusText(final int level) {
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(offset / 2);
+		mArc.addArc(oval, 200, 180);
+		final String text = Settings.getChargingText();
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
 	}
 
-	private void drawNumber(final int level) {
-
+	@Override
+	public void drawLevelNumber(final int level) {
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, Settings.getTextPaint(level, fontSize));
 	}

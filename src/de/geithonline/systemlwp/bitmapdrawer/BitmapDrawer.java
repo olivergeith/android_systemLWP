@@ -13,6 +13,10 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 
 	public abstract Bitmap drawBitmap(final int level, final Canvas canvas);
 
+	public abstract void drawLevelNumber(final int level);
+
+	public abstract void drawChargeStatusText(final int level);
+
 	public abstract void drawOnCanvas(Bitmap bitmap, Canvas canvas);
 
 	@Override
@@ -28,6 +32,12 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 			}
 			// Bitnmap neu berechnen
 			bitmap = drawBitmap(level, canvas);
+			if (Settings.isShowNumber()) {
+				drawLevelNumber(level);
+			}
+			if (Settings.isCharging && Settings.isShowChargeState()) {
+				drawChargeStatusText(level);
+			}
 		}
 		// den aktuellen level merken
 		this.level = level;

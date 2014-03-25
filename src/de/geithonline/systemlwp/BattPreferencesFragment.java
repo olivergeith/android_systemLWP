@@ -1,6 +1,7 @@
 package de.geithonline.systemlwp;
 
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
@@ -22,7 +23,12 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		enableSettingsForStyle(Settings.getStyle());
 
 		// connection the backgroundpicker with an intent
-		final Preference style = findPreference(STYLE_PICKER_KEY);
+		final ListPreference style = (ListPreference) findPreference(STYLE_PICKER_KEY);
+		// Proversion --> final andere Liste laden
+		if (Settings.isPremium()) {
+			style.setEntries(R.array.prostyl);
+			style.setEntryValues(R.array.prostylValues);
+		}
 		style.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 			@Override

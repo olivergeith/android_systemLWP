@@ -69,4 +69,14 @@ public class BitmapDrawerBarGraphVerticalV1 extends BitmapDrawer {
 		bitmapCanvas.drawRect(levelRect, Settings.getBatteryPaintSourceIn(level));
 
 	}
+
+	@Override
+	public void drawLevelNumber(final int level) {
+		// nothing to do
+	}
+
+	@Override
+	public void drawChargeStatusText(final int level) {
+		// nothing to do
+	}
 }

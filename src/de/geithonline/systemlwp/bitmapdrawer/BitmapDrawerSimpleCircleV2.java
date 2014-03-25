@@ -48,10 +48,7 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawSegmente(level);
-		if (Settings.isShowNumber()) {
-			drawNumber(level);
-		}
-		drawArcText(level);
+		drawChargeStatusText(level);
 		return bitmap;
 	}
 
@@ -88,19 +85,19 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, Settings.getErasurePaint());
 	}
 
-	private void drawArcText(final int level) {
-		if (Settings.isCharging && Settings.isShowChargeState()) {
-			final long winkel = 270 + Math.round(level * 3.6);
+	@Override
+	public void drawChargeStatusText(final int level) {
+		final long winkel = 270 + Math.round(level * 3.6);
 
-			final Path mArc = new Path();
-			final RectF oval = getRectForOffset(offset + einerDicke + fontSizeArc);
-			mArc.addArc(oval, winkel, 180);
-			final String text = Settings.getChargingText();
-			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
-		}
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(offset + einerDicke + fontSizeArc);
+		mArc.addArc(oval, winkel, 180);
+		final String text = Settings.getChargingText();
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
 	}
 
-	private void drawNumber(final int level) {
+	@Override
+	public void drawLevelNumber(final int level) {
 		final String text = "" + level;
 		final Paint p = Settings.getTextPaint(level, fontSize);
 		p.setTextAlign(Align.CENTER);

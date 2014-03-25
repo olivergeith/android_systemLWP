@@ -22,6 +22,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerNumberOnlyV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
@@ -381,6 +382,11 @@ public class Settings {
 		}
 		if (battStyle.equals("AokpCircleV1")) {
 			drawer = new BitmapDrawerAokpCircleV1();
+			return drawer;
+		}
+
+		if (battStyle.equals("NumberOnlyV1")) {
+			drawer = new BitmapDrawerNumberOnlyV1();
 			return drawer;
 		}
 		drawer = new BitmapDrawerZoopaWideV3();

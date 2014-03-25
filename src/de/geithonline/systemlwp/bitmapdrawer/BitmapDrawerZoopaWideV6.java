@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Path;
-import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 
@@ -60,10 +58,7 @@ public class BitmapDrawerZoopaWideV6 extends BitmapDrawer {
 
 		drawBogen(level);
 		drawSegmente(level);
-		if (Settings.isShowNumber()) {
-			drawNumber(level);
-		}
-		drawArcText(level);
+		drawChargeStatusText(level);
 		return bitmap;
 	}
 
@@ -112,39 +107,23 @@ public class BitmapDrawerZoopaWideV6 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 	}
 
-	private void drawArcText(final int level) {
-		if (Settings.isCharging && Settings.isShowChargeState()) {
-			final long winkel = 90 + Math.round(level * 1.8f);
+	@Override
+	public void drawChargeStatusText(final int level) {
+		final long winkel = 90 + Math.round(level * 1.8f);
 
-			final Path mArc = new Path();
-			final RectF oval = getRectForOffset(offset + bogenDicke + abstand + skaleDicke + fontSizeArc);
-			mArc.addArc(oval, winkel, 180);
-			final String text = Settings.getChargingText();
-			final Paint p = Settings.getTextArcPaint(level, fontSizeArc);
-			p.setTextAlign(Align.CENTER);
-			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
-		}
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(offset + bogenDicke + abstand + skaleDicke + fontSizeArc);
+		mArc.addArc(oval, winkel, 180);
+		final String text = Settings.getChargingText();
+		final Paint p = Settings.getTextArcPaint(level, fontSizeArc);
+		p.setTextAlign(Align.CENTER);
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 
-	// private void drawNumber(final int level) {
-	// final String text = "" + level;
-	// final Paint p = Settings.getTextPaint(level, fontSize);
-	// p.setTextAlign(Align.CENTER);
-	// final PointF point = getTextCenterToDraw(text, getRectForOffset(0), p);
-	// bitmapCanvas.drawText(text, point.x, point.y, p);
-	// }
-
-	private void drawNumber(final int level) {
+	@Override
+	public void drawLevelNumber(final int level) {
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - Math.round(bHeight * 0.1f), Settings.getTextPaint(level, fontSize));
-	}
-
-	private static PointF getTextCenterToDraw(final String text, final RectF region, final Paint paint) {
-		final Rect textBounds = new Rect();
-		paint.getTextBounds(text, 0, text.length(), textBounds);
-		final float x = region.centerX();
-		final float y = region.centerY() + textBounds.height() * 0.5f;
-		return new PointF(x, y);
 	}
 
 	private RectF getRectForOffset(final int offset) {

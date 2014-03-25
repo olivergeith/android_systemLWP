@@ -10,32 +10,21 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 
-public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
+public class BitmapDrawerNumberOnlyV1 extends BitmapDrawer {
 
 	private int bWidth = 0;
 	private int bHeight = 0;
 	private int offset = 10;
-	private int einerDicke = 70;
 	private final float gap = 0.6f;
 	private int fontSize = 150;
 	private int fontSizeArc = 20;
 	private Canvas bitmapCanvas;
 
-	public BitmapDrawerSimpleCircleV1() {
+	public BitmapDrawerNumberOnlyV1() {
 	}
 
 	@Override
 	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
-	public boolean supportsPointerColor() {
-		return true;
-	}
-
-	@Override
-	public boolean supportsShowPointer() {
 		return true;
 	}
 
@@ -52,12 +41,16 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
 
-		einerDicke = Math.round(bWidth * 0.15f);
 		offset = Math.round(bWidth * 0.011f);
-		fontSize = Math.round(bWidth * 0.35f);
-		fontSizeArc = Math.round(cWidth * 0.04f);
+		fontSize = Math.round(bWidth * 0.55f);
+		fontSizeArc = Math.round(bWidth * 0.04f);
 
-		drawSegmente(level);
+		// Logig is the other way round here because we want to force the
+		// numberdrawing in this style
+		// else is handled in abstract class!
+		if (!Settings.isShowNumber()) {
+			drawLevelNumber(level);
+		}
 		drawChargeStatusText(level);
 		return bitmap;
 	}
@@ -79,31 +72,6 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 		}
 	}
 
-	private void drawSegmente(final int level) {
-
-		final int segmente = 101;
-		final float winkelOneSegment = (360f - (segmente - 0) * gap) / segmente;
-
-		Paint paint;
-		for (int i = 0; i < segmente; i++) {
-			if (i < level || level == 100) {
-				paint = Settings.getBatteryPaint(level);
-			} else if (i == level) {
-				if (Settings.isShowZeiger()) {
-					paint = Settings.getZeigerPaint(level);
-				} else {
-					paint = Settings.getBatteryPaint(level);
-				}
-			} else {
-				paint = Settings.getBackgroundPaint();
-			}
-			final float startwinkel = 270f + i * (winkelOneSegment + gap) + gap / 2;
-			bitmapCanvas.drawArc(getRectForOffset(offset), startwinkel, winkelOneSegment, true, paint);
-		}
-		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, Settings.getErasurePaint());
-	}
-
 	@Override
 	public void drawChargeStatusText(final int level) {
 		final int segmente = 101;
@@ -111,7 +79,7 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 		final float startwinkel = 270f + level * (winkelOneSegment + gap) + gap / 2;
 
 		final Path mArc = new Path();
-		final RectF oval = getRectForOffset(offset + einerDicke + fontSizeArc);
+		final RectF oval = getRectForOffset(offset + fontSizeArc);
 		mArc.addArc(oval, startwinkel, 180);
 		final String text = Settings.getChargingText();
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
@@ -134,7 +102,7 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 		final Rect textBounds = new Rect();
 		paint.getTextBounds(text, 0, text.length(), textBounds);
 		final float x = region.centerX();
-		final float y = region.centerY() + textBounds.height() * 0.5f;
+		final float y = region.centerY() + textBounds.height() / 2;
 		return new PointF(x, y);
 	}
 

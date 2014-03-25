@@ -61,10 +61,7 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 		drawBogen(level);
 		drawSegmente(level);
 		drawZeiger(level);
-		if (Settings.isShowNumber()) {
-			drawNumber(level);
-		}
-		drawArcText(level);
+		drawChargeStatusText(level);
 
 		return bitmap;
 	}
@@ -94,18 +91,17 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
 	}
 
-	private void drawArcText(final int level) {
-		if (Settings.isCharging && Settings.isShowChargeState()) {
-			final int segmente = 101;
-			final float winkelOneSegment = (360f - (segmente - 0) * gap) / segmente;
-			final float startwinkel = 270f + level * (winkelOneSegment + gap) + gap / 2;
+	@Override
+	public void drawChargeStatusText(final int level) {
+		final int segmente = 101;
+		final float winkelOneSegment = (360f - (segmente - 0) * gap) / segmente;
+		final float startwinkel = 270f + level * (winkelOneSegment + gap) + gap / 2;
 
-			final Path mArc = new Path();
-			final RectF oval = getRectForOffset(offset + bogenDicke);
-			mArc.addArc(oval, startwinkel, 180);
-			final String text = Settings.getChargingText();
-			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
-		}
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(offset + bogenDicke);
+		mArc.addArc(oval, startwinkel, 180);
+		final String text = Settings.getChargingText();
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
 	}
 
 	private void drawSegmente(final int level) {
@@ -155,7 +151,8 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 	}
 
-	private void drawNumber(final int level) {
+	@Override
+	public void drawLevelNumber(final int level) {
 		final String text = "" + level;
 		final Paint p = Settings.getTextPaint(level, fontSize);
 		p.setTextAlign(Align.CENTER);

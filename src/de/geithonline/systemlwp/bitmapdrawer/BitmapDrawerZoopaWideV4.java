@@ -46,10 +46,7 @@ public class BitmapDrawerZoopaWideV4 extends BitmapDrawer {
 
 		drawBogen(level);
 		drawSegmente(level);
-		if (Settings.isShowNumber()) {
-			drawNumber(level);
-		}
-		drawArcText(level);
+		drawChargeStatusText(level);
 		return bitmap;
 	}
 
@@ -98,18 +95,17 @@ public class BitmapDrawerZoopaWideV4 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 	}
 
-	private void drawArcText(final int level) {
-		if (Settings.isCharging && Settings.isShowChargeState()) {
-			final Path mArc = new Path();
-			final RectF oval = getRectForOffset(offset / 2);
-			mArc.addArc(oval, 200, 180);
-			final String text = Settings.getChargingText();
-			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
-		}
+	@Override
+	public void drawChargeStatusText(final int level) {
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(offset / 2);
+		mArc.addArc(oval, 200, 180);
+		final String text = Settings.getChargingText();
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
 	}
 
-	private void drawNumber(final int level) {
-
+	@Override
+	public void drawLevelNumber(final int level) {
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, Settings.getTextPaint(level, fontSize));
 	}

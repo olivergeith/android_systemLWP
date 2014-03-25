@@ -10,9 +10,7 @@ import de.geithonline.systemlwp.settings.Settings;
 public class BitmapDrawerZoopaWideV2 extends BitmapDrawer {
 
 	private int offset = 5;
-	private int einerDicke = 30;
 	private int zehnerDicke = 100;
-	private int abstand = 8;
 	private final float gap = 2f;
 	private int fontSize = 150;
 	private Canvas bitmapCanvas;
@@ -37,19 +35,13 @@ public class BitmapDrawerZoopaWideV2 extends BitmapDrawer {
 		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
 
-		einerDicke = Math.round(cWidth * 0.05f);
 		zehnerDicke = Math.round(cWidth * 0.18f);
 		offset = Math.round(cWidth * 0.011f);
-		abstand = Math.round(cWidth * 0.015f);
 		fontSize = Math.round(cWidth * 0.25f);
 		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawSegmente(level);
-		drawArcText(level);
-		if (Settings.isShowNumber()) {
-			drawNumber(level);
-		}
-
+		drawChargeStatusText(level);
 		return bitmap;
 	}
 
@@ -83,19 +75,19 @@ public class BitmapDrawerZoopaWideV2 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset + zehnerDicke + offset), 0, 360, true, Settings.getErasurePaint());
 	}
 
-	private void drawNumber(final int level) {
+	@Override
+	public void drawLevelNumber(final int level) {
 		// draw percentage Number
 		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, Settings.getTextPaint(level, fontSize));
 	}
 
-	private void drawArcText(final int level) {
-		if (Settings.isCharging && Settings.isShowChargeState()) {
-			final Path mArc = new Path();
-			final RectF oval = getRectForOffset(offset / 2);
-			mArc.addArc(oval, 200, 180);
-			final String text = Settings.getChargingText();
-			bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
-		}
+	@Override
+	public void drawChargeStatusText(final int level) {
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(offset / 2);
+		mArc.addArc(oval, 200, 180);
+		final String text = Settings.getChargingText();
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
 	}
 
 	private RectF getRectForOffset(final int offset) {
