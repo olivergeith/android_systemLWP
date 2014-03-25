@@ -44,10 +44,15 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 
 	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
-		if (Settings.getOrientation() == Settings.ORIENTATION_BOTTOM) {
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
+		if (cWidth < cHeight) {
+			// hochkant
 			bWidth = cWidth;
 			bHeight = cWidth / 2;
 		} else {
+			// quer
 			bWidth = cHeight;
 			bHeight = cHeight / 2;
 		}
@@ -72,23 +77,23 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 		switch (Settings.getOrientation()) {
 		default:
 		case Settings.ORIENTATION_BOTTOM:
-			canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
+			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
 			break;
 		case Settings.ORIENTATION_LEFT:
-			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
+			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 0, cHeight / 2 - bWidth / 2, null);
 			break;
 		case Settings.ORIENTATION_RIGHT:
-			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
+			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - bHeight, cHeight / 2 - bWidth / 2, null);
 			break;
 		}
 	}
 
 	private void drawBogen(final int level) {
-		final Paint bgPaint = Settings.getBackgroundPaint();
-		bgPaint.setColor(Color.WHITE);
-		bgPaint.setShadowLayer(10, 0, 0, Color.BLACK);
+		final Paint randPaint = Settings.getBackgroundPaint();
+		randPaint.setColor(Color.WHITE);
+		randPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 		// äußeren Rand
-		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, bgPaint);
+		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, randPaint);
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
 
@@ -110,7 +115,7 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 
 		// innerer Rand
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 180, 180, true, bgPaint);
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 180, 180, true, randPaint);
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, Settings.getErasurePaint());
 
