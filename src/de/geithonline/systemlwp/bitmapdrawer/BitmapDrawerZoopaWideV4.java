@@ -46,7 +46,6 @@ public class BitmapDrawerZoopaWideV4 extends BitmapDrawer {
 
 		drawBogen(level);
 		drawSegmente(level);
-		drawChargeStatusText(level);
 		return bitmap;
 	}
 

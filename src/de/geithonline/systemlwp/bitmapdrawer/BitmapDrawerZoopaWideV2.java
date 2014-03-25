@@ -41,7 +41,6 @@ public class BitmapDrawerZoopaWideV2 extends BitmapDrawer {
 		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawSegmente(level);
-		drawChargeStatusText(level);
 		return bitmap;
 	}
 

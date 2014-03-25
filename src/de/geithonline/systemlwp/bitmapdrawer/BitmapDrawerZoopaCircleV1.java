@@ -61,7 +61,6 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 		drawBogen(level);
 		drawSegmente(level);
 		drawZeiger(level);
-		drawChargeStatusText(level);
 
 		return bitmap;
 	}

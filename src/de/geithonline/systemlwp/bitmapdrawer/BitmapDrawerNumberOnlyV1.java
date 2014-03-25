@@ -51,7 +51,6 @@ public class BitmapDrawerNumberOnlyV1 extends BitmapDrawer {
 		if (!Settings.isShowNumber()) {
 			drawLevelNumber(level);
 		}
-		drawChargeStatusText(level);
 		return bitmap;
 	}
 

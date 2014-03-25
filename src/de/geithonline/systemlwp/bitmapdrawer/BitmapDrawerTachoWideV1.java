@@ -59,7 +59,6 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 		fontSizeArc = Math.round(cWidth * 0.04f);
 
 		drawBogen(level);
-		drawChargeStatusText(level);
 		return bitmap;
 	}
 
@@ -67,16 +66,16 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
 
 		switch (Settings.getOrientation()) {
-			default:
-			case Settings.ORIENTATION_BOTTOM:
-				canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
-				break;
-			case Settings.ORIENTATION_LEFT:
-				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
-				break;
-			case Settings.ORIENTATION_RIGHT:
-				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
-				break;
+		default:
+		case Settings.ORIENTATION_BOTTOM:
+			canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
+			break;
+		case Settings.ORIENTATION_LEFT:
+			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
+			break;
+		case Settings.ORIENTATION_RIGHT:
+			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
+			break;
 		}
 	}
 
