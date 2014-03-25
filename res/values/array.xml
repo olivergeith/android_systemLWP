@@ -74,27 +74,6 @@
         <item name="60">AokpCircleV1</item>
     </string-array>
 
-    
-    <string-array name="stylValues">
-        <item name="1">ZoopaWideV1</item>
-        <item name="2">ZoopaWideV2</item>
-        <item name="3">ZoopaWideV3</item>
-        <item name="4">ZoopaWideV4</item>
-        <item name="5">ZoopaWideV5</item>
-        <item name="6">ZoopaWideV6</item>
-        <item name="10">ZoopaCircleV1</item>
-        <item name="11">ZoopaCircleV2</item>
-        <item name="20">TachoWideV5</item>
-        <item name="30">BarGraphV1</item>
-        <item name="31">BarGraphV2</item>
-        <item name="40">BarGraphVerticalV1</item>
-        <item name="41">BarGraphVerticalV2</item>
-        <item name="42">BarGraphVerticalV3</item>
-        <item name="50">SimpleCircleV1</item>
-        <item name="50">SimpleCircleV2</item>
-        <item name="60">AokpCircleV1</item>
-    </string-array>
-    
     <string-array name="prostyl">
         <item name="1">ZoopaWideV1</item>
         <item name="2">ZoopaWideV2</item>
@@ -115,6 +94,26 @@
         <item name="50">SimpleCircleV2</item>
         <item name="60">AokpCircleV1</item>
         <item name="70">NumberOnlyV1</item>
+    </string-array>
+    
+    <string-array name="stylValues">
+        <item name="1">ZoopaWideV1</item>
+        <item name="2">ZoopaWideV2</item>
+        <item name="3">ZoopaWideV3</item>
+        <item name="4">ZoopaWideV4</item>
+        <item name="5">ZoopaWideV5</item>
+        <item name="6">ZoopaWideV6</item>
+        <item name="10">ZoopaCircleV1</item>
+        <item name="11">ZoopaCircleV2</item>
+        <item name="20">TachoWideV5</item>
+        <item name="30">BarGraphV1</item>
+        <item name="31">BarGraphV2</item>
+        <item name="40">BarGraphVerticalV1</item>
+        <item name="41">BarGraphVerticalV2</item>
+        <item name="42">BarGraphVerticalV3</item>
+        <item name="50">SimpleCircleV1</item>
+        <item name="50">SimpleCircleV2</item>
+        <item name="60">AokpCircleV1</item>
     </string-array>
     
     <string-array name="prostylValues">

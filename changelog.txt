@@ -1,3 +1,6 @@
+[COLOR="blue"]2014-03-24 : V1.9[/COLOR]
+- Qick Bugfix for Style selection
+
 [COLOR="blue"]2014-03-24 : V1.8[/COLOR]
 - small Bugfix In-App-Purchase
 - new icons here and there
