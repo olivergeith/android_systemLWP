@@ -21,14 +21,22 @@ public class BitmapDrawerBarGraphVerticalV1 extends BitmapDrawer {
 
 	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
-		bWidth = cWidth / 2;
-		bHeight = cHeight;
+		// welche kantge ist schmaler?
+		if (cWidth < cHeight) {
+			// hochkant
+			bWidth = cWidth;
+			bHeight = cHeight;
+		} else {
+			// quer
+			bWidth = cHeight;
+			bHeight = cHeight;
+		}
 
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
 
-		einerDicke = Math.round(bWidth * 0.18f);
-		fontSize = Math.round(cWidth * 0.25f);
+		einerDicke = Math.round(bWidth * 0.10f);
+		fontSize = Math.round(bWidth * 0.05f);
 
 		drawSegmente(level);
 		return bitmap;
@@ -56,8 +64,8 @@ public class BitmapDrawerBarGraphVerticalV1 extends BitmapDrawer {
 			r.top = startY - hoeheOneSegment;
 			r.bottom = startY;
 			bitmapCanvas.drawRect(r, paint);
-			bitmapCanvas.drawText("" + (i + 1) * 10, offset + einerDicke / 2, startY - hoeheOneSegment * 2 / 3,
-					Settings.getEraserTextPaint(level, fontSize / 5));
+			bitmapCanvas.drawText("" + (i + 1) * 10, offset + einerDicke / 2, startY - hoeheOneSegment + fontSize - offset,
+					Settings.getEraserTextPaint(level, fontSize));
 		}
 		// level
 
