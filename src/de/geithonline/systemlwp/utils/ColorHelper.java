@@ -11,14 +11,17 @@ public class ColorHelper {
 		int b = Color.blue(color);
 
 		r += 32;
-		if (r > 255)
+		if (r > 255) {
 			r = 255;
+		}
 		g += 32;
-		if (g > 255)
+		if (g > 255) {
 			g = 255;
+		}
 		b += 32;
-		if (b > 255)
+		if (b > 255) {
 			b = 255;
+		}
 
 		return Color.argb(a, r, g, b);
 	}
@@ -30,14 +33,38 @@ public class ColorHelper {
 		int b = Color.blue(color);
 
 		r -= 32;
-		if (r > 0)
+		if (r > 0) {
 			r = 0;
+		}
 		g -= 32;
-		if (g > 0)
+		if (g > 0) {
 			g = 0;
+		}
 		b -= 32;
-		if (b > 0)
+		if (b > 0) {
 			b = 0;
+		}
+		return Color.argb(a, r, g, b);
+	}
+
+	public static int darker2times(final int color) {
+		final int a = Color.alpha(color);
+		int r = Color.red(color);
+		int g = Color.green(color);
+		int b = Color.blue(color);
+
+		r -= 64;
+		if (r > 0) {
+			r = 0;
+		}
+		g -= 64;
+		if (g > 0) {
+			g = 0;
+		}
+		b -= 64;
+		if (b > 0) {
+			b = 0;
+		}
 		return Color.argb(a, r, g, b);
 	}
 
