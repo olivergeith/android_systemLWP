@@ -45,6 +45,7 @@ public class BillingManager {
 	private final SharedPreferences prefs;
 	private final Activity activity;
 	private final Button button;
+	private static boolean setupBillingHasError = false;
 
 	public BillingManager(final Activity activity) {
 		this.activity = activity;
@@ -96,6 +97,11 @@ public class BillingManager {
 				Toaster.showInfoToast(activity, "This is the Free Version");
 			}
 		}
+		// haben wir schon mal versucht das Billing setup aufzurufen (efolglos)
+		if (setupBillingHasError == true) {
+			Log.e(TAG, "Es gab schon mal eine Problem mit dem Setup des IN-App Billings --> Connection zum Billing wird gar nicht erst aufgebaut!");
+			return;
+		}
 		mHelper = new IabHelper(activity.getApplicationContext(), base64EncodedPublicKey);
 		// enable debug logging (for a production application, you should set
 		// this to false).
@@ -112,6 +118,7 @@ public class BillingManager {
 				if (!result.isSuccess()) {
 					// Oh noes, there was a problem.
 					complain("Problem setting up in-app billing: " + result);
+					setupBillingHasError = true;
 					handleButton();
 					return;
 				}
@@ -231,7 +238,7 @@ public class BillingManager {
 	// Saving and reading the Premiumstatus on device
 	// ##########################################################################
 	private void handleButton() {
-		if (mIsPremium) {
+		if (mIsPremium || setupBillingHasError) {
 			button.setVisibility(View.GONE);
 		} else {
 			button.setVisibility(View.VISIBLE);
