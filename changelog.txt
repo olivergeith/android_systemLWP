@@ -1,3 +1,9 @@
+[COLOR="blue"]2014-03-27 : V1.10[/COLOR]
+- new style "TachoWideV2" (Free & Premium)
+- new style "TachoWideV3" (Premium)
+- bugfix for crash ActivityNotFoundException on some i9100 devices with an obscure custom ROM (4.4) that does not support android.service.wallpaper.CHANGE_LIVE_WALLPAPER
+
+
 [COLOR="blue"]2014-03-24 : V1.9[/COLOR]
 - Qick Bugfix for Style selection
 
