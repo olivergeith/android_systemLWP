@@ -129,4 +129,10 @@ public class BitmapDrawerZoopaWideV6 extends BitmapDrawer {
 		return new RectF(offset, offset, bWidth - offset, bWidth - offset);
 	}
 
+	@Override
+	public void drawBattStatusText() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

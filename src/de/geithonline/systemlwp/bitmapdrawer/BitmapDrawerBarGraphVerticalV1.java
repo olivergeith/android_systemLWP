@@ -87,4 +87,10 @@ public class BitmapDrawerBarGraphVerticalV1 extends BitmapDrawer {
 	public void drawChargeStatusText(final int level) {
 		// nothing to do
 	}
+
+	@Override
+	public void drawBattStatusText() {
+		// TODO Auto-generated method stub
+
+	}
 }

@@ -95,4 +95,10 @@ public class BitmapDrawerBarGraphVerticalV3 extends BitmapDrawer {
 		tp.setTextAlign(Align.LEFT);
 		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - offset, Settings.getTextPaint(level, fontSize));
 	}
+
+	@Override
+	public void drawBattStatusText() {
+		// TODO Auto-generated method stub
+
+	}
 }

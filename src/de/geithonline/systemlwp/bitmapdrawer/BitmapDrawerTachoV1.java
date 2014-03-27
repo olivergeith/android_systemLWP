@@ -175,18 +175,18 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 
-	// @Override
-	// public void drawChargeStatusText(final int level) {
-	// final Path mArc = new Path();
-	// final RectF oval = getRectForOffset(offset / 2);
-	// mArc.addArc(oval, 200, 180);
-	// final String text = Settings.getChargingText();
-	// bitmapCanvas.drawTextOnPath(text, mArc, 0, 0,
-	// Settings.getTextArcPaint(level, fontSizeArc));
-	// }
-
 	private RectF getRectForOffset(final int offset) {
 		return new RectF(offset, offset, bWidth - offset, bWidth - offset);
+	}
+
+	@Override
+	public void drawBattStatusText() {
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke + fontSizeArc);
+		mArc.addArc(oval, 180, 180);
+		final String text = Settings.getBattStatusCompleteShort();
+		final Paint p = Settings.getTextArcPaint(100, fontSizeArc, Align.CENTER);
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 
 }

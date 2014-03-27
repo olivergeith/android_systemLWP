@@ -3,6 +3,7 @@ package de.geithonline.systemlwp.bitmapdrawer;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.Path;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
@@ -120,6 +121,16 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 
 	private RectF getRectForOffset(final int offset) {
 		return new RectF(offset, offset, bWidth - offset, bWidth - offset);
+	}
+
+	@Override
+	public void drawBattStatusText() {
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke + fontSizeArc);
+		mArc.addArc(oval, 180, 180);
+		final String text = Settings.getBattStatusCompleteShort();
+		final Paint p = Settings.getTextArcPaint(100, fontSizeArc, Align.CENTER);
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 
 }

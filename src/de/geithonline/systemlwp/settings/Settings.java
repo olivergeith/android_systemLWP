@@ -12,6 +12,7 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.os.BatteryManager;
 import android.util.Log;
 import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
@@ -55,6 +56,53 @@ public class Settings {
 	public static boolean isCharging = false;
 	public static boolean isChargeUSB = false;
 	public static boolean isChargeAC = false;
+	public static int battTemperature = -1;
+	public static int battHealth = -1;
+	public static int battVoltage = -1;
+
+	public static boolean isShowStatus() {
+		if (prefs == null) {
+			return true;
+		}
+		return prefs.getBoolean("show_status", true);
+	}
+
+	public static String getBattStatusCompleteShort() {
+		return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10)
+				/ 100 + "V";
+	}
+
+	public static String getBattTemperatureString() {
+		return "Temperature is " + (float) battTemperature / 10 + " °C";
+	}
+
+	public static String getBattHealthString() {
+		return "Health is " + getHealthText(battHealth);
+	}
+
+	public static String getBattVoltageString() {
+		return "Voltage is " + (float) battVoltage / 1000 + "V";
+	}
+
+	private static String getHealthText(final int health) {
+		switch (health) {
+		case BatteryManager.BATTERY_HEALTH_GOOD:
+			return "good";
+		case BatteryManager.BATTERY_HEALTH_OVERHEAT:
+			return "overheat";
+		case BatteryManager.BATTERY_HEALTH_DEAD:
+			return "dead";
+		case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
+			return "overvoltage";
+		case BatteryManager.BATTERY_HEALTH_COLD:
+			return "cold";
+		case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
+			return "failure";
+
+		default:
+			return "unknown";
+		}
+	}
 
 	public static boolean isShowRand() {
 		if (prefs == null) {
@@ -490,9 +538,13 @@ public class Settings {
 	}
 
 	public static Paint getTextArcPaint(final int level, final int fontSize) {
+		return getTextArcPaint(level, fontSize, Align.LEFT);
+	}
+
+	public static Paint getTextArcPaint(final int level, final int fontSize, final Align align) {
 		final Paint paint = getTextPaint(level, fontSize);
 		paint.setStyle(Paint.Style.FILL_AND_STROKE);
-		paint.setTextAlign(Align.LEFT);
+		paint.setTextAlign(align);
 		return paint;
 	}
 

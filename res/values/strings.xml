@@ -76,7 +76,8 @@
 	<string name="show_number">Show Battery-Level-Numbers</string>
 	<string name="show_number_summary">Premium Version only</string>
 	<string name="show_rand">Show Border</string>
-		
+	<string name="show_status">Show Battery Status</string>
+			
 	<string name="gradient_colors">Gradient Colors</string>
 	<string name="gradient_colors_summary">Gradient Color according to the Battery Level</string>
 	<string name="gradient_colors_mid">Gradient Colors (mid -> low)</string>

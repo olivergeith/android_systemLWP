@@ -37,6 +37,21 @@ public class BattPreferencesFragment extends PreferenceFragment {
 				return true;
 			}
 		});
+		setProFeatures();
+	}
+
+	private void setProFeatures() {
+		if (Settings.prefs == null) {
+			Settings.prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+		}
+		final Preference showStatus = findPreference("show_status");
+
+		if (Settings.isPremium()) {
+			showStatus.setEnabled(true);
+		} else {
+			Settings.prefs.edit().putBoolean("show_number", false).commit();
+			showStatus.setEnabled(false);
+		}
 	}
 
 	private void enableSettingsForStyle(final String style) {

@@ -17,6 +17,8 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 
 	public abstract void drawChargeStatusText(final int level);
 
+	public abstract void drawBattStatusText();
+
 	public abstract void drawOnCanvas(Bitmap bitmap, Canvas canvas);
 
 	@Override
@@ -37,6 +39,9 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 			}
 			if (Settings.isCharging && Settings.isShowChargeState()) {
 				drawChargeStatusText(level);
+			}
+			if (Settings.isShowStatus()) {
+				drawBattStatusText();
 			}
 		}
 		// den aktuellen level merken

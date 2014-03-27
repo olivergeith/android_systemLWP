@@ -126,4 +126,14 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 		return new PointF(x, y);
 	}
 
+	@Override
+	public void drawBattStatusText() {
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(offset + einerDicke - fontSizeArc);
+		mArc.addArc(oval, 180, -180);
+		final String text = Settings.getBattStatusCompleteShort();
+		final Paint p = Settings.getTextArcPaint(100, fontSizeArc, Align.CENTER);
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
+	}
+
 }

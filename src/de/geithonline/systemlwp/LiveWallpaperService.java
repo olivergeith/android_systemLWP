@@ -97,6 +97,9 @@ public class LiveWallpaperService extends WallpaperService {
 				final int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
 				Settings.isChargeUSB = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
 				Settings.isChargeAC = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+				Settings.battTemperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
+				Settings.battHealth = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
+				Settings.battVoltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
 				drawMe();
 			}
 		};

@@ -131,4 +131,10 @@ public class BitmapDrawerBarGraphV1 extends BitmapDrawer {
 		return er;
 	}
 
+	@Override
+	public void drawBattStatusText() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

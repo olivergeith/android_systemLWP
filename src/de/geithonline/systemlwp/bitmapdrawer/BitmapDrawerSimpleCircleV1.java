@@ -137,4 +137,10 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 		return new PointF(x, y);
 	}
 
+	@Override
+	public void drawBattStatusText() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

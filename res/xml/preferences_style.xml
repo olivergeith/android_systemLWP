@@ -15,11 +15,17 @@
 	        android:key="batt_style"
 	        />
         
+        <CheckBoxPreference 
+            android:key="show_status"
+            android:title="@string/show_status"
+            android:defaultValue="false"
+            />
     </PreferenceCategory>
     
     <PreferenceCategory 
         android:title="@string/category_style_options"
         android:summary="@string/category_style_options_summary">
+        
         
         <CheckBoxPreference 
             android:key="show_zeiger"
