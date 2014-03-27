@@ -5,13 +5,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
-public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
+public class BitmapDrawerTachoV1 extends BitmapDrawer {
 
 	private int offset = 5;
 	private int bogenDicke = 5;
@@ -24,7 +25,7 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 	private int bHeight = 0;
 	private int fontSizeScala = 20;
 
-	public BitmapDrawerTachoWideV1() {
+	public BitmapDrawerTachoV1() {
 	}
 
 	@Override
@@ -39,6 +40,11 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 
 	@Override
 	public boolean supportsMoveUP() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsShowRand() {
 		return true;
 	}
 
@@ -92,20 +98,22 @@ public class BitmapDrawerTachoWideV1 extends BitmapDrawer {
 		final Paint randPaint = Settings.getBackgroundPaint();
 		randPaint.setColor(Color.WHITE);
 		randPaint.setShadowLayer(10, 0, 0, Color.BLACK);
-		// ‰uﬂeren Rand
-		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, randPaint);
-		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
-
 		// scala
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 180, 180, true, Settings.getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, Settings.getBackgroundPaint());
 		// level
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 180, Math.round(level * 1.8), true, Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, Settings.getBatteryPaint(level));
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 
 		// Skalatext
 		drawScalaText();
+
+		if (Settings.isShowRand()) {
+			// ‰uﬂeren Rand
+			randPaint.setStrokeWidth(bogenDicke);
+			randPaint.setStyle(Style.STROKE);
+			bitmapCanvas.drawArc(getRectForOffset(offset + 2), 180, 180, true, randPaint);
+		}
 
 		// Zeiger
 		final Paint zp = Settings.getZeigerPaint(level);

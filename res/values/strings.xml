@@ -75,7 +75,8 @@
 	<string name="colored_numbers_summary">Numbers are colored like Battery-Level-Color</string>
 	<string name="show_number">Show Battery-Level-Numbers</string>
 	<string name="show_number_summary">Premium Version only</string>
-	
+	<string name="show_rand">Show Border</string>
+		
 	<string name="gradient_colors">Gradient Colors</string>
 	<string name="gradient_colors_summary">Gradient Color according to the Battery Level</string>
 	<string name="gradient_colors_mid">Gradient Colors (mid -> low)</string>

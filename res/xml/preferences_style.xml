@@ -68,6 +68,11 @@
             android:defaultValue="true"
         />
         
+        <CheckBoxPreference 
+            android:key="show_rand"
+            android:title="@string/show_rand"
+            android:defaultValue="true"
+            />
         
 
     </PreferenceCategory>

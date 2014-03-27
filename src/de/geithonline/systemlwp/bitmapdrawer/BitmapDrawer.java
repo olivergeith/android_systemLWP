@@ -80,4 +80,9 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 		return false;
 	}
 
+	@Override
+	public boolean supportsShowRand() {
+		return false;
+	}
+
 }

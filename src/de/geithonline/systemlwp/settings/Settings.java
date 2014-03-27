@@ -25,9 +25,10 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerNumberOnlyV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoWideV5;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV1;
@@ -54,6 +55,13 @@ public class Settings {
 	public static boolean isCharging = false;
 	public static boolean isChargeUSB = false;
 	public static boolean isChargeAC = false;
+
+	public static boolean isShowRand() {
+		if (prefs == null) {
+			return true;
+		}
+		return prefs.getBoolean("show_rand", true);
+	}
 
 	public static boolean isShowNumber() {
 		if (prefs == null) {
@@ -348,16 +356,20 @@ public class Settings {
 			return drawer;
 		}
 
-		if (battStyle.equals("TachoWideV1")) {
-			drawer = new BitmapDrawerTachoWideV1();
+		if (battStyle.equals("TachoV1")) {
+			drawer = new BitmapDrawerTachoV1();
 			return drawer;
 		}
-		if (battStyle.equals("TachoWideV2")) {
-			drawer = new BitmapDrawerTachoWideV2();
+		if (battStyle.equals("TachoV2")) {
+			drawer = new BitmapDrawerTachoV2();
 			return drawer;
 		}
-		if (battStyle.equals("TachoWideV5")) {
-			drawer = new BitmapDrawerTachoWideV5();
+		if (battStyle.equals("TachoV3")) {
+			drawer = new BitmapDrawerTachoV3();
+			return drawer;
+		}
+		if (battStyle.equals("TachoV5")) {
+			drawer = new BitmapDrawerTachoV5();
 			return drawer;
 		}
 

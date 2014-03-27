@@ -9,7 +9,7 @@ import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
-public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
+public class BitmapDrawerTachoV5 extends BitmapDrawer {
 
 	private int offset = 5;
 	private int bogenDicke = 5;
@@ -21,7 +21,7 @@ public class BitmapDrawerTachoWideV5 extends BitmapDrawer {
 	private int bWidth = 0;
 	private int bHeight = 0;
 
-	public BitmapDrawerTachoWideV5() {
+	public BitmapDrawerTachoV5() {
 	}
 
 	@Override
