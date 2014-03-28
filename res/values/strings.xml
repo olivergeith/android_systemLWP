@@ -64,8 +64,8 @@
     <string name="header_about_options_summary">Info, Links and more about this App....</string>
 	<string name="header_title_charge_options">Charge Options</string>
 	<string name="header_summary_charge_options">Options defining the behaviour on charge...</string>
-	<string name="header_title_number_options">Level Number Options</string>
-	<string name="header_summary_number_options">Colors, Visibility, Size ....</string>
+	<string name="header_title_number_options">Text Options</string>
+	<string name="header_summary_number_options">Battery: Level, Fontsize, Statusinformation ....</string>
 	
     <string name="threshold_low">Threshold for low battery</string>
 	<string name="threshold_low_summary">Threshold for low battery levels</string>

@@ -21,6 +21,7 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		addPreferencesFromResource(R.xml.preferences_style);
 		// initialize Properties
 		enableSettingsForStyle(Settings.getStyle());
+		enableProFeatures();
 
 		// connection the backgroundpicker with an intent
 		final ListPreference style = (ListPreference) findPreference(STYLE_PICKER_KEY);
@@ -37,21 +38,13 @@ public class BattPreferencesFragment extends PreferenceFragment {
 				return true;
 			}
 		});
-		setProFeatures();
 	}
 
-	private void setProFeatures() {
+	private void enableProFeatures() {
 		if (Settings.prefs == null) {
 			Settings.prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 		}
-		final Preference showStatus = findPreference("show_status");
-
-		if (Settings.isPremium()) {
-			showStatus.setEnabled(true);
-		} else {
-			Settings.prefs.edit().putBoolean("show_status", false).commit();
-			showStatus.setEnabled(false);
-		}
+		// Nothing so far
 	}
 
 	private void enableSettingsForStyle(final String style) {
