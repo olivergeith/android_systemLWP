@@ -97,10 +97,10 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 				paint = Settings.getBackgroundPaint();
 			}
 			final float startwinkel = 270f + i * (winkelOneSegment + gap) + gap / 2;
-			bitmapCanvas.drawArc(getRectForOffset(offset), startwinkel, winkelOneSegment, true, paint);
+			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc), startwinkel, winkelOneSegment, true, paint);
 		}
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke), 0, 360, true, Settings.getErasurePaint());
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 		final float startwinkel = 270f + level * (winkelOneSegment + gap) + gap / 2;
 
 		final Path mArc = new Path();
-		final RectF oval = getRectForOffset(offset + einerDicke + fontSizeArc);
+		final RectF oval = getRectForOffset(offset + fontSizeArc + einerDicke + fontSizeArc);
 		mArc.addArc(oval, startwinkel, 180);
 		final String text = Settings.getChargingText();
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
@@ -139,8 +139,12 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 
 	@Override
 	public void drawBattStatusText() {
-		// TODO Auto-generated method stub
-
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(fontSizeArc);
+		mArc.addArc(oval, 180, 180);
+		final String text = Settings.getBattStatusCompleteShort();
+		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 
 }

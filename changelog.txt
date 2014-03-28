@@ -5,6 +5,7 @@
 - adjust size of Battery level Number (Free and Premium)
 - Background of settings now half transparent for better readability
 - Adding Battery LiveWallpaper Google+ Community to About
+- added optional "pointer" to SimpleCircleV2
 
 [COLOR="blue"]2014-03-27 : V1.10[/COLOR]
 - new style "TachoWideV2" (Free & Premium)

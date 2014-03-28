@@ -30,6 +30,16 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 	}
 
 	@Override
+	public boolean supportsPointerColor() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsShowPointer() {
+		return true;
+	}
+
+	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
 		// welche kantge ist schmaler?
 		if (cWidth < cHeight) {
@@ -43,7 +53,7 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 		bitmapCanvas = new Canvas(bitmap);
 		abstand = Math.round(bWidth * 0.04f);
 		einerDicke = Math.round(bWidth * 0.10f);
-		offset = Math.round(bWidth * 0.011f);
+		offset = Math.round(bWidth * 0.02f);
 		fontSize = Math.round(bWidth * 0.35f);
 		fontSizeArc = Math.round(cWidth * 0.04f);
 
@@ -72,16 +82,22 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 		final long winkel = Math.round(level * 3.6);
 
 		// Background
-		bitmapCanvas.drawArc(getRectForOffset(offset + abstand), 270, 360, true, Settings.getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + abstand), 270, 360, true, Settings.getBackgroundPaint());
 		// Level bereich wieder löschen
 		bitmapCanvas.drawArc(getRectForOffset(0), 270, winkel, true, Settings.getErasurePaint());
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke - abstand), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke - abstand), 0, 360, true, Settings.getErasurePaint());
 
 		// Level
-		bitmapCanvas.drawArc(getRectForOffset(offset), 270, winkel, true, Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc), 270, winkel, true, Settings.getBatteryPaint(level));
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke), 0, 360, true, Settings.getErasurePaint());
+		// Zeiger
+		if (Settings.isShowZeiger()) {
+			bitmapCanvas.drawArc(getRectForOffset(fontSizeArc), 270 + winkel - 1, 2, true, Settings.getZeigerPaint(level));
+			// delete inner Circle
+			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 0, 360, true, Settings.getErasurePaint());
+		}
 	}
 
 	@Override
@@ -89,7 +105,7 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 		final long winkel = 270 + Math.round(level * 3.6);
 
 		final Path mArc = new Path();
-		final RectF oval = getRectForOffset(offset + einerDicke + fontSizeArc);
+		final RectF oval = getRectForOffset(offset + fontSizeArc + einerDicke + fontSizeArc);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
@@ -118,8 +134,12 @@ public class BitmapDrawerSimpleCircleV2 extends BitmapDrawer {
 
 	@Override
 	public void drawBattStatusText() {
-		// TODO Auto-generated method stub
-
+		final Path mArc = new Path();
+		final RectF oval = getRectForOffset(fontSizeArc);
+		mArc.addArc(oval, 180, 180);
+		final String text = Settings.getBattStatusCompleteShort();
+		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 
 }
