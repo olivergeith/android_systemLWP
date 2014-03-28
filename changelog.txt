@@ -1,5 +1,6 @@
 [COLOR="blue"]2014-03-27 : V1.11[/COLOR]
 - Battery Status (Health, Voltage, Temperature) for some styles (Premium)
+- new Battery Style TachoV4 (Premium)
 
 [COLOR="blue"]2014-03-27 : V1.10[/COLOR]
 - new style "TachoWideV2" (Free & Premium)

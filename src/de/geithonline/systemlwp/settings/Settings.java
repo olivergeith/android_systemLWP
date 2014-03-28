@@ -29,6 +29,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV2;
@@ -68,8 +69,7 @@ public class Settings {
 	}
 
 	public static String getBattStatusCompleteShort() {
-		return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10)
-				/ 100 + "V";
+		return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
 	}
 
 	public static String getBattTemperatureString() {
@@ -86,21 +86,21 @@ public class Settings {
 
 	private static String getHealthText(final int health) {
 		switch (health) {
-		case BatteryManager.BATTERY_HEALTH_GOOD:
-			return "good";
-		case BatteryManager.BATTERY_HEALTH_OVERHEAT:
-			return "overheat";
-		case BatteryManager.BATTERY_HEALTH_DEAD:
-			return "dead";
-		case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
-			return "overvoltage";
-		case BatteryManager.BATTERY_HEALTH_COLD:
-			return "cold";
-		case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
-			return "failure";
+			case BatteryManager.BATTERY_HEALTH_GOOD:
+				return "good";
+			case BatteryManager.BATTERY_HEALTH_OVERHEAT:
+				return "overheat";
+			case BatteryManager.BATTERY_HEALTH_DEAD:
+				return "dead";
+			case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
+				return "overvoltage";
+			case BatteryManager.BATTERY_HEALTH_COLD:
+				return "cold";
+			case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
+				return "failure";
 
-		default:
-			return "unknown";
+			default:
+				return "unknown";
 		}
 	}
 
@@ -414,6 +414,10 @@ public class Settings {
 		}
 		if (battStyle.equals("TachoV3")) {
 			drawer = new BitmapDrawerTachoV3();
+			return drawer;
+		}
+		if (battStyle.equals("TachoV4")) {
+			drawer = new BitmapDrawerTachoV4();
 			return drawer;
 		}
 		if (battStyle.equals("TachoV5")) {
