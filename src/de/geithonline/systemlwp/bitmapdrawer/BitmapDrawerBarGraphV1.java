@@ -42,9 +42,9 @@ public class BitmapDrawerBarGraphV1 extends BitmapDrawer {
 		bitmapCanvas = new Canvas(bitmap);
 
 		einerDicke = Math.round(bHeight * 0.08f);
-		zehnerDicke = Math.round(cWidth * 0.6f);
-		fontSize = Math.round(cWidth * 0.25f);
-		fontSizeArc = Math.round(cWidth * 0.04f);
+		zehnerDicke = Math.round(bWidth * 0.6f);
+		fontSize = Math.round(bWidth * 0.25f);
+		fontSizeArc = Math.round(bWidth * 0.04f);
 
 		drawSegmente(level);
 		return bitmap;

@@ -57,7 +57,7 @@ public class BitmapDrawerSimpleCircleV3 extends BitmapDrawer {
 		zehnerDicke = Math.round(bWidth * 0.10f);
 		offset = Math.round(bWidth * 0.011f);
 		fontSize = Math.round(bWidth * 0.35f);
-		fontSizeArc = Math.round(cWidth * 0.04f);
+		fontSizeArc = Math.round(bWidth * 0.04f);
 
 		drawSegmente(level);
 		return bitmap;

@@ -50,7 +50,7 @@ public class BitmapDrawerZoopaCircleV3 extends BitmapDrawer {
 		offset = Math.round(bWidth * 0.02f);
 		abstand = Math.round(bWidth * 0.015f);
 		fontSize = Math.round(bWidth * 0.35f);
-		fontSizeArc = Math.round(cWidth * 0.04f);
+		fontSizeArc = Math.round(bWidth * 0.04f);
 
 		return bitmap;
 	}
