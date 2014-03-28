@@ -49,7 +49,7 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		if (Settings.isPremium()) {
 			showStatus.setEnabled(true);
 		} else {
-			Settings.prefs.edit().putBoolean("show_number", false).commit();
+			Settings.prefs.edit().putBoolean("show_status", false).commit();
 			showStatus.setEnabled(false);
 		}
 	}
