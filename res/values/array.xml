@@ -32,6 +32,33 @@
         <item name="2">270</item>
     </string-array>
     
+    <string-array name="fontsize">
+        <item name="150">150%</item>
+        <item name="140">140%</item>
+        <item name="130">130%</item>
+        <item name="120">120%</item>
+        <item name="110">110%</item>
+        <item name="100">100%</item>
+        <item name="95">95%</item>
+        <item name="90">90%</item>
+        <item name="85">85%</item>
+        <item name="80">80%</item>
+        <item name="75">75%</item>
+    </string-array>
+    
+    <string-array name="fontsizeValues">
+        <item name="150">150</item>
+        <item name="140">140</item>
+        <item name="130">130</item>
+        <item name="120">120</item>
+        <item name="110">110</item>
+        <item name="100">100</item>
+        <item name="95">95</item>
+        <item name="90">90</item>
+        <item name="85">85</item>
+        <item name="80">80</item>
+        <item name="75">75</item>
+    </string-array>
     
     
     <string-array name="fontsize100">

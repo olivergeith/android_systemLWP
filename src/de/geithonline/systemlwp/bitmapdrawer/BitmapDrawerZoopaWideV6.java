@@ -114,7 +114,7 @@ public class BitmapDrawerZoopaWideV6 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + bogenDicke + abstand + skaleDicke + fontSizeArc);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
-		final Paint p = Settings.getTextArcPaint(level, fontSizeArc);
+		final Paint p = Settings.getTextPaint(level, fontSizeArc);
 		p.setTextAlign(Align.CENTER);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
@@ -122,7 +122,7 @@ public class BitmapDrawerZoopaWideV6 extends BitmapDrawer {
 	@Override
 	public void drawLevelNumber(final int level) {
 		// draw percentage Number
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - Math.round(bHeight * 0.1f), Settings.getTextPaint(level, fontSize));
+		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - Math.round(bHeight * 0.1f), Settings.getNumberPaint(level, fontSize));
 	}
 
 	private RectF getRectForOffset(final int offset) {

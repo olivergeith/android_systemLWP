@@ -245,6 +245,14 @@ public class Settings {
 		return prefs.getBoolean("centerBattery", true);
 	}
 
+	private static int getFontSize() {
+		if (prefs == null) {
+			return 100;
+		}
+		final int size = Integer.valueOf(prefs.getString("fontsize", "100"));
+		return size;
+	}
+
 	private static int getFontSize100() {
 		if (prefs == null) {
 			return 100;
@@ -519,7 +527,40 @@ public class Settings {
 		return paint;
 	}
 
+	public static Paint getNumberPaint(final int level, final int fontSize) {
+		return getNumberPaint(level, fontSize, Align.CENTER, true, false);
+	}
+
+	public static Paint getNumberPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
+		final Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		if (isColoredNumber()) {
+			paint.setColor(getColorForLevel(level));
+		} else {
+			paint.setColor(getBattColor());
+		}
+		paint.setAlpha(getOpacity());
+		final int fSize = adjustFontSize(level, fontSize);
+		paint.setTextSize(fSize);
+		paint.setFakeBoldText(true);
+		if (bold) {
+			paint.setTypeface(Typeface.DEFAULT_BOLD);
+		} else {
+			paint.setTypeface(Typeface.DEFAULT);
+		}
+		paint.setTextAlign(align);
+		if (erase) {
+			final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
+			paint.setXfermode(xfermode);
+		}
+		return paint;
+	}
+
 	public static Paint getTextPaint(final int level, final int fontSize) {
+		return getTextPaint(level, fontSize, Align.LEFT, true, false);
+	}
+
+	public static Paint getTextPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
 		final Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		if (isColoredNumber()) {
@@ -529,40 +570,29 @@ public class Settings {
 		}
 		paint.setAlpha(getOpacity());
 		paint.setAntiAlias(true);
-
-		int fSize = fontSize;
-		if (level == 100) {
-			fSize = Math.round(fontSize * getFontSize100() / 100f);
-		}
-		paint.setTextSize(fSize);
+		paint.setTextSize(fontSize);
 		paint.setFakeBoldText(true);
-		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		paint.setTextAlign(Align.CENTER);
-		return paint;
-	}
-
-	public static Paint getTextArcPaint(final int level, final int fontSize) {
-		return getTextArcPaint(level, fontSize, Align.LEFT);
-	}
-
-	public static Paint getTextArcPaint(final int level, final int fontSize, final Align align) {
-		final Paint paint = getTextPaint(level, fontSize);
-		paint.setStyle(Paint.Style.FILL_AND_STROKE);
+		if (bold) {
+			paint.setTypeface(Typeface.DEFAULT_BOLD);
+		} else {
+			paint.setTypeface(Typeface.DEFAULT);
+		}
 		paint.setTextAlign(align);
+		if (erase) {
+			final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
+			paint.setXfermode(xfermode);
+		}
 		return paint;
 	}
 
-	public static Paint getEraserTextPaint(final int level, final int fontSize) {
-		final Paint paint = getErasurePaint();
+	private static int adjustFontSize(final int level, final int fontSize) {
 		int fSize = fontSize;
 		if (level == 100) {
 			fSize = Math.round(fontSize * getFontSize100() / 100f);
 		}
-		paint.setTextSize(fSize);
-		paint.setFakeBoldText(true);
-		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		paint.setTextAlign(Align.CENTER);
-		return paint;
+		// generelle fontadjust einbeziehen
+		fSize = Math.round(fSize * getFontSize() / 100f);
+		return fSize;
 	}
 
 	public static Paint getBatteryPaint(final int level) {

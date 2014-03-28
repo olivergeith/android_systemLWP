@@ -3,6 +3,7 @@ package de.geithonline.systemlwp.bitmapdrawer;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 
@@ -65,7 +66,7 @@ public class BitmapDrawerBarGraphVerticalV1 extends BitmapDrawer {
 			r.bottom = startY;
 			bitmapCanvas.drawRect(r, paint);
 			bitmapCanvas.drawText("" + (i + 1) * 10, offset + einerDicke / 2, startY - hoeheOneSegment + fontSize - offset,
-					Settings.getEraserTextPaint(level, fontSize));
+					Settings.getTextPaint(level, fontSize, Align.CENTER, true, true));
 		}
 		// level
 

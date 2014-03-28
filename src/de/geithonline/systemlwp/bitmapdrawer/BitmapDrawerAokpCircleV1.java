@@ -102,13 +102,13 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + einerDicke + fontSizeArc);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
 	}
 
 	@Override
 	public void drawLevelNumber(final int level) {
 		final String text = "" + level;
-		final Paint p = Settings.getTextPaint(level, fontSize);
+		final Paint p = Settings.getNumberPaint(level, fontSize);
 		p.setTextAlign(Align.CENTER);
 		final PointF point = getTextCenterToDraw(text, getRectForOffset(0), p);
 		bitmapCanvas.drawText(text, point.x, point.y, p);
@@ -132,7 +132,7 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + einerDicke - fontSizeArc);
 		mArc.addArc(oval, 180, -180);
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = Settings.getTextArcPaint(100, fontSizeArc, Align.CENTER);
+		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 

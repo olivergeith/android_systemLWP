@@ -67,16 +67,16 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
 
 		switch (Settings.getOrientation()) {
-		default:
-		case Settings.ORIENTATION_BOTTOM:
-			canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
-			break;
-		case Settings.ORIENTATION_LEFT:
-			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
-			break;
-		case Settings.ORIENTATION_RIGHT:
-			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
-			break;
+			default:
+			case Settings.ORIENTATION_BOTTOM:
+				canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
+				break;
+			case Settings.ORIENTATION_LEFT:
+				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
+				break;
+			case Settings.ORIENTATION_RIGHT:
+				canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
+				break;
 		}
 	}
 
@@ -107,7 +107,7 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 	@Override
 	public void drawLevelNumber(final int level) {
 		// draw percentage Number
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, Settings.getTextPaint(level, fontSize));
+		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, Settings.getNumberPaint(level, fontSize));
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset / 2);
 		mArc.addArc(oval, 200, 180);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
 	}
 
 	private RectF getRectForOffset(final int offset) {
@@ -129,7 +129,7 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke + fontSizeArc);
 		mArc.addArc(oval, 180, 180);
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = Settings.getTextArcPaint(100, fontSizeArc, Align.CENTER);
+		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 

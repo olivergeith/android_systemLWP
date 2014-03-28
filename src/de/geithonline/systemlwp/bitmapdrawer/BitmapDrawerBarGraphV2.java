@@ -114,7 +114,7 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 	@Override
 	public void drawLevelNumber(final int level) {
 		// draw percentage Number
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 3 * einerDicke - 3 * offset, Settings.getTextPaint(level, fontSize));
+		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 3 * einerDicke - 3 * offset, Settings.getNumberPaint(level, fontSize));
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		oval.offset(0, -5);
 		mArc.addArc(oval, 89, -90);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextArcPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
 	}
 
 	private RectF getCutOutRect() {

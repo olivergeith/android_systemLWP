@@ -85,15 +85,15 @@ public class BitmapDrawerBarGraphVerticalV3 extends BitmapDrawer {
 		final String text = Settings.getChargingText();
 		final int levelHoehe = (bHeight - 6 * offset) * level / 100;
 		final int top = bHeight - 2 * offset - levelHoehe;
-		bitmapCanvas.drawText(text, offset + einerDicke + offset, top, Settings.getTextArcPaint(level, fontSizeArc));
+		bitmapCanvas.drawText(text, offset + einerDicke + offset, top, Settings.getTextPaint(level, fontSizeArc));
 	}
 
 	@Override
 	public void drawLevelNumber(final int level) {
 		// draw percentage Number
-		final Paint tp = Settings.getTextPaint(level, fontSize);
+		final Paint tp = Settings.getNumberPaint(level, fontSize);
 		tp.setTextAlign(Align.LEFT);
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - offset, Settings.getTextPaint(level, fontSize));
+		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - offset, Settings.getNumberPaint(level, fontSize));
 	}
 
 	@Override

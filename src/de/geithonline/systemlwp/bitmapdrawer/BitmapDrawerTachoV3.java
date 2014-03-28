@@ -137,7 +137,7 @@ public class BitmapDrawerTachoV3 extends BitmapDrawer {
 			final Path mArc = new Path();
 			final RectF oval = getRectForOffset(offset + bogenDicke + fontSizeScala);
 			mArc.addArc(oval, winkel, 36);
-			final Paint p = Settings.getEraserTextPaint(i, fontSizeScala);
+			final Paint p = Settings.getTextPaint(i, fontSizeScala, Align.CENTER, true, true);
 			p.setTextAlign(Align.CENTER);
 			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
 		}
@@ -145,8 +145,7 @@ public class BitmapDrawerTachoV3 extends BitmapDrawer {
 			// Zeiger
 			final Paint zp = Settings.getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (270f + i * 3.6 - 0.5f), 1f,
-					true, zp);
+			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (270f + i * 3.6 - 0.5f), 1f, true, zp);
 		}
 
 	}
@@ -154,7 +153,7 @@ public class BitmapDrawerTachoV3 extends BitmapDrawer {
 	@Override
 	public void drawLevelNumber(final int level) {
 		final String text = "" + level;
-		final Paint p = Settings.getTextPaint(level, fontSize);
+		final Paint p = Settings.getNumberPaint(level, fontSize);
 		p.setTextAlign(Align.CENTER);
 		final PointF point = getTextCenterToDraw(text, getRectForOffset(0), p);
 		bitmapCanvas.drawText(text, point.x, point.y, p);
@@ -176,7 +175,7 @@ public class BitmapDrawerTachoV3 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(bogenDicke + skaleDicke);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
-		final Paint p = Settings.getTextArcPaint(level, fontSizeArc);
+		final Paint p = Settings.getTextPaint(level, fontSizeArc);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 
@@ -186,7 +185,7 @@ public class BitmapDrawerTachoV3 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke + fontSizeArc);
 		mArc.addArc(oval, 180, 180);
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = Settings.getTextArcPaint(100, fontSizeArc, Align.CENTER);
+		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 

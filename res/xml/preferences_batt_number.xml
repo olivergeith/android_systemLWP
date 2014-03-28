@@ -19,6 +19,16 @@
 
         <ListPreference
             android:defaultValue="100"
+            android:title="@string/fontsize" 
+            android:summary="@string/fontsize_summary" 
+            android:dialogTitle="@string/fontsize"
+            android:entries="@array/fontsize"
+            android:entryValues="@array/fontsizeValues"
+            android:key="fontsize"
+            />
+        
+        <ListPreference
+            android:defaultValue="100"
             android:title="@string/fontsize100" 
             android:summary="@string/fontsize100_summary" 
             android:dialogTitle="@string/fontsize100"
