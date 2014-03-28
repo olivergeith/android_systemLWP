@@ -141,19 +141,30 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 			p.setTextAlign(Align.CENTER);
 			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
 		}
+		// einerskala
+		for (int i = 1; i < 100; i = i + 11) {
+			// Zeiger
+			final Paint zp = Settings.getZeigerPaint(level);
+			zp.setShadowLayer(10, 0, 0, Color.BLACK);
+			if (i % 5 != 0) {
+				bitmapCanvas
+						.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 3), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
+			}
+		}
+		// einerskala
 		for (int i = 0; i < 100; i = i + 10) {
 			// Zeiger
 			final Paint zp = Settings.getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
 			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
 		}
+		// einerskala
 		for (int i = 5; i < 100; i = i + 10) {
 			// Zeiger
 			final Paint zp = Settings.getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
 			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
 		}
-
 	}
 
 	@Override
