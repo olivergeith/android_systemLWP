@@ -131,39 +131,27 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 
 	private void drawScalaText(final int level) {
 		final float startwinkel = 270 - Math.round(level * 3.6f);
-		for (int i = 0; i < 100; i = i + 10) {
-			// final int winkel = -81 + (i * 18);
-			final float winkel = startwinkel - 18 + Math.round(i * 3.6f);
-			final Path mArc = new Path();
-			final RectF oval = getRectForOffset(offset + bogenDicke + fontSizeScala);
-			mArc.addArc(oval, winkel, 36);
-			final Paint p = Settings.getTextPaint(i, fontSizeScala, Align.CENTER, true, true);
-			p.setTextAlign(Align.CENTER);
-			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
-		}
-		// einerskala
-		for (int i = 1; i < 100; i = i + 11) {
+		for (int i = 0; i < 100; i = i + 1) {
 			// Zeiger
 			final Paint zp = Settings.getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			if (i % 5 != 0) {
-				bitmapCanvas
-						.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 3), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
+			if (i % 10 == 0) {
+				final float winkel = startwinkel - 18 + Math.round(i * 3.6f);
+				final Path mArc = new Path();
+				final RectF oval = getRectForOffset(offset + bogenDicke + fontSizeScala);
+				mArc.addArc(oval, winkel, 36);
+				final Paint p = Settings.getTextPaint(i, fontSizeScala, Align.CENTER, true, true);
+				p.setTextAlign(Align.CENTER);
+				bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
+				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc),
+						(float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
+			} else if (i % 5 == 0) {
+				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc * 2 / 3), (float) (startwinkel + i
+						* 3.6 - 0.5f), 1f, true, zp);
+			} else {
+				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2),
+						(float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
 			}
-		}
-		// einerskala
-		for (int i = 0; i < 100; i = i + 10) {
-			// Zeiger
-			final Paint zp = Settings.getZeigerPaint(level);
-			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
-		}
-		// einerskala
-		for (int i = 5; i < 100; i = i + 10) {
-			// Zeiger
-			final Paint zp = Settings.getZeigerPaint(level);
-			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
 		}
 	}
 
@@ -186,13 +174,18 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 
 	@Override
 	public void drawChargeStatusText(final int level) {
-		final long winkel = 272 - Math.round(level * 3.6f);
+		final Paint p = Settings.getTextPaint(level, fontSizeArc, Align.CENTER, true, false);
+		int fader = 10 - level % 10;
+		if (fader == 0) {
+			fader = 1;
+		}
+		fader = p.getAlpha() * fader / 10;
+		p.setAlpha(fader);
 
 		final Path mArc = new Path();
-		final RectF oval = getRectForOffset(bogenDicke + skaleDicke);
-		mArc.addArc(oval, winkel, 180);
+		final RectF oval = getRectForOffset(bogenDicke + skaleDicke + bogenDicke + fontSizeArc + bogenDicke);
+		mArc.addArc(oval, 180, -180);
 		final String text = Settings.getChargingText();
-		final Paint p = Settings.getTextPaint(level, fontSizeArc, Align.LEFT, true, true);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 
