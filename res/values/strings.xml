@@ -30,6 +30,7 @@
     <string name="category_animation_options">Charge Animation Style</string>
     <string name="category_charge_options">Charge Options</string>
     <string name="category_charge_colors">Charge Colors</string>
+    <string name="category_status_options">Battery Status Display</string>
     
     <string name="animation_delay">Animation delay</string>
     <string name="animation_delay_summary">Delaytime between the images in millieseconds. 50 is default</string>
@@ -77,7 +78,9 @@
 	<string name="show_number_summary">Premium Version only</string>
 	<string name="show_rand">Show Border</string>
 	<string name="show_status">Show Battery Status</string>
-			
+	<string name="battStatusStyle">Battery Status Style</string>
+	<string name="battStatusStyle_summary">What should be displayed?</string>
+				
 	<string name="gradient_colors">Gradient Colors</string>
 	<string name="gradient_colors_summary">Gradient Color according to the Battery Level</string>
 	<string name="gradient_colors_mid">Gradient Colors (mid -> low)</string>

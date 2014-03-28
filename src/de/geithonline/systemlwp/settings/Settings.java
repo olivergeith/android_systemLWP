@@ -61,6 +61,11 @@ public class Settings {
 	public static int battHealth = -1;
 	public static int battVoltage = -1;
 
+	public static final int BATT_STATUS_STYLE_TEMP_VOLT_HEALTH = 0;
+	public static final int BATT_STATUS_STYLE_TEMP_VOLT = 1;
+	public static final int BATT_STATUS_STYLE_TEMP = 2;
+	public static final int BATT_STATUS_STYLE_VOLT = 3;
+
 	public static boolean isShowStatus() {
 		if (prefs == null) {
 			return true;
@@ -68,8 +73,26 @@ public class Settings {
 		return prefs.getBoolean("show_status", true);
 	}
 
+	private static int getStatusStyle() {
+		if (prefs == null) {
+			return 0;
+		}
+		final int stat = Integer.valueOf(prefs.getString("battStatusStyle", "0"));
+		return stat;
+	}
+
 	public static String getBattStatusCompleteShort() {
-		return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+		switch (getStatusStyle()) {
+			case BATT_STATUS_STYLE_VOLT:
+				return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
+			case BATT_STATUS_STYLE_TEMP:
+				return "Battery: " + (float) battTemperature / 10 + "°C";
+			case BATT_STATUS_STYLE_TEMP_VOLT:
+				return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+			default:
+			case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
+				return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+		}
 	}
 
 	public static String getBattTemperatureString() {
