@@ -1,5 +1,5 @@
-[COLOR="blue"]2014-03-27 : V1.11[/COLOR]
-- Display the Battery Status (Health, Voltage, Temperature) for some styles (Premium)
+[COLOR="blue"]2014-03-28 : V1.11[/COLOR]
+- Display the Battery Status (Health, Voltage, Temperature) for some styles (Premium)(Work in Progress)
 - new option to configure the content of the Battery Status (Premium)
 - new Battery Style TachoV4 (Premium)
 - adjust size of Battery level Number (Free and Premium)
