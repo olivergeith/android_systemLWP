@@ -2,13 +2,16 @@ package de.geithonline.systemlwp.bitmapdrawer;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
+import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class BitmapDrawerSimpleCircleV3 extends BitmapDrawer {
 
@@ -37,6 +40,11 @@ public class BitmapDrawerSimpleCircleV3 extends BitmapDrawer {
 
 	@Override
 	public boolean supportsShowPointer() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsShowRand() {
 		return true;
 	}
 
@@ -116,6 +124,20 @@ public class BitmapDrawerSimpleCircleV3 extends BitmapDrawer {
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true,
 				Settings.getErasurePaint());
+		if (Settings.isShowRand()) {
+			final Paint randPaint = Settings.getBackgroundPaint();
+			randPaint.setColor(Color.WHITE);
+			randPaint.setShadowLayer(10, 0, 0, Color.BLACK);
+			// ‰uﬂeren Rand
+			randPaint.setStrokeWidth(offset);
+			randPaint.setStyle(Style.STROKE);
+			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 270, 360, true, randPaint);
+			// innere Fl‰che
+			final Paint bgPaint2 = Settings.getBackgroundPaint();
+			bgPaint2.setColor(ColorHelper.darker(bgPaint2.getColor()));
+			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 270, 360, true, bgPaint2);
+		}
+
 	}
 
 	@Override
