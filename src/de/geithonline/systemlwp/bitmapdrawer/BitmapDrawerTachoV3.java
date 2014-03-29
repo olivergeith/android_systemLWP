@@ -130,10 +130,8 @@ public class BitmapDrawerTachoV3 extends BitmapDrawer {
 	}
 
 	private void drawScalaText() {
-		long winkel = 270 + Math.round(level * 3.6f);
 		for (int i = 0; i < 100; i = i + 10) {
-			// final int winkel = -81 + (i * 18);
-			winkel = 252 + Math.round(i * 3.6f);
+			final long winkel = 252 + Math.round(i * 3.6f);
 			final Path mArc = new Path();
 			final RectF oval = getRectForOffset(offset + bogenDicke + fontSizeScala);
 			mArc.addArc(oval, winkel, 36);
@@ -145,7 +143,8 @@ public class BitmapDrawerTachoV3 extends BitmapDrawer {
 			// Zeiger
 			final Paint zp = Settings.getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (270f + i * 3.6 - 0.5f), 1f, true, zp);
+			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (270f + i * 3.6 - 0.5f), 1f,
+					true, zp);
 		}
 
 	}
