@@ -27,12 +27,13 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerNumberOnlyV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV4;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV5;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV6;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV3;
@@ -463,10 +464,6 @@ public class Settings {
 			drawer = new BitmapDrawerTachoV5();
 			return drawer;
 		}
-		if (battStyle.equals("TachoV6")) {
-			drawer = new BitmapDrawerTachoV6();
-			return drawer;
-		}
 
 		if (battStyle.equals("BarGraphV1")) {
 			drawer = new BitmapDrawerBarGraphV1();
@@ -499,6 +496,14 @@ public class Settings {
 		}
 		if (battStyle.equals("SimpleCircleV3")) {
 			drawer = new BitmapDrawerSimpleCircleV3();
+			return drawer;
+		}
+		if (battStyle.equals("SimpleCircleV4")) {
+			drawer = new BitmapDrawerSimpleCircleV4();
+			return drawer;
+		}
+		if (battStyle.equals("SimpleCircleV5")) {
+			drawer = new BitmapDrawerSimpleCircleV5();
 			return drawer;
 		}
 		if (battStyle.equals("AokpCircleV1")) {

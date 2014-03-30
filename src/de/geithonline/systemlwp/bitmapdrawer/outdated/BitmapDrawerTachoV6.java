@@ -1,4 +1,4 @@
-package de.geithonline.systemlwp.bitmapdrawer;
+package de.geithonline.systemlwp.bitmapdrawer.outdated;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,11 +10,11 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawer;
 import de.geithonline.systemlwp.settings.Settings;
 
 public class BitmapDrawerTachoV6 extends BitmapDrawer {
 
-	private int offset = 5;
 	private int bogenDicke = 5;
 	private int levelDicke = 100;
 	private int voltDicke = 100;
@@ -66,9 +66,28 @@ public class BitmapDrawerTachoV6 extends BitmapDrawer {
 		voltDicke = Math.round(bWidth * 0.09f);
 		fontSize = Math.round(bWidth * 0.20f);
 		fontSizeArc = Math.round(bWidth * 0.04f);
-		offset = Math.round(bWidth * 0.02f);
 
-		drawBogen(level);
+		final int levelSize = bWidth * 3 / 4;
+		final RectF levelRect = new RectF(bWidth / 2 - levelSize / 2, 0, bWidth / 2 + levelSize / 2, levelSize);
+		final InstrumentV1 levelInst = new InstrumentV1(bogenDicke, levelDicke, bitmapCanvas, levelRect);
+
+		final int voltSize = bWidth / 3;
+		final RectF voltRect = new RectF(0, bHeight - voltSize, voltSize, bHeight);
+		final InstrumentVoltV1 voltInst = new InstrumentVoltV1(bogenDicke, voltDicke, bitmapCanvas, voltRect);
+
+		final int tempSize = bWidth / 3;
+		final RectF tempRect = new RectF(bWidth - tempSize, bHeight - tempSize, bWidth, bHeight);
+		final InstrumentV1 tempInst = new InstrumentV1(bogenDicke, voltDicke, bitmapCanvas, tempRect);
+
+		// Skalatext
+		// drawLevelScala(level, offset, levelDicke);
+		levelInst.draw(level, 0, 100, true, " %", fontSizeArc, 10, 1);
+		voltInst.draw(Settings.battVoltage);
+		tempInst.draw(Settings.battTemperature, 0, 600, true, " °C", fontSizeArc, 100, 10);
+		// drawVoltageScala(Settings.battVoltage, offset + levelDicke,
+		// voltDicke);
+		// drawTemperatureScala(Settings.battTemperature, offset + levelDicke +
+		// voltDicke, voltDicke);
 		return bitmap;
 	}
 
@@ -87,13 +106,6 @@ public class BitmapDrawerTachoV6 extends BitmapDrawer {
 				canvas.drawBitmap(bitmap, cWidth - bWidth, cHeight / 2 - bHeight / 2, null);
 			}
 		}
-	}
-
-	private void drawBogen(final int level) {
-		// Skalatext
-		drawLevelScala(level, offset, levelDicke);
-		drawVoltageScala(Settings.battVoltage, offset + levelDicke, voltDicke);
-		drawTemperatureScala(Settings.battTemperature, offset + levelDicke + voltDicke, voltDicke);
 	}
 
 	private void drawLevelScala(final int level, final int rand, final int dicke) {

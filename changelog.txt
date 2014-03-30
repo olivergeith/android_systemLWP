@@ -1,5 +1,7 @@
 [COLOR="blue"]2014-03-28 : V1.12[/COLOR]
 - new Style SimpleCircleV3 (Free) 
+- new Style SimpleCircleV4 (Premium) 
+- new Style SimpleCircleV5 (Premium) 
 - new Style ZoopaCircleV3 (Free) 
 
 [COLOR="blue"]2014-03-28 : V1.11[/COLOR]

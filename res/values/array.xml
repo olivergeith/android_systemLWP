@@ -109,7 +109,6 @@
         <item name="12">ZoopaCircleV3</item>
         <item name="22">TachoV2</item>
         <item name="20">TachoV5</item>
-        <item name="25">TachoV6</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
         <item name="40">BarGraphVerticalV1</item>
@@ -136,7 +135,6 @@
         <item name="23">TachoV3</item>
         <item name="24">TachoV4</item>
         <item name="20">TachoV5</item>
-        <item name="25">TachoV6</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
         <item name="40">BarGraphVerticalV1</item>
@@ -145,6 +143,8 @@
         <item name="50">SimpleCircleV1</item>
         <item name="51">SimpleCircleV2</item>
         <item name="52">SimpleCircleV3</item>
+        <item name="53">SimpleCircleV4</item>
+        <item name="54">SimpleCircleV5</item>
         <item name="60">AokpCircleV1</item>
         <item name="70">NumberOnlyV1</item>
     </string-array>
@@ -161,7 +161,6 @@
         <item name="12">ZoopaCircleV3</item>
         <item name="22">TachoV2</item>
         <item name="20">TachoV5</item>
-        <item name="25">TachoV6</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
         <item name="40">BarGraphVerticalV1</item>
@@ -188,7 +187,6 @@
         <item name="23">TachoV3</item>
         <item name="24">TachoV4</item>
         <item name="20">TachoV5</item>
-        <item name="25">TachoV6</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
         <item name="40">BarGraphVerticalV1</item>
@@ -197,6 +195,8 @@
         <item name="50">SimpleCircleV1</item>
         <item name="51">SimpleCircleV2</item>
         <item name="52">SimpleCircleV3</item>
+        <item name="53">SimpleCircleV4</item>
+        <item name="54">SimpleCircleV5</item>
         <item name="60">AokpCircleV1</item>
         <item name="70">NumberOnlyV1</item>
         </string-array>
