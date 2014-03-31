@@ -42,10 +42,15 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 
 	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
-		if (Settings.getOrientation() == Settings.ORIENTATION_BOTTOM) {
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
+		if (cWidth < cHeight) {
+			// hochkant
 			bWidth = cWidth;
 			bHeight = cWidth / 2;
 		} else {
+			// quer
 			bWidth = cHeight;
 			bHeight = cHeight / 2;
 		}
@@ -69,13 +74,13 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 		switch (Settings.getOrientation()) {
 		default:
 		case Settings.ORIENTATION_BOTTOM:
-			canvas.drawBitmap(bitmap, 0, cHeight - bHeight - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
+			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
 			break;
 		case Settings.ORIENTATION_LEFT:
-			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 5, 0, null);
+			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 0, cHeight / 2 - bWidth / 2, null);
 			break;
 		case Settings.ORIENTATION_RIGHT:
-			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - 5 - bHeight, 0, null);
+			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - bHeight, cHeight / 2 - bWidth / 2, null);
 			break;
 		}
 	}

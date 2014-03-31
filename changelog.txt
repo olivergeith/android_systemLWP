@@ -3,6 +3,7 @@
 - new Style SimpleCircleV4 (Premium) 
 - new Style SimpleCircleV5 (Premium) 
 - new Style ZoopaCircleV3 (Free) 
+- TachoV5 repaired for landscape-mode!
 
 [COLOR="blue"]2014-03-28 : V1.11[/COLOR]
 - Display the Battery Status (Health, Voltage, Temperature) for some styles (Premium)(Work in Progress)
