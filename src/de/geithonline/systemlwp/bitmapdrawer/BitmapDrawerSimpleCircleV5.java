@@ -49,6 +49,11 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 	}
 
 	@Override
+	public boolean supportsMoveUP() {
+		return true;
+	}
+
+	@Override
 	public Bitmap drawBitmap(final int level, final Canvas canvas) {
 		// welche kantge ist schmaler?
 		if (cWidth < cHeight) {
@@ -80,7 +85,8 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 			// draw unten
 			if (cWidth < cHeight) {
 				// unten
-				canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight, null);
+				canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()),
+						null);
 			} else {
 				// links
 				canvas.drawBitmap(bitmap, cWidth - bWidth, cHeight / 2 - bHeight / 2, null);
