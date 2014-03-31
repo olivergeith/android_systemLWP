@@ -5,6 +5,7 @@
 - new Style ZoopaCircleV3 (Free) 
 - TachoV5 repaired for landscape-mode!
 - new Style SimpleArcV1 (Premium) 
+- new Style BrickV1 (Free) 
 
 [COLOR="blue"]2014-03-28 : V1.11[/COLOR]
 - Display the Battery Status (Health, Voltage, Temperature) for some styles (Premium)(Work in Progress)
