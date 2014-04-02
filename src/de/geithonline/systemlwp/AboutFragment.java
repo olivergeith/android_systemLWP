@@ -10,6 +10,11 @@ public class AboutFragment extends PreferenceFragment {
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// final PreferenceManager prefMgr = getPreferenceManager();
+		// prefMgr.setSharedPreferencesName("my_preferences");
+		// prefMgr.setSharedPreferencesMode(PreferenceActivity.MODE_PRIVATE);
+
 		addPreferencesFromResource(R.xml.preferences_about);
 		setSpecialThings();
 	}
