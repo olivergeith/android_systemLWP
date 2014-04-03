@@ -51,10 +51,6 @@
     <string name="show_zeiger">Show Pointer</string>
 	<string name="color_zeiger">Pointer Color</string>
     <string name="color_zeiger_summary">Some Batteries have a Pointer - set its color here</string>
-	<string name="vertical_position">Vertical offset (portrait-mode)</string>
-	<string name="vertical_position_summary">Offset from bottom of the screen</string>
-	<string name="vertical_position_landscape">Vertical offset (landscape-mode)</string>
-	<string name="vertical_position_landscape_summary">Offset from bottom of the screen</string>
 		
     <string name="header_title_battery">Battery Style</string>
 	<string name="header_summary_battery">Battery Style ....</string>
@@ -91,8 +87,6 @@
     <string name="fontsize100_summary">Size reduction of font when Battery-Level is on 100 percent</string>
     <string name="fontsize">Fontsize</string>
     <string name="fontsize_summary">Adjust fontsize of Battery-Level-Number</string>
-    <string name="centerBattery">Center Battery</string>
-    <string name="centerBattery_summary">Some Batteries can be centered - set it here</string>
 	<string name="Charging">Charging...</string>
 	<string name="ChargingUSB">Charging on USB</string>
 	<string name="ChargingAC">Charging on AC</string>
@@ -101,10 +95,17 @@
 	<string name="charge_colors_enable">Use different color on charge</string>
 	<string name="charge_colors_enable_summary">Use different color on charge</string>
 	<string name="charge_color">Color on charge</string>
-	<string name="resizePortrait">Resizing Portrait-Mode</string>
+
+	<string name="resizePortrait">Resizing - Portrait-Mode</string>
 	<string name="resizePortrait_summary">Resizing when in portrait-mode....</string>
-	<string name="resizeLandscape">Resizing Landscape-Mode</string>
+	<string name="resizeLandscape">Resizing - Landscape-Mode</string>
 	<string name="resizeLandscape_summary">Resizing when in landscape-mode....</string>
-								
+    <string name="centerBattery">Center Battery</string>
+    <string name="centerBattery_summary">Center battery in the middle of the screen</string>
+	<string name="vertical_position">Vertical Offset - Portrait-Mode</string>
+	<string name="vertical_position_summary">Offset from bottom of the screen in portrait-mode</string>
+	<string name="vertical_position_landscape">Vertical Offset - Landscape-Mode</string>
+	<string name="vertical_position_landscape_summary">Offset from bottom of the screen in landscape-mode</string>
+									
 	
 </resources>

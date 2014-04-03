@@ -141,6 +141,7 @@
         <item name="50">SimpleCircleV1</item>
         <item name="51">SimpleCircleV2</item>
         <item name="52">SimpleCircleV3</item>
+        <item name="55">SimpleCircleV6</item>
         <item name="60">AokpCircleV1</item>
     </string-array>
 
@@ -171,6 +172,7 @@
         <item name="52">SimpleCircleV3</item>
         <item name="53">SimpleCircleV4</item>
         <item name="54">SimpleCircleV5</item>
+        <item name="55">SimpleCircleV6</item>
         <item name="60">AokpCircleV1</item>
         <item name="70">NumberOnlyV1</item>
     </string-array>
@@ -197,6 +199,7 @@
         <item name="50">SimpleCircleV1</item>
         <item name="51">SimpleCircleV2</item>
         <item name="52">SimpleCircleV3</item>
+        <item name="55">SimpleCircleV6</item>
         <item name="60">AokpCircleV1</item>
     </string-array>
     
@@ -227,6 +230,7 @@
         <item name="52">SimpleCircleV3</item>
         <item name="53">SimpleCircleV4</item>
         <item name="54">SimpleCircleV5</item>
+        <item name="55">SimpleCircleV6</item>
         <item name="60">AokpCircleV1</item>
         <item name="70">NumberOnlyV1</item>
         </string-array>
