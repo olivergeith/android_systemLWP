@@ -12,8 +12,6 @@ import de.geithonline.systemlwp.settings.Settings;
 
 public class BitmapDrawerNumberOnlyV1 extends BitmapDrawer {
 
-	private int bWidth = 0;
-	private int bHeight = 0;
 	private int offset = 10;
 	private final float gap = 0.6f;
 	private int fontSize = 150;
@@ -25,13 +23,15 @@ public class BitmapDrawerNumberOnlyV1 extends BitmapDrawer {
 
 	@Override
 	public Bitmap drawBitmap(final int level) {
-		// welche kantge ist schmaler?
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
 		if (cWidth < cHeight) {
-			bWidth = cWidth;
-			bHeight = cWidth;
+			// hochkant
+			setBitmapSize(cWidth, cWidth, true);
 		} else {
-			bWidth = cHeight;
-			bHeight = cHeight;
+			// quer
+			setBitmapSize(cHeight, cHeight, false);
 		}
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
@@ -47,23 +47,6 @@ public class BitmapDrawerNumberOnlyV1 extends BitmapDrawer {
 			drawLevelNumber(level);
 		}
 		return bitmap;
-	}
-
-	@Override
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		// draw mittig
-		if (Settings.isCenteredBattery()) {
-			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 - bHeight / 2, null);
-		} else {
-			// draw unten
-			if (cWidth < cHeight) {
-				// unten
-				canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight, null);
-			} else {
-				// links
-				canvas.drawBitmap(bitmap, cWidth - bWidth, cHeight / 2 - bHeight / 2, null);
-			}
-		}
 	}
 
 	@Override

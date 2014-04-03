@@ -15,8 +15,6 @@ import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class BitmapDrawerSimpleCircleV4 extends BitmapDrawer {
 
-	private int bWidth = 0;
-	private int bHeight = 0;
 	private int offset = 10;
 	private int einerDicke = 70;
 	private int zehnerDicke = 70;
@@ -45,13 +43,15 @@ public class BitmapDrawerSimpleCircleV4 extends BitmapDrawer {
 
 	@Override
 	public Bitmap drawBitmap(final int level) {
-		// welche kantge ist schmaler?
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
 		if (cWidth < cHeight) {
-			bWidth = cWidth;
-			bHeight = cWidth;
+			// hochkant
+			setBitmapSize(cWidth, cWidth, true);
 		} else {
-			bWidth = cHeight;
-			bHeight = cHeight;
+			// quer
+			setBitmapSize(cHeight, cHeight, false);
 		}
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
@@ -64,23 +64,6 @@ public class BitmapDrawerSimpleCircleV4 extends BitmapDrawer {
 
 		drawSegmente(level);
 		return bitmap;
-	}
-
-	@Override
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		// draw mittig
-		if (Settings.isCenteredBattery()) {
-			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 - bHeight / 2, null);
-		} else {
-			// draw unten
-			if (cWidth < cHeight) {
-				// unten
-				canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight, null);
-			} else {
-				// links
-				canvas.drawBitmap(bitmap, cWidth - bWidth, cHeight / 2 - bHeight / 2, null);
-			}
-		}
 	}
 
 	private void drawSegmente(final int level) {
@@ -106,17 +89,21 @@ public class BitmapDrawerSimpleCircleV4 extends BitmapDrawer {
 		// scala
 		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 270, 360, true, Settings.getBackgroundPaint());
 		// level
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 270, Math.round(level * 3.6), true, Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 270, Math.round(level * 3.6), true,
+				Settings.getBatteryPaint(level));
 
 		// Skalatext
 		drawScalaText();
 
 		// Zeiger
-		final Paint zp = Settings.getZeigerPaint(level);
-		zp.setShadowLayer(10, 0, 0, Color.BLACK);
-		bitmapCanvas.drawArc(getRectForOffset(fontSizeArc), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
+		if (Settings.isShowZeiger()) {
+			final Paint zp = Settings.getZeigerPaint(level);
+			zp.setShadowLayer(10, 0, 0, Color.BLACK);
+			bitmapCanvas.drawArc(getRectForOffset(fontSizeArc), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
+		}
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true,
+				Settings.getErasurePaint());
 		// Rand
 		if (Settings.isShowRand()) {
 			final Paint randPaint = Settings.getBackgroundPaint();
@@ -144,8 +131,8 @@ public class BitmapDrawerSimpleCircleV4 extends BitmapDrawer {
 			final Path mArc = new Path();
 			mArc.addArc(oval, winkel, 36);
 			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
-			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke - fontSizeArc / 2), (float) (270f + i * 3.6 - 0.5f),
-					1f, true, p);
+			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke - fontSizeArc / 2),
+					(float) (270f + i * 3.6 - 0.5f), 1f, true, p);
 		}
 	}
 

@@ -14,23 +14,21 @@ public class BitmapDrawerBarGraphVerticalV1 extends BitmapDrawer {
 	private final float gap = 5f;
 	private int fontSize = 150;
 	private Canvas bitmapCanvas;
-	private int bWidth;
-	private int bHeight;
 
 	public BitmapDrawerBarGraphVerticalV1() {
 	}
 
 	@Override
 	public Bitmap drawBitmap(final int level) {
-		// welche kantge ist schmaler?
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
 		if (cWidth < cHeight) {
 			// hochkant
-			bWidth = cWidth;
-			bHeight = cHeight;
+			setBitmapSize(cWidth, cHeight, true);
 		} else {
 			// quer
-			bWidth = cHeight;
-			bHeight = cHeight;
+			setBitmapSize(cWidth, cHeight, false);
 		}
 
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
@@ -45,7 +43,11 @@ public class BitmapDrawerBarGraphVerticalV1 extends BitmapDrawer {
 
 	@Override
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		canvas.drawBitmap(bitmap, 0, 0, null);
+		if (Settings.isCenteredBattery()) {
+			canvas.drawBitmap(bitmap, 0, cHeight / 2 - bHeight / 2, null);
+		} else {
+			canvas.drawBitmap(bitmap, 0, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
+		}
 	}
 
 	private void drawSegmente(final int level) {

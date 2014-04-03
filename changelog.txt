@@ -1,3 +1,10 @@
+[COLOR="blue"]2014-04-04 : V1.14[/COLOR]
+- Resizing and vertical positioning/centering (re)implemented from scratch for all styles
+  ...your current setup may be centered now...
+  ...(re)configure this in Battery Style settings...
+- Orientation (like Left, Right, Bottom) is gone completly and no longer available ...
+- new "Contact Developer" item in About-Settings for sending eMail to me
+
 [COLOR="blue"]2014-03-28 : V1.12[/COLOR]
 - new Style SimpleCircleV3 (Free) 
 - new Style SimpleCircleV4 (Premium) 

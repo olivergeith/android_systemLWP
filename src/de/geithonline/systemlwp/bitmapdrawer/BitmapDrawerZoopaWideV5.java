@@ -23,23 +23,28 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 
 	@Override
 	public Bitmap drawBitmap(final int level) {
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
+		if (cWidth < cHeight) {
+			// hochkant
+			setBitmapSize(cWidth, cWidth / 2, true);
+		} else {
+			// quer
+			setBitmapSize(cWidth, cWidth / 2, false);
+		}
 
-		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
+		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
 
-		bogenDicke = Math.round(cWidth * 0.01f);
-		skaleDicke = Math.round(cWidth * 0.14f);
-		offset = Math.round(cWidth * 0.011f);
-		fontSize = Math.round(cWidth * 0.25f);
-		fontSizeArc = Math.round(cWidth * 0.04f);
+		bogenDicke = Math.round(bWidth * 0.01f);
+		skaleDicke = Math.round(bWidth * 0.14f);
+		offset = Math.round(bWidth * 0.011f);
+		fontSize = Math.round(bWidth * 0.25f);
+		fontSizeArc = Math.round(bWidth * 0.04f);
 
 		drawSegmente(level);
 		return bitmap;
-	}
-
-	@Override
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		canvas.drawBitmap(bitmap, 0, cHeight - cWidth / 2 - 5 - Settings.getVerticalPositionOffset(isPortrait()), null);
 	}
 
 	private void drawSegmente(final int level) {
@@ -71,12 +76,14 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 
 		// Bogen 2
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset), 180, 180, true, Settings.getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset), 180, 180, true,
+				Settings.getBackgroundPaint());
 
 		// overpaint level
 		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, Settings.getBatteryPaintSourceIn(level));
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset + bogenDicke), 0, 360, true,
+				Settings.getErasurePaint());
 
 	}
 

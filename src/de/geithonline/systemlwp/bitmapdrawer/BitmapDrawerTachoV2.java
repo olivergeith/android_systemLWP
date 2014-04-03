@@ -17,14 +17,10 @@ public class BitmapDrawerTachoV2 extends BitmapDrawer {
 	private int rand = 5;
 	private final int offset = 5;
 	private int rahmenDicke = 5;
-	private int skaleDicke = 100;
 	private int fontSize = 150;
 	private int fontSizeArc = 20;
 	private int zeigerBreite = 4;
 	protected Canvas bitmapCanvas;
-
-	private int bWidth = 0;
-	private int bHeight = 0;
 	private int fontSizeScala = 20;
 
 	public BitmapDrawerTachoV2() {
@@ -38,21 +34,20 @@ public class BitmapDrawerTachoV2 extends BitmapDrawer {
 	@Override
 	public Bitmap drawBitmap(final int level) {
 		// Batterie ist immer gleich groﬂ....
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
 		if (cWidth < cHeight) {
 			// hochkant
-			bWidth = cWidth;
-			bHeight = cWidth / 5;
+			setBitmapSize(cWidth, cWidth / 5, true);
 		} else {
 			// quer
-			bWidth = cHeight;
-			bHeight = cHeight / 5;
+			setBitmapSize(cHeight, cHeight / 5, false);
 		}
 
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
 		zeigerBreite = Math.round(bWidth * 0.01f);
 		rahmenDicke = Math.round(bWidth * 0.01f);
-		skaleDicke = Math.round(bWidth * 0.13f);
 		fontSize = Math.round(bWidth * 0.12f);
 		fontSizeArc = Math.round(bWidth * 0.04f);
 		fontSizeScala = Math.round(bWidth * 0.035f);
@@ -60,11 +55,6 @@ public class BitmapDrawerTachoV2 extends BitmapDrawer {
 
 		drawSkala(level);
 		return bitmap;
-	}
-
-	@Override
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - offset - Settings.getVerticalPositionOffset(isPortrait()), null);
 	}
 
 	private void drawSkala(final int level) {
@@ -84,7 +74,8 @@ public class BitmapDrawerTachoV2 extends BitmapDrawer {
 		zeigerPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 
 		final Paint bgPaint = Settings.getBackgroundPaint();
-		bgPaint.setShader(new LinearGradient(0, 0, bWidth / 2, 0, ColorHelper.darker2times(bgPaint.getColor()), bgPaint.getColor(), Shader.TileMode.MIRROR));
+		bgPaint.setShader(new LinearGradient(0, 0, bWidth / 2, 0, ColorHelper.darker2times(bgPaint.getColor()), bgPaint.getColor(),
+				Shader.TileMode.MIRROR));
 
 		// Fl‰che
 		bitmapCanvas.drawRect(getRectForOffset(offset), bgPaint);
@@ -93,7 +84,8 @@ public class BitmapDrawerTachoV2 extends BitmapDrawer {
 		for (int i = 0; i <= 100; i = i + 10) {
 			// zahlen
 			final int x = offset + rahmenDicke + rand + Math.round(skalaBreite * i / 100);
-			bitmapCanvas.drawText("" + i, x, offset + rahmenDicke + fontSizeScala, Settings.getTextPaint(100, fontSizeScala, Align.CENTER, false, false));
+			bitmapCanvas.drawText("" + i, x, offset + rahmenDicke + fontSizeScala,
+					Settings.getTextPaint(100, fontSizeScala, Align.CENTER, false, false));
 			// striche
 			final RectF zs = getRectForOffset(offset);
 			if (i == 0 || i == 100) {

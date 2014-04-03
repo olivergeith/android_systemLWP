@@ -3,7 +3,6 @@ package de.geithonline.systemlwp;
 import android.appwidget.AppWidgetManager;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import de.geithonline.systemlwp.settings.Settings;
@@ -30,10 +29,10 @@ public class AboutFragment extends PreferenceFragment {
 
 		// If we have a Widget...we switch preferences to its preferences
 		if (widgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
-			final PreferenceManager prefMgr = getPreferenceManager();
-			final String prefsName = "Widget" + widgetId;
-			prefMgr.setSharedPreferencesName(prefsName);
-			prefMgr.setSharedPreferencesMode(PreferenceActivity.MODE_PRIVATE);
+			// final PreferenceManager prefMgr = getPreferenceManager();
+			// final String prefsName = "Widget" + widgetId;
+			// prefMgr.setSharedPreferencesName(prefsName);
+			// prefMgr.setSharedPreferencesMode(PreferenceActivity.MODE_PRIVATE);
 		}
 		return widgetId;
 	}

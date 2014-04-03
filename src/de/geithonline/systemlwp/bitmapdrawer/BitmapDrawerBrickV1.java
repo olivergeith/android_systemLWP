@@ -14,9 +14,6 @@ public class BitmapDrawerBrickV1 extends BitmapDrawer {
 	private float rand = 5;
 	private float gap = 5;
 	protected Canvas bitmapCanvas;
-
-	private int bWidth = 0;
-	private int bHeight = 0;
 	private int fontSize = 150;
 	private int fontSizeArc = 20;
 
@@ -30,15 +27,15 @@ public class BitmapDrawerBrickV1 extends BitmapDrawer {
 
 	@Override
 	public Bitmap drawBitmap(final int level) {
-		// Batterie ist immer gleich groﬂ....
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
 		if (cWidth < cHeight) {
 			// hochkant
-			bWidth = cWidth;
-			bHeight = cWidth;
+			setBitmapSize(cWidth, cWidth, true);
 		} else {
 			// quer
-			bWidth = cHeight;
-			bHeight = cHeight;
+			setBitmapSize(cHeight, cHeight, false);
 		}
 
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
@@ -50,11 +47,6 @@ public class BitmapDrawerBrickV1 extends BitmapDrawer {
 
 		drawSkala(level);
 		return bitmap;
-	}
-
-	@Override
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
 	}
 
 	private void drawSkala(final int level) {

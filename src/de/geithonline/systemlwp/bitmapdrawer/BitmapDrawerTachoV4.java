@@ -22,8 +22,6 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 	private int fontSizeArc = 20;
 	protected Canvas bitmapCanvas;
 
-	private int bWidth = 0;
-	private int bHeight = 0;
 	private int fontSizeScala = 20;
 
 	public BitmapDrawerTachoV4() {
@@ -46,12 +44,10 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 		// das heist, die Batterie ist immer gleich gross
 		if (cWidth < cHeight) {
 			// hochkant
-			bWidth = cWidth;
-			bHeight = cWidth;
+			setBitmapSize(cWidth, cWidth, true);
 		} else {
 			// quer
-			bWidth = cHeight;
-			bHeight = cHeight;
+			setBitmapSize(cHeight, cHeight, false);
 		}
 
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
@@ -66,23 +62,6 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 
 		drawBogen(level);
 		return bitmap;
-	}
-
-	@Override
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		// draw mittig
-		if (Settings.isCenteredBattery()) {
-			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 - bHeight / 2, null);
-		} else {
-			// draw unten
-			if (cWidth < cHeight) {
-				// unten
-				canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight, null);
-			} else {
-				// links
-				canvas.drawBitmap(bitmap, cWidth - bWidth, cHeight / 2 - bHeight / 2, null);
-			}
-		}
 	}
 
 	private void drawBogen(final int level) {
@@ -138,13 +117,14 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 				final Paint p = Settings.getTextPaint(i, fontSizeScala, Align.CENTER, true, true);
 				p.setTextAlign(Align.CENTER);
 				bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
-				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
+				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc),
+						(float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
 			} else if (i % 5 == 0) {
-				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc * 2 / 3), (float) (startwinkel + i * 3.6 - 0.5f), 1f,
-						true, zp);
+				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc * 2 / 3), (float) (startwinkel + i
+						* 3.6 - 0.5f), 1f, true, zp);
 			} else {
-				bitmapCanvas
-						.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
+				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2),
+						(float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
 			}
 		}
 	}

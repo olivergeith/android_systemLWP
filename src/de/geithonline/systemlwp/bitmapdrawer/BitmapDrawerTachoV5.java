@@ -52,15 +52,6 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 		return bitmap;
 	}
 
-	@Override
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		if (Settings.isCenteredBattery()) {
-			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 - bHeight / 2, null);
-		} else {
-			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
-		}
-	}
-
 	private void drawBogen(final int level) {
 		final Paint bgPaint = Settings.getBackgroundPaint();
 		bgPaint.setColor(ColorHelper.brighter(bgPaint.getColor()));

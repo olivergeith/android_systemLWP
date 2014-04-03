@@ -19,9 +19,6 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 	private int fontSize = 150;
 	private int fontSizeArc = 20;
 	protected Canvas bitmapCanvas;
-
-	private int bWidth = 0;
-	private int bHeight = 0;
 	private int fontSizeScala = 20;
 
 	public BitmapDrawerTachoV1() {
@@ -44,12 +41,10 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 		// das heist, die Batterie ist immer gleich gross
 		if (cWidth < cHeight) {
 			// hochkant
-			bWidth = cWidth;
-			bHeight = cWidth / 2;
+			setBitmapSize(cWidth, cWidth / 2, true);
 		} else {
 			// quer
-			bWidth = cHeight;
-			bHeight = cHeight / 2;
+			setBitmapSize(cWidth, cWidth / 2, false);
 		}
 
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
@@ -64,12 +59,6 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 
 		drawBogen(level);
 		return bitmap;
-	}
-
-	@Override
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-
-		canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
 	}
 
 	private void drawBogen(final int level) {
@@ -127,7 +116,8 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 			// Zeiger
 			final Paint zp = Settings.getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (180f + i * 1.8 - 0.5f), 1f, true, zp);
+			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (180f + i * 1.8 - 0.5f), 1f,
+					true, zp);
 		}
 
 	}

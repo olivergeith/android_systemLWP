@@ -18,8 +18,6 @@ public class BitmapDrawerZoopaWideV6 extends BitmapDrawer {
 	private int fontSize = 150;
 	private int fontSizeArc = 20;
 	private Canvas bitmapCanvas;
-	private int bWidth = 0;
-	private int bHeight = 0;
 	private final float offsetFaktorUnten = 0.69f;
 
 	public BitmapDrawerZoopaWideV6() {
@@ -32,13 +30,15 @@ public class BitmapDrawerZoopaWideV6 extends BitmapDrawer {
 
 	@Override
 	public Bitmap drawBitmap(final int level) {
-		// welche kantge ist schmaler?
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
 		if (cWidth < cHeight) {
-			bWidth = cWidth;
-			bHeight = Math.round(bWidth * offsetFaktorUnten);
+			// hochkant
+			setBitmapSize(cWidth, Math.round(cWidth * offsetFaktorUnten), true);
 		} else {
-			bWidth = cHeight;
-			bHeight = Math.round(bWidth * offsetFaktorUnten);
+			// quer
+			setBitmapSize(cHeight, Math.round(cHeight * offsetFaktorUnten), false);
 		}
 
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
@@ -54,11 +54,6 @@ public class BitmapDrawerZoopaWideV6 extends BitmapDrawer {
 		drawBogen(level);
 		drawSegmente(level);
 		return bitmap;
-	}
-
-	@Override
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		canvas.drawBitmap(bitmap, 0, cHeight - bHeight - offset - Settings.getVerticalPositionOffset(isPortrait()), null);
 	}
 
 	private void drawBogen(final int level) {
