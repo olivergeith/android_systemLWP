@@ -50,7 +50,14 @@
             <intent android:action="android.intent.action.VIEW"
                 android:data="https://twitter.com/OliverGeith" />
         </Preference>
-    </PreferenceCategory>
+	    <Preference 
+	        android:title="Contact developer" 
+	        android:icon="@drawable/email"
+	        >
+            <intent android:action="android.intent.action.VIEW"
+                android:data="mailto:oliver.geith@gmail.com?subject=BatteryLWP-Mail" />
+        </Preference>
+	    </PreferenceCategory>
 	    
     <PreferenceCategory android:title="Special internal Options">
 	    <Preference 
