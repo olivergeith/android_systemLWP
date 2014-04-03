@@ -35,11 +35,6 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
 	public boolean supportsShowRand() {
 		return true;
 	}
@@ -143,14 +138,13 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 				final Paint p = Settings.getTextPaint(i, fontSizeScala, Align.CENTER, true, true);
 				p.setTextAlign(Align.CENTER);
 				bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
-				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc),
-						(float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
+				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
 			} else if (i % 5 == 0) {
-				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc * 2 / 3), (float) (startwinkel + i
-						* 3.6 - 0.5f), 1f, true, zp);
+				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc * 2 / 3), (float) (startwinkel + i * 3.6 - 0.5f), 1f,
+						true, zp);
 			} else {
-				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2),
-						(float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
+				bitmapCanvas
+						.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
 			}
 		}
 	}

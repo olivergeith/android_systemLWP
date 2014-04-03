@@ -34,11 +34,6 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsMoveUP() {
-		return true;
-	}
-
-	@Override
 	public Bitmap drawBitmap(final int level) {
 		bWidth = cWidth;
 		bHeight = cWidth / 2;

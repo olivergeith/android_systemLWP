@@ -184,23 +184,16 @@ public class Settings {
 		return text;
 	}
 
-	private static boolean isVerticalPositionOffsetOnlyInPortrait() {
-		if (prefs == null) {
-			return true;
-		}
-		return prefs.getBoolean("vertical_position_only_portrait", true);
-	}
-
-	public static int getVerticalPositionOffset(final boolean inPortrait) {
+	public static int getVerticalPositionOffset(final boolean isPortrait) {
 		final int defVal = 0;
 		if (prefs == null) {
 			return defVal;
 		}
-		if (!inPortrait && isVerticalPositionOffsetOnlyInPortrait()) {
-			return 0;
+		if (isPortrait) {
+			return Integer.valueOf(prefs.getString("vertical_position", "0"));
+		} else {
+			return Integer.valueOf(prefs.getString("vertical_position_landscape", "0"));
 		}
-		final int thr = Integer.valueOf(prefs.getString("vertical_position", "0"));
-		return thr;
 	}
 
 	public static boolean isAnimationEnabled() {

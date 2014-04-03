@@ -29,11 +29,6 @@ public class BitmapDrawerSimpleCircleV3 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
 	public boolean supportsPointerColor() {
 		return true;
 	}
@@ -122,8 +117,7 @@ public class BitmapDrawerSimpleCircleV3 extends BitmapDrawer {
 			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), startwinkel, winkelOneSegment, true, paint);
 		}
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true,
-				Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true, Settings.getErasurePaint());
 		if (Settings.isShowRand()) {
 			final Paint randPaint = Settings.getBackgroundPaint();
 			randPaint.setColor(Color.WHITE);

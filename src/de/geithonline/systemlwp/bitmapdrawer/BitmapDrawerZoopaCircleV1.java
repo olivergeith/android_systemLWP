@@ -27,11 +27,6 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 
 	}
 
-	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
 	private Bitmap initDimensions() {
 
 		// welche kantge ist schmaler?

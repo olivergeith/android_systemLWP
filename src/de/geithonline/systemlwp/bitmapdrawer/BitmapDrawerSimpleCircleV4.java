@@ -29,11 +29,6 @@ public class BitmapDrawerSimpleCircleV4 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
 	public boolean supportsPointerColor() {
 		return true;
 	}
@@ -111,8 +106,7 @@ public class BitmapDrawerSimpleCircleV4 extends BitmapDrawer {
 		// scala
 		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 270, 360, true, Settings.getBackgroundPaint());
 		// level
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 270, Math.round(level * 3.6), true,
-				Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 270, Math.round(level * 3.6), true, Settings.getBatteryPaint(level));
 
 		// Skalatext
 		drawScalaText();
@@ -122,8 +116,7 @@ public class BitmapDrawerSimpleCircleV4 extends BitmapDrawer {
 		zp.setShadowLayer(10, 0, 0, Color.BLACK);
 		bitmapCanvas.drawArc(getRectForOffset(fontSizeArc), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true,
-				Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true, Settings.getErasurePaint());
 		// Rand
 		if (Settings.isShowRand()) {
 			final Paint randPaint = Settings.getBackgroundPaint();
@@ -151,8 +144,8 @@ public class BitmapDrawerSimpleCircleV4 extends BitmapDrawer {
 			final Path mArc = new Path();
 			mArc.addArc(oval, winkel, 36);
 			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
-			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke - fontSizeArc / 2),
-					(float) (270f + i * 3.6 - 0.5f), 1f, true, p);
+			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke - fontSizeArc / 2), (float) (270f + i * 3.6 - 0.5f),
+					1f, true, p);
 		}
 	}
 

@@ -27,11 +27,6 @@ public class BitmapDrawerZoopaWideV4 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsMoveUP() {
-		return true;
-	}
-
-	@Override
 	public Bitmap drawBitmap(final int level) {
 
 		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);

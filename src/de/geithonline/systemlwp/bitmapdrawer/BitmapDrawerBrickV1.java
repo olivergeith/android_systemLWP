@@ -29,11 +29,6 @@ public class BitmapDrawerBrickV1 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsMoveUP() {
-		return true;
-	}
-
-	@Override
 	public Bitmap drawBitmap(final int level) {
 		// Batterie ist immer gleich groﬂ....
 		if (cWidth < cHeight) {

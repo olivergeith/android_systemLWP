@@ -21,7 +21,13 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 
 	public abstract void drawBattStatusText();
 
-	public abstract void drawOnCanvas(Bitmap bitmap, Canvas canvas);
+	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
+		if (Settings.isCenteredBattery()) {
+			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 - bHeight / 2, null);
+		} else {
+			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
+		}
+	}
 
 	protected void setBitmapSize(final int w, final int h, final boolean isPortrait) {
 		if (isPortrait) {
@@ -97,16 +103,6 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 
 	protected boolean isLandscape() {
 		return cHeight < cWidth;
-	}
-
-	@Override
-	public boolean supportsMoveUP() {
-		return false;
-	}
-
-	@Override
-	public boolean supportsCenter() {
-		return false;
 	}
 
 	@Override

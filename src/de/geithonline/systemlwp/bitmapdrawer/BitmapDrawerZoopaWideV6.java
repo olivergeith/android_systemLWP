@@ -31,11 +31,6 @@ public class BitmapDrawerZoopaWideV6 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsMoveUP() {
-		return true;
-	}
-
-	@Override
 	public Bitmap drawBitmap(final int level) {
 		// welche kantge ist schmaler?
 		if (cWidth < cHeight) {

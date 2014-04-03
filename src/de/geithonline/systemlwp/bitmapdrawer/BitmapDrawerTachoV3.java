@@ -35,11 +35,6 @@ public class BitmapDrawerTachoV3 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
 	public boolean supportsShowRand() {
 		return true;
 	}
@@ -143,8 +138,7 @@ public class BitmapDrawerTachoV3 extends BitmapDrawer {
 			// Zeiger
 			final Paint zp = Settings.getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (270f + i * 3.6 - 0.5f), 1f,
-					true, zp);
+			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (270f + i * 3.6 - 0.5f), 1f, true, zp);
 		}
 
 	}

@@ -29,11 +29,6 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
 	public boolean supportsPointerColor() {
 		return true;
 	}
@@ -45,11 +40,6 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 
 	@Override
 	public boolean supportsShowRand() {
-		return true;
-	}
-
-	@Override
-	public boolean supportsMoveUP() {
 		return true;
 	}
 
@@ -85,8 +75,7 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 			// draw unten
 			if (cWidth < cHeight) {
 				// unten
-				canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()),
-						null);
+				canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
 			} else {
 				// links
 				canvas.drawBitmap(bitmap, cWidth - bWidth, cHeight / 2 - bHeight / 2, null);
@@ -117,8 +106,7 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 		// scala
 		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 135, 270, true, Settings.getBackgroundPaint());
 		// level
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 135, Math.round(level * 2.7), true,
-				Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 135, Math.round(level * 2.7), true, Settings.getBatteryPaint(level));
 
 		// Skalatext
 		drawScalaText();
@@ -128,8 +116,7 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 		zp.setShadowLayer(10, 0, 0, Color.BLACK);
 		bitmapCanvas.drawArc(getRectForOffset(fontSizeArc), 135 + Math.round(level * 2.7) - 1, 2, true, zp);
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true,
-				Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true, Settings.getErasurePaint());
 		// Rand
 		if (Settings.isShowRand()) {
 			final Paint randPaint = Settings.getBackgroundPaint();
@@ -157,8 +144,7 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 			final Path mArc = new Path();
 			mArc.addArc(oval, winkel, 36);
 			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
-			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke / 2),
-					(float) (135f + i * 2.7 - 0.5f), 1f, true, p);
+			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke / 2), (float) (135f + i * 2.7 - 0.5f), 1f, true, p);
 		}
 	}
 

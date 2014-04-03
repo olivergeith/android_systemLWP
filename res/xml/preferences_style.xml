@@ -43,7 +43,8 @@
             android:title="@string/centerBattery"
             android:summary="@string/centerBattery_summary"
             android:defaultValue="true"
-        />
+            android:disableDependentsState="true"
+        	/>
         
         <EditTextPreference
 		    android:key="vertical_position"
@@ -52,14 +53,17 @@
     		android:dialogTitle="@string/vertical_position"
 		    android:inputType="number"
 		    android:summary="@string/vertical_position_summary"
+		    android:dependency="centerBattery"
          	/>
-        
-        <CheckBoxPreference 
-            android:key="vertical_position_only_portrait"
-            android:title="@string/vertical_position_only_portrait"
-            android:summary="@string/vertical_position_only_portrait_summary"
-            android:defaultValue="true"
-        />
+        <EditTextPreference
+		    android:key="vertical_position_landscape"
+    		android:defaultValue="0"
+		    android:title="@string/vertical_position_landscape" 
+    		android:dialogTitle="@string/vertical_position_landscape"
+		    android:inputType="number"
+		    android:summary="@string/vertical_position_landscape_summary"
+		    android:dependency="centerBattery"
+         	/>
         
     </PreferenceCategory>
         

@@ -35,11 +35,6 @@ public class BitmapDrawerTachoV6a extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
 	public boolean supportsShowRand() {
 		return true;
 	}
@@ -71,8 +66,7 @@ public class BitmapDrawerTachoV6a extends BitmapDrawer {
 
 		final InstrumentV1 levelInst = new InstrumentV1(bogenDicke, levelDicke, bitmapCanvas, getRectForOffset(offset));
 		final InstrumentV1 voltInst = new InstrumentV1(bogenDicke, voltDicke, bitmapCanvas, getRectForOffset(offset + levelDicke));
-		final InstrumentV1 tempInst = new InstrumentV1(bogenDicke, voltDicke, bitmapCanvas, getRectForOffset(offset + levelDicke
-				+ voltDicke));
+		final InstrumentV1 tempInst = new InstrumentV1(bogenDicke, voltDicke, bitmapCanvas, getRectForOffset(offset + levelDicke + voltDicke));
 
 		// Skalatext
 		// drawLevelScala(level, offset, levelDicke);

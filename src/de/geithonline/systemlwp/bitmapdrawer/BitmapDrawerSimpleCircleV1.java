@@ -25,11 +25,6 @@ public class BitmapDrawerSimpleCircleV1 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
 	public boolean supportsPointerColor() {
 		return true;
 	}

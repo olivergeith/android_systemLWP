@@ -34,11 +34,6 @@ public class BitmapDrawerTachoV6 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
 	public boolean supportsShowRand() {
 		return true;
 	}

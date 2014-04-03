@@ -33,11 +33,6 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsMoveUP() {
-		return true;
-	}
-
-	@Override
 	public boolean supportsShowRand() {
 		return true;
 	}

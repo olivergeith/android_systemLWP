@@ -24,11 +24,6 @@ public class BitmapDrawerNumberOnlyV1 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
 	public Bitmap drawBitmap(final int level) {
 		// welche kantge ist schmaler?
 		if (cWidth < cHeight) {

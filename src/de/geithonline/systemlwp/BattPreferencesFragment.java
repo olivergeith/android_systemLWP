@@ -55,19 +55,13 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		final IBitmapDrawer drawer = Settings.getDrawerForStyle(style);
 		final Preference zeiger = findPreference("show_zeiger");
 		final Preference rand = findPreference("show_rand");
-		final Preference center = findPreference("centerBattery");
 		final Preference colorZeiger = findPreference("color_zeiger");
 		final Preference battstyle = findPreference("batt_style");
-		final Preference verticalPosition = findPreference("vertical_position");
-		final Preference verticalPositionOnlyPortrait = findPreference("vertical_position_only_portrait");
 
 		zeiger.setEnabled(drawer.supportsShowPointer());
 		rand.setEnabled(drawer.supportsShowRand());
 		colorZeiger.setEnabled(drawer.supportsPointerColor());
-		center.setEnabled(drawer.supportsCenter());
 		battstyle.setSummary("Current style: " + style);
-		verticalPosition.setEnabled(drawer.supportsMoveUP());
-		verticalPositionOnlyPortrait.setEnabled(drawer.supportsMoveUP());
 	}
 
 }

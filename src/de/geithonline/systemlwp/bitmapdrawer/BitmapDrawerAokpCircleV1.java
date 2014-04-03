@@ -25,11 +25,6 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsCenter() {
-		return true;
-	}
-
-	@Override
 	public Bitmap drawBitmap(final int level) {
 		// welche kantge ist schmaler?
 		if (cWidth < cHeight) {
@@ -49,23 +44,6 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 
 		drawSegmente(level);
 		return bitmap;
-	}
-
-	@Override
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-		// draw mittig
-		if (Settings.isCenteredBattery()) {
-			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 - bHeight / 2, null);
-		} else {
-			// draw unten
-			if (cWidth < cHeight) {
-				// unten
-				canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight, null);
-			} else {
-				// links
-				canvas.drawBitmap(bitmap, cWidth - bWidth, cHeight / 2 - bHeight / 2, null);
-			}
-		}
 	}
 
 	private void drawSegmente(final int level) {

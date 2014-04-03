@@ -27,11 +27,6 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsMoveUP() {
-		return true;
-	}
-
-	@Override
 	public Bitmap drawBitmap(final int level) {
 		// welche kante ist schmaler?
 		// wir orientieren uns an der schmalsten kante
@@ -59,8 +54,11 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 
 	@Override
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
-
-		canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
+		if (Settings.isCenteredBattery()) {
+			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 - bHeight / 2, null);
+		} else {
+			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
+		}
 	}
 
 	private void drawBogen(final int level) {
