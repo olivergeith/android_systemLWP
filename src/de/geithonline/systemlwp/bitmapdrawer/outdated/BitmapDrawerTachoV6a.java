@@ -23,9 +23,6 @@ public class BitmapDrawerTachoV6a extends BitmapDrawer {
 	private int fontSizeArc = 20;
 	protected Canvas bitmapCanvas;
 
-	private int bWidth = 0;
-	private int bHeight = 0;
-
 	public BitmapDrawerTachoV6a() {
 	}
 
@@ -66,7 +63,8 @@ public class BitmapDrawerTachoV6a extends BitmapDrawer {
 
 		final InstrumentV1 levelInst = new InstrumentV1(bogenDicke, levelDicke, bitmapCanvas, getRectForOffset(offset));
 		final InstrumentV1 voltInst = new InstrumentV1(bogenDicke, voltDicke, bitmapCanvas, getRectForOffset(offset + levelDicke));
-		final InstrumentV1 tempInst = new InstrumentV1(bogenDicke, voltDicke, bitmapCanvas, getRectForOffset(offset + levelDicke + voltDicke));
+		final InstrumentV1 tempInst = new InstrumentV1(bogenDicke, voltDicke, bitmapCanvas, getRectForOffset(offset + levelDicke
+				+ voltDicke));
 
 		// Skalatext
 		// drawLevelScala(level, offset, levelDicke);
