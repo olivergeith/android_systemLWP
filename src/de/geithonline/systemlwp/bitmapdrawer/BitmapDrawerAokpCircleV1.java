@@ -12,8 +12,6 @@ import de.geithonline.systemlwp.settings.Settings;
 
 public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 
-	private int bWidth = 0;
-	private int bHeight = 0;
 	private int offset = 10;
 	private int einerDicke = 70;
 	private int abstand = 8;
@@ -26,14 +24,17 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 
 	@Override
 	public Bitmap drawBitmap(final int level) {
-		// welche kantge ist schmaler?
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
 		if (cWidth < cHeight) {
-			bWidth = cWidth;
-			bHeight = cWidth;
+			// hochkant
+			setBitmapSize(cWidth, cWidth, true);
 		} else {
-			bWidth = cHeight;
-			bHeight = cHeight;
+			// quer
+			setBitmapSize(cHeight, cHeight, false);
 		}
+
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
 		abstand = Math.round(bWidth * 0.02f);
