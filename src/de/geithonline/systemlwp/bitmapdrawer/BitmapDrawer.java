@@ -11,7 +11,7 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 	protected int level = -99;
 	private Bitmap bitmap;
 
-	public abstract Bitmap drawBitmap(final int level, final Canvas canvas);
+	public abstract Bitmap drawBitmap(final int level);
 
 	public abstract void drawLevelNumber(final int level);
 
@@ -33,7 +33,7 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 				bitmap.recycle();
 			}
 			// Bitnmap neu berechnen
-			bitmap = drawBitmap(level, canvas);
+			bitmap = drawBitmap(level);
 			if (Settings.isShowNumber()) {
 				drawLevelNumber(level);
 			}
@@ -50,6 +50,30 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 			BitmapHelper.saveBitmap(bitmap, getClass().getSimpleName(), level);
 		}
 		drawOnCanvas(bitmap, canvas);
+	}
+
+	public int getcHeight() {
+		return cHeight;
+	}
+
+	public void setcHeight(final int cHeight) {
+		this.cHeight = cHeight;
+	}
+
+	public int getcWidth() {
+		return cWidth;
+	}
+
+	public void setcWidth(final int cWidth) {
+		this.cWidth = cWidth;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(final int level) {
+		this.level = level;
 	}
 
 	protected boolean isPortrait() {

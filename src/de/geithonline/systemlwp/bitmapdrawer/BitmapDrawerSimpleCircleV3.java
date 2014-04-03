@@ -49,7 +49,7 @@ public class BitmapDrawerSimpleCircleV3 extends BitmapDrawer {
 	}
 
 	@Override
-	public Bitmap drawBitmap(final int level, final Canvas canvas) {
+	public Bitmap drawBitmap(final int level) {
 		// welche kantge ist schmaler?
 		if (cWidth < cHeight) {
 			bWidth = cWidth;

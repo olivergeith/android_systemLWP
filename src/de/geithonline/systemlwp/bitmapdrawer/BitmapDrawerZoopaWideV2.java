@@ -30,7 +30,7 @@ public class BitmapDrawerZoopaWideV2 extends BitmapDrawer {
 	}
 
 	@Override
-	public Bitmap drawBitmap(final int level, final Canvas canvas) {
+	public Bitmap drawBitmap(final int level) {
 
 		final Bitmap bitmap = Bitmap.createBitmap(cWidth, cWidth / 2, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);

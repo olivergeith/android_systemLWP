@@ -34,7 +34,7 @@ public class BitmapDrawerBarGraphV1 extends BitmapDrawer {
 	}
 
 	@Override
-	public Bitmap drawBitmap(final int level, final Canvas canvas) {
+	public Bitmap drawBitmap(final int level) {
 		bWidth = cWidth;
 		bHeight = cWidth / 2;
 

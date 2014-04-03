@@ -34,7 +34,7 @@ public class BitmapDrawerBrickV1 extends BitmapDrawer {
 	}
 
 	@Override
-	public Bitmap drawBitmap(final int level, final Canvas canvas) {
+	public Bitmap drawBitmap(final int level) {
 		// Batterie ist immer gleich groﬂ....
 		if (cWidth < cHeight) {
 			// hochkant
