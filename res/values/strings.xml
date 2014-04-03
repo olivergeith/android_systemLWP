@@ -23,6 +23,8 @@
     <string name="category_font_options">Font Options</string>
 	<string name="category_style">Battery Style</string>
     <string name="category_style_summary">Battery Style Settings</string>
+	<string name="category_size">Battery Size and Position</string>
+    <string name="category_size_summary">Resizing and positioning of battery...</string>
     <string name="category_style_options">Special Options for specific Style</string>
     <string name="category_style_options_summary">Not all options are appliable for all Batteries</string>
     <string name="category_custom_background">Custom Background</string>
@@ -91,8 +93,6 @@
     <string name="fontsize_summary">Adjust fontsize of Battery-Level-Number</string>
     <string name="centerBattery">Center Battery</string>
     <string name="centerBattery_summary">Some Batteries can be centered - set it here</string>
-	<string name="rotation">Orientation</string>
-	<string name="rotation_summary">Bottom, Left, Right....</string>
 	<string name="Charging">Charging...</string>
 	<string name="ChargingUSB">Charging on USB</string>
 	<string name="ChargingAC">Charging on AC</string>
@@ -101,6 +101,10 @@
 	<string name="charge_colors_enable">Use different color on charge</string>
 	<string name="charge_colors_enable_summary">Use different color on charge</string>
 	<string name="charge_color">Color on charge</string>
-						
+	<string name="resizePortrait">Resizing Portrait-Mode</string>
+	<string name="resizePortrait_summary">Resizing when in portrait-mode....</string>
+	<string name="resizeLandscape">Resizing Landscape-Mode</string>
+	<string name="resizeLandscape_summary">Resizing when in landscape-mode....</string>
+								
 	
 </resources>

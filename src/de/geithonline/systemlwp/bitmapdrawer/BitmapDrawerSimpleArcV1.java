@@ -9,7 +9,6 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
-import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class BitmapDrawerSimpleArcV1 extends BitmapDrawer {
@@ -25,11 +24,6 @@ public class BitmapDrawerSimpleArcV1 extends BitmapDrawer {
 	private Canvas bitmapCanvas;
 
 	public BitmapDrawerSimpleArcV1() {
-	}
-
-	@Override
-	public boolean supportsOrientation() {
-		return true;
 	}
 
 	@Override
@@ -78,19 +72,7 @@ public class BitmapDrawerSimpleArcV1 extends BitmapDrawer {
 	@Override
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
 
-		switch (Settings.getOrientation()) {
-		default:
-		case Settings.ORIENTATION_BOTTOM:
-			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2,
-					cHeight - bHeight - offset - Settings.getVerticalPositionOffset(isPortrait()), null);
-			break;
-		case Settings.ORIENTATION_LEFT:
-			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 90f), 0, cHeight / 2 - bWidth / 2, null);
-			break;
-		case Settings.ORIENTATION_RIGHT:
-			canvas.drawBitmap(BitmapHelper.rotate(bitmap, 270f), cWidth - bHeight, cHeight / 2 - bWidth / 2, null);
-			break;
-		}
+		canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - offset - Settings.getVerticalPositionOffset(isPortrait()), null);
 	}
 
 	private void drawSegmente(final int level) {
@@ -116,8 +98,7 @@ public class BitmapDrawerSimpleArcV1 extends BitmapDrawer {
 		// scala
 		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 180, 180, true, Settings.getBackgroundPaint());
 		// level
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 180, Math.round(level * 1.8), true,
-				Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 180, Math.round(level * 1.8), true, Settings.getBatteryPaint(level));
 
 		// Skalatext
 		drawScalaText();
@@ -127,8 +108,7 @@ public class BitmapDrawerSimpleArcV1 extends BitmapDrawer {
 		zp.setShadowLayer(10, 0, 0, Color.BLACK);
 		bitmapCanvas.drawArc(getRectForOffset(fontSizeArc), 180 + Math.round(level * 1.8) - 1, 2, true, zp);
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true,
-				Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true, Settings.getErasurePaint());
 		// Rand
 		if (Settings.isShowRand()) {
 			final Paint randPaint = Settings.getBackgroundPaint();
@@ -158,8 +138,7 @@ public class BitmapDrawerSimpleArcV1 extends BitmapDrawer {
 				mArc.addArc(oval, winkel, 36);
 				bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
 			}
-			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke / 2),
-					(float) (180f + i * 1.8 - 0.5f), 1f, true, p);
+			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke / 2), (float) (180f + i * 1.8 - 0.5f), 1f, true, p);
 		}
 	}
 

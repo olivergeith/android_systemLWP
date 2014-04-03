@@ -46,9 +46,6 @@ public class LiveWallpaperService extends WallpaperService {
 	class MyWallpaperEngine extends Engine implements OnSharedPreferenceChangeListener {
 		private boolean initialized = false;
 		private int level = 0;
-		// private boolean isCharging = false;
-		// private boolean usbCharge = false;
-		// private boolean acCharge = false;
 		private int i;
 		private final Handler handler = new Handler();
 		private boolean visible = true;
@@ -158,11 +155,11 @@ public class LiveWallpaperService extends WallpaperService {
 
 		private int getAnimationResetLevel() {
 			switch (Settings.getAnimationStyle()) {
-			default:
-			case Settings.ANIMATION_STYLE_0_TO_100:
-				return 100;
-			case Settings.ANIMATION_STYLE_0_TO_LEVEL:
-				return level;
+				default:
+				case Settings.ANIMATION_STYLE_0_TO_100:
+					return 100;
+				case Settings.ANIMATION_STYLE_0_TO_LEVEL:
+					return level;
 			}
 		}
 
@@ -306,8 +303,7 @@ public class LiveWallpaperService extends WallpaperService {
 		}
 
 		@Override
-		public void onOffsetsChanged(final float xOffset, final float yOffset, final float xStep, final float yStep, final int xPixels,
-				final int yPixels) {
+		public void onOffsetsChanged(final float xOffset, final float yOffset, final float xStep, final float yStep, final int xPixels, final int yPixels) {
 			if (backgroundImage != null) {
 				dx = (cWidth - backgroundImage.getWidth()) * (xOffset);
 			}

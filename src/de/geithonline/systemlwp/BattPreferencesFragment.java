@@ -53,7 +53,6 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		}
 		// Find a Drawer for this Style
 		final IBitmapDrawer drawer = Settings.getDrawerForStyle(style);
-		final Preference rotation = findPreference("rotation");
 		final Preference zeiger = findPreference("show_zeiger");
 		final Preference rand = findPreference("show_rand");
 		final Preference center = findPreference("centerBattery");
@@ -62,7 +61,6 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		final Preference verticalPosition = findPreference("vertical_position");
 		final Preference verticalPositionOnlyPortrait = findPreference("vertical_position_only_portrait");
 
-		rotation.setEnabled(drawer.supportsOrientation());
 		zeiger.setEnabled(drawer.supportsShowPointer());
 		rand.setEnabled(drawer.supportsShowRand());
 		colorZeiger.setEnabled(drawer.supportsPointerColor());

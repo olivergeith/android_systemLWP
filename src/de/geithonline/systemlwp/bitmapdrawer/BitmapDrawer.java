@@ -8,6 +8,8 @@ import de.geithonline.systemlwp.utils.BitmapHelper;
 public abstract class BitmapDrawer implements IBitmapDrawer {
 	protected int cHeight = 0;
 	protected int cWidth = 0;
+	protected int bHeight = 0;
+	protected int bWidth = 0;
 	protected int level = -99;
 	private Bitmap bitmap;
 
@@ -21,13 +23,26 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 
 	public abstract void drawOnCanvas(Bitmap bitmap, Canvas canvas);
 
+	protected void setBitmapSize(final int w, final int h, final boolean isPortrait) {
+		if (isPortrait) {
+			// hochkant
+			bHeight = Math.round(h * Settings.getPortraitResizeFactor());
+			bWidth = Math.round(w * Settings.getPortraitResizeFactor());
+		} else {
+			// landscape mode
+			bHeight = Math.round(h * Settings.getLandscapeResizeFactor());
+			bWidth = Math.round(w * Settings.getLandscapeResizeFactor());
+		}
+	}
+
 	@Override
 	public void draw(final int level, final Canvas canvas, final boolean forcedraw) {
+		final int h = canvas.getHeight();
+		final int w = canvas.getWidth();
 		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
-		// anders
-		if (this.level != level || canvas.getWidth() != cWidth || canvas.getHeight() != cHeight || bitmap == null || forcedraw) {
-			cWidth = canvas.getWidth();
-			cHeight = canvas.getHeight();
+		if (this.level != level || w != cWidth || h != cHeight || bitmap == null || forcedraw) {
+			cWidth = w;
+			cHeight = h;
 			// Memory frei geben für altes bitmap
 			if (bitmap != null) {
 				bitmap.recycle();
@@ -86,11 +101,6 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 
 	@Override
 	public boolean supportsMoveUP() {
-		return false;
-	}
-
-	@Override
-	public boolean supportsOrientation() {
 		return false;
 	}
 
