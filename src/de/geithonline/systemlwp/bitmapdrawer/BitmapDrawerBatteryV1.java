@@ -10,6 +10,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
+import de.geithonline.systemlwp.utils.ChargeIconPath;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class BitmapDrawerBatteryV1 extends BitmapDrawer {
@@ -102,7 +103,10 @@ public class BitmapDrawerBatteryV1 extends BitmapDrawer {
 		if (level == 100) {
 			bitmapCanvas.drawRoundRect(knobrect, radius, radius, Settings.getBatteryPaint(level));
 		}
-
+		if (Settings.isCharging) {
+			final RectF r = new RectF(knobrect);
+			bitmapCanvas.drawPath(new ChargeIconPath(r), Settings.getErasurePaint());
+		}
 	}
 
 	@Override
