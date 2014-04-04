@@ -17,7 +17,6 @@ public class BitmapDrawerSimpleCircleV6 extends BitmapDrawer {
 
 	private int offset = 10;
 	private int einerDicke = 70;
-	private final float gap = 0.6f;
 	private int fontSize = 150;
 	private int fontSizeArc = 20;
 	private Canvas bitmapCanvas;
