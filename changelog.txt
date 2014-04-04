@@ -1,15 +1,18 @@
 [COLOR="blue"]2014-04-04 : V1.14[/COLOR]
+2014-04-04 : V1.14
 - Resizing and vertical positioning/centering (re)implemented from scratch for all styles
   ...your current setup may be centered now...
   ...(re)configure this in Battery Style settings...
 - Orientation (like Left, Right, Bottom) is gone completely and no longer available ...
 - new "Contact Developer" item in About-Settings for sending eMail to me
-- new Style SimpleCircleV6 (Free)
-- new Style BatteryV1 (Premium)
-- new Style SimpleArcV2 (Premium)
-- new Style SimpleArcV3 (Premium) (like SimpleCircleV6 but as arch)
-- new Style AokpCircleV2 (Free)
 - Free Style AokpCircleV1 now with Pointer- and Show-Border-Option 
+- new Styles
+... SimpleCircleV6 (Free)
+... BatteryV1 (Premium)
+... SimpleArcV2 (Premium)
+... SimpleArcV3 (Premium) 
+... AokpCircleV2 (Free)
+
 
 
 [COLOR="blue"]2014-03-28 : V1.12[/COLOR]
