@@ -128,7 +128,7 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		drawLevelNumberinCenterofBitmap(bitmapCanvas, level, fontSize);
+		drawLevelNumberCentered(bitmapCanvas, level, fontSize);
 	}
 
 	@Override

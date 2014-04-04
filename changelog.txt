@@ -7,6 +7,10 @@
 - new Style SimpleCircleV6 (Free)
 - new Style BatteryV1 (Premium)
 - new Style SimpleArcV2 (Premium)
+- new Style SimpleArcV3 (Premium) (like SimpleCircleV6 but as arch)
+- new Style AokpCircleV2 (Free)
+- Free Style AokpCircleV1 now with Pointer- and Show-Border-Option 
+
 
 [COLOR="blue"]2014-03-28 : V1.12[/COLOR]
 - new Style SimpleCircleV3 (Free) 

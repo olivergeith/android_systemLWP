@@ -18,6 +18,7 @@ import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV1;
@@ -28,6 +29,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBrickV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerNumberOnlyV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV3;
@@ -88,15 +90,15 @@ public class Settings {
 
 	public static String getBattStatusCompleteShort() {
 		switch (getStatusStyle()) {
-			case BATT_STATUS_STYLE_VOLT:
-				return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
-			case BATT_STATUS_STYLE_TEMP:
-				return "Battery: " + (float) battTemperature / 10 + "°C";
-			case BATT_STATUS_STYLE_TEMP_VOLT:
-				return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
-			default:
-			case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
-				return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+		case BATT_STATUS_STYLE_VOLT:
+			return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
+		case BATT_STATUS_STYLE_TEMP:
+			return "Battery: " + (float) battTemperature / 10 + "°C";
+		case BATT_STATUS_STYLE_TEMP_VOLT:
+			return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+		default:
+		case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
+			return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
 		}
 	}
 
@@ -114,21 +116,21 @@ public class Settings {
 
 	private static String getHealthText(final int health) {
 		switch (health) {
-			case BatteryManager.BATTERY_HEALTH_GOOD:
-				return "good";
-			case BatteryManager.BATTERY_HEALTH_OVERHEAT:
-				return "overheat";
-			case BatteryManager.BATTERY_HEALTH_DEAD:
-				return "dead";
-			case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
-				return "overvoltage";
-			case BatteryManager.BATTERY_HEALTH_COLD:
-				return "cold";
-			case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
-				return "failure";
+		case BatteryManager.BATTERY_HEALTH_GOOD:
+			return "good";
+		case BatteryManager.BATTERY_HEALTH_OVERHEAT:
+			return "overheat";
+		case BatteryManager.BATTERY_HEALTH_DEAD:
+			return "dead";
+		case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
+			return "overvoltage";
+		case BatteryManager.BATTERY_HEALTH_COLD:
+			return "cold";
+		case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
+			return "failure";
 
-			default:
-				return "unknown";
+		default:
+			return "unknown";
 		}
 	}
 
@@ -500,8 +502,13 @@ public class Settings {
 			drawer = new BitmapDrawerSimpleCircleV6();
 			return drawer;
 		}
+
 		if (battStyle.equals("AokpCircleV1")) {
 			drawer = new BitmapDrawerAokpCircleV1();
+			return drawer;
+		}
+		if (battStyle.equals("AokpCircleV2")) {
+			drawer = new BitmapDrawerAokpCircleV2();
 			return drawer;
 		}
 
@@ -520,6 +527,10 @@ public class Settings {
 		}
 		if (battStyle.equals("SimpleArcV2")) {
 			drawer = new BitmapDrawerSimpleArcV2();
+			return drawer;
+		}
+		if (battStyle.equals("SimpleArcV3")) {
+			drawer = new BitmapDrawerSimpleArcV3();
 			return drawer;
 		}
 

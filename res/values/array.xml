@@ -147,10 +147,12 @@
         <!-- item name="54">SimpleCircleV5</item-->
         <item name="55">SimpleCircleV6</item>
         <item name="60">AokpCircleV1</item>
+        <item name="61">AokpCircleV2</item>
         <!-- item name="70">NumberOnlyV1</item-->
         <!-- item name="80">BatteryV1</item-->
         <!-- item name="90">SimpleArcV1</item-->
         <!-- item name="91">SimpleArcV2</item-->
+        <!-- item name="92">SimpleArcV3</item-->
         </string-array>
 
     <string-array name="prostyl">
@@ -181,10 +183,12 @@
         <item name="54">SimpleCircleV5</item>
         <item name="55">SimpleCircleV6</item>
         <item name="60">AokpCircleV1</item>
+        <item name="61">AokpCircleV2</item>
         <item name="70">NumberOnlyV1</item>
         <item name="80">BatteryV1</item>
         <item name="90">SimpleArcV1</item>
         <item name="91">SimpleArcV2</item>
+        <item name="92">SimpleArcV3</item>
         </string-array>
     
     <string-array name="stylValues">
@@ -215,10 +219,12 @@
         <!-- item name="54">SimpleCircleV5</item-->
         <item name="55">SimpleCircleV6</item>
         <item name="60">AokpCircleV1</item>
+        <item name="61">AokpCircleV2</item>
         <!-- item name="70">NumberOnlyV1</item-->
         <!-- item name="80">BatteryV1</item-->
         <!-- item name="90">SimpleArcV1</item-->
         <!-- item name="91">SimpleArcV2</item-->
+        <!-- item name="92">SimpleArcV3</item-->
     </string-array>
     
     <string-array name="prostylValues">
@@ -249,10 +255,12 @@
         <item name="54">SimpleCircleV5</item>
         <item name="55">SimpleCircleV6</item>
         <item name="60">AokpCircleV1</item>
+        <item name="61">AokpCircleV2</item>
         <item name="70">NumberOnlyV1</item>
         <item name="80">BatteryV1</item>
         <item name="90">SimpleArcV1</item>
         <item name="91">SimpleArcV2</item>
+        <item name="92">SimpleArcV3</item>
         </string-array>
     
     <string-array name="animation_styl">

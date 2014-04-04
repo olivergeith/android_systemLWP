@@ -2,11 +2,14 @@ package de.geithonline.systemlwp.bitmapdrawer;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
+import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 
@@ -18,6 +21,21 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 	private Canvas bitmapCanvas;
 
 	public BitmapDrawerAokpCircleV1() {
+	}
+
+	@Override
+	public boolean supportsPointerColor() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsShowPointer() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsShowRand() {
+		return true;
 	}
 
 	@Override
@@ -64,11 +82,31 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset + abstand), 0, 360, true, Settings.getErasurePaint());
 		// Background
 		bitmapCanvas.drawArc(getRectForOffset(offset + abstand), 270, 360, true, Settings.getBackgroundPaint());
-		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, Settings.getErasurePaint());
-
 		// overpaint level
 		bitmapCanvas.drawArc(getRectForOffset(offset), 270, Math.round(level * 3.6), true, Settings.getBatteryPaintSourceIn(level));
+		// Zeiger
+		if (Settings.isShowZeiger()) {
+			final Paint zp = Settings.getZeigerPaint(level);
+			zp.setShadowLayer(10, 0, 0, Color.BLACK);
+			bitmapCanvas.drawArc(getRectForOffset(0), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
+		}
+		// delete inner Circle
+		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, Settings.getErasurePaint());
+		// Rand
+		if (Settings.isShowRand()) {
+			final Paint randPaint = Settings.getBackgroundPaint();
+			randPaint.setColor(Color.WHITE);
+			randPaint.setShadowLayer(10, 0, 0, Color.BLACK);
+			// ‰uﬂeren Rand
+			randPaint.setStrokeWidth(offset);
+			randPaint.setStyle(Style.STROKE);
+			bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 270, 360, true, randPaint);
+			// innere Fl‰che
+			final Paint bgPaint2 = Settings.getBackgroundPaint();
+			bgPaint2.setColor(ColorHelper.darker(bgPaint2.getColor()));
+			bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 270, 360, true, bgPaint2);
+		}
+
 	}
 
 	@Override
@@ -84,7 +122,7 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		drawLevelNumberinCenterofBitmap(bitmapCanvas, level, fontSize);
+		drawLevelNumberCentered(bitmapCanvas, level, fontSize);
 	}
 
 	private RectF getRectForOffset(final int offset) {

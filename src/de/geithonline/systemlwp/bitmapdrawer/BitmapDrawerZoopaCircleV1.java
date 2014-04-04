@@ -127,7 +127,7 @@ public class BitmapDrawerZoopaCircleV1 extends BitmapDrawer {
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		drawLevelNumberinCenterofBitmap(bitmapCanvas, level, fontSize);
+		drawLevelNumberCentered(bitmapCanvas, level, fontSize);
 	}
 
 	private RectF getRectForOffset(final int offset) {
