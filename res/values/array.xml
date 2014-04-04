@@ -134,7 +134,6 @@
         <!-- item name="23">TachoV3</item-->
         <!-- item name="24">TachoV4</item-->
         <item name="20">TachoV5</item>
-        <!--  item name="70">SimpleArcV1</item-->
         <item name="80">BrickV1</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
@@ -150,6 +149,8 @@
         <item name="60">AokpCircleV1</item>
         <!-- item name="70">NumberOnlyV1</item-->
         <!-- item name="80">BatteryV1</item-->
+        <!-- item name="90">SimpleArcV1</item-->
+        <!-- item name="91">SimpleArcV2</item-->
         </string-array>
 
     <string-array name="prostyl">
@@ -167,7 +168,6 @@
         <item name="23">TachoV3</item>
         <item name="24">TachoV4</item>
         <item name="20">TachoV5</item>
-        <item name="70">SimpleArcV1</item>
         <item name="80">BrickV1</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
@@ -183,7 +183,9 @@
         <item name="60">AokpCircleV1</item>
         <item name="70">NumberOnlyV1</item>
         <item name="80">BatteryV1</item>
-   </string-array>
+        <item name="90">SimpleArcV1</item>
+        <item name="91">SimpleArcV2</item>
+        </string-array>
     
     <string-array name="stylValues">
         <item name="1">ZoopaWideV1</item>
@@ -200,7 +202,6 @@
         <!-- item name="23">TachoV3</item-->
         <!-- item name="24">TachoV4</item-->
         <item name="20">TachoV5</item>
-        <!--  item name="70">SimpleArcV1</item-->
         <item name="80">BrickV1</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
@@ -216,6 +217,8 @@
         <item name="60">AokpCircleV1</item>
         <!-- item name="70">NumberOnlyV1</item-->
         <!-- item name="80">BatteryV1</item-->
+        <!-- item name="90">SimpleArcV1</item-->
+        <!-- item name="91">SimpleArcV2</item-->
     </string-array>
     
     <string-array name="prostylValues">
@@ -233,7 +236,6 @@
         <item name="23">TachoV3</item>
         <item name="24">TachoV4</item>
         <item name="20">TachoV5</item>
-        <item name="70">SimpleArcV1</item>
         <item name="80">BrickV1</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
@@ -249,7 +251,9 @@
         <item name="60">AokpCircleV1</item>
         <item name="70">NumberOnlyV1</item>
         <item name="80">BatteryV1</item>
-    </string-array>
+        <item name="90">SimpleArcV1</item>
+        <item name="91">SimpleArcV2</item>
+        </string-array>
     
     <string-array name="animation_styl">
         <item name="1">0 to 100 percent</item>

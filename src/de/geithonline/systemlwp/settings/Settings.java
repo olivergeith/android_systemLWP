@@ -27,6 +27,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBatteryV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBrickV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerNumberOnlyV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV3;
@@ -449,11 +450,6 @@ public class Settings {
 			return drawer;
 		}
 
-		if (battStyle.equals("SimpleArcV1")) {
-			drawer = new BitmapDrawerSimpleArcV1();
-			return drawer;
-		}
-
 		if (battStyle.equals("BrickV1")) {
 			drawer = new BitmapDrawerBrickV1();
 			return drawer;
@@ -516,6 +512,14 @@ public class Settings {
 
 		if (battStyle.equals("BatteryV1")) {
 			drawer = new BitmapDrawerBatteryV1();
+			return drawer;
+		}
+		if (battStyle.equals("SimpleArcV1")) {
+			drawer = new BitmapDrawerSimpleArcV1();
+			return drawer;
+		}
+		if (battStyle.equals("SimpleArcV2")) {
+			drawer = new BitmapDrawerSimpleArcV2();
 			return drawer;
 		}
 
