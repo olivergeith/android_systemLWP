@@ -2,6 +2,11 @@ package de.geithonline.systemlwp.bitmapdrawer;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Paint.Align;
+import android.graphics.PointF;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 
@@ -71,6 +76,22 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 			BitmapHelper.saveBitmap(bitmap, getClass().getSimpleName(), level);
 		}
 		drawOnCanvas(bitmap, canvas);
+	}
+
+	public void drawLevelNumberinCenterofBitmap(final Canvas canvas, final int level, final int fontSize) {
+		final String text = "" + level;
+		final Paint p = Settings.getNumberPaint(level, fontSize);
+		p.setTextAlign(Align.CENTER);
+		final PointF point = getTextCenterToDraw(new RectF(0, 0, bWidth, bHeight), p);
+		canvas.drawText(text, point.x, point.y, p);
+	}
+
+	private static PointF getTextCenterToDraw(final RectF region, final Paint paint) {
+		final Rect textBounds = new Rect();
+		paint.getTextBounds("69", 0, 2, textBounds);
+		final float x = region.centerX();
+		final float y = region.centerY() + textBounds.height() * 0.5f;
+		return new PointF(x, y);
 	}
 
 	public int getcHeight() {

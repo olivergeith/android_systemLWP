@@ -7,8 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
-import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.ColorHelper;
@@ -89,8 +87,7 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 		// scala
 		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 135, 270, true, Settings.getBackgroundPaint());
 		// level
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 135, Math.round(level * 2.7), true,
-				Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 135, Math.round(level * 2.7), true, Settings.getBatteryPaint(level));
 
 		// Skalatext
 		drawScalaText();
@@ -102,8 +99,7 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 			bitmapCanvas.drawArc(getRectForOffset(fontSizeArc), 135 + Math.round(level * 2.7) - 1, 2, true, zp);
 		}
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true,
-				Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true, Settings.getErasurePaint());
 		// Rand
 		if (Settings.isShowRand()) {
 			final Paint randPaint = Settings.getBackgroundPaint();
@@ -131,8 +127,7 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 			final Path mArc = new Path();
 			mArc.addArc(oval, winkel, 36);
 			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
-			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke / 2),
-					(float) (135f + i * 2.7 - 0.5f), 1f, true, p);
+			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke / 2), (float) (135f + i * 2.7 - 0.5f), 1f, true, p);
 		}
 	}
 
@@ -151,23 +146,11 @@ public class BitmapDrawerSimpleCircleV5 extends BitmapDrawer {
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		final String text = "" + level;
-		final Paint p = Settings.getNumberPaint(level, fontSize);
-		p.setTextAlign(Align.CENTER);
-		final PointF point = getTextCenterToDraw(text, getRectForOffset(0), p);
-		bitmapCanvas.drawText(text, point.x, point.y, p);
+		drawLevelNumberinCenterofBitmap(bitmapCanvas, level, fontSize);
 	}
 
 	private RectF getRectForOffset(final int offset) {
 		return new RectF(offset, offset, bWidth - offset, bHeight - offset);
-	}
-
-	private static PointF getTextCenterToDraw(final String text, final RectF region, final Paint paint) {
-		final Rect textBounds = new Rect();
-		paint.getTextBounds(text, 0, text.length(), textBounds);
-		final float x = region.centerX();
-		final float y = region.centerY() + textBounds.height() * 0.5f;
-		return new PointF(x, y);
 	}
 
 	@Override

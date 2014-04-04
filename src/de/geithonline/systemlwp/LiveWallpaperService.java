@@ -218,15 +218,11 @@ public class LiveWallpaperService extends WallpaperService {
 			final float aspectCanvas = (float) cWidth / (float) cHeight;
 			final float aspectBG = (float) w / (float) h;
 
-			Log.i("GEITH", "Aspect BG = " + aspectBG);
-			Log.i("GEITH", "Aspect CA = " + aspectCanvas);
 			// bild ist schmaler aber länger
 			if (aspectBG <= aspectCanvas) {
 				//
 				final int dstW = (int) (cWidth * 1.4);
 				final int dstH = Math.round(dstW * aspectBG);
-				Log.i("GEITH", "dstW = " + dstW);
-				Log.i("GEITH", "dstH = " + dstH);
 				bgReturn = Bitmap.createScaledBitmap(bgInput, dstW, dstH, true);
 			} else {
 				// bild ist zu breit ;-) also skalierten wir es auf die
@@ -234,8 +230,6 @@ public class LiveWallpaperService extends WallpaperService {
 				final int dstH = cHeight;
 				final float factor = (float) cHeight / h;
 				final int dstW = Math.round(w * factor);
-				Log.i("GEITH", "dstW = " + dstW);
-				Log.i("GEITH", "dstH = " + dstH);
 				bgReturn = Bitmap.createScaledBitmap(bgInput, dstW, dstH, true);
 			}
 			if (!bgReturn.equals(bgInput)) {
