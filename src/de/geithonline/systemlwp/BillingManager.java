@@ -85,6 +85,7 @@ public class BillingManager {
 	private void setupBilling() {
 		// schauen wir erstmal local, ob wir premium sind....
 		mIsPremium = readProStatus();
+		setupBillingHasError = readBillingErrrorStatus();
 		if (mIsPremium) {
 			Log.i(TAG, "Is Premium Connection zum Billing wird gar nicht erst aufgebaut!");
 			if (Settings.isDebuggingMessages()) {
@@ -119,6 +120,7 @@ public class BillingManager {
 					// Oh noes, there was a problem.
 					complain("Problem setting up in-app billing: " + result);
 					setupBillingHasError = true;
+					saveBillingError(setupBillingHasError);
 					handleButton();
 					return;
 				}
@@ -268,6 +270,24 @@ public class BillingManager {
 
 	private boolean readProStatus() {
 		final File file = new File(activity.getFilesDir(), "muimerp.txt");
+		return file.exists();
+	}
+
+	private void saveBillingError(final boolean isError) {
+		final File file = new File(activity.getFilesDir(), "billingerror.txt");
+		if (isError) {
+			try {
+				file.createNewFile();
+			} catch (final IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			file.delete();
+		}
+	}
+
+	private boolean readBillingErrrorStatus() {
+		final File file = new File(activity.getFilesDir(), "billingerror.txt");
 		return file.exists();
 	}
 
