@@ -16,8 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.CheckedTextView;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
@@ -133,20 +132,27 @@ public class StyleListPreference extends ListPreference {
 		if (mEntryBooleans != null && entries.length != mEntryBooleans.length) {
 			throw new IllegalStateException("IconListPreference requires the boolean entries array be the same length than entries or null");
 		}
-		Log.i("STYLEPREF", "Booleans are there");
 
-		iconListPreferenceAdapter = new IconListPreferenceScreenAdapter(mContext);
+		final String selectedValue = prefs.getString(mKey, "");
+		Log.i("STYLEPREF", "Selected Value = " + selectedValue);
 
-		if (mEntryIcons != null) {
-			final String selectedValue = prefs.getString(mKey, "");
-			for (int i = 0; i < entryValues.length; i++) {
-				if (selectedValue.compareTo((String) entryValues[i]) == 0) {
-					selectedEntry = i;
-					break;
-				}
+		for (int i = 0; i < entryValues.length; i++) {
+			if (selectedValue.compareTo((String) entryValues[i]) == 0) {
+				selectedEntry = i;
+				break;
 			}
 		}
-		builder.setAdapter(iconListPreferenceAdapter, null);
+
+		iconListPreferenceAdapter = new IconListPreferenceScreenAdapter(mContext);
+		// builder.setAdapter(iconListPreferenceAdapter, null);
+		builder.setSingleChoiceItems(iconListPreferenceAdapter, selectedEntry, null);
+		// builder.setSingleChoiceItems(iconListPreferenceAdapter, selectedEntry, new DialogInterface.OnClickListener() {
+		// @Override
+		// public void onClick(final DialogInterface dialog, final int which) {
+		//
+		// }
+		// });
+
 	}
 
 	private class IconListPreferenceScreenAdapter extends BaseAdapter {
@@ -160,22 +166,22 @@ public class StyleListPreference extends ListPreference {
 		}
 
 		class CustomHolder {
-			private TextView text = null;
-			private RadioButton rButton = null;
+			private CheckedTextView text = null;
+
+			// private RadioButton rButton = null;
 
 			@SuppressLint("NewApi")
 			CustomHolder(final View row, final int position) {
 
-				text = (TextView) row.findViewById(R.id.image_list_view_row_text_view);
+				text = (CheckedTextView) row.findViewById(R.id.image_list_view_row_text_view);
 				text.setText(entries[position]);
 
-				rButton = (RadioButton) row.findViewById(R.id.image_list_view_row_radio_button);
-				rButton.setId(position);
-				rButton.setClickable(false);
-				rButton.setChecked(selectedEntry == position);
-				// if (selectedEntry == position) {
-				// text.setBackgroundColor(Color.YELLOW);
-				// }
+				// rButton = (RadioButton) row.findViewById(R.id.image_list_view_row_radio_button);
+				// rButton.setId(position);
+				// rButton.setClickable(false);
+				// rButton.setChecked(selectedEntry == position);
+
+				text.setChecked(selectedEntry == position);
 
 				// if (mEntryIcons != null) {
 				// text.setText(" " + text.getText());
@@ -193,7 +199,7 @@ public class StyleListPreference extends ListPreference {
 					row.setClickable(mEntryBooleans[position]);
 					row.setEnabled(mEntryBooleans[position]);
 					text.setEnabled(mEntryBooleans[position]);
-					rButton.setEnabled(mEntryBooleans[position]);
+					// rButton.setEnabled(mEntryBooleans[position]);
 					if (mEntryBooleans[position] == false) {
 						text.setText(text.getText() + " (Premium)");
 						// rButton.setText("(Premium only!)");
