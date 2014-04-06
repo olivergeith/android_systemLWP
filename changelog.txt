@@ -3,6 +3,9 @@
 - lots of refactoring
 - bugfixing ZoopaWide styles, when resized
 - icons in styles-list (api level 17 (android 4.2) and above)
+- new style StarV1 (Premium)
+- new style StarV2 (Premium)
+- new style StarV3 (Premium)
 
 
 [COLOR="blue"]2014-04-04 : V1.14[/COLOR]
