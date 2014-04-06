@@ -150,6 +150,9 @@
         <item name="60">true</item>
         <item name="61">true</item>
         <item name="70">false</item>
+        <item name="75">false</item>
+        <item name="76">false</item>
+        <item name="77">false</item>
         <item name="80">false</item>
         <item name="90">false</item>
         <item name="91">false</item>
@@ -186,6 +189,9 @@
         <item name="60">AokpCircleV1</item>
         <item name="61">AokpCircleV2</item>
         <item name="70">NumberOnlyV1</item>
+        <item name="75">StarV1</item>
+        <item name="76">StarV2</item>
+        <item name="77">StarV3</item>
         <item name="80">BatteryV1</item>
         <item name="90">SimpleArcV1</item>
         <item name="91">SimpleArcV2</item>
@@ -222,6 +228,9 @@
         <item name="60">AokpCircleV1</item>
         <item name="61">AokpCircleV2</item>
         <item name="70">NumberOnlyV1</item>
+        <item name="75">StarV1</item>
+        <item name="76">StarV2</item>
+        <item name="77">StarV3</item>
         <item name="80">BatteryV1</item>
         <item name="90">SimpleArcV1</item>
         <item name="91">SimpleArcV2</item>

@@ -182,10 +182,8 @@ public class StyleListPreference extends ListPreference {
 					row.setClickable(mEntryBooleans[position]);
 					row.setEnabled(mEntryBooleans[position]);
 					text.setEnabled(mEntryBooleans[position]);
-					// rButton.setEnabled(mEntryBooleans[position]);
 					if (mEntryBooleans[position] == false) {
 						text.setText(text.getText() + " (Premium)");
-						// rButton.setText("(Premium only!)");
 					}
 				}
 			}
