@@ -1,5 +1,8 @@
 package de.geithonline.systemlwp.settings;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -72,6 +75,8 @@ public class Settings {
 	public static final int BATT_STATUS_STYLE_TEMP_VOLT = 1;
 	public static final int BATT_STATUS_STYLE_TEMP = 2;
 	public static final int BATT_STATUS_STYLE_VOLT = 3;
+
+	private static Map<String, Bitmap> iconCache = new HashMap<String, Bitmap>();
 
 	public static boolean isShowStatus() {
 		if (prefs == null) {
@@ -536,6 +541,16 @@ public class Settings {
 
 		drawer = new BitmapDrawerZoopaWideV3();
 		return drawer;
+	}
+
+	public static Bitmap getIconForDrawer(final String name) {
+		Bitmap b = iconCache.get(name);
+		if (b == null) {
+			final IBitmapDrawer drawer = getDrawerForStyle(name);
+			b = drawer.drawIcon(66, 128);
+			iconCache.put(name, b);
+		}
+		return b;
 	}
 
 	// #####################################################################################

@@ -1,10 +1,13 @@
 package de.geithonline.systemlwp.stylelistpreference;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
@@ -17,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.settings.Settings;
+import de.geithonline.systemlwp.utils.BitmapHelper;
 
 /**
  * 
@@ -159,6 +163,7 @@ public class StyleListPreference extends ListPreference {
 			private TextView text = null;
 			private RadioButton rButton = null;
 
+			@SuppressLint("NewApi")
 			CustomHolder(final View row, final int position) {
 
 				text = (TextView) row.findViewById(R.id.image_list_view_row_text_view);
@@ -168,10 +173,21 @@ public class StyleListPreference extends ListPreference {
 				rButton.setId(position);
 				rButton.setClickable(false);
 				rButton.setChecked(selectedEntry == position);
+				// if (selectedEntry == position) {
+				// text.setBackgroundColor(Color.YELLOW);
+				// }
 
-				if (mEntryIcons != null) {
-					text.setText(" " + text.getText());
-					text.setCompoundDrawablesWithIntrinsicBounds(mEntryIcons[position], 0, 0, 0);
+				// if (mEntryIcons != null) {
+				// text.setText(" " + text.getText());
+				// text.setCompoundDrawablesWithIntrinsicBounds(mEntryIcons[position], 0, 0, 0);
+				// }
+
+				if (Build.VERSION.SDK_INT >= 17) {
+					final Bitmap b = Settings.getIconForDrawer(text.getText().toString());
+					if (b != null) {
+						text.setText(" " + text.getText());
+						text.setCompoundDrawablesRelativeWithIntrinsicBounds(BitmapHelper.bitmapToIcon(b), null, null, null);
+					}
 				}
 				if (mEntryBooleans != null && !Settings.isPremium()) {
 					row.setClickable(mEntryBooleans[position]);
@@ -179,7 +195,8 @@ public class StyleListPreference extends ListPreference {
 					text.setEnabled(mEntryBooleans[position]);
 					rButton.setEnabled(mEntryBooleans[position]);
 					if (mEntryBooleans[position] == false) {
-						text.setText(text.getText() + " (Premium only!)");
+						text.setText(text.getText() + " (Premium)");
+						// rButton.setText("(Premium only!)");
 					}
 				}
 			}

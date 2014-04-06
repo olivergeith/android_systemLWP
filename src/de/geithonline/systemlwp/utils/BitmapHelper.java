@@ -53,6 +53,11 @@ public class BitmapHelper {
 		return d;
 	}
 
+	public static Drawable bitmapToIcon(final Bitmap bitmap) {
+		final Drawable d = new BitmapDrawable(Resources.getSystem(), bitmap);
+		return d;
+	}
+
 	public static Drawable resizeToIcon64(final Bitmap bitmap) {
 		return resizeToIcon(bitmap, 64, 64);
 	}

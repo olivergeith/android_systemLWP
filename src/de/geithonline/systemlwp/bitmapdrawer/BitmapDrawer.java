@@ -78,6 +78,18 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 		drawOnCanvas(bitmap, canvas);
 	}
 
+	@Override
+	public Bitmap drawIcon(final int level, final int size) {
+		final int h = size;
+		final int w = size;
+		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
+		cWidth = w;
+		cHeight = h;
+		final Bitmap icon = drawBitmap(level);
+		drawLevelNumber(level);
+		return icon;
+	}
+
 	protected void drawLevelNumberCentered(final Canvas canvas, final int level, final int fontSize) {
 		final String text = "" + level;
 		final Paint p = Settings.getNumberPaint(level, fontSize, Align.CENTER, true, false);

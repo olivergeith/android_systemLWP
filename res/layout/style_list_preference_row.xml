@@ -28,7 +28,13 @@
         android:id="@+id/image_list_view_row_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:checked="false"
-        android:gravity="right" />
+        android:gravity="right"
+        />
+    <!-- 
+            android:gravity="right" 
+    
+     -->
 </RelativeLayout>
