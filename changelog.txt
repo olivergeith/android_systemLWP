@@ -1,3 +1,10 @@
+[COLOR="blue"]2014-04-06 : V1.15[/COLOR]
+2014-04-06 : V1.15
+- lots of refactoring
+- bugfixing ZoopaWide styles, when resized
+- icons in styles-list (api level 17 (android 4.2) and above)
+
+
 [COLOR="blue"]2014-04-04 : V1.14[/COLOR]
 2014-04-04 : V1.14
 - Resizing and vertical positioning/centering (re)implemented from scratch for all styles
