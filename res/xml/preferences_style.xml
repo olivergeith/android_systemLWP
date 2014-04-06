@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:stylelistpreference="http://schemas.android.com/apk/res/de.geithonline.systemlwp">
  
     <PreferenceCategory 
         android:title="@string/category_style"
         android:summary="@string/category_style_summary">
-    
+ <!--    
         <ListPreference
 	        android:defaultValue="ZoopaWideV3"
 	        android:title="@string/style" 
@@ -14,7 +15,20 @@
 	        android:entryValues="@array/stylValues"
 	        android:key="batt_style"
 	        />
-    </PreferenceCategory>
+ -->
+        <de.geithonline.systemlwp.stylelistpreference.StyleListPreference
+	        android:key="batt_style"
+	        android:defaultValue="ZoopaWideV3"
+	        android:title="@string/style" 
+	        android:summary="@string/style_summary" 
+	        android:dialogTitle="Battery Style"
+	        android:entries="@array/prostyl"
+	        android:entryValues="@array/prostylValues"
+	        stylelistpreference:entryBooleans="@array/styl_booleans"
+	        
+	        />
+        
+        </PreferenceCategory>
     <PreferenceCategory 
         android:title="@string/category_size"
         android:summary="@string/category_size_summary">

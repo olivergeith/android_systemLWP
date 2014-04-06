@@ -119,42 +119,43 @@
     
     
     
-    <string-array name="styl">
-        <item name="1">ZoopaWideV1</item>
-        <item name="2">ZoopaWideV2</item>
-        <item name="3">ZoopaWideV3</item>
-        <item name="4">ZoopaWideV4</item>
-        <item name="5">ZoopaWideV5</item>
-        <item name="6">ZoopaWideV6</item>
-        <item name="10">ZoopaCircleV1</item>
-        <item name="11">ZoopaCircleV2</item>
-        <item name="12">ZoopaCircleV3</item>
-        <!-- item name="21">TachoV1</item-->
-        <item name="22">TachoV2</item>
-        <!-- item name="23">TachoV3</item-->
-        <!-- item name="24">TachoV4</item-->
-        <item name="20">TachoV5</item>
-        <item name="80">BrickV1</item>
-        <item name="30">BarGraphV1</item>
-        <item name="31">BarGraphV2</item>
-        <item name="40">BarGraphVerticalV1</item>
-        <item name="41">BarGraphVerticalV2</item>
-        <item name="42">BarGraphVerticalV3</item>
-        <item name="50">SimpleCircleV1</item>
-        <item name="51">SimpleCircleV2</item>
-        <item name="52">SimpleCircleV3</item>
-        <!-- item name="53">SimpleCircleV4</item-->
-        <!-- item name="54">SimpleCircleV5</item-->
-        <item name="55">SimpleCircleV6</item>
-        <item name="60">AokpCircleV1</item>
-        <item name="61">AokpCircleV2</item>
-        <!-- item name="70">NumberOnlyV1</item-->
-        <!-- item name="80">BatteryV1</item-->
-        <!-- item name="90">SimpleArcV1</item-->
-        <!-- item name="91">SimpleArcV2</item-->
-        <!-- item name="92">SimpleArcV3</item-->
-        </string-array>
 
+    <string-array name="styl_booleans">
+        <item name="1">true</item>
+        <item name="2">true</item>
+        <item name="3">true</item>
+        <item name="4">true</item>
+        <item name="5">true</item>
+        <item name="6">true</item>
+        <item name="10">true</item>
+        <item name="11">true</item>
+        <item name="12">true</item>
+        <item name="21">false</item>
+        <item name="22">true</item>
+        <item name="23">false</item>
+        <item name="24">false</item>
+        <item name="20">true</item>
+        <item name="80">true</item>
+        <item name="30">true</item>
+        <item name="31">true</item>
+        <item name="40">true</item>
+        <item name="41">true</item>
+        <item name="42">true</item>
+        <item name="50">true</item>
+        <item name="51">true</item>
+        <item name="52">true</item>
+        <item name="53">false</item>
+        <item name="54">false</item>
+        <item name="55">true</item>
+        <item name="60">true</item>
+        <item name="61">true</item>
+        <item name="70">false</item>
+        <item name="80">false</item>
+        <item name="90">false</item>
+        <item name="91">false</item>
+        <item name="92">false</item>
+    </string-array>
+    
     <string-array name="prostyl">
         <item name="1">ZoopaWideV1</item>
         <item name="2">ZoopaWideV2</item>
@@ -190,42 +191,6 @@
         <item name="91">SimpleArcV2</item>
         <item name="92">SimpleArcV3</item>
         </string-array>
-    
-    <string-array name="stylValues">
-        <item name="1">ZoopaWideV1</item>
-        <item name="2">ZoopaWideV2</item>
-        <item name="3">ZoopaWideV3</item>
-        <item name="4">ZoopaWideV4</item>
-        <item name="5">ZoopaWideV5</item>
-        <item name="6">ZoopaWideV6</item>
-        <item name="10">ZoopaCircleV1</item>
-        <item name="11">ZoopaCircleV2</item>
-        <item name="12">ZoopaCircleV3</item>
-        <!-- item name="21">TachoV1</item-->
-        <item name="22">TachoV2</item>
-        <!-- item name="23">TachoV3</item-->
-        <!-- item name="24">TachoV4</item-->
-        <item name="20">TachoV5</item>
-        <item name="80">BrickV1</item>
-        <item name="30">BarGraphV1</item>
-        <item name="31">BarGraphV2</item>
-        <item name="40">BarGraphVerticalV1</item>
-        <item name="41">BarGraphVerticalV2</item>
-        <item name="42">BarGraphVerticalV3</item>
-        <item name="50">SimpleCircleV1</item>
-        <item name="51">SimpleCircleV2</item>
-        <item name="52">SimpleCircleV3</item>
-        <!-- item name="53">SimpleCircleV4</item-->
-        <!-- item name="54">SimpleCircleV5</item-->
-        <item name="55">SimpleCircleV6</item>
-        <item name="60">AokpCircleV1</item>
-        <item name="61">AokpCircleV2</item>
-        <!-- item name="70">NumberOnlyV1</item-->
-        <!-- item name="80">BatteryV1</item-->
-        <!-- item name="90">SimpleArcV1</item-->
-        <!-- item name="91">SimpleArcV2</item-->
-        <!-- item name="92">SimpleArcV3</item-->
-    </string-array>
     
     <string-array name="prostylValues">
         <item name="1">ZoopaWideV1</item>
