@@ -11,7 +11,6 @@ import android.os.Build;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,7 +124,6 @@ public class StyleListPreference extends ListPreference {
 		if (entries.length != entryValues.length) {
 			throw new IllegalStateException("ListPreference requires an entries array and an entryValues array which are both the same length");
 		}
-
 		if (mEntryIcons != null && entries.length != mEntryIcons.length) {
 			throw new IllegalStateException("IconListPreference requires the icons entries array be the same length than entries or null");
 		}
@@ -133,9 +131,8 @@ public class StyleListPreference extends ListPreference {
 			throw new IllegalStateException("IconListPreference requires the boolean entries array be the same length than entries or null");
 		}
 
+		// searching the selected index
 		final String selectedValue = prefs.getString(mKey, "");
-		Log.i("STYLEPREF", "Selected Value = " + selectedValue);
-
 		for (int i = 0; i < entryValues.length; i++) {
 			if (selectedValue.compareTo((String) entryValues[i]) == 0) {
 				selectedEntry = i;
@@ -144,7 +141,6 @@ public class StyleListPreference extends ListPreference {
 		}
 
 		iconListPreferenceAdapter = new IconListPreferenceScreenAdapter(mContext);
-		// builder.setAdapter(iconListPreferenceAdapter, null);
 		builder.setSingleChoiceItems(iconListPreferenceAdapter, selectedEntry, null);
 		// builder.setSingleChoiceItems(iconListPreferenceAdapter, selectedEntry, new DialogInterface.OnClickListener() {
 		// @Override
@@ -157,7 +153,6 @@ public class StyleListPreference extends ListPreference {
 
 	private class IconListPreferenceScreenAdapter extends BaseAdapter {
 		public IconListPreferenceScreenAdapter(final Context context) {
-
 		}
 
 		@Override
@@ -168,26 +163,13 @@ public class StyleListPreference extends ListPreference {
 		class CustomHolder {
 			private CheckedTextView text = null;
 
-			// private RadioButton rButton = null;
-
 			@SuppressLint("NewApi")
 			CustomHolder(final View row, final int position) {
 
 				text = (CheckedTextView) row.findViewById(R.id.image_list_view_row_text_view);
 				text.setText(entries[position]);
-
-				// rButton = (RadioButton) row.findViewById(R.id.image_list_view_row_radio_button);
-				// rButton.setId(position);
-				// rButton.setClickable(false);
-				// rButton.setChecked(selectedEntry == position);
-
 				text.setChecked(selectedEntry == position);
-
-				// if (mEntryIcons != null) {
-				// text.setText(" " + text.getText());
-				// text.setCompoundDrawablesWithIntrinsicBounds(mEntryIcons[position], 0, 0, 0);
-				// }
-
+				// in
 				if (Build.VERSION.SDK_INT >= 17) {
 					final Bitmap b = Settings.getIconForDrawer(text.getText().toString());
 					if (b != null) {
@@ -196,6 +178,7 @@ public class StyleListPreference extends ListPreference {
 					}
 				}
 				if (mEntryBooleans != null && !Settings.isPremium()) {
+					// diabling some rows depending on isPremium and the defined booleans
 					row.setClickable(mEntryBooleans[position]);
 					row.setEnabled(mEntryBooleans[position]);
 					text.setEnabled(mEntryBooleans[position]);
@@ -241,10 +224,7 @@ public class StyleListPreference extends ListPreference {
 					editor.commit();
 				}
 			});
-
 			return row;
 		}
-
 	}
-
 }

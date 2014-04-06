@@ -18,6 +18,8 @@
         android:gravity="center_vertical"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingTop="2dip"
+        android:paddingBottom="2dip"
          />
 <!--    
         android:paddingRight="40dip"

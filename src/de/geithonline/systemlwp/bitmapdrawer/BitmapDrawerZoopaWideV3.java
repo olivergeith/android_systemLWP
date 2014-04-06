@@ -108,8 +108,7 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		// draw percentage Number
-		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, Settings.getNumberPaint(level, fontSize));
+		drawLevelNumberBottom(bitmapCanvas, level, fontSize);
 	}
 
 	@Override
@@ -122,7 +121,7 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 	}
 
 	private RectF getRectForOffset(final int offset) {
-		return new RectF(offset, offset, cWidth - offset, cWidth - offset);
+		return new RectF(offset, offset, bWidth - offset, bHeight * 2 - offset);
 	}
 
 	@Override

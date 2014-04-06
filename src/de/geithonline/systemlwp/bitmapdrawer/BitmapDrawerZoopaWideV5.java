@@ -76,14 +76,12 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke), 0, 360, true, Settings.getErasurePaint());
 
 		// Bogen 2
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset), 180, 180, true,
-				Settings.getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset), 180, 180, true, Settings.getBackgroundPaint());
 
 		// overpaint level
 		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, Settings.getBatteryPaintSourceIn(level));
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset + bogenDicke), 0, 360, true,
-				Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + offset + skaleDicke + offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
 
 	}
 
@@ -98,12 +96,11 @@ public class BitmapDrawerZoopaWideV5 extends BitmapDrawer {
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		// draw percentage Number
-		bitmapCanvas.drawText("" + level, cWidth / 2, cWidth / 2 - 10, Settings.getNumberPaint(level, fontSize));
+		drawLevelNumberBottom(bitmapCanvas, level, fontSize);
 	}
 
 	private RectF getRectForOffset(final int offset) {
-		return new RectF(offset, offset, cWidth - offset, cWidth - offset);
+		return new RectF(offset, offset, bWidth - offset, bHeight * 2 - offset);
 	}
 
 	@Override
