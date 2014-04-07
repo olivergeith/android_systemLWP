@@ -11,9 +11,12 @@ import android.os.Build;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import de.geithonline.systemlwp.R;
@@ -38,6 +41,7 @@ public class StyleListPreference extends ListPreference {
 	private final SharedPreferences.Editor editor;
 	private final String mKey;
 	private int selectedEntry = -1;
+	private int displayWidth = 1080;
 
 	public StyleListPreference(final Context context, final AttributeSet attrs) {
 		this(context, attrs, 0);
@@ -61,8 +65,14 @@ public class StyleListPreference extends ListPreference {
 		mKey = getKey();
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		editor = prefs.edit();
-
 		a.recycle();
+
+		final DisplayMetrics metrics = new DisplayMetrics();
+		final WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		wm.getDefaultDisplay().getMetrics(metrics);
+
+		displayWidth = metrics.widthPixels;
+		Log.i("STYLIST", "DisplayWidth = " + displayWidth);
 
 	}
 
@@ -142,7 +152,8 @@ public class StyleListPreference extends ListPreference {
 
 		iconListPreferenceAdapter = new IconListPreferenceScreenAdapter(mContext);
 		builder.setSingleChoiceItems(iconListPreferenceAdapter, selectedEntry, null);
-		// builder.setSingleChoiceItems(iconListPreferenceAdapter, selectedEntry, new DialogInterface.OnClickListener() {
+		// builder.setSingleChoiceItems(iconListPreferenceAdapter,
+		// selectedEntry, new DialogInterface.OnClickListener() {
 		// @Override
 		// public void onClick(final DialogInterface dialog, final int which) {
 		//
@@ -171,14 +182,15 @@ public class StyleListPreference extends ListPreference {
 				text.setChecked(selectedEntry == position);
 				// in
 				if (Build.VERSION.SDK_INT >= 17) {
-					final Bitmap b = Settings.getIconForDrawer(text.getText().toString());
+					final Bitmap b = Settings.getIconForDrawer(text.getText().toString(), Math.round(displayWidth * 0.12f));
 					if (b != null) {
 						text.setText(" " + text.getText());
 						text.setCompoundDrawablesRelativeWithIntrinsicBounds(BitmapHelper.bitmapToIcon(b), null, null, null);
 					}
 				}
 				if (mEntryBooleans != null && !Settings.isPremium()) {
-					// diabling some rows depending on isPremium and the defined booleans
+					// diabling some rows depending on isPremium and the defined
+					// booleans
 					row.setClickable(mEntryBooleans[position]);
 					row.setEnabled(mEntryBooleans[position]);
 					text.setEnabled(mEntryBooleans[position]);

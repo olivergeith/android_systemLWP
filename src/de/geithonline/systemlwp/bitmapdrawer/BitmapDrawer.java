@@ -99,7 +99,7 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 
 	protected void drawLevelNumberBottom(final Canvas canvas, final int level, final int fontSize) {
 		final Paint p = Settings.getNumberPaint(level, fontSize, Align.CENTER, true, false);
-		canvas.drawText("" + level, bWidth / 2, bHeight - 10, p); // 10 pixel von unten
+		canvas.drawText("" + level, bWidth / 2, bHeight - Math.round(bWidth * 0.01f), p);
 	}
 
 	private static PointF getTextCenterToDraw(final RectF region, final Paint paint) {

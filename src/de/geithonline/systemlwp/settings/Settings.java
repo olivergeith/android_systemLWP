@@ -98,15 +98,15 @@ public class Settings {
 
 	public static String getBattStatusCompleteShort() {
 		switch (getStatusStyle()) {
-		case BATT_STATUS_STYLE_VOLT:
-			return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
-		case BATT_STATUS_STYLE_TEMP:
-			return "Battery: " + (float) battTemperature / 10 + "°C";
-		case BATT_STATUS_STYLE_TEMP_VOLT:
-			return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
-		default:
-		case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
-			return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+			case BATT_STATUS_STYLE_VOLT:
+				return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
+			case BATT_STATUS_STYLE_TEMP:
+				return "Battery: " + (float) battTemperature / 10 + "°C";
+			case BATT_STATUS_STYLE_TEMP_VOLT:
+				return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+			default:
+			case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
+				return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
 		}
 	}
 
@@ -124,21 +124,21 @@ public class Settings {
 
 	private static String getHealthText(final int health) {
 		switch (health) {
-		case BatteryManager.BATTERY_HEALTH_GOOD:
-			return "good";
-		case BatteryManager.BATTERY_HEALTH_OVERHEAT:
-			return "overheat";
-		case BatteryManager.BATTERY_HEALTH_DEAD:
-			return "dead";
-		case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
-			return "overvoltage";
-		case BatteryManager.BATTERY_HEALTH_COLD:
-			return "cold";
-		case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
-			return "failure";
+			case BatteryManager.BATTERY_HEALTH_GOOD:
+				return "good";
+			case BatteryManager.BATTERY_HEALTH_OVERHEAT:
+				return "overheat";
+			case BatteryManager.BATTERY_HEALTH_DEAD:
+				return "dead";
+			case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
+				return "overvoltage";
+			case BatteryManager.BATTERY_HEALTH_COLD:
+				return "cold";
+			case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
+				return "failure";
 
-		default:
-			return "unknown";
+			default:
+				return "unknown";
 		}
 	}
 
@@ -559,11 +559,11 @@ public class Settings {
 		return drawer;
 	}
 
-	public static Bitmap getIconForDrawer(final String name) {
+	public static Bitmap getIconForDrawer(final String name, final int size) {
 		Bitmap b = iconCache.get(name);
 		if (b == null) {
 			final IBitmapDrawer drawer = getDrawerForStyle(name);
-			b = drawer.drawIcon(66, 128);
+			b = drawer.drawIcon(66, size);
 			iconCache.put(name, b);
 		}
 		return b;
