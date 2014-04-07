@@ -7,7 +7,6 @@
     android:paddingLeft="6dip"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingRight="?android:attr/scrollbarSize" >
-    <!-- android:minHeight="?android:attr/listPreferredItemHeight" -->
 
    <ImageView
         android:id="@+id/image"
@@ -22,30 +21,15 @@
         android:id="@+id/image_list_view_row_text_view"
         android:checkMark="?android:attr/listChoiceIndicatorSingle"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_toRightOf="@id/image"
         android:ellipsize="end"
-        android:gravity="center_vertical"
+		android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="fill_vertical"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:paddingTop="2dip"
         android:paddingBottom="2dip"
          />
-<!--    
-        android:layout_alignParentLeft="true"
-        android:paddingRight="40dip"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/black"
- -->
-<!-- 
-    <RadioButton
-        android:id="@+id/image_list_view_row_radio_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:checked="false"
-        android:gravity="right"
-        />
- -->
 </RelativeLayout>
