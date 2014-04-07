@@ -116,18 +116,14 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 			// Zeiger
 			final Paint zp = Settings.getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (180f + i * 1.8 - 0.5f), 1f,
-					true, zp);
+			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (180f + i * 1.8 - 0.5f), 1f, true, zp);
 		}
 
 	}
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		// draw percentage Number
-		final Paint p = Settings.getNumberPaint(level, fontSize);
-		p.setShadowLayer(10, 0, 0, Color.BLACK);
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, p);
+		drawLevelNumberBottom(bitmapCanvas, level, fontSize);
 	}
 
 	@Override

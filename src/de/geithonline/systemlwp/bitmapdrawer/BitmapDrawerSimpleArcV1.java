@@ -87,8 +87,7 @@ public class BitmapDrawerSimpleArcV1 extends BitmapDrawer {
 		// scala
 		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 180, 180, true, Settings.getBackgroundPaint());
 		// level
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 180, Math.round(level * 1.8), true,
-				Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset), 180, Math.round(level * 1.8), true, Settings.getBatteryPaint(level));
 
 		// Skalatext
 		drawScalaText();
@@ -98,8 +97,7 @@ public class BitmapDrawerSimpleArcV1 extends BitmapDrawer {
 		zp.setShadowLayer(10, 0, 0, Color.BLACK);
 		bitmapCanvas.drawArc(getRectForOffset(fontSizeArc), 180 + Math.round(level * 1.8) - 1, 2, true, zp);
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true,
-				Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke), 0, 360, true, Settings.getErasurePaint());
 		// Rand
 		if (Settings.isShowRand()) {
 			final Paint randPaint = Settings.getBackgroundPaint();
@@ -129,8 +127,7 @@ public class BitmapDrawerSimpleArcV1 extends BitmapDrawer {
 				mArc.addArc(oval, winkel, 36);
 				bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
 			}
-			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke / 2),
-					(float) (180f + i * 1.8 - 0.5f), 1f, true, p);
+			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke + offset + zehnerDicke / 2), (float) (180f + i * 1.8 - 0.5f), 1f, true, p);
 		}
 	}
 
@@ -149,8 +146,7 @@ public class BitmapDrawerSimpleArcV1 extends BitmapDrawer {
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		final Paint p = Settings.getNumberPaint(level, fontSize);
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, p);
+		drawLevelNumberBottom(bitmapCanvas, level, fontSize);
 	}
 
 	private RectF getRectForOffset(final int offset) {

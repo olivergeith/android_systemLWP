@@ -108,8 +108,7 @@ public class BitmapDrawerSimpleArcV2 extends BitmapDrawer {
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		final Paint p = Settings.getNumberPaint(level, fontSize);
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, p);
+		drawLevelNumberBottom(bitmapCanvas, level, fontSize);
 	}
 
 	private RectF getRectForOffset(final int offset) {

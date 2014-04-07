@@ -78,8 +78,7 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		// draw percentage Number
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 10, Settings.getNumberPaint(level, fontSize));
+		drawLevelNumberBottom(bitmapCanvas, level, fontSize);
 	}
 
 	@Override
