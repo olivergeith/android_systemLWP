@@ -83,9 +83,9 @@ public class Settings {
 
 	public static boolean isShowStatus() {
 		if (prefs == null) {
-			return true;
+			return false;
 		}
-		return prefs.getBoolean("show_status", true);
+		return prefs.getBoolean("show_status", false);
 	}
 
 	private static int getStatusStyle() {
@@ -822,6 +822,7 @@ public class Settings {
 			prefs.edit().putInt("battery_color_mid", Color.YELLOW).commit();
 			prefs.edit().putInt("battery_color_low", Color.RED).commit();
 			prefs.edit().putInt("color_zeiger", Color.WHITE).commit();
+			prefs.edit().putBoolean("show_status", false).commit();
 		}
 	}
 
