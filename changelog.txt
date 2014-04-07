@@ -1,5 +1,5 @@
-[COLOR="blue"]2014-04-xx : V1.16[/COLOR]
-2014-04-xx : V1.16
+[COLOR="blue"]2014-04-07 : V1.16[/COLOR]
+2014-04-07 : V1.16
 - Icons in style-chooser now for all supported api-levels
 - showing selected style-icon in Settings
 - fixing iconsize in style-chooser for low-res devices 
