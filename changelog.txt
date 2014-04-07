@@ -1,7 +1,12 @@
 [COLOR="blue"]2014-04-xx : V1.16[/COLOR]
 2014-04-xx : V1.16
-- fixing iconsize in style-chooser for low-res devices 
 - Icons in style-chooser now for all supported api-levels
+- showing selected style-icon in Settings
+- fixing iconsize in style-chooser for low-res devices 
+- fixing settings on first run after first installation
+- fixing positioning of level-number in some styles
+- fixing strange effects when choosing a bright backgroundcolor
+
 
 [COLOR="blue"]2014-04-06 : V1.15[/COLOR]
 2014-04-06 : V1.15

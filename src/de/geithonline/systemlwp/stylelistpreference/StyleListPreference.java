@@ -65,13 +65,17 @@ public class StyleListPreference extends ListPreference {
 		editor = prefs.edit();
 		a.recycle();
 
+		displayWidth = getDisplayWidth(context);
+		Log.i("STYLIST", "DisplayWidth = " + displayWidth);
+
+	}
+
+	private int getDisplayWidth(final Context context) {
 		final DisplayMetrics metrics = new DisplayMetrics();
 		final WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		wm.getDefaultDisplay().getMetrics(metrics);
 
-		displayWidth = metrics.widthPixels;
-		Log.i("STYLIST", "DisplayWidth = " + displayWidth);
-
+		return metrics.widthPixels;
 	}
 
 	@Override
