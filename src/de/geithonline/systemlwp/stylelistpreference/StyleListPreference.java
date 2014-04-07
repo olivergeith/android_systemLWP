@@ -1,13 +1,11 @@
 package de.geithonline.systemlwp.stylelistpreference;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
@@ -19,9 +17,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ImageView;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.settings.Settings;
-import de.geithonline.systemlwp.utils.BitmapHelper;
 
 /**
  * 
@@ -174,20 +172,26 @@ public class StyleListPreference extends ListPreference {
 		class CustomHolder {
 			private CheckedTextView text = null;
 
-			@SuppressLint("NewApi")
+			// @SuppressLint("NewApi")
 			CustomHolder(final View row, final int position) {
+
+				final ImageView imageView = (ImageView) row.findViewById(R.id.image);
 
 				text = (CheckedTextView) row.findViewById(R.id.image_list_view_row_text_view);
 				text.setText(entries[position]);
 				text.setChecked(selectedEntry == position);
 				// in
-				if (Build.VERSION.SDK_INT >= 17) {
-					final Bitmap b = Settings.getIconForDrawer(text.getText().toString(), Math.round(displayWidth * 0.12f));
-					if (b != null) {
-						text.setText(" " + text.getText());
-						text.setCompoundDrawablesRelativeWithIntrinsicBounds(BitmapHelper.bitmapToIcon(b), null, null, null);
-					}
+				final Bitmap b = Settings.getIconForDrawer(text.getText().toString(), Math.round(displayWidth * 0.12f));
+				if (b != null) {
+					imageView.setImageBitmap(b);
+					text.setText(" " + text.getText());
+					// auch ne Variante um das icon zu setzen
+					// if (Build.VERSION.SDK_INT >= 17) {
+					// text.setCompoundDrawablesRelativeWithIntrinsicBounds(BitmapHelper.bitmapToIcon(b),
+					// null, null, null);
+					// }
 				}
+
 				if (mEntryBooleans != null && !Settings.isPremium()) {
 					// diabling some rows depending on isPremium and the defined
 					// booleans
