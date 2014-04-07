@@ -7,8 +7,8 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.RectF;
+import de.geithonline.systemlwp.bitmapdrawer.shapes.ChargeIconPath;
 import de.geithonline.systemlwp.settings.Settings;
-import de.geithonline.systemlwp.utils.ChargeIconPath;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class BitmapDrawerBatteryV1 extends BitmapDrawer {

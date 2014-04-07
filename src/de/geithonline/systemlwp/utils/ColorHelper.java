@@ -33,15 +33,15 @@ public class ColorHelper {
 		int b = Color.blue(color);
 
 		r -= 32;
-		if (r > 0) {
+		if (r < 0) {
 			r = 0;
 		}
 		g -= 32;
-		if (g > 0) {
+		if (g < 0) {
 			g = 0;
 		}
 		b -= 32;
-		if (b > 0) {
+		if (b < 0) {
 			b = 0;
 		}
 		return Color.argb(a, r, g, b);
@@ -54,7 +54,7 @@ public class ColorHelper {
 		int b = Color.blue(color);
 
 		r -= 64;
-		if (r > 0) {
+		if (r < 0) {
 			r = 0;
 		}
 		g -= 64;
@@ -62,7 +62,7 @@ public class ColorHelper {
 			g = 0;
 		}
 		b -= 64;
-		if (b > 0) {
+		if (b < 0) {
 			b = 0;
 		}
 		return Color.argb(a, r, g, b);

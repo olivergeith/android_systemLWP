@@ -1,4 +1,4 @@
-package de.geithonline.systemlwp.utils;
+package de.geithonline.systemlwp.bitmapdrawer.shapes;
 
 import android.graphics.Path;
 import android.graphics.RectF;

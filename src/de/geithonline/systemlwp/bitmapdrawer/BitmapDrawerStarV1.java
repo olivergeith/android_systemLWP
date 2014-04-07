@@ -9,9 +9,9 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.RectF;
+import de.geithonline.systemlwp.bitmapdrawer.shapes.StarPath;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.ColorHelper;
-import de.geithonline.systemlwp.utils.StarPath;
 
 public class BitmapDrawerStarV1 extends BitmapDrawer {
 
