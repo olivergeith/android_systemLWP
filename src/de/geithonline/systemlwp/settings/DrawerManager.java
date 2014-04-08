@@ -3,6 +3,7 @@ package de.geithonline.systemlwp.settings;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.graphics.Bitmap;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
@@ -12,6 +13,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBatteryV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBrickV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerFlowerV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerNumberOnlyV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV2;
@@ -40,7 +42,6 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV6;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
-import android.graphics.Bitmap;
 
 public class DrawerManager {
 	private static Map<String, IBitmapDrawer> drawer = new HashMap<String, IBitmapDrawer>();
@@ -79,6 +80,7 @@ public class DrawerManager {
 		drawer.put("StarV1", new BitmapDrawerStarV1());
 		drawer.put("StarV2", new BitmapDrawerStarV2());
 		drawer.put("StarV3", new BitmapDrawerStarV3());
+		drawer.put("FlowerV1", new BitmapDrawerFlowerV1());
 		drawer.put("BatteryV1", new BitmapDrawerBatteryV1());
 		drawer.put("SimpleArcV1", new BitmapDrawerSimpleArcV1());
 		drawer.put("SimpleArcV2", new BitmapDrawerSimpleArcV2());
