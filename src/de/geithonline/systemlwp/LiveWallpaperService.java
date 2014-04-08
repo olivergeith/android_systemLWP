@@ -179,14 +179,19 @@ public class LiveWallpaperService extends WallpaperService {
 				if (backgroundImage != null) {
 					backgroundImage.recycle();
 				}
-				backgroundImage = getBackgroundImage();
+				backgroundImage = getBackgroundImage2();
 				oldWidth = cWidth;
 				oldHeight = cHeight;
 			}
 			// draw the background image
 			canvas.save();
 			canvas.translate(dx, 0);
-			canvas.drawBitmap(backgroundImage, 0, 0, null);
+			final int h = backgroundImage.getHeight();
+			if (h > cHeight) {
+				canvas.drawBitmap(backgroundImage, 0, cHeight / 2 - h / 2, null);
+			} else {
+				canvas.drawBitmap(backgroundImage, 0, 0, null);
+			}
 			canvas.restore();
 		}
 
@@ -202,7 +207,7 @@ public class LiveWallpaperService extends WallpaperService {
 		/**
 		 * initBackgroundImage
 		 */
-		private Bitmap getBackgroundImage() {
+		private Bitmap getBackgroundImage2() {
 			Bitmap bgInput;
 			Bitmap bgReturn;
 			// sollen wir ein custom BG laden ?
@@ -215,23 +220,23 @@ public class LiveWallpaperService extends WallpaperService {
 			// lets scale it
 			final int w = bgInput.getWidth();
 			final int h = bgInput.getHeight();
-			final float aspectCanvas = (float) cWidth / (float) cHeight;
 			final float aspectBG = (float) w / (float) h;
 
-			// bild ist schmaler aber länger
-			if (aspectBG <= aspectCanvas) {
-				//
-				final int dstW = (int) (cWidth * 1.4);
-				final int dstH = Math.round(dstW * aspectBG);
-				bgReturn = Bitmap.createScaledBitmap(bgInput, dstW, dstH, true);
-			} else {
-				// bild ist zu breit ;-) also skalierten wir es auf die
-				// canvashöhe
-				final int dstH = cHeight;
-				final float factor = (float) cHeight / h;
-				final int dstW = Math.round(w * factor);
-				bgReturn = Bitmap.createScaledBitmap(bgInput, dstW, dstH, true);
+			// erstmal setzen wir die Zielhöhe auf Canvas heigth
+			int dstH = cHeight;
+			// ..und berechnen daraufhin die breite des Bitmaps (damit Aspectratio erhalten bleibt)
+			int dstW = Math.round(dstH + aspectBG);
+			// dann schauen wir, ob die dstW breiter ist als das Canvas
+			if (dstW < cWidth) {
+				// oh schade das Bild ist zu schmal und passt nicht in der Breite
+				// dannn machen wir es nun breiter (1.4fach canvasbreite)...dafür wird es leider zu hoch
+				// also wird später unten was abgeschnitten
+				// 1.4 fach damit es auch was zum sliden gibt ;-)
+				dstW = Math.round(cWidth * 1.4f);
+				dstH = Math.round(dstW / aspectBG);
 			}
+
+			bgReturn = Bitmap.createScaledBitmap(bgInput, dstW, dstH, true);
 			if (!bgReturn.equals(bgInput)) {
 				bgInput.recycle();
 			}
