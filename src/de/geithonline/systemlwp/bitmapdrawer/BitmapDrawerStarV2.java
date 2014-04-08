@@ -52,7 +52,7 @@ public class BitmapDrawerStarV2 extends BitmapDrawer {
 			setBitmapSize(cWidth, cWidth / 2, true);
 		} else {
 			// quer
-			setBitmapSize(cHeight, cHeight / 2, false);
+			setBitmapSize(cWidth, cWidth / 2, false);
 		}
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
