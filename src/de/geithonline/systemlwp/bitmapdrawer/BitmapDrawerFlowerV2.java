@@ -13,7 +13,7 @@ import de.geithonline.systemlwp.bitmapdrawer.shapes.BubbleCirclePath;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
-public class BitmapDrawerFlowerV1 extends BitmapDrawer {
+public class BitmapDrawerFlowerV2 extends BitmapDrawer {
 
 	private int offset = 10;
 	private int einerDicke = 70;
@@ -23,7 +23,7 @@ public class BitmapDrawerFlowerV1 extends BitmapDrawer {
 	private Canvas bitmapCanvas;
 	private final int anzahlZacken = 20;
 
-	public BitmapDrawerFlowerV1() {
+	public BitmapDrawerFlowerV2() {
 	}
 
 	@Override
@@ -58,39 +58,27 @@ public class BitmapDrawerFlowerV1 extends BitmapDrawer {
 
 		fontSize = Math.round(bWidth * 0.35f);
 		fontSizeArc = Math.round(bWidth * 0.05f);
-		bubbleRadius = Math.round(bWidth * 0.07f);
+		bubbleRadius = Math.round(bWidth * 0.025f);
 
-		einerDicke = Math.round(bWidth * 0.18f);
+		einerDicke = Math.round(bWidth * 0.12f);
 		offset = Math.round(bWidth * 0.01f);
 		drawSegmente(level);
-		drawScalaText();
 		return bitmap;
-	}
-
-	private void drawScalaText() {
-		final Paint p = getTextScalePaint(fontSizeArc, Align.CENTER, true);
-		final RectF oval = getRectForOffset(4 * offset + fontSizeArc);
-		for (int i = 0; i < 100; i = i + 5) {
-			final long winkel = 252 + Math.round(i * 3.6f);
-			final Path mArc = new Path();
-			mArc.addArc(oval, winkel, 36);
-			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
-		}
 	}
 
 	private void drawSegmente(final int level) {
 		final Paint bgPaint = getBackgroundPaint();
 
 		final Point center = new Point(bWidth / 2, bHeight / 2);
-		bitmapCanvas.drawPath(new BubbleCirclePath(anzahlZacken, center, bWidth / 2 - bubbleRadius, bubbleRadius), bgPaint);
-		bitmapCanvas.drawPath(new BubbleCirclePath(100, center, bWidth / 2 - 2 * bubbleRadius, bubbleRadius / 5), bgPaint);
+		// bitmapCanvas.drawPath(new BubbleCirclePath(anzahlZacken, center, bWidth / 2 - bubbleRadius, bubbleRadius), bgPaint);
+		bitmapCanvas.drawPath(new BubbleCirclePath(50, center, bWidth / 2 - bubbleRadius, bubbleRadius), bgPaint);
 		// overpaint level
 		bitmapCanvas.drawArc(getRectForOffset(0), 270, Math.round(level * 3.6), true, getBatteryPaintSourceIn(level));
 		// Zeiger
 		if (Settings.isShowZeiger()) {
 			final Paint zp = getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			bitmapCanvas.drawArc(getRectForOffset(0), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
+			bitmapCanvas.drawArc(getRectForOffset(bubbleRadius * 2 + offset), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
 		}
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, getErasurePaint());
