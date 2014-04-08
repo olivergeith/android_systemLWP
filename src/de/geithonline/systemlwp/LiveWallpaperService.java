@@ -155,11 +155,11 @@ public class LiveWallpaperService extends WallpaperService {
 
 		private int getAnimationResetLevel() {
 			switch (Settings.getAnimationStyle()) {
-				default:
-				case Settings.ANIMATION_STYLE_0_TO_100:
-					return 100;
-				case Settings.ANIMATION_STYLE_0_TO_LEVEL:
-					return level;
+			default:
+			case Settings.ANIMATION_STYLE_0_TO_100:
+				return 100;
+			case Settings.ANIMATION_STYLE_0_TO_LEVEL:
+				return level;
 			}
 		}
 
@@ -220,20 +220,29 @@ public class LiveWallpaperService extends WallpaperService {
 			// lets scale it
 			final int w = bgInput.getWidth();
 			final int h = bgInput.getHeight();
-			final float aspectBG = (float) w / (float) h;
+			final float aspectBG = (float) w / h;
+
+			// Log.i("GEITH", "h=" + h);
+			// Log.i("GEITH", "w=" + w);
+			// Log.i("GEITH", "as=" + aspectBG);
 
 			// erstmal setzen wir die Zielhöhe auf Canvas heigth
 			int dstH = cHeight;
 			// ..und berechnen daraufhin die breite des Bitmaps (damit Aspectratio erhalten bleibt)
-			int dstW = Math.round(dstH + aspectBG);
+			int dstW = Math.round(dstH * aspectBG);
+			// Log.i("GEITH", "dst_h=" + dstH);
+			// Log.i("GEITH", "dst_w=" + dstW);
+
 			// dann schauen wir, ob die dstW breiter ist als das Canvas
-			if (dstW < cWidth) {
+			if (dstW < Math.round(cWidth * 1.4f)) {
 				// oh schade das Bild ist zu schmal und passt nicht in der Breite
 				// dannn machen wir es nun breiter (1.4fach canvasbreite)...dafür wird es leider zu hoch
 				// also wird später unten was abgeschnitten
 				// 1.4 fach damit es auch was zum sliden gibt ;-)
 				dstW = Math.round(cWidth * 1.4f);
 				dstH = Math.round(dstW / aspectBG);
+				// Log.i("GEITH", "ups dst_h=" + dstH);
+				// Log.i("GEITH", "ups dst_w=" + dstW);
 			}
 
 			bgReturn = Bitmap.createScaledBitmap(bgInput, dstW, dstH, true);
