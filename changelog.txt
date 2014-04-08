@@ -1,7 +1,7 @@
 [COLOR="blue"]2014-04-xx : V1.17[/COLOR]
 2014-04-xx : V1.17
 - fixing background-image aspectratio in landscape mode! 
-- fixing some arc not expanding to full size in landscape mode 
+- fixing some arc not expanding to full size in landscape mode (if you want them smaller, reduce size for landscape-mode)
 
 
 

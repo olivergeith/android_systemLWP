@@ -19,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import de.geithonline.systemlwp.R;
+import de.geithonline.systemlwp.settings.DrawerManager;
 import de.geithonline.systemlwp.settings.Settings;
 
 /**
@@ -185,7 +186,7 @@ public class StyleListPreference extends ListPreference {
 				text.setText(entries[position]);
 				text.setChecked(selectedEntry == position);
 				// in
-				final Bitmap b = Settings.getIconForDrawer(text.getText().toString(), Math.round(displayWidth * 0.12f));
+				final Bitmap b = DrawerManager.getIconForDrawer(text.getText().toString(), Math.round(displayWidth * 0.12f));
 				if (b != null) {
 					imageView.setImageBitmap(b);
 					text.setText(" " + text.getText());

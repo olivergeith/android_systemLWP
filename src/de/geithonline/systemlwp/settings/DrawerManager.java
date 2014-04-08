@@ -1,0 +1,106 @@
+package de.geithonline.systemlwp.settings;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBatteryV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBrickV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerNumberOnlyV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV4;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV5;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV6;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV4;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV5;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV1;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV4;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV5;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV6;
+import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import android.graphics.Bitmap;
+
+public class DrawerManager {
+	private static Map<String, IBitmapDrawer> drawer = new HashMap<String, IBitmapDrawer>();
+	private static Map<String, Bitmap> iconCache = new HashMap<String, Bitmap>();
+
+	static {
+		drawer.put("ZoopaWideV1", new BitmapDrawerZoopaWideV1());
+		drawer.put("ZoopaWideV2", new BitmapDrawerZoopaWideV2());
+		drawer.put("ZoopaWideV3", new BitmapDrawerZoopaWideV3());
+		drawer.put("ZoopaWideV4", new BitmapDrawerZoopaWideV4());
+		drawer.put("ZoopaWideV5", new BitmapDrawerZoopaWideV5());
+		drawer.put("ZoopaWideV6", new BitmapDrawerZoopaWideV6());
+		drawer.put("ZoopaCircleV1", new BitmapDrawerZoopaCircleV1());
+		drawer.put("ZoopaCircleV2", new BitmapDrawerZoopaCircleV2());
+		drawer.put("ZoopaCircleV3", new BitmapDrawerZoopaCircleV3());
+		drawer.put("TachoV1", new BitmapDrawerTachoV1());
+		drawer.put("TachoV2", new BitmapDrawerTachoV2());
+		drawer.put("TachoV3", new BitmapDrawerTachoV3());
+		drawer.put("TachoV4", new BitmapDrawerTachoV4());
+		drawer.put("TachoV5", new BitmapDrawerTachoV5());
+		drawer.put("BrickV1", new BitmapDrawerBrickV1());
+		drawer.put("BarGraphV1", new BitmapDrawerBarGraphV1());
+		drawer.put("BarGraphV2", new BitmapDrawerBarGraphV2());
+		drawer.put("BarGraphVerticalV1", new BitmapDrawerBarGraphVerticalV1());
+		drawer.put("BarGraphVerticalV2", new BitmapDrawerBarGraphVerticalV2());
+		drawer.put("BarGraphVerticalV3", new BitmapDrawerBarGraphVerticalV3());
+		drawer.put("SimpleCircleV1", new BitmapDrawerSimpleCircleV1());
+		drawer.put("SimpleCircleV2", new BitmapDrawerSimpleCircleV2());
+		drawer.put("SimpleCircleV3", new BitmapDrawerSimpleCircleV3());
+		drawer.put("SimpleCircleV4", new BitmapDrawerSimpleCircleV4());
+		drawer.put("SimpleCircleV5", new BitmapDrawerSimpleCircleV5());
+		drawer.put("SimpleCircleV6", new BitmapDrawerSimpleCircleV6());
+		drawer.put("AokpCircleV1", new BitmapDrawerAokpCircleV1());
+		drawer.put("AokpCircleV2", new BitmapDrawerAokpCircleV2());
+		drawer.put("NumberOnlyV1", new BitmapDrawerNumberOnlyV1());
+		drawer.put("StarV1", new BitmapDrawerStarV1());
+		drawer.put("StarV2", new BitmapDrawerStarV2());
+		drawer.put("StarV3", new BitmapDrawerStarV3());
+		drawer.put("BatteryV1", new BitmapDrawerBatteryV1());
+		drawer.put("SimpleArcV1", new BitmapDrawerSimpleArcV1());
+		drawer.put("SimpleArcV2", new BitmapDrawerSimpleArcV2());
+		drawer.put("SimpleArcV3", new BitmapDrawerSimpleArcV3());
+	}
+
+	public static IBitmapDrawer getDrawer(final String name) {
+		IBitmapDrawer d = drawer.get(name);
+		if (d == null) {
+			d = drawer.get("ZoopaWideV1");
+		}
+		return d;
+	}
+
+	public static Bitmap getIconForDrawer(final String name, final int size) {
+		Bitmap b = iconCache.get(name);
+		if (b == null) {
+			final IBitmapDrawer drawer = getDrawer(name);
+			b = drawer.drawIcon(66, size);
+			iconCache.put(name, b);
+		}
+		return b;
+	}
+
+}

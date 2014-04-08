@@ -3,7 +3,6 @@ package de.geithonline.systemlwp;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import de.geithonline.systemlwp.settings.Settings;
 
 public class BattNumberPreferencesFragment extends PreferenceFragment {
@@ -15,9 +14,6 @@ public class BattNumberPreferencesFragment extends PreferenceFragment {
 	}
 
 	private void enableProFeatures() {
-		if (Settings.prefs == null) {
-			Settings.prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-		}
 		final Preference showNumber = findPreference("show_number");
 		if (Settings.isPremium()) {
 			showNumber.setEnabled(true);

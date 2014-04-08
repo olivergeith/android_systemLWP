@@ -1,8 +1,5 @@
 package de.geithonline.systemlwp.settings;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,42 +17,6 @@ import android.util.Log;
 import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV3;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBatteryV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBrickV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerNumberOnlyV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV3;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV3;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV4;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV5;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV6;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV3;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV3;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV4;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV5;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV3;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV1;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV3;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV4;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV5;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV6;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.ColorHelper;
@@ -78,8 +39,6 @@ public class Settings {
 	public static final int BATT_STATUS_STYLE_TEMP_VOLT = 1;
 	public static final int BATT_STATUS_STYLE_TEMP = 2;
 	public static final int BATT_STATUS_STYLE_VOLT = 3;
-
-	private static Map<String, Bitmap> iconCache = new HashMap<String, Bitmap>();
 
 	public static boolean isShowStatus() {
 		if (prefs == null) {
@@ -386,7 +345,7 @@ public class Settings {
 			// getting Style from Settings
 			style = getStyle();
 			// returning the right Style
-			bitmapDrawer = getDrawerForStyle(style);
+			bitmapDrawer = DrawerManager.getDrawer(style);
 			return bitmapDrawer;
 		}
 		return bitmapDrawer;
@@ -397,176 +356,6 @@ public class Settings {
 			return "ZoopaWideV3";
 		}
 		return prefs.getString("batt_style", "ZoopaWideV3");
-	}
-
-	public static IBitmapDrawer getDrawerForStyle(final String battStyle) {
-		IBitmapDrawer drawer;
-		if (battStyle.equals("ZoopaWideV1")) {
-			drawer = new BitmapDrawerZoopaWideV1();
-			return drawer;
-		}
-		if (battStyle.equals("ZoopaWideV2")) {
-			drawer = new BitmapDrawerZoopaWideV2();
-			return drawer;
-		}
-		if (battStyle.equals("ZoopaWideV3")) {
-			drawer = new BitmapDrawerZoopaWideV3();
-			return drawer;
-		}
-		if (battStyle.equals("ZoopaWideV4")) {
-			drawer = new BitmapDrawerZoopaWideV4();
-			return drawer;
-		}
-		if (battStyle.equals("ZoopaWideV5")) {
-			drawer = new BitmapDrawerZoopaWideV5();
-			return drawer;
-		}
-		if (battStyle.equals("ZoopaWideV6")) {
-			drawer = new BitmapDrawerZoopaWideV6();
-			return drawer;
-		}
-
-		if (battStyle.equals("ZoopaCircleV1")) {
-			drawer = new BitmapDrawerZoopaCircleV1();
-			return drawer;
-		}
-		if (battStyle.equals("ZoopaCircleV2")) {
-			drawer = new BitmapDrawerZoopaCircleV2();
-			return drawer;
-		}
-		if (battStyle.equals("ZoopaCircleV3")) {
-			drawer = new BitmapDrawerZoopaCircleV3();
-			return drawer;
-		}
-
-		if (battStyle.equals("TachoV1")) {
-			drawer = new BitmapDrawerTachoV1();
-			return drawer;
-		}
-		if (battStyle.equals("TachoV2")) {
-			drawer = new BitmapDrawerTachoV2();
-			return drawer;
-		}
-		if (battStyle.equals("TachoV3")) {
-			drawer = new BitmapDrawerTachoV3();
-			return drawer;
-		}
-		if (battStyle.equals("TachoV4")) {
-			drawer = new BitmapDrawerTachoV4();
-			return drawer;
-		}
-		if (battStyle.equals("TachoV5")) {
-			drawer = new BitmapDrawerTachoV5();
-			return drawer;
-		}
-
-		if (battStyle.equals("BrickV1")) {
-			drawer = new BitmapDrawerBrickV1();
-			return drawer;
-		}
-
-		if (battStyle.equals("BarGraphV1")) {
-			drawer = new BitmapDrawerBarGraphV1();
-			return drawer;
-		}
-		if (battStyle.equals("BarGraphV2")) {
-			drawer = new BitmapDrawerBarGraphV2();
-			return drawer;
-		}
-		if (battStyle.equals("BarGraphVerticalV1")) {
-			drawer = new BitmapDrawerBarGraphVerticalV1();
-			return drawer;
-		}
-		if (battStyle.equals("BarGraphVerticalV2")) {
-			drawer = new BitmapDrawerBarGraphVerticalV2();
-			return drawer;
-		}
-		if (battStyle.equals("BarGraphVerticalV3")) {
-			drawer = new BitmapDrawerBarGraphVerticalV3();
-			return drawer;
-		}
-
-		if (battStyle.equals("SimpleCircleV1")) {
-			drawer = new BitmapDrawerSimpleCircleV1();
-			return drawer;
-		}
-		if (battStyle.equals("SimpleCircleV2")) {
-			drawer = new BitmapDrawerSimpleCircleV2();
-			return drawer;
-		}
-		if (battStyle.equals("SimpleCircleV3")) {
-			drawer = new BitmapDrawerSimpleCircleV3();
-			return drawer;
-		}
-		if (battStyle.equals("SimpleCircleV4")) {
-			drawer = new BitmapDrawerSimpleCircleV4();
-			return drawer;
-		}
-		if (battStyle.equals("SimpleCircleV5")) {
-			drawer = new BitmapDrawerSimpleCircleV5();
-			return drawer;
-		}
-		if (battStyle.equals("SimpleCircleV6")) {
-			drawer = new BitmapDrawerSimpleCircleV6();
-			return drawer;
-		}
-
-		if (battStyle.equals("AokpCircleV1")) {
-			drawer = new BitmapDrawerAokpCircleV1();
-			return drawer;
-		}
-		if (battStyle.equals("AokpCircleV2")) {
-			drawer = new BitmapDrawerAokpCircleV2();
-			return drawer;
-		}
-
-		if (battStyle.equals("NumberOnlyV1")) {
-			drawer = new BitmapDrawerNumberOnlyV1();
-			return drawer;
-		}
-
-		if (battStyle.equals("StarV1")) {
-			drawer = new BitmapDrawerStarV1();
-			return drawer;
-		}
-		if (battStyle.equals("StarV2")) {
-			drawer = new BitmapDrawerStarV2();
-			return drawer;
-		}
-		if (battStyle.equals("StarV3")) {
-			drawer = new BitmapDrawerStarV3();
-			return drawer;
-		}
-
-		if (battStyle.equals("BatteryV1")) {
-			drawer = new BitmapDrawerBatteryV1();
-			return drawer;
-		}
-		if (battStyle.equals("SimpleArcV1")) {
-			drawer = new BitmapDrawerSimpleArcV1();
-			return drawer;
-		}
-		if (battStyle.equals("SimpleArcV2")) {
-			drawer = new BitmapDrawerSimpleArcV2();
-			return drawer;
-		}
-		if (battStyle.equals("SimpleArcV3")) {
-			drawer = new BitmapDrawerSimpleArcV3();
-			return drawer;
-		}
-
-		drawer = new BitmapDrawerZoopaWideV3();
-		return drawer;
-	}
-
-	public static Bitmap getIconForDrawer(final String name, final int size) {
-		Bitmap b = iconCache.get(name);
-		if (b == null) {
-			final IBitmapDrawer drawer = getDrawerForStyle(name);
-			b = drawer.drawIcon(66, size);
-			iconCache.put(name, b);
-		}
-		return b;
 	}
 
 	// #####################################################################################

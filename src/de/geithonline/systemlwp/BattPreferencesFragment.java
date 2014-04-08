@@ -7,10 +7,10 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.settings.DrawerManager;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 
@@ -58,19 +58,15 @@ public class BattPreferencesFragment extends PreferenceFragment {
 	}
 
 	private void enableSettingsForStyle(final String style) {
-		final Bitmap b = Settings.getIconForDrawer(style, Math.round(displayWidth * 0.12f));
-		if (b != null) {
-			stylePref.setIcon(BitmapHelper.bitmapToIcon(b));
-		}
-		if (Settings.prefs == null) {
-			Settings.prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-		}
+		final Bitmap b = DrawerManager.getIconForDrawer(style, Math.round(displayWidth * 0.12f));
 		// Find a Drawer for this Style
-		final IBitmapDrawer drawer = Settings.getDrawerForStyle(style);
+		final IBitmapDrawer drawer = DrawerManager.getDrawer(style);
 		final Preference zeiger = findPreference("show_zeiger");
 		final Preference rand = findPreference("show_rand");
 		final Preference colorZeiger = findPreference("color_zeiger");
-
+		if (b != null) {
+			stylePref.setIcon(BitmapHelper.bitmapToIcon(b));
+		}
 		zeiger.setEnabled(drawer.supportsShowPointer());
 		rand.setEnabled(drawer.supportsShowRand());
 		colorZeiger.setEnabled(drawer.supportsPointerColor());
