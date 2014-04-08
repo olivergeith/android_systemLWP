@@ -130,7 +130,7 @@ public class BitmapDrawerBatteryV1 extends BitmapDrawer {
 	@Override
 	public void drawBattStatusText() {
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		final Paint p = getTextBattStatusPaint(fontSizeArc, Align.CENTER, true);
 		bitmapCanvas.drawText(text, bWidth / 2, offset + fontSizeArc, p);
 	}
 

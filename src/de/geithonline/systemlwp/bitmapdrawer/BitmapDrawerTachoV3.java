@@ -143,7 +143,7 @@ public class BitmapDrawerTachoV3 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke + fontSizeArc);
 		mArc.addArc(oval, 180, 180);
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		final Paint p = getTextBattStatusPaint(fontSizeArc, Align.CENTER, true);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 
