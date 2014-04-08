@@ -55,7 +55,7 @@ public class BitmapDrawerNumberOnlyV1 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + fontSizeArc);
 		mArc.addArc(oval, startwinkel, 180);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, getTextPaint(level, fontSizeArc));
 	}
 
 	@Override

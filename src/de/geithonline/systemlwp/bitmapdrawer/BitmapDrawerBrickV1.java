@@ -51,8 +51,8 @@ public class BitmapDrawerBrickV1 extends BitmapDrawer {
 		final float w = (bWidth - 2 * rand - 9 * gap) / 10;
 		final float h = (bHeight - 2 * rand - 9 * gap) / 10;
 
-		final Paint bgPaint = Settings.getBackgroundPaint();
-		final Paint battPaint = Settings.getBatteryPaint(level);
+		final Paint bgPaint = getBackgroundPaint();
+		final Paint battPaint = getBatteryPaint(level);
 
 		for (int j = 0; j < 100; j++) {
 			final int zehner = j / 10;
@@ -67,7 +67,7 @@ public class BitmapDrawerBrickV1 extends BitmapDrawer {
 				bitmapCanvas.drawRect(r, bgPaint);
 			}
 			final String text = "" + (j + 1);
-			final Paint p = Settings.getNumberPaint(level, fontSizeArc);
+			final Paint p = getNumberPaint(level, fontSizeArc);
 			p.setTextAlign(Align.CENTER);
 			p.setAlpha(255);
 			bitmapCanvas.drawText(text, r.centerX(), r.centerY() + fontSizeArc / 2, p);
@@ -79,13 +79,9 @@ public class BitmapDrawerBrickV1 extends BitmapDrawer {
 		drawLevelNumberCentered(bitmapCanvas, level, fontSize);
 	}
 
-	private RectF getRectForOffset(final int offset) {
-		return new RectF(offset, offset, bWidth - offset, bHeight - offset);
-	}
-
 	@Override
 	public void drawChargeStatusText(final int level) {
-		final Paint p = Settings.getTextPaint(level, fontSizeArc * 3 / 2);
+		final Paint p = getTextPaint(level, fontSizeArc * 3 / 2);
 		int fader = 10 - level % 10;
 		if (fader == 0) {
 			fader = 1;

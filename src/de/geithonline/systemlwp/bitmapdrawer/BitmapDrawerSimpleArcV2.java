@@ -61,7 +61,7 @@ public class BitmapDrawerSimpleArcV2 extends BitmapDrawer {
 	}
 
 	private void drawSegmente(final int level) {
-		final Paint bgPaint = Settings.getBackgroundPaint();
+		final Paint bgPaint = getBackgroundPaint();
 		bgPaint.setStrokeWidth(einerDicke);
 		bgPaint.setStyle(Style.STROKE);
 		bgPaint.setStrokeCap(Cap.ROUND);
@@ -72,7 +72,7 @@ public class BitmapDrawerSimpleArcV2 extends BitmapDrawer {
 		bitmapCanvas.drawPath(mArc, bgPaint);
 
 		// level
-		final Paint battPaint = Settings.getBatteryPaint(level);
+		final Paint battPaint = getBatteryPaint(level);
 		if (Settings.isShowRand()) {
 			battPaint.setStrokeWidth(Math.round(einerDicke * 0.85f));
 		} else {
@@ -85,7 +85,7 @@ public class BitmapDrawerSimpleArcV2 extends BitmapDrawer {
 		mArc.addArc(oval, 180, level * 1.8f);
 		bitmapCanvas.drawPath(mArc, battPaint);
 		if (Settings.isShowZeiger()) {
-			final Paint zeigerPaint = Settings.getZeigerPaint(level);
+			final Paint zeigerPaint = getZeigerPaint(level);
 			zeigerPaint.setStrokeWidth(Math.round(einerDicke * 1.05f));
 			zeigerPaint.setStyle(Style.STROKE);
 			zeigerPaint.setStrokeCap(Cap.ROUND);
@@ -103,7 +103,7 @@ public class BitmapDrawerSimpleArcV2 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(fontSizeArc);
 		mArc.addArc(oval, startwinkel, 180);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, getTextPaint(level, fontSizeArc));
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class BitmapDrawerSimpleArcV2 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + fontSizeArc + einerDicke + fontSizeArc);
 		mArc.addArc(oval, 180, 180);
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 }

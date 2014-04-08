@@ -69,32 +69,32 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 
 		// Backgroundpaint alpha erhöhren falls unter 32...sonst sieht man ja
 		// nix ;-)
-		final Paint paint = Settings.getBackgroundPaint();
+		final Paint paint = getBackgroundPaint();
 		if (paint.getAlpha() < 32) {
 			paint.setAlpha(32);
 		}
 		// Zahnrad hintergrund herstellen
 		for (int i = 0; i < segmente; i++) {
 			final float startwinkel = 270f + 7.5f + i * (winkelOneSegment + 15);
-			bitmapCanvas.drawArc(getRectForOffset(offset), startwinkel, winkelOneSegment, true, Settings.getBackgroundPaint());
+			bitmapCanvas.drawArc(getRectForOffset(offset), startwinkel, winkelOneSegment, true, getBackgroundPaint());
 		}
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + abstand), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + abstand), 0, 360, true, getErasurePaint());
 		// Background
-		bitmapCanvas.drawArc(getRectForOffset(offset + abstand), 270, 360, true, Settings.getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + abstand), 270, 360, true, getBackgroundPaint());
 		// overpaint level
-		bitmapCanvas.drawArc(getRectForOffset(offset), 270, Math.round(level * 3.6), true, Settings.getBatteryPaintSourceIn(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset), 270, Math.round(level * 3.6), true, getBatteryPaintSourceIn(level));
 		// Zeiger
 		if (Settings.isShowZeiger()) {
-			final Paint zp = Settings.getZeigerPaint(level);
+			final Paint zp = getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
 			bitmapCanvas.drawArc(getRectForOffset(0), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
 		}
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, getErasurePaint());
 		// Rand
 		if (Settings.isShowRand()) {
-			final Paint randPaint = Settings.getBackgroundPaint();
+			final Paint randPaint = getBackgroundPaint();
 			randPaint.setColor(Color.WHITE);
 			randPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 			// äußeren Rand
@@ -102,7 +102,7 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 			randPaint.setStyle(Style.STROKE);
 			bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 270, 360, true, randPaint);
 			// innere Fläche
-			final Paint bgPaint2 = Settings.getBackgroundPaint();
+			final Paint bgPaint2 = getBackgroundPaint();
 			bgPaint2.setColor(ColorHelper.darker(bgPaint2.getColor()));
 			bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 270, 360, true, bgPaint2);
 		}
@@ -117,7 +117,7 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + einerDicke + fontSizeArc);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, getTextPaint(level, fontSizeArc));
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + einerDicke - fontSizeArc);
 		mArc.addArc(oval, 180, -180);
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 

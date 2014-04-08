@@ -62,15 +62,15 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 	}
 
 	private void drawBogen(final int level) {
-		final Paint randPaint = Settings.getBackgroundPaint();
+		final Paint randPaint = getBackgroundPaint();
 		randPaint.setColor(Color.WHITE);
 		randPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 		// scala
-		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, Settings.getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, getBackgroundPaint());
 		// level
-		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, getBatteryPaint(level));
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, getErasurePaint());
 
 		// Skalatext
 		drawScalaText();
@@ -83,19 +83,19 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 		}
 
 		// Zeiger
-		final Paint zp = Settings.getZeigerPaint(level);
+		final Paint zp = getZeigerPaint(level);
 		zp.setShadowLayer(10, 0, 0, Color.BLACK);
 		bitmapCanvas.drawArc(getRectForOffset(0), 180 + Math.round(level * 1.8) - 1, 2, true, zp);
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, getErasurePaint());
 
 		// innerer Rand
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 180, 180, true, randPaint);
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, getErasurePaint());
 
 		// innere Fläche
-		final Paint bgPaint2 = Settings.getBackgroundPaint();
+		final Paint bgPaint2 = getBackgroundPaint();
 		bgPaint2.setColor(ColorHelper.darker(bgPaint2.getColor()));
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 180, 180, true, bgPaint2);
 	}
@@ -108,14 +108,14 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 			final Path mArc = new Path();
 			final RectF oval = getRectForOffset(offset + bogenDicke + fontSizeScala);
 			mArc.addArc(oval, winkel, 18);
-			final Paint p = Settings.getTextPaint(i, fontSizeScala, Align.CENTER, true, true);
+			final Paint p = getTextPaint(i, fontSizeScala, Align.CENTER, true, true);
 			p.setTextAlign(Align.CENTER);
 			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
 		}
+		final Paint zp = getZeigerPaint(level);
+		zp.setShadowLayer(10, 0, 0, Color.BLACK);
 		for (int i = 10; i < 100; i = i + 10) {
 			// Zeiger
-			final Paint zp = Settings.getZeigerPaint(level);
-			zp.setShadowLayer(10, 0, 0, Color.BLACK);
 			bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc / 2), (float) (180f + i * 1.8 - 0.5f), 1f, true, zp);
 		}
 
@@ -134,7 +134,7 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(fontSizeArc - 4);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
-		final Paint p = Settings.getTextPaint(level, fontSizeArc);
+		final Paint p = getTextPaint(level, fontSizeArc);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 
@@ -148,7 +148,7 @@ public class BitmapDrawerTachoV1 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke + fontSizeArc);
 		mArc.addArc(oval, 180, 180);
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 

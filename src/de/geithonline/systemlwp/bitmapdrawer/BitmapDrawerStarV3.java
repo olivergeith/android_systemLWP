@@ -73,7 +73,7 @@ public class BitmapDrawerStarV3 extends BitmapDrawer {
 	}
 
 	private void drawScalaText() {
-		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, true);
+		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, true);
 		p.setTextAlign(Align.CENTER);
 		p.setAlpha(255);
 		final RectF oval = getRectForOffset(offset + fontSizeArc);
@@ -86,7 +86,7 @@ public class BitmapDrawerStarV3 extends BitmapDrawer {
 	}
 
 	private void drawSegmente(final int level) {
-		final Paint bgPaint = Settings.getBackgroundPaint();
+		final Paint bgPaint = getBackgroundPaint();
 		// bgPaint.setStyle(Style.STROKE);
 		// bgPaint.setStrokeWidth(10);
 		// bgPaint.setColor(Color.RED);
@@ -95,18 +95,18 @@ public class BitmapDrawerStarV3 extends BitmapDrawer {
 		bitmapCanvas.drawPath(new StarPath(anzahlZacken, center, outerRadius, innerRadius), bgPaint);
 		bitmapCanvas.drawPath(new BubbleCirclePath(anzahlZacken / 2, center, bWidth / 2 - bubbleRadius, bubbleRadius), bgPaint);
 		// overpaint level
-		bitmapCanvas.drawArc(getRectForOffset(0), 270, Math.round(level * 3.6), true, Settings.getBatteryPaintSourceIn(level));
+		bitmapCanvas.drawArc(getRectForOffset(0), 270, Math.round(level * 3.6), true, getBatteryPaintSourceIn(level));
 		// Zeiger
 		if (Settings.isShowZeiger()) {
-			final Paint zp = Settings.getZeigerPaint(level);
+			final Paint zp = getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
 			bitmapCanvas.drawArc(getRectForOffset(0), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
 		}
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, getErasurePaint());
 		// Rand
 		if (Settings.isShowRand()) {
-			final Paint randPaint = Settings.getBackgroundPaint();
+			final Paint randPaint = getBackgroundPaint();
 			randPaint.setColor(Color.WHITE);
 			randPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 			// ‰uﬂeren Rand
@@ -114,7 +114,7 @@ public class BitmapDrawerStarV3 extends BitmapDrawer {
 			randPaint.setStyle(Style.STROKE);
 			bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 270, 360, true, randPaint);
 			// innere Fl‰che
-			final Paint bgPaint2 = Settings.getBackgroundPaint();
+			final Paint bgPaint2 = getBackgroundPaint();
 			bgPaint2.setColor(ColorHelper.darker(bgPaint2.getColor()));
 			bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 270, 360, true, bgPaint2);
 		}
@@ -129,7 +129,7 @@ public class BitmapDrawerStarV3 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(einerDicke);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, getTextPaint(level, fontSizeArc));
 	}
 
 	@Override
@@ -147,7 +147,7 @@ public class BitmapDrawerStarV3 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(2 * offset + einerDicke);
 		mArc.addArc(oval, 225, -270);
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 

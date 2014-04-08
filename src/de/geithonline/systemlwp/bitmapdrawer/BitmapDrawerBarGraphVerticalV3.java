@@ -65,7 +65,7 @@ public class BitmapDrawerBarGraphVerticalV3 extends BitmapDrawer {
 		final int levelHoehe = (bHeight - 2 * offset) * level / 100;
 
 		// hintergrund
-		Paint paint = Settings.getBackgroundPaint();
+		Paint paint = getBackgroundPaint();
 		final RectF levelRect = new RectF();
 		levelRect.left = offset;
 		levelRect.right = offset + einerDicke;
@@ -73,7 +73,7 @@ public class BitmapDrawerBarGraphVerticalV3 extends BitmapDrawer {
 		levelRect.bottom = bHeight - offset;
 		bitmapCanvas.drawRect(levelRect, paint);
 		// level
-		paint = Settings.getBatteryPaint(level);
+		paint = getBatteryPaint(level);
 		levelRect.left = offset;
 		levelRect.right = offset + einerDicke;
 		levelRect.top = bHeight - offset - levelHoehe;
@@ -81,7 +81,7 @@ public class BitmapDrawerBarGraphVerticalV3 extends BitmapDrawer {
 		bitmapCanvas.drawRect(levelRect, paint);
 		if (Settings.isShowZeiger()) {
 			// Zeiger
-			paint = Settings.getZeigerPaint(level);
+			paint = getZeigerPaint(level);
 			levelRect.left = 0;
 			levelRect.right = 2 * offset + einerDicke;
 			levelRect.top = bHeight - offset - levelHoehe - 2;
@@ -95,15 +95,15 @@ public class BitmapDrawerBarGraphVerticalV3 extends BitmapDrawer {
 		final String text = Settings.getChargingText();
 		final int levelHoehe = (bHeight - 6 * offset) * level / 100;
 		final int top = bHeight - 2 * offset - levelHoehe;
-		bitmapCanvas.drawText(text, offset + einerDicke + offset, top, Settings.getTextPaint(level, fontSizeArc));
+		bitmapCanvas.drawText(text, offset + einerDicke + offset, top, getTextPaint(level, fontSizeArc));
 	}
 
 	@Override
 	public void drawLevelNumber(final int level) {
 		// draw percentage Number
-		final Paint tp = Settings.getNumberPaint(level, fontSize);
+		final Paint tp = getNumberPaint(level, fontSize);
 		tp.setTextAlign(Align.LEFT);
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - offset, Settings.getNumberPaint(level, fontSize));
+		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - offset, getNumberPaint(level, fontSize));
 	}
 
 	@Override

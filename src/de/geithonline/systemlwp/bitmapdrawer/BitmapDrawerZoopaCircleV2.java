@@ -64,31 +64,31 @@ public class BitmapDrawerZoopaCircleV2 extends BitmapDrawer {
 		Paint paint;
 		for (int i = 0; i < segmente; i++) {
 			if (i < einer || level == 100) {
-				paint = Settings.getBatteryPaint(level);
+				paint = getBatteryPaint(level);
 			} else if (i == einer) {
-				paint = Settings.getZeigerPaint(level);
+				paint = getZeigerPaint(level);
 			} else {
-				paint = Settings.getBackgroundPaint();
+				paint = getBackgroundPaint();
 			}
 			final float startwinkel = 270f + i * (winkelOneSegment + gap) + gap / 2;
 			bitmapCanvas.drawArc(getRectForOffset(offset), startwinkel, winkelOneSegment, true, paint);
 		}
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, getErasurePaint());
 
 		for (int i = 0; i < segmente; i++) {
 			if (i < zehner || level == 100) {
-				paint = Settings.getBatteryPaint(level);
+				paint = getBatteryPaint(level);
 			} else if (i == zehner) {
-				paint = Settings.getZeigerPaint(level);
+				paint = getZeigerPaint(level);
 			} else {
-				paint = Settings.getBackgroundPaint();
+				paint = getBackgroundPaint();
 			}
 			final float startwinkel = 270f + i * (winkelOneSegment + gap) + gap / 2;
 			bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke + abstand), startwinkel, winkelOneSegment, true, paint);
 		}
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke + abstand + zehnerDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke + abstand + zehnerDicke), 0, 360, true, getErasurePaint());
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class BitmapDrawerZoopaCircleV2 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + einerDicke + abstand + zehnerDicke + fontSizeArc);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
-		final Paint p = Settings.getTextPaint(level, fontSizeArc);
+		final Paint p = getTextPaint(level, fontSizeArc);
 		p.setTextAlign(Align.CENTER);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}

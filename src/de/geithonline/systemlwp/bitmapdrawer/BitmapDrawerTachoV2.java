@@ -59,35 +59,34 @@ public class BitmapDrawerTachoV2 extends BitmapDrawer {
 
 	private void drawSkala(final int level) {
 		final int skalaBreite = bWidth - 2 * offset - 2 * rahmenDicke - 2 * rand;
-		final Paint rahmenPaint = Settings.getBackgroundPaint();
+		final Paint rahmenPaint = getBackgroundPaint();
 		final int w = offset + rahmenDicke + rand + Math.round(skalaBreite * level / 100);
 		rahmenPaint.setColor(Color.WHITE);
 		rahmenPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 		rahmenPaint.setStyle(Style.STROKE);
 		rahmenPaint.setStrokeWidth(rahmenDicke);
 
-		final Paint skalaPaint = Settings.getBackgroundPaint();
+		final Paint skalaPaint = getBackgroundPaint();
 		skalaPaint.setColor(Color.WHITE);
 		// skalaPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 
-		final Paint zeigerPaint = Settings.getZeigerPaint(level);
+		final Paint zeigerPaint = getZeigerPaint(level);
 		zeigerPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 
-		final Paint bgPaint = Settings.getBackgroundPaint();
-		bgPaint.setShader(new LinearGradient(0, 0, bWidth / 2, 0, ColorHelper.darker2times(bgPaint.getColor()), bgPaint.getColor(),
-				Shader.TileMode.MIRROR));
+		final Paint bgPaint = getBackgroundPaint();
+		bgPaint.setShader(new LinearGradient(0, 0, bWidth / 2, 0, ColorHelper.darker2times(bgPaint.getColor()), bgPaint.getColor(), Shader.TileMode.MIRROR));
 
 		// Fläche
 		bitmapCanvas.drawRect(getRectForOffset(offset), bgPaint);
 
 		// Skala
+		final Paint p = getTextPaint(100, fontSizeScala, Align.CENTER, false, false);
+		final RectF zs = getRectForOffset(offset);
 		for (int i = 0; i <= 100; i = i + 10) {
 			// zahlen
 			final int x = offset + rahmenDicke + rand + Math.round(skalaBreite * i / 100);
-			bitmapCanvas.drawText("" + i, x, offset + rahmenDicke + fontSizeScala,
-					Settings.getTextPaint(100, fontSizeScala, Align.CENTER, false, false));
+			bitmapCanvas.drawText("" + i, x, offset + rahmenDicke + fontSizeScala, p);
 			// striche
-			final RectF zs = getRectForOffset(offset);
 			if (i == 0 || i == 100) {
 				zs.top = offset + rahmenDicke + fontSizeScala + offset;
 			} else {
@@ -112,13 +111,13 @@ public class BitmapDrawerTachoV2 extends BitmapDrawer {
 	@Override
 	public void drawLevelNumber(final int level) {
 		// draw percentage Number
-		final Paint p = Settings.getNumberPaint(level, fontSize);
+		final Paint p = getNumberPaint(level, fontSize);
 		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - offset - rahmenDicke, p);
 	}
 
 	@Override
 	public void drawChargeStatusText(final int level) {
-		final Paint p = Settings.getTextPaint(level, fontSizeArc);
+		final Paint p = getTextPaint(level, fontSizeArc);
 		int fader = 10 - level % 10;
 		if (fader == 0) {
 			fader = 1;

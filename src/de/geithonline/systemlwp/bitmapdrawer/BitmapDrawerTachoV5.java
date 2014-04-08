@@ -53,26 +53,26 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 	}
 
 	private void drawBogen(final int level) {
-		final Paint bgPaint = Settings.getBackgroundPaint();
+		final Paint bgPaint = getBackgroundPaint();
 		bgPaint.setColor(ColorHelper.brighter(bgPaint.getColor()));
 		// ‰uﬂeren Rand
 		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, bgPaint);
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, getErasurePaint());
 
 		// scala
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 180, 180, true, Settings.getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 180, 180, true, getBackgroundPaint());
 		// level
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 180, Math.round(level * 1.8), true, Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 180, Math.round(level * 1.8), true, getBatteryPaint(level));
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, getErasurePaint());
 
 		// innerer Rand
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 180, 180, true, bgPaint);
 		// Zeiger
-		bitmapCanvas.drawArc(getRectForOffset(offset), 180 + Math.round(level * 1.8) - 1, 2, true, Settings.getZeigerPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset), 180 + Math.round(level * 1.8) - 1, 2, true, getZeigerPaint(level));
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, getErasurePaint());
 
 	}
 
@@ -87,7 +87,7 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset / 2);
 		mArc.addArc(oval, 200, 180);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, getTextPaint(level, fontSizeArc));
 	}
 
 	private RectF getRectForOffset(final int offset) {
@@ -100,7 +100,7 @@ public class BitmapDrawerTachoV5 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke + fontSizeArc);
 		mArc.addArc(oval, 180, 180);
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 

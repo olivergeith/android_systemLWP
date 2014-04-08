@@ -52,11 +52,11 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 
 	private void drawBogen(final int level) {
 		// Background
-		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, Settings.getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset), 180, 180, true, getBackgroundPaint());
 		// Level
-		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset), 180, Math.round(level * 1.8), true, getBatteryPaint(level));
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke), 0, 360, true, getErasurePaint());
 	}
 
 	private void drawSegmente(final int level) {
@@ -71,16 +71,16 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 		Paint paint;
 		for (int i = 0; i < segmente; i++) {
 			if (i < zehner || level == 100) {
-				paint = Settings.getBatteryPaint(level);
+				paint = getBatteryPaint(level);
 			} else {
-				paint = Settings.getBackgroundPaint();
+				paint = getBackgroundPaint();
 			}
 			final float startwinkel = 180f + i * (winkelOneSegment + gap);
 			bitmapCanvas.drawArc(getRectForOffset(off), startwinkel, winkelOneSegment, true, paint);
 		}
 
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, getErasurePaint());
 	}
 
 	private void drawZeiger(final int level) {
@@ -94,7 +94,7 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 		final int radiusDelta = skaleDicke * einer / 10;
 
 		// Skala Hintergergrund einer
-		final Paint paint = Settings.getBatteryPaint(level);
+		final Paint paint = getBatteryPaint(level);
 		if (zehner == 10) {
 			zehner = 9;
 		}
@@ -103,7 +103,7 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke - radiusDelta), startwinkel, winkelOneSegment, true, paint);
 
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(off + skaleDicke), 0, 360, true, getErasurePaint());
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class BitmapDrawerZoopaWideV3 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset / 2);
 		mArc.addArc(oval, 200, 180);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, getTextPaint(level, fontSizeArc));
 	}
 
 	private RectF getRectForOffset(final int offset) {

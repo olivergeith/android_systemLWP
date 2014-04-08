@@ -63,15 +63,15 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 	}
 
 	private void drawBogen(final int level) {
-		final Paint randPaint = Settings.getBackgroundPaint();
+		final Paint randPaint = getBackgroundPaint();
 		randPaint.setColor(Color.WHITE);
 		randPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 		// scala
-		bitmapCanvas.drawArc(getRectForOffset(offset), 270, 360, true, Settings.getBackgroundPaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset), 270, 360, true, getBackgroundPaint());
 		// level
-		bitmapCanvas.drawArc(getRectForOffset(offset), 270, -Math.round(level * 3.6), true, Settings.getBatteryPaint(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset), 270, -Math.round(level * 3.6), true, getBatteryPaint(level));
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, getErasurePaint());
 
 		// Skalatext
 		drawScalaText(level);
@@ -83,20 +83,20 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 			bitmapCanvas.drawArc(getRectForOffset(offset + 2), 270, 360, true, randPaint);
 		}
 		// Zeiger
-		final Paint zp = Settings.getZeigerPaint(level);
+		final Paint zp = getZeigerPaint(level);
 		zp.setShadowLayer(10, 0, 0, Color.BLACK);
 		bitmapCanvas.drawArc(getRectForOffset(0), 270 - 1, 2, true, zp);
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, getErasurePaint());
 
 		// innerer Rand
 		randPaint.setStyle(Style.FILL);
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 270, 360, true, randPaint);
 		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, getErasurePaint());
 
 		// innere Fläche
-		final Paint bgPaint2 = Settings.getBackgroundPaint();
+		final Paint bgPaint2 = getBackgroundPaint();
 		bgPaint2.setColor(ColorHelper.darker(bgPaint2.getColor()));
 		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 270, 360, true, bgPaint2);
 	}
@@ -105,14 +105,14 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 		final float startwinkel = 270 - Math.round(level * 3.6f);
 		for (int i = 0; i < 100; i = i + 1) {
 			// Zeiger
-			final Paint zp = Settings.getZeigerPaint(level);
+			final Paint zp = getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
 			if (i % 10 == 0) {
 				final float winkel = startwinkel - 18 + Math.round(i * 3.6f);
 				final Path mArc = new Path();
 				final RectF oval = getRectForOffset(offset + bogenDicke + fontSizeScala);
 				mArc.addArc(oval, winkel, 36);
-				final Paint p = Settings.getTextPaint(i, fontSizeScala, Align.CENTER, true, true);
+				final Paint p = getTextPaint(i, fontSizeScala, Align.CENTER, true, true);
 				p.setTextAlign(Align.CENTER);
 				bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
 				bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - fontSizeArc), (float) (startwinkel + i * 3.6 - 0.5f), 1f, true, zp);
@@ -133,7 +133,7 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 
 	@Override
 	public void drawChargeStatusText(final int level) {
-		final Paint p = Settings.getTextPaint(level, fontSizeArc, Align.CENTER, true, false);
+		final Paint p = getTextPaint(level, fontSizeArc, Align.CENTER, true, false);
 		int fader = 10 - level % 10;
 		if (fader == 0) {
 			fader = 1;
@@ -154,7 +154,7 @@ public class BitmapDrawerTachoV4 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke + fontSizeArc);
 		mArc.addArc(oval, 180, 180);
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
 	}
 

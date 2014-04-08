@@ -60,7 +60,7 @@ public class BitmapDrawerBatteryV1 extends BitmapDrawer {
 	}
 
 	private void drawSegmente(final int level) {
-		final Paint bgPaint = Settings.getBackgroundPaint();
+		final Paint bgPaint = getBackgroundPaint();
 		final int bgColor = bgPaint.getColor();
 		bgPaint.setColor(ColorHelper.darker(bgPaint.getColor()));
 		// Battery
@@ -69,7 +69,7 @@ public class BitmapDrawerBatteryV1 extends BitmapDrawer {
 		bitmapCanvas.drawRoundRect(rect, radius, radius, bgPaint);
 		// erase inner part
 		rect = getRectForOffset(offset + randDicke);
-		bitmapCanvas.drawRoundRect(rect, radius - 1, radius - 1, Settings.getErasurePaint());
+		bitmapCanvas.drawRoundRect(rect, radius - 1, radius - 1, getErasurePaint());
 		// Knob
 		bgPaint.setStyle(Style.FILL);
 		final RectF knobrect = getRectForOffset(offset);
@@ -88,22 +88,22 @@ public class BitmapDrawerBatteryV1 extends BitmapDrawer {
 		final RectF levelrect = new RectF(rect);
 		final float lev = levelrect.width() * level / 100;
 		levelrect.right = levelrect.left + lev;
-		bitmapCanvas.drawRoundRect(levelrect, radius - 1, radius - 1, Settings.getBatteryPaint(level));
+		bitmapCanvas.drawRoundRect(levelrect, radius - 1, radius - 1, getBatteryPaint(level));
 		// Zeiger
 		if (Settings.isShowZeiger()) {
 			levelrect.top = levelrect.top - zeigerDicke;
 			levelrect.bottom = levelrect.bottom + zeigerDicke;
 			levelrect.right = levelrect.left + lev + zeigerDicke / 2;
 			levelrect.left = levelrect.left + lev - zeigerDicke / 2;
-			bitmapCanvas.drawRoundRect(levelrect, radius, radius, Settings.getZeigerPaint(level));
+			bitmapCanvas.drawRoundRect(levelrect, radius, radius, getZeigerPaint(level));
 		}
 		// knob weiss bei 100 oder charging
 		if (level == 100) {
-			bitmapCanvas.drawRoundRect(knobrect, radius, radius, Settings.getBatteryPaint(level));
+			bitmapCanvas.drawRoundRect(knobrect, radius, radius, getBatteryPaint(level));
 		}
 		if (Settings.isCharging) {
 			final RectF r = new RectF(knobrect);
-			bitmapCanvas.drawPath(new ChargeIconPath(r), Settings.getErasurePaint());
+			bitmapCanvas.drawPath(new ChargeIconPath(r), getErasurePaint());
 		}
 	}
 
@@ -115,7 +115,7 @@ public class BitmapDrawerBatteryV1 extends BitmapDrawer {
 		final RectF oval = getRectForOffset(fontSizeArc + randDicke);
 		mArc.addArc(oval, startwinkel, 180);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, getTextPaint(level, fontSizeArc));
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class BitmapDrawerBatteryV1 extends BitmapDrawer {
 	@Override
 	public void drawBattStatusText() {
 		final String text = Settings.getBattStatusCompleteShort();
-		final Paint p = Settings.getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
+		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, false);
 		bitmapCanvas.drawText(text, bWidth / 2, offset + fontSizeArc, p);
 	}
 

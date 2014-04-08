@@ -10,7 +10,7 @@ import android.graphics.RectF;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 
-public abstract class BitmapDrawer implements IBitmapDrawer {
+public abstract class BitmapDrawer extends ColorProvider implements IBitmapDrawer {
 	protected int cHeight = 0;
 	protected int cWidth = 0;
 	protected int bHeight = 0;
@@ -92,13 +92,13 @@ public abstract class BitmapDrawer implements IBitmapDrawer {
 
 	protected void drawLevelNumberCentered(final Canvas canvas, final int level, final int fontSize) {
 		final String text = "" + level;
-		final Paint p = Settings.getNumberPaint(level, fontSize, Align.CENTER, true, false);
+		final Paint p = getNumberPaint(level, fontSize, Align.CENTER, true, false);
 		final PointF point = getTextCenterToDraw(new RectF(0, 0, bWidth, bHeight), p);
 		canvas.drawText(text, point.x, point.y, p);
 	}
 
 	protected void drawLevelNumberBottom(final Canvas canvas, final int level, final int fontSize) {
-		final Paint p = Settings.getNumberPaint(level, fontSize, Align.CENTER, true, false);
+		final Paint p = getNumberPaint(level, fontSize, Align.CENTER, true, false);
 		canvas.drawText("" + level, bWidth / 2, bHeight - Math.round(bWidth * 0.01f), p);
 	}
 

@@ -71,7 +71,7 @@ public class BitmapDrawerBarGraphVerticalV2 extends BitmapDrawer {
 		final int bargraphHoehe = (bHeight - 2 * offset) * level / 100;
 
 		// hintergrund
-		Paint paint = Settings.getBackgroundPaint();
+		Paint paint = getBackgroundPaint();
 		final RectF levelRect = new RectF();
 		levelRect.left = offset;
 		levelRect.right = offset + einerDicke;
@@ -79,7 +79,7 @@ public class BitmapDrawerBarGraphVerticalV2 extends BitmapDrawer {
 		levelRect.bottom = bHeight - offset;
 		bitmapCanvas.drawRect(levelRect, paint);
 		// level
-		paint = Settings.getBatteryPaint(level);
+		paint = getBatteryPaint(level);
 		levelRect.left = offset;
 		levelRect.right = offset + einerDicke;
 		levelRect.top = bHeight - offset - bargraphHoehe;
@@ -87,7 +87,7 @@ public class BitmapDrawerBarGraphVerticalV2 extends BitmapDrawer {
 		bitmapCanvas.drawRect(levelRect, paint);
 		if (Settings.isShowZeiger()) {
 			// Zeiger
-			paint = Settings.getZeigerPaint(level);
+			paint = getZeigerPaint(level);
 			levelRect.left = 0;
 			levelRect.right = 2 * offset + einerDicke;
 			levelRect.top = bHeight - offset - bargraphHoehe - 2;
@@ -96,9 +96,9 @@ public class BitmapDrawerBarGraphVerticalV2 extends BitmapDrawer {
 		}
 		for (int i = 0; i < segmente; i++) {
 			if (i <= zehner || level == 100) {
-				paint = Settings.getBatteryPaint(level);
+				paint = getBatteryPaint(level);
 			} else {
-				paint = Settings.getBackgroundPaint();
+				paint = getBackgroundPaint();
 			}
 			final float startY = bHeight - offset - i * (hoeheOneSegment + gap);
 			final RectF r = new RectF();
@@ -115,15 +115,15 @@ public class BitmapDrawerBarGraphVerticalV2 extends BitmapDrawer {
 		er.right = bWidth * 2;
 		er.top = 0;
 		er.bottom = 2 * bHeight;
-		bitmapCanvas.drawArc(er, 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(er, 0, 360, true, getErasurePaint());
 	}
 
 	@Override
 	public void drawLevelNumber(final int level) {
 		// draw percentage Number
-		final Paint tp = Settings.getNumberPaint(level, fontSize);
+		final Paint tp = getNumberPaint(level, fontSize);
 		tp.setTextAlign(Align.LEFT);
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - offset, Settings.getNumberPaint(level, fontSize));
+		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - offset, getNumberPaint(level, fontSize));
 	}
 
 	@Override

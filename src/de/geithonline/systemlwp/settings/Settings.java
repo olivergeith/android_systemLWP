@@ -6,12 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.Paint.Align;
-import android.graphics.Paint.Style;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
-import android.graphics.Typeface;
 import android.os.BatteryManager;
 import android.util.Log;
 import de.geithonline.systemlwp.BackgroundPreferencesFragment;
@@ -19,7 +14,6 @@ import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.utils.BitmapHelper;
-import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class Settings {
 	public static SharedPreferences prefs = LiveWallpaperService.prefs;
@@ -122,7 +116,7 @@ public class Settings {
 		return prefs.getBoolean("muimerp", false);
 	}
 
-	private static int getChargeColor() {
+	public static int getChargeColor() {
 		if (prefs == null) {
 			return R.integer.COLOR_GREEN;
 		}
@@ -227,7 +221,7 @@ public class Settings {
 		return prefs.getBoolean("centerBattery", true);
 	}
 
-	private static int getFontSize() {
+	public static int getFontSize() {
 		if (prefs == null) {
 			return 100;
 		}
@@ -235,7 +229,7 @@ public class Settings {
 		return size;
 	}
 
-	private static int getFontSize100() {
+	public static int getFontSize100() {
 		if (prefs == null) {
 			return 100;
 		}
@@ -243,28 +237,28 @@ public class Settings {
 		return size;
 	}
 
-	private static boolean isColoredNumber() {
+	public static boolean isColoredNumber() {
 		if (prefs == null) {
 			return false;
 		}
 		return prefs.getBoolean("colored_numbers", false);
 	}
 
-	private static boolean isGradientColors() {
+	public static boolean isGradientColors() {
 		if (prefs == null) {
 			return false;
 		}
 		return prefs.getBoolean("gradient_colors", false);
 	}
 
-	private static boolean isGradientColorsMid() {
+	public static boolean isGradientColorsMid() {
 		if (prefs == null) {
 			return false;
 		}
 		return prefs.getBoolean("gradient_colors_mid", false);
 	}
 
-	private static int getMidThreshold() {
+	public static int getMidThreshold() {
 		if (prefs == null) {
 			return 30;
 		}
@@ -272,7 +266,7 @@ public class Settings {
 		return thr;
 	}
 
-	private static int getLowThreshold() {
+	public static int getLowThreshold() {
 		if (prefs == null) {
 			return 10;
 		}
@@ -280,7 +274,7 @@ public class Settings {
 		return thr;
 	}
 
-	private static int getOpacity() {
+	public static int getOpacity() {
 		if (prefs == null) {
 			return 128;
 		}
@@ -288,7 +282,7 @@ public class Settings {
 		return op;
 	}
 
-	private static int getBackgroundOpacity() {
+	public static int getBackgroundOpacity() {
 		if (prefs == null) {
 			return 128;
 		}
@@ -296,7 +290,7 @@ public class Settings {
 		return op;
 	}
 
-	private static int getBackgroundColor() {
+	public static int getBackgroundColor() {
 		if (prefs == null) {
 			return R.integer.COLOR_DARKGRAY;
 		}
@@ -304,7 +298,7 @@ public class Settings {
 		return col;
 	}
 
-	private static int getBattColor() {
+	public static int getBattColor() {
 		if (prefs == null) {
 			return R.integer.COLOR_WHITE;
 		}
@@ -312,7 +306,7 @@ public class Settings {
 		return col;
 	}
 
-	private static int getZeigerColor() {
+	public static int getZeigerColor() {
 		if (prefs == null) {
 			return R.integer.COLOR_WHITE;
 		}
@@ -320,7 +314,7 @@ public class Settings {
 		return col;
 	}
 
-	private static int getBattColorMid() {
+	public static int getBattColorMid() {
 		if (prefs == null) {
 			return R.integer.COLOR_ORANGE;
 		}
@@ -328,7 +322,7 @@ public class Settings {
 		return col;
 	}
 
-	private static int getBattColorLow() {
+	public static int getBattColorLow() {
 		if (prefs == null) {
 			return R.integer.COLOR_RED;
 		}
@@ -361,163 +355,163 @@ public class Settings {
 	// #####################################################################################
 	// LevelColors
 	// #####################################################################################
-	public static int getColorForLevel(final int level) {
-		if (Settings.isCharging && isUseChargeColors()) {
-			return getChargeColor();
-		}
-		if (level > getMidThreshold()) {
-			if (isGradientColors()) {
-				return getGradientColorForLevel(level);
-			} else {
-				return getBattColor();
-			}
-		} else {
-			if (level < getLowThreshold()) {
-				return getBattColorLow();
-			} else {
-				if (isGradientColorsMid()) {
-					return getGradientColorForLevel(level);
-				} else {
-					return getBattColorMid();
-				}
-			}
-		}
-	}
-
-	public static int getGradientColorForLevel(final int level) {
-
-		if (level > getMidThreshold()) {
-			return ColorHelper.getRadiantColor(getBattColor(), getBattColorMid(), level, 100, getMidThreshold());
-		} else {
-			if (level < getLowThreshold()) {
-				return getBattColorLow();
-			} else {
-				return ColorHelper.getRadiantColor(getBattColorLow(), getBattColorMid(), level, getLowThreshold(), getMidThreshold());
-			}
-		}
-	}
-
-	// #####################################################################################
-	// Different Paints
-	// #####################################################################################
-	public static Paint getErasurePaint() {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(Color.TRANSPARENT);
-		final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-		paint.setXfermode(xfermode);
-		paint.setStyle(Style.FILL);
-		return paint;
-	}
-
-	public static Paint getNumberPaint(final int level, final int fontSize) {
-		return getNumberPaint(level, fontSize, Align.CENTER, true, false);
-	}
-
-	public static Paint getNumberPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		if (isColoredNumber()) {
-			paint.setColor(getColorForLevel(level));
-		} else {
-			paint.setColor(getBattColor());
-		}
-		paint.setAlpha(getOpacity());
-		final int fSize = adjustFontSize(level, fontSize);
-		paint.setTextSize(fSize);
-		paint.setFakeBoldText(true);
-		if (bold) {
-			paint.setTypeface(Typeface.DEFAULT_BOLD);
-		} else {
-			paint.setTypeface(Typeface.DEFAULT);
-		}
-		paint.setTextAlign(align);
-		if (erase) {
-			final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-			paint.setXfermode(xfermode);
-		}
-		return paint;
-	}
-
-	public static Paint getTextPaint(final int level, final int fontSize) {
-		return getTextPaint(level, fontSize, Align.LEFT, true, false);
-	}
-
-	public static Paint getTextPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		if (isColoredNumber()) {
-			paint.setColor(getColorForLevel(level));
-		} else {
-			paint.setColor(getBattColor());
-		}
-		paint.setAlpha(getOpacity());
-		paint.setAntiAlias(true);
-		paint.setTextSize(fontSize);
-		paint.setFakeBoldText(true);
-		if (bold) {
-			paint.setTypeface(Typeface.DEFAULT_BOLD);
-		} else {
-			paint.setTypeface(Typeface.DEFAULT);
-		}
-		paint.setTextAlign(align);
-		if (erase) {
-			final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-			paint.setXfermode(xfermode);
-		}
-		return paint;
-	}
-
-	private static int adjustFontSize(final int level, final int fontSize) {
-		int fSize = fontSize;
-		if (level == 100) {
-			fSize = Math.round(fontSize * getFontSize100() / 100f);
-		}
-		// generelle fontadjust einbeziehen
-		fSize = Math.round(fSize * getFontSize() / 100f);
-		return fSize;
-	}
-
-	public static Paint getBatteryPaint(final int level) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(getColorForLevel(level));
-		paint.setAlpha(getOpacity());
-		paint.setStyle(Style.FILL);
-		return paint;
-	}
-
-	public static Paint getBatteryPaintSourceIn(final int level) {
-		final Paint paint = getBatteryPaint(level);
-		final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.SRC_IN);
-		// because of SRC in the alphas of background and overpaint somhow "add"
-		// so the SRC in must be mor opacid then normal
-		int alpha = getOpacity() + getBackgroundOpacity();
-		if (alpha > 255) {
-			alpha = 255;
-		}
-		paint.setAlpha(alpha);
-		paint.setXfermode(xfermode);
-		return paint;
-	}
-
-	public static Paint getZeigerPaint(final int level) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(getZeigerColor());
-		paint.setAlpha(255);
-		paint.setStyle(Style.FILL);
-		return paint;
-	}
-
-	public static Paint getBackgroundPaint() {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(getBackgroundColor());
-		paint.setAlpha(getBackgroundOpacity());
-		paint.setStyle(Style.FILL);
-		return paint;
-	}
+	// public static int getColorForLevel(final int level) {
+	// if (Settings.isCharging && isUseChargeColors()) {
+	// return getChargeColor();
+	// }
+	// if (level > getMidThreshold()) {
+	// if (isGradientColors()) {
+	// return getGradientColorForLevel(level);
+	// } else {
+	// return getBattColor();
+	// }
+	// } else {
+	// if (level < getLowThreshold()) {
+	// return getBattColorLow();
+	// } else {
+	// if (isGradientColorsMid()) {
+	// return getGradientColorForLevel(level);
+	// } else {
+	// return getBattColorMid();
+	// }
+	// }
+	// }
+	// }
+	//
+	// public static int getGradientColorForLevel(final int level) {
+	//
+	// if (level > getMidThreshold()) {
+	// return ColorHelper.getRadiantColor(getBattColor(), getBattColorMid(), level, 100, getMidThreshold());
+	// } else {
+	// if (level < getLowThreshold()) {
+	// return getBattColorLow();
+	// } else {
+	// return ColorHelper.getRadiantColor(getBattColorLow(), getBattColorMid(), level, getLowThreshold(), getMidThreshold());
+	// }
+	// }
+	// }
+	//
+	// // #####################################################################################
+	// // Different Paints
+	// // #####################################################################################
+	// public static Paint getErasurePaint() {
+	// final Paint paint = new Paint();
+	// paint.setAntiAlias(true);
+	// paint.setColor(Color.TRANSPARENT);
+	// final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
+	// paint.setXfermode(xfermode);
+	// paint.setStyle(Style.FILL);
+	// return paint;
+	// }
+	//
+	// public static Paint getNumberPaint(final int level, final int fontSize) {
+	// return getNumberPaint(level, fontSize, Align.CENTER, true, false);
+	// }
+	//
+	// public static Paint getNumberPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
+	// final Paint paint = new Paint();
+	// paint.setAntiAlias(true);
+	// if (isColoredNumber()) {
+	// paint.setColor(getColorForLevel(level));
+	// } else {
+	// paint.setColor(getBattColor());
+	// }
+	// paint.setAlpha(getOpacity());
+	// final int fSize = adjustFontSize(level, fontSize);
+	// paint.setTextSize(fSize);
+	// paint.setFakeBoldText(true);
+	// if (bold) {
+	// paint.setTypeface(Typeface.DEFAULT_BOLD);
+	// } else {
+	// paint.setTypeface(Typeface.DEFAULT);
+	// }
+	// paint.setTextAlign(align);
+	// if (erase) {
+	// final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
+	// paint.setXfermode(xfermode);
+	// }
+	// return paint;
+	// }
+	//
+	// public static Paint getTextPaint(final int level, final int fontSize) {
+	// return getTextPaint(level, fontSize, Align.LEFT, true, false);
+	// }
+	//
+	// public static Paint getTextPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
+	// final Paint paint = new Paint();
+	// paint.setAntiAlias(true);
+	// if (isColoredNumber()) {
+	// paint.setColor(getColorForLevel(level));
+	// } else {
+	// paint.setColor(getBattColor());
+	// }
+	// paint.setAlpha(getOpacity());
+	// paint.setAntiAlias(true);
+	// paint.setTextSize(fontSize);
+	// paint.setFakeBoldText(true);
+	// if (bold) {
+	// paint.setTypeface(Typeface.DEFAULT_BOLD);
+	// } else {
+	// paint.setTypeface(Typeface.DEFAULT);
+	// }
+	// paint.setTextAlign(align);
+	// if (erase) {
+	// final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
+	// paint.setXfermode(xfermode);
+	// }
+	// return paint;
+	// }
+	//
+	// private static int adjustFontSize(final int level, final int fontSize) {
+	// int fSize = fontSize;
+	// if (level == 100) {
+	// fSize = Math.round(fontSize * getFontSize100() / 100f);
+	// }
+	// // generelle fontadjust einbeziehen
+	// fSize = Math.round(fSize * getFontSize() / 100f);
+	// return fSize;
+	// }
+	//
+	// public static Paint getBatteryPaint(final int level) {
+	// final Paint paint = new Paint();
+	// paint.setAntiAlias(true);
+	// paint.setColor(getColorForLevel(level));
+	// paint.setAlpha(getOpacity());
+	// paint.setStyle(Style.FILL);
+	// return paint;
+	// }
+	//
+	// public static Paint getBatteryPaintSourceIn(final int level) {
+	// final Paint paint = getBatteryPaint(level);
+	// final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.SRC_IN);
+	// // because of SRC in the alphas of background and overpaint somhow "add"
+	// // so the SRC in must be mor opacid then normal
+	// int alpha = getOpacity() + getBackgroundOpacity();
+	// if (alpha > 255) {
+	// alpha = 255;
+	// }
+	// paint.setAlpha(alpha);
+	// paint.setXfermode(xfermode);
+	// return paint;
+	// }
+	//
+	// public static Paint getZeigerPaint(final int level) {
+	// final Paint paint = new Paint();
+	// paint.setAntiAlias(true);
+	// paint.setColor(getZeigerColor());
+	// paint.setAlpha(255);
+	// paint.setStyle(Style.FILL);
+	// return paint;
+	// }
+	//
+	// public static Paint getBackgroundPaint() {
+	// final Paint paint = new Paint();
+	// paint.setAntiAlias(true);
+	// paint.setColor(getBackgroundColor());
+	// paint.setAlpha(getBackgroundOpacity());
+	// paint.setStyle(Style.FILL);
+	// return paint;
+	// }
 
 	// #####################################################################################
 	// Custom Background

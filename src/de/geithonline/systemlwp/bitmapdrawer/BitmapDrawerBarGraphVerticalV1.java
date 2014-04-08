@@ -59,7 +59,7 @@ public class BitmapDrawerBarGraphVerticalV1 extends BitmapDrawer {
 
 		for (int i = 0; i < segmente; i++) {
 			Paint paint;
-			paint = Settings.getBackgroundPaint();
+			paint = getBackgroundPaint();
 			final float startY = bHeight - offset - i * (hoeheOneSegment + gap);
 			final RectF r = new RectF();
 			r.left = offset;
@@ -68,7 +68,7 @@ public class BitmapDrawerBarGraphVerticalV1 extends BitmapDrawer {
 			r.bottom = startY;
 			bitmapCanvas.drawRect(r, paint);
 			bitmapCanvas.drawText("" + (i + 1) * 10, offset + einerDicke / 2, startY - hoeheOneSegment + fontSize - offset,
-					Settings.getTextPaint(level, fontSize, Align.CENTER, true, true));
+					getTextPaint(level, fontSize, Align.CENTER, true, true));
 		}
 		// level
 
@@ -77,7 +77,7 @@ public class BitmapDrawerBarGraphVerticalV1 extends BitmapDrawer {
 		levelRect.right = offset + einerDicke;
 		levelRect.top = bHeight - offset - bargraphHoehe;
 		levelRect.bottom = bHeight - offset;
-		bitmapCanvas.drawRect(levelRect, Settings.getBatteryPaintSourceIn(level));
+		bitmapCanvas.drawRect(levelRect, getBatteryPaintSourceIn(level));
 
 	}
 

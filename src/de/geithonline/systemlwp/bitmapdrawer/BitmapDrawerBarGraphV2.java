@@ -63,7 +63,7 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		final int zehner = level / 10;
 
 		// hintergrund
-		Paint paint = Settings.getBackgroundPaint();
+		Paint paint = getBackgroundPaint();
 		final RectF levelRect = new RectF();
 		levelRect.left = 0 + offset;
 		levelRect.right = bWidth - offset;
@@ -71,7 +71,7 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		levelRect.bottom = bHeight - offset;
 		bitmapCanvas.drawRect(levelRect, paint);
 		// level
-		paint = Settings.getBatteryPaint(level);
+		paint = getBatteryPaint(level);
 		levelRect.left = 0 + offset;
 		final int breite = (bWidth - 2 * offset) * level / 100;
 		levelRect.right = offset + breite;
@@ -80,7 +80,7 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		bitmapCanvas.drawRect(levelRect, paint);
 		if (Settings.isShowZeiger()) {
 			// Zeiger
-			paint = Settings.getZeigerPaint(level);
+			paint = getZeigerPaint(level);
 			levelRect.left = offset + breite - 2;
 			levelRect.right = offset + breite + 2;
 			levelRect.top = bHeight - einerDicke - 2 * offset;
@@ -89,9 +89,9 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		}
 		for (int i = 0; i < segmente; i++) {
 			if (i <= zehner || level == 100) {
-				paint = Settings.getBatteryPaint(level);
+				paint = getBatteryPaint(level);
 			} else {
-				paint = Settings.getBackgroundPaint();
+				paint = getBackgroundPaint();
 			}
 			final float startX = 0f + i * (breiteOneSegment + gap);
 			final RectF r = new RectF();
@@ -104,13 +104,13 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 
 		// delete inner Circle
 		final RectF er = getCutOutRect();
-		bitmapCanvas.drawArc(er, 0, 360, true, Settings.getErasurePaint());
+		bitmapCanvas.drawArc(er, 0, 360, true, getErasurePaint());
 	}
 
 	@Override
 	public void drawLevelNumber(final int level) {
 		// draw percentage Number
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 3 * einerDicke - 3 * offset, Settings.getNumberPaint(level, fontSize));
+		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - 3 * einerDicke - 3 * offset, getNumberPaint(level, fontSize));
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class BitmapDrawerBarGraphV2 extends BitmapDrawer {
 		oval.offset(0, -5);
 		mArc.addArc(oval, 89, -90);
 		final String text = Settings.getChargingText();
-		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, Settings.getTextPaint(level, fontSizeArc));
+		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, getTextPaint(level, fontSizeArc));
 	}
 
 	private RectF getCutOutRect() {
