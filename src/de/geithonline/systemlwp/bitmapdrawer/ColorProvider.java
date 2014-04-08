@@ -173,4 +173,25 @@ public class ColorProvider {
 		return paint;
 	}
 
+	public Paint getTextScalePaint(final int fontSize, final Align align, final boolean bold) {
+		final Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setColor(Settings.getScaleColor());
+		paint.setAlpha(Settings.getOpacity());
+		paint.setAntiAlias(true);
+		paint.setTextSize(fontSize);
+		paint.setFakeBoldText(true);
+		if (bold) {
+			paint.setTypeface(Typeface.DEFAULT_BOLD);
+		} else {
+			paint.setTypeface(Typeface.DEFAULT);
+		}
+		paint.setTextAlign(align);
+		if (Settings.isScaleTransparent()) {
+			final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
+			paint.setXfermode(xfermode);
+		}
+		return paint;
+	}
+
 }

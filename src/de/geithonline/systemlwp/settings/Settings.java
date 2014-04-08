@@ -34,6 +34,29 @@ public class Settings {
 	public static final int BATT_STATUS_STYLE_TEMP = 2;
 	public static final int BATT_STATUS_STYLE_VOLT = 3;
 
+	public static boolean isScaleTransparent() {
+		if (prefs == null) {
+			return true;
+		}
+		return prefs.getBoolean("scale_numbers_transparent", true);
+	}
+
+	public static int getScaleColor() {
+		if (prefs == null) {
+			return R.integer.COLOR_WHITE;
+		}
+		final int col = prefs.getInt("scale_color", R.integer.COLOR_WHITE);
+		return col;
+	}
+
+	public static int getBattStatusColor() {
+		if (prefs == null) {
+			return R.integer.COLOR_WHITE;
+		}
+		final int col = prefs.getInt("status_color", R.integer.COLOR_WHITE);
+		return col;
+	}
+
 	public static boolean isShowStatus() {
 		if (prefs == null) {
 			return false;
@@ -51,15 +74,15 @@ public class Settings {
 
 	public static String getBattStatusCompleteShort() {
 		switch (getStatusStyle()) {
-			case BATT_STATUS_STYLE_VOLT:
-				return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
-			case BATT_STATUS_STYLE_TEMP:
-				return "Battery: " + (float) battTemperature / 10 + "°C";
-			case BATT_STATUS_STYLE_TEMP_VOLT:
-				return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
-			default:
-			case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
-				return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+		case BATT_STATUS_STYLE_VOLT:
+			return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
+		case BATT_STATUS_STYLE_TEMP:
+			return "Battery: " + (float) battTemperature / 10 + "°C";
+		case BATT_STATUS_STYLE_TEMP_VOLT:
+			return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+		default:
+		case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
+			return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
 		}
 	}
 
@@ -77,21 +100,21 @@ public class Settings {
 
 	private static String getHealthText(final int health) {
 		switch (health) {
-			case BatteryManager.BATTERY_HEALTH_GOOD:
-				return "good";
-			case BatteryManager.BATTERY_HEALTH_OVERHEAT:
-				return "overheat";
-			case BatteryManager.BATTERY_HEALTH_DEAD:
-				return "dead";
-			case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
-				return "overvoltage";
-			case BatteryManager.BATTERY_HEALTH_COLD:
-				return "cold";
-			case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
-				return "failure";
+		case BatteryManager.BATTERY_HEALTH_GOOD:
+			return "good";
+		case BatteryManager.BATTERY_HEALTH_OVERHEAT:
+			return "overheat";
+		case BatteryManager.BATTERY_HEALTH_DEAD:
+			return "dead";
+		case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
+			return "overvoltage";
+		case BatteryManager.BATTERY_HEALTH_COLD:
+			return "cold";
+		case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
+			return "failure";
 
-			default:
-				return "unknown";
+		default:
+			return "unknown";
 		}
 	}
 
@@ -353,167 +376,6 @@ public class Settings {
 	}
 
 	// #####################################################################################
-	// LevelColors
-	// #####################################################################################
-	// public static int getColorForLevel(final int level) {
-	// if (Settings.isCharging && isUseChargeColors()) {
-	// return getChargeColor();
-	// }
-	// if (level > getMidThreshold()) {
-	// if (isGradientColors()) {
-	// return getGradientColorForLevel(level);
-	// } else {
-	// return getBattColor();
-	// }
-	// } else {
-	// if (level < getLowThreshold()) {
-	// return getBattColorLow();
-	// } else {
-	// if (isGradientColorsMid()) {
-	// return getGradientColorForLevel(level);
-	// } else {
-	// return getBattColorMid();
-	// }
-	// }
-	// }
-	// }
-	//
-	// public static int getGradientColorForLevel(final int level) {
-	//
-	// if (level > getMidThreshold()) {
-	// return ColorHelper.getRadiantColor(getBattColor(), getBattColorMid(), level, 100, getMidThreshold());
-	// } else {
-	// if (level < getLowThreshold()) {
-	// return getBattColorLow();
-	// } else {
-	// return ColorHelper.getRadiantColor(getBattColorLow(), getBattColorMid(), level, getLowThreshold(), getMidThreshold());
-	// }
-	// }
-	// }
-	//
-	// // #####################################################################################
-	// // Different Paints
-	// // #####################################################################################
-	// public static Paint getErasurePaint() {
-	// final Paint paint = new Paint();
-	// paint.setAntiAlias(true);
-	// paint.setColor(Color.TRANSPARENT);
-	// final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-	// paint.setXfermode(xfermode);
-	// paint.setStyle(Style.FILL);
-	// return paint;
-	// }
-	//
-	// public static Paint getNumberPaint(final int level, final int fontSize) {
-	// return getNumberPaint(level, fontSize, Align.CENTER, true, false);
-	// }
-	//
-	// public static Paint getNumberPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
-	// final Paint paint = new Paint();
-	// paint.setAntiAlias(true);
-	// if (isColoredNumber()) {
-	// paint.setColor(getColorForLevel(level));
-	// } else {
-	// paint.setColor(getBattColor());
-	// }
-	// paint.setAlpha(getOpacity());
-	// final int fSize = adjustFontSize(level, fontSize);
-	// paint.setTextSize(fSize);
-	// paint.setFakeBoldText(true);
-	// if (bold) {
-	// paint.setTypeface(Typeface.DEFAULT_BOLD);
-	// } else {
-	// paint.setTypeface(Typeface.DEFAULT);
-	// }
-	// paint.setTextAlign(align);
-	// if (erase) {
-	// final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-	// paint.setXfermode(xfermode);
-	// }
-	// return paint;
-	// }
-	//
-	// public static Paint getTextPaint(final int level, final int fontSize) {
-	// return getTextPaint(level, fontSize, Align.LEFT, true, false);
-	// }
-	//
-	// public static Paint getTextPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
-	// final Paint paint = new Paint();
-	// paint.setAntiAlias(true);
-	// if (isColoredNumber()) {
-	// paint.setColor(getColorForLevel(level));
-	// } else {
-	// paint.setColor(getBattColor());
-	// }
-	// paint.setAlpha(getOpacity());
-	// paint.setAntiAlias(true);
-	// paint.setTextSize(fontSize);
-	// paint.setFakeBoldText(true);
-	// if (bold) {
-	// paint.setTypeface(Typeface.DEFAULT_BOLD);
-	// } else {
-	// paint.setTypeface(Typeface.DEFAULT);
-	// }
-	// paint.setTextAlign(align);
-	// if (erase) {
-	// final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-	// paint.setXfermode(xfermode);
-	// }
-	// return paint;
-	// }
-	//
-	// private static int adjustFontSize(final int level, final int fontSize) {
-	// int fSize = fontSize;
-	// if (level == 100) {
-	// fSize = Math.round(fontSize * getFontSize100() / 100f);
-	// }
-	// // generelle fontadjust einbeziehen
-	// fSize = Math.round(fSize * getFontSize() / 100f);
-	// return fSize;
-	// }
-	//
-	// public static Paint getBatteryPaint(final int level) {
-	// final Paint paint = new Paint();
-	// paint.setAntiAlias(true);
-	// paint.setColor(getColorForLevel(level));
-	// paint.setAlpha(getOpacity());
-	// paint.setStyle(Style.FILL);
-	// return paint;
-	// }
-	//
-	// public static Paint getBatteryPaintSourceIn(final int level) {
-	// final Paint paint = getBatteryPaint(level);
-	// final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.SRC_IN);
-	// // because of SRC in the alphas of background and overpaint somhow "add"
-	// // so the SRC in must be mor opacid then normal
-	// int alpha = getOpacity() + getBackgroundOpacity();
-	// if (alpha > 255) {
-	// alpha = 255;
-	// }
-	// paint.setAlpha(alpha);
-	// paint.setXfermode(xfermode);
-	// return paint;
-	// }
-	//
-	// public static Paint getZeigerPaint(final int level) {
-	// final Paint paint = new Paint();
-	// paint.setAntiAlias(true);
-	// paint.setColor(getZeigerColor());
-	// paint.setAlpha(255);
-	// paint.setStyle(Style.FILL);
-	// return paint;
-	// }
-	//
-	// public static Paint getBackgroundPaint() {
-	// final Paint paint = new Paint();
-	// paint.setAntiAlias(true);
-	// paint.setColor(getBackgroundColor());
-	// paint.setAlpha(getBackgroundOpacity());
-	// paint.setStyle(Style.FILL);
-	// return paint;
-	// }
-
-	// #####################################################################################
 	// Custom Background
 	// #####################################################################################
 	public static boolean isLoadCustomBackground() {
@@ -599,6 +461,8 @@ public class Settings {
 			Log.i("GEITH", "FirstRun --> initializing the SharedPreferences with some colors...");
 			prefs.edit().putBoolean("firstrun", false).commit();
 			// init colors
+			prefs.edit().putInt("scale_color", Color.WHITE).commit();
+			prefs.edit().putInt("status_color", Color.WHITE).commit();
 			prefs.edit().putInt("charge_color", Color.GREEN).commit();
 			prefs.edit().putInt("battery_color", Color.WHITE).commit();
 			prefs.edit().putInt("background_color", Color.DKGRAY).commit();

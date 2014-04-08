@@ -67,7 +67,7 @@ public class BitmapDrawerBrickV1 extends BitmapDrawer {
 				bitmapCanvas.drawRect(r, bgPaint);
 			}
 			final String text = "" + (j + 1);
-			final Paint p = getNumberPaint(level, fontSizeArc);
+			final Paint p = getTextScalePaint(fontSizeArc, Align.CENTER, true);
 			p.setTextAlign(Align.CENTER);
 			p.setAlpha(255);
 			bitmapCanvas.drawText(text, r.centerX(), r.centerY() + fontSizeArc / 2, p);

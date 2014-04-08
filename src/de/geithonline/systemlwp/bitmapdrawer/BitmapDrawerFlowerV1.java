@@ -68,9 +68,7 @@ public class BitmapDrawerFlowerV1 extends BitmapDrawer {
 	}
 
 	private void drawScalaText() {
-		final Paint p = getTextPaint(100, fontSizeArc, Align.CENTER, true, true);
-		p.setTextAlign(Align.CENTER);
-		p.setAlpha(255);
+		final Paint p = getTextScalePaint(fontSizeArc, Align.CENTER, true);
 		final RectF oval = getRectForOffset(4 * offset + fontSizeArc);
 		for (int i = 0; i < 100; i = i + 5) {
 			final long winkel = 252 + Math.round(i * 3.6f);

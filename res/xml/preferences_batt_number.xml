@@ -38,7 +38,26 @@
             />
         
 	</PreferenceCategory>>
-
+    
+    <PreferenceCategory android:title="@string/category_scale_options">
+        <CheckBoxPreference 
+		    android:key="scale_numbers_transparent"
+    		android:defaultValue="true"
+		    android:title="@string/scale_numbers_transparent" 
+		    android:summary="@string/scale_numbers_transparent_summary"
+		    android:disableDependentsState="true"
+            />
+        
+	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	        android:key="scale_color"
+	        android:title="@string/scale_color" 
+	        android:summary="@string/scale_color_summary"
+	        android:defaultValue="@integer/COLOR_WHITE"
+	        android:dependency="scale_numbers_transparent"
+	        />
+        	
+	</PreferenceCategory>>
+        
     <PreferenceCategory 
         android:title="@string/category_status_options">
         <CheckBoxPreference 
@@ -54,6 +73,13 @@
 	        android:entries="@array/battStatusStyle"
 	        android:entryValues="@array/battStatusStyleValues"
 	        android:key="battStatusStyle"
+	        android:dependency="show_status"
+	        />
+	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	        android:key="status_color"
+	        android:title="@string/status_color" 
+	        android:summary="@string/status_color_summary"
+	        android:defaultValue="@integer/COLOR_WHITE"
 	        android:dependency="show_status"
 	        />
     </PreferenceCategory>

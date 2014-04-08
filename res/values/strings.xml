@@ -20,11 +20,12 @@
 
     <string name="category_battery_background_options">Battery Background Options</string>
 	<string name="category_battery_options">Battery Options</string>
-    <string name="category_font_options">Font Options</string>
-	<string name="category_style">Battery Style</string>
+    <string name="category_font_options">Level Number Options</string>
+    <string name="category_scale_options">Scale Options</string>
+    <string name="category_style">Battery Style</string>
     <string name="category_style_summary">Battery Style Settings</string>
 	<string name="category_size">Battery Size and Position</string>
-    <string name="category_size_summary">Resizing and positioning of battery...</string>
+    <string name="category_size_summary">Resizing and positioning of battery</string>
     <string name="category_style_options">Special Options for specific Style</string>
     <string name="category_style_options_summary">Not all options are appliable for all Batteries</string>
     <string name="category_custom_background">Custom Background</string>
@@ -41,7 +42,7 @@
     <string name="animation_style">Charge Animation Style</string>
 	<string name="animation_style_summary">Choose a Charge Animation Style</string>
 	<string name="animation_enable">Enable Charge Animation</string>
-	<string name="animation_enable_summary">Battery will animate on charge...</string>
+	<string name="animation_enable_summary">Battery will animate on charge ....</string>
 	
     <string name="opacity">Opacity</string>
     <string name="opacity_summary">How much of the Background-Image should shine through</string>
@@ -106,6 +107,13 @@
 	<string name="vertical_position_summary">Offset from bottom of the screen in portrait-mode</string>
 	<string name="vertical_position_landscape">Vertical Offset - Landscape-Mode</string>
 	<string name="vertical_position_landscape_summary">Offset from bottom of the screen in landscape-mode</string>
-									
+
+	<string name="scale_numbers_transparent">Transparent scale numbers</string>
+	<string name="scale_numbers_transparent_summary">Scale Numbers are transparent</string>
+	<string name="scale_color">Scale Color</string>
+	<string name="scale_color_summary">Color of Scale Numbers</string>
+	<string name="status_color">Battery Status Text Color</string>
+	<string name="status_color_summary">Color of Battery Status Text</string>
+												
 	
 </resources>
