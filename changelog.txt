@@ -1,11 +1,11 @@
-[COLOR="blue"]2014-04-xx : V1.17[/COLOR]
-2014-04-xx : V1.17
+[COLOR="blue"]2014-04-08 : V1.17[/COLOR]
+2014-04-08 : V1.17
 - fixing background-image aspectratio in landscape mode! 
 - fixing some arch styles not expanding to full size in landscape mode (if you want them smaller, reduce size for landscape-mode)
 - new style FlowerV1 (Free)
 - new style FlowerV1 (Premium)
 - if a style has a scala text it is now configurable (color or is transparent)
-- if a style has a battery status text (temp, volt, health) it can now be colord (Premium)
+- if a style has a battery status text (temp, volt, health) it can now be colored (Premium)
 
 
 [COLOR="blue"]2014-04-07 : V1.16[/COLOR]

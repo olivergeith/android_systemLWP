@@ -83,7 +83,6 @@ public class BitmapDrawerFlowerV1 extends BitmapDrawer {
 
 		final Point center = new Point(bWidth / 2, bHeight / 2);
 		bitmapCanvas.drawPath(new BubbleCirclePath(anzahlZacken, center, bWidth / 2 - bubbleRadius, bubbleRadius), bgPaint);
-		bitmapCanvas.drawPath(new BubbleCirclePath(100, center, bWidth / 2 - 2 * bubbleRadius, bubbleRadius / 5), bgPaint);
 		// overpaint level
 		bitmapCanvas.drawArc(getRectForOffset(0), 270, Math.round(level * 3.6), true, getBatteryPaintSourceIn(level));
 		// Zeiger
