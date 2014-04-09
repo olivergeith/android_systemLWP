@@ -1,3 +1,9 @@
+[COLOR="blue"]2014-04-08 : V1.18[/COLOR]
+2014-04-08 : V1.18
+- new setting to dismiss aspect ratio of custom background and scale it to screen dimensions (no Background-sliding in that case!!!) 
+- fixing iconsize of style-chooser sometime calculated wrong
+
+
 [COLOR="blue"]2014-04-08 : V1.17[/COLOR]
 2014-04-08 : V1.17
 - fixing background-image aspectratio in landscape mode! 

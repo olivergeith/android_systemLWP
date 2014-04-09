@@ -9,12 +9,9 @@ import android.graphics.Bitmap;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
@@ -40,7 +37,6 @@ public class StyleListPreference extends ListPreference {
 	private final SharedPreferences.Editor editor;
 	private final String mKey;
 	private int selectedEntry = -1;
-	private int displayWidth = 1080;
 
 	public StyleListPreference(final Context context, final AttributeSet attrs) {
 		this(context, attrs, 0);
@@ -65,18 +61,6 @@ public class StyleListPreference extends ListPreference {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		editor = prefs.edit();
 		a.recycle();
-
-		displayWidth = getDisplayWidth(context);
-		Log.i("STYLIST", "DisplayWidth = " + displayWidth);
-
-	}
-
-	private int getDisplayWidth(final Context context) {
-		final DisplayMetrics metrics = new DisplayMetrics();
-		final WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-		wm.getDefaultDisplay().getMetrics(metrics);
-
-		return metrics.widthPixels;
 	}
 
 	@Override
@@ -186,7 +170,7 @@ public class StyleListPreference extends ListPreference {
 				text.setText(entries[position]);
 				text.setChecked(selectedEntry == position);
 				// in
-				final Bitmap b = DrawerManager.getIconForDrawer(text.getText().toString(), Math.round(displayWidth * 0.12f));
+				final Bitmap b = DrawerManager.getIconForDrawer(text.getText().toString(), Settings.getIconSize());
 				if (b != null) {
 					imageView.setImageBitmap(b);
 					text.setText(" " + text.getText());

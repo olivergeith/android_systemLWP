@@ -1,14 +1,11 @@
 package de.geithonline.systemlwp;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
-import android.util.DisplayMetrics;
-import android.view.WindowManager;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.settings.DrawerManager;
 import de.geithonline.systemlwp.settings.Settings;
@@ -19,16 +16,7 @@ import de.geithonline.systemlwp.utils.BitmapHelper;
  */
 public class BattPreferencesFragment extends PreferenceFragment {
 	public static final String STYLE_PICKER_KEY = "batt_style";
-	private int displayWidth = 1080;
 	private ListPreference stylePref;
-
-	private int getDisplayWidth(final Context context) {
-		final DisplayMetrics metrics = new DisplayMetrics();
-		final WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-		wm.getDefaultDisplay().getMetrics(metrics);
-
-		return metrics.widthPixels;
-	}
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
@@ -36,7 +24,6 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		addPreferencesFromResource(R.xml.preferences_style);
 
 		// initializing Members
-		displayWidth = getDisplayWidth(getActivity().getApplicationContext());
 		stylePref = (ListPreference) findPreference(STYLE_PICKER_KEY);
 		// changelistener auf stylepicker
 		stylePref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -58,7 +45,7 @@ public class BattPreferencesFragment extends PreferenceFragment {
 	}
 
 	private void enableSettingsForStyle(final String style) {
-		final Bitmap b = DrawerManager.getIconForDrawer(style, Math.round(displayWidth * 0.12f));
+		final Bitmap b = DrawerManager.getIconForDrawer(style, Settings.getIconSize());
 		// Find a Drawer for this Style
 		final IBitmapDrawer drawer = DrawerManager.getDrawer(style);
 		final Preference zeiger = findPreference("show_zeiger");

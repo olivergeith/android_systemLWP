@@ -50,7 +50,7 @@ public class PreferencesActivity extends PreferenceActivity {
 
 		// initialize Settings if not already done
 		prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		Settings.initPrefs(prefs);
+		Settings.initPrefs(prefs, getApplicationContext());
 
 		billingManager = new BillingManager(this);
 		final boolean isPremium = billingManager.isPremium();

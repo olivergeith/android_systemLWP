@@ -27,7 +27,7 @@ public class LiveWallpaperService extends WallpaperService {
 	public void onCreate() {
 		super.onCreate();
 		prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		Settings.initPrefs(prefs);
+		Settings.initPrefs(prefs, getApplicationContext());
 	}
 
 	@Override
@@ -173,8 +173,8 @@ public class LiveWallpaperService extends WallpaperService {
 		private void drawBackgroundImage(final Canvas canvas) {
 			// do we need to create a new backgroundimage?
 			if (backgroundImage == null //
-					|| customBackgroundChanged() //
-					|| cWidth != oldWidth //
+					|| forcedraw //
+					|| customBackgroundChanged() || cWidth != oldWidth //
 					|| cHeight != oldHeight) {
 				if (backgroundImage != null) {
 					backgroundImage.recycle();
@@ -228,21 +228,27 @@ public class LiveWallpaperService extends WallpaperService {
 
 			// erstmal setzen wir die Zielhöhe auf Canvas heigth
 			int dstH = cHeight;
-			// ..und berechnen daraufhin die breite des Bitmaps (damit Aspectratio erhalten bleibt)
-			int dstW = Math.round(dstH * aspectBG);
-			// Log.i("GEITH", "dst_h=" + dstH);
-			// Log.i("GEITH", "dst_w=" + dstW);
+			int dstW = cWidth;
+			// ..und berechnen daraufhin die Breite des Bitmaps (damit
+			if (Settings.isKeepAspectRatio()) {
+				// Aspectratio erhalten bleibt)
+				dstW = Math.round(dstH * aspectBG);
+				// Log.i("GEITH", "dst_h=" + dstH);
+				// Log.i("GEITH", "dst_w=" + dstW);
 
-			// dann schauen wir, ob die dstW breiter ist als das Canvas
-			if (dstW < Math.round(cWidth * 1.4f)) {
-				// oh schade das Bild ist zu schmal und passt nicht in der Breite
-				// dannn machen wir es nun breiter (1.4fach canvasbreite)...dafür wird es leider zu hoch
-				// also wird später unten was abgeschnitten
-				// 1.4 fach damit es auch was zum sliden gibt ;-)
-				dstW = Math.round(cWidth * 1.4f);
-				dstH = Math.round(dstW / aspectBG);
-				// Log.i("GEITH", "ups dst_h=" + dstH);
-				// Log.i("GEITH", "ups dst_w=" + dstW);
+				// dann schauen wir, ob die dstW breiter ist als das Canvas
+				if (dstW < Math.round(cWidth * 1.4f)) {
+					// oh schade das Bild ist zu schmal und passt nicht in der
+					// Breite
+					// dannn machen wir es nun breiter (1.4fach
+					// canvasbreite)...dafür wird es leider zu hoch
+					// also wird später unten was abgeschnitten
+					// 1.4 fach damit es auch was zum sliden gibt ;-)
+					dstW = Math.round(cWidth * 1.4f);
+					dstH = Math.round(dstW / aspectBG);
+					// Log.i("GEITH", "ups dst_h=" + dstH);
+					// Log.i("GEITH", "ups dst_w=" + dstW);
+				}
 			}
 
 			bgReturn = Bitmap.createScaledBitmap(bgInput, dstW, dstH, true);

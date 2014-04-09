@@ -14,6 +14,15 @@
 	        android:title="@string/choose_background"
 	        android:dependency="customBackground"
 	        />
+
+	    <CheckBoxPreference 
+	  	    android:key="keepAspectRatio"
+	    	android:title="@string/keepAspectRatio"
+	        android:summary="@string/keepAspectRatio_summary"
+	    	android:defaultValue="true"
+	        android:dependency="customBackground"
+	    	/>
+	    	    
 	</PreferenceCategory>
     
     <PreferenceCategory android:title="@string/category_colored_background">

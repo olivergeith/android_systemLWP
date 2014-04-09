@@ -1,5 +1,6 @@
 package de.geithonline.systemlwp.settings;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,7 +9,9 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.os.BatteryManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowManager;
 import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
@@ -28,11 +31,19 @@ public class Settings {
 	public static int battTemperature = -1;
 	public static int battHealth = -1;
 	public static int battVoltage = -1;
+	public static int iconSize;
 
 	public static final int BATT_STATUS_STYLE_TEMP_VOLT_HEALTH = 0;
 	public static final int BATT_STATUS_STYLE_TEMP_VOLT = 1;
 	public static final int BATT_STATUS_STYLE_TEMP = 2;
 	public static final int BATT_STATUS_STYLE_VOLT = 3;
+
+	public static boolean isKeepAspectRatio() {
+		if (prefs == null) {
+			return true;
+		}
+		return prefs.getBoolean("keepAspectRatio", true);
+	}
 
 	public static boolean isScaleTransparent() {
 		if (prefs == null) {
@@ -455,7 +466,7 @@ public class Settings {
 	 * 
 	 * @param preferences
 	 */
-	public static void initPrefs(final SharedPreferences preferences) {
+	public static void initPrefs(final SharedPreferences preferences, final Context context) {
 		prefs = preferences;
 		if (prefs.getBoolean("firstrun", true)) {
 			Log.i("GEITH", "FirstRun --> initializing the SharedPreferences with some colors...");
@@ -470,6 +481,22 @@ public class Settings {
 			prefs.edit().putInt("battery_color_low", Color.RED).commit();
 			prefs.edit().putInt("color_zeiger", Color.WHITE).commit();
 			prefs.edit().putBoolean("show_status", false).commit();
+		}
+		iconSize = Math.round(getDisplayWidth(context) * 0.16f);
+	}
+
+	public static int getIconSize() {
+		return iconSize;
+	}
+
+	private static int getDisplayWidth(final Context context) {
+		final DisplayMetrics metrics = new DisplayMetrics();
+		final WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		wm.getDefaultDisplay().getMetrics(metrics);
+		if (metrics.widthPixels < metrics.heightPixels) {
+			return metrics.widthPixels;
+		} else {
+			return metrics.heightPixels;
 		}
 	}
 
