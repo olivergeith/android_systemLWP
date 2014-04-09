@@ -114,8 +114,9 @@
 	<string name="scale_color_summary">Color of Scale Numbers</string>
 	<string name="status_color">Battery Status Text Color</string>
 	<string name="status_color_summary">Color of Battery Status Text</string>
+
 	<string name="keepAspectRatio">Keep the aspect ratio of the Background Image</string>
-	<string name="keepAspectRatio_summary">if disabled the image is scaled to exact dimensions of the screen</string>
+	<string name="keepAspectRatio_summary">If disabled the image is scaled to exact dimensions of the screen (no background sliding in that case)</string>
 													
 	
 </resources>

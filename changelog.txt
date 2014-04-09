@@ -2,7 +2,8 @@
 2014-04-08 : V1.18
 - new setting to dismiss aspect ratio of custom background and scale it to screen dimensions (no Background-sliding in that case!!!) 
 - fixing iconsize of style-chooser sometime calculated wrong
-
+- new style SimpleCircleV7 (Premium)
+- new style StarV4 (Premium)
 
 [COLOR="blue"]2014-04-08 : V1.17[/COLOR]
 2014-04-08 : V1.17
