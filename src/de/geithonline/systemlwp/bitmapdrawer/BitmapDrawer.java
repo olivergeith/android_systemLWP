@@ -17,6 +17,7 @@ public abstract class BitmapDrawer extends ColorProvider implements IBitmapDrawe
 	protected int bWidth = 0;
 	protected int level = -99;
 	private Bitmap bitmap;
+	private boolean isDrawIcon = false;
 
 	public abstract Bitmap drawBitmap(final int level);
 
@@ -35,6 +36,13 @@ public abstract class BitmapDrawer extends ColorProvider implements IBitmapDrawe
 	}
 
 	protected void setBitmapSize(final int w, final int h, final boolean isPortrait) {
+		// kein resizen wenn ein icon gemalt wird!
+		if (isDrawIcon) {
+			bHeight = h;
+			bWidth = w;
+			return;
+		}
+
 		if (isPortrait) {
 			// hochkant
 			bHeight = Math.round(h * Settings.getPortraitResizeFactor());
@@ -85,7 +93,9 @@ public abstract class BitmapDrawer extends ColorProvider implements IBitmapDrawe
 		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
 		cWidth = w;
 		cHeight = h;
+		isDrawIcon = true;
 		final Bitmap icon = drawBitmap(level);
+		isDrawIcon = false;
 		drawLevelNumber(level);
 		return icon;
 	}
