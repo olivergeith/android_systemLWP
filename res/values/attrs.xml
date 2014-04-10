@@ -5,4 +5,8 @@
          <attr name="entryIcons" format="reference" />
          <attr name="entryBooleans" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="ImageListPreference">
+		<attr name="entryImages" format="reference" />
+	</declare-styleable>
 </resources>
