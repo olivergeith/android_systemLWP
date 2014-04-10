@@ -7,20 +7,24 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.RectF;
+import de.geithonline.systemlwp.bitmapdrawer.shapes.StarPathInvert;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
-public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
+public class BitmapDrawerAokpCircleV3 extends BitmapDrawer {
 
 	private int offset = 10;
 	private int einerDicke = 70;
-	private int abstand = 8;
+	private int outerRadius = 8;
+	private int innerRadius = 8;
 	private int fontSize = 150;
 	private int fontSizeArc = 20;
 	private Canvas bitmapCanvas;
+	private final int anzahlZacken = 16;
 
-	public BitmapDrawerAokpCircleV1() {
+	public BitmapDrawerAokpCircleV3() {
 	}
 
 	@Override
@@ -50,45 +54,40 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 			// quer
 			setBitmapSize(cHeight, cHeight, false);
 		}
-
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
-		abstand = Math.round(bWidth * 0.05f);
-		einerDicke = Math.round(bWidth * 0.15f);
-		offset = Math.round(bWidth * 0.011f);
+		offset = Math.round(bWidth * 0.01f);
+		einerDicke = Math.round(bWidth * 0.18f);
 		fontSize = Math.round(bWidth * 0.35f);
 		fontSizeArc = Math.round(bWidth * 0.04f);
+
+		outerRadius = bWidth / 2;
+		innerRadius = bWidth / 2 - Math.round(bWidth * 0.20f);
 
 		drawSegmente(level);
 		return bitmap;
 	}
 
 	private void drawSegmente(final int level) {
-		final int segmente = 12;
-		final float winkelOneSegment = 15;
-
-		// Backgroundpaint alpha erhöhren falls unter 32...sonst sieht man ja
-		// nix ;-)
-		final Paint paint = getBackgroundPaint();
-		if (paint.getAlpha() < 32) {
-			paint.setAlpha(32);
-		}
-		// Zahnrad hintergrund herstellen
-		for (int i = 0; i < segmente; i++) {
-			final float startwinkel = 270f + 7.5f + i * (winkelOneSegment + 15);
-			bitmapCanvas.drawArc(getRectForOffset(offset), startwinkel, winkelOneSegment, true, getBackgroundPaint());
-		}
-		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + abstand), 0, 360, true, getErasurePaint());
-		// Background
-		bitmapCanvas.drawArc(getRectForOffset(offset + abstand), 270, 360, true, getBackgroundPaint());
+		final Paint bgPaint = getBackgroundPaint();
+		final Paint btPaint = getErasurePaint();
+		btPaint.setStyle(Style.STROKE);
+		btPaint.setStrokeWidth(2 * fontSizeArc);
+		// Stern
+		final Point center = new Point(bWidth / 2, bHeight / 2);
+		bitmapCanvas.drawPath(new StarPathInvert(anzahlZacken, center, outerRadius, innerRadius), bgPaint);
+		// aussen erasen
+		bitmapCanvas.drawArc(getRectForOffset(fontSizeArc), 270, 360, true, btPaint);
+		// innen erasen
+		bitmapCanvas.drawArc(getRectForOffset(Math.round(bWidth * 0.13f)), 0, 360, true, getErasurePaint());
+		// innerer ring background
+		bitmapCanvas.drawArc(getRectForOffset(Math.round(bWidth * 0.13f)), 270, 360, true, bgPaint);
 		// overpaint level
-		bitmapCanvas.drawArc(getRectForOffset(offset), 270, Math.round(level * 3.6), true, getBatteryPaintSourceIn(level));
+		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc), 270, Math.round(level * 3.6), true, getBatteryPaintSourceIn(level));
 		// Zeiger
 		if (Settings.isShowZeiger()) {
-			final Paint zp = getZeigerPaint(level);
-			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			bitmapCanvas.drawArc(getRectForOffset(0), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
+			final Paint zp = getZeigerPaint(level, true);
+			bitmapCanvas.drawArc(getRectForOffset(fontSizeArc), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
 		}
 		// delete inner Circle
 		bitmapCanvas.drawArc(getRectForOffset(offset + einerDicke), 0, 360, true, getErasurePaint());
@@ -111,10 +110,10 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 
 	@Override
 	public void drawChargeStatusText(final int level) {
-		final long winkel = 270 + Math.round(level * 3.6);
+		final long winkel = 272 + Math.round(level * 3.6);
 
 		final Path mArc = new Path();
-		final RectF oval = getRectForOffset(offset + einerDicke + fontSizeArc);
+		final RectF oval = getRectForOffset(einerDicke);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, getTextPaint(level, fontSizeArc));
@@ -132,7 +131,7 @@ public class BitmapDrawerAokpCircleV1 extends BitmapDrawer {
 	@Override
 	public void drawBattStatusText() {
 		final Path mArc = new Path();
-		final RectF oval = getRectForOffset(offset + einerDicke - fontSizeArc);
+		final RectF oval = getRectForOffset(2 * offset + einerDicke);
 		mArc.addArc(oval, 180, -180);
 		final String text = Settings.getBattStatusCompleteShort();
 		final Paint p = getTextBattStatusPaint(fontSizeArc, Align.CENTER, true);

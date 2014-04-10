@@ -6,6 +6,7 @@ import java.util.Map;
 import android.graphics.Bitmap;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV1;
@@ -80,6 +81,7 @@ public class DrawerManager {
 		drawer.put("SimpleCircleV7", new BitmapDrawerSimpleCircleV7());
 		drawer.put("AokpCircleV1", new BitmapDrawerAokpCircleV1());
 		drawer.put("AokpCircleV2", new BitmapDrawerAokpCircleV2());
+		drawer.put("AokpCircleV3", new BitmapDrawerAokpCircleV3());
 		drawer.put("NumberOnlyV1", new BitmapDrawerNumberOnlyV1());
 		drawer.put("StarV1", new BitmapDrawerStarV1());
 		drawer.put("StarV2", new BitmapDrawerStarV2());

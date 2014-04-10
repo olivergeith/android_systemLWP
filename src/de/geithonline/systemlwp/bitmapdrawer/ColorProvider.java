@@ -156,11 +156,19 @@ public class ColorProvider {
 	}
 
 	public Paint getZeigerPaint(final int level) {
+		final Paint paint = getZeigerPaint(level, false);
+		return paint;
+	}
+
+	public Paint getZeigerPaint(final int level, final boolean dropShadow) {
 		final Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setColor(Settings.getZeigerColor());
 		paint.setAlpha(255);
 		paint.setStyle(Style.FILL);
+		if (dropShadow) {
+			paint.setShadowLayer(10, 0, 0, Color.BLACK);
+		}
 		return paint;
 	}
 

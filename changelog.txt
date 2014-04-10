@@ -4,6 +4,7 @@
 - fixing iconsize of style-chooser sometime calculated wrong
 - new style SimpleCircleV7 (Premium)
 - new style StarV4 (Premium)
+- new style AokpCircleV3 (Premium)
 
 [COLOR="blue"]2014-04-08 : V1.17[/COLOR]
 2014-04-08 : V1.17
