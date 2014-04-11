@@ -32,6 +32,7 @@ public class Settings {
 	public static int battHealth = -1;
 	public static int battVoltage = -1;
 	public static int iconSize;
+	private static Bitmap defaultlogo;
 
 	public static final int BATT_STATUS_STYLE_TEMP_VOLT_HEALTH = 0;
 	public static final int BATT_STATUS_STYLE_TEMP_VOLT = 1;
@@ -542,6 +543,7 @@ public class Settings {
 			prefs.edit().putBoolean("show_status", false).commit();
 		}
 		iconSize = Math.round(getDisplayWidth(context) * 0.15f);
+		defaultlogo = BitmapFactory.decodeResource(context.getResources(), R.drawable.aokplogo);
 	}
 
 	public static int getIconSize() {
@@ -573,6 +575,10 @@ public class Settings {
 		}
 		final int size = Integer.valueOf(prefs.getString("resizeLandscape", "100"));
 		return size / 100f;
+	}
+
+	public static Bitmap getDefaultLogoForDrawer(final int size) {
+		return Bitmap.createScaledBitmap(defaultlogo, size, size, true);
 	}
 
 }

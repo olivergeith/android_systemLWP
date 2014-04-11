@@ -2,6 +2,7 @@ package de.geithonline.systemlwp.bitmapdrawer;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PointF;
@@ -101,8 +102,15 @@ public abstract class BitmapDrawer extends ColorProvider implements IBitmapDrawe
 	}
 
 	protected void drawLevelNumberCentered(final Canvas canvas, final int level, final int fontSize) {
+		drawLevelNumberCentered(canvas, level, fontSize, false);
+	}
+
+	protected void drawLevelNumberCentered(final Canvas canvas, final int level, final int fontSize, final boolean dropShadow) {
 		final String text = "" + level;
 		final Paint p = getNumberPaint(level, fontSize, Align.CENTER, true, false);
+		if (dropShadow) {
+			p.setShadowLayer(10, 0, 0, Color.BLACK);
+		}
 		final PointF point = getTextCenterToDraw(new RectF(0, 0, bWidth, bHeight), p);
 		canvas.drawText(text, point.x, point.y, p);
 	}
