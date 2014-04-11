@@ -399,6 +399,7 @@ public class Settings {
 	/**
 	 * @return Bitmap or null...
 	 */
+	@Deprecated
 	public static Bitmap getCustomBackground() {
 		final String filePath = getCustomBackgroundFilePath();
 		if (!filePath.equals("aaa")) {
@@ -417,6 +418,64 @@ public class Settings {
 			return b;
 		}
 		return null;
+	}
+
+	/**
+	 * @return Bitmap or null...
+	 */
+	public static Bitmap getCustomBackgroundSampled(final int reqWidth, final int reqHeight) {
+		final String filePath = getCustomBackgroundFilePath();
+		if (!filePath.equals("aaa")) {
+			final BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+			options.inDither = false; // Disable Dithering mode
+			options.inPurgeable = true; // Tell to gc that whether it needs free
+										// memory, the Bitmap can be cleared
+			options.inInputShareable = true; // Which kind of reference will be
+												// used to recover the Bitmap
+												// data after being clear, when
+												// it will be used in the future
+			options.inTempStorage = new byte[32 * 1024];
+			options.inJustDecodeBounds = true;
+			BitmapFactory.decodeFile(filePath, options);
+
+			// Calculate inSampleSize
+			options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+			// Decode bitmap with inSampleSize set
+			options.inJustDecodeBounds = false;
+
+			final Bitmap b = BitmapFactory.decodeFile(filePath, options);
+			BitmapHelper.logBackgroundFileInfo(filePath);
+			return b;
+		}
+		return null;
+	}
+
+	public static int calculateInSampleSize(final BitmapFactory.Options options, final int reqWidth, final int reqHeight) {
+		// Raw height and width of image
+		final int height = options.outHeight;
+		final int width = options.outWidth;
+		int inSampleSize = 1;
+		// Log.i("GEITH", "height =" + height);
+		// Log.i("GEITH", "reqHeight =" + reqHeight);
+		// Log.i("GEITH", "width =" + width);
+		// Log.i("GEITH", "reqWidth =" + reqWidth);
+
+		if (height > reqHeight || width > reqWidth) {
+
+			final int halfHeight = height / 2;
+			final int halfWidth = width / 2;
+
+			// Calculate the largest inSampleSize value that is a power of 2 and
+			// keeps both
+			// height and width larger than the requested height and width.
+			while ((halfHeight / inSampleSize) > reqHeight && (halfWidth / inSampleSize) > reqWidth) {
+				inSampleSize *= 2;
+			}
+		}
+		Log.i("GEITH", "Samplesize =" + inSampleSize);
+		return inSampleSize;
 	}
 
 	public static String getCustomBackgroundFilePath() {

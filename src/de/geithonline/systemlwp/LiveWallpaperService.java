@@ -211,7 +211,7 @@ public class LiveWallpaperService extends WallpaperService {
 			Bitmap bgInput;
 			Bitmap bgReturn;
 			// sollen wir ein custom BG laden ?
-			bgInput = Settings.getCustomBackground();
+			bgInput = Settings.getCustomBackgroundSampled(Math.round(cWidth * 1.4f), cHeight);
 			// if it is null...
 			if (bgInput == null) {
 				bgInput = BitmapFactory.decodeResource(getResources(), R.drawable.background);
