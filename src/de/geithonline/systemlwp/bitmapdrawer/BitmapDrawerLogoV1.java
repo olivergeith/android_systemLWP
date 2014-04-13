@@ -69,7 +69,7 @@ public class BitmapDrawerLogoV1 extends BitmapDrawer {
 
 	private void drawSegmente(final int level) {
 		// Scala
-		drawScala();
+		// drawScala();
 		// load logo
 		final Bitmap bgBitmap = Settings.getDefaultLogoForDrawer(bWidth);
 		// grayscale it
@@ -111,7 +111,7 @@ public class BitmapDrawerLogoV1 extends BitmapDrawer {
 			bgPaint2.setColor(ColorHelper.darker(bgPaint2.getColor()));
 			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke), 270, 360, true, bgPaint2);
 		}
-		drawScalaText();
+		// drawScalaText();
 
 	}
 
@@ -145,7 +145,8 @@ public class BitmapDrawerLogoV1 extends BitmapDrawer {
 		if (Settings.isShowZeiger()) {
 			final Paint zp = getZeigerPaint(level);
 			zp.setShadowLayer(10, 0, 0, Color.BLACK);
-			bitmapCanvas.drawArc(getRectForOffset(0), 270 + Math.round(level * 3.6f) - 0.5f, 1f, true, zp);
+			bitmapCanvas.drawArc(getRectForOffset(0), 270 + Math.round(level * 3.6f) - 0.75f, 1.5f, true, zp);
+			bitmapCanvas.drawArc(getRectForOffset(0), 270 - 0.75f, 1.5f, true, zp);
 		}
 	}
 
