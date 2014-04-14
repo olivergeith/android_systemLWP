@@ -1,19 +1,13 @@
 package de.geithonline.systemlwp.bitmapdrawer;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
-import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.graphics.Shader.TileMode;
 import de.geithonline.systemlwp.settings.Settings;
-import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class BitmapDrawerLogoV1 extends BitmapDrawer {
 
@@ -23,6 +17,11 @@ public class BitmapDrawerLogoV1 extends BitmapDrawer {
 	private int fontSizeArc = 20;
 	private int einerDicke = 70;
 	private Canvas bitmapCanvas;
+	private Bitmap bgBitmap = null;
+	private String logoname = null;
+	private int myWidth = -99;
+	private int myHeight = -99;
+	private boolean customLogo;
 
 	public BitmapDrawerLogoV1() {
 	}
@@ -38,7 +37,7 @@ public class BitmapDrawerLogoV1 extends BitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsShowRand() {
+	public boolean supportsLogo() {
 		return true;
 	}
 
@@ -71,45 +70,23 @@ public class BitmapDrawerLogoV1 extends BitmapDrawer {
 		// Scala
 		// drawScala();
 		// load logo
-		final Bitmap bgBitmap = Settings.getDefaultLogoForDrawer(bWidth);
-		// grayscale it
-		final Paint bgPaint = new Paint();
-		final ColorMatrix cm = new ColorMatrix();
-		// final ColorMatrix cm = new ColorMatrix(new float[]
-		// { 0.5f, 0.5f, 0.5f, 0, 0, //
-		// 0.5f, 0.5f, 0.5f, 0, 0, //
-		// 0.5f, 0.5f, 0.5f, 0, 0, //
-		// 0, 0, 0, 1, 0, 0,
-		// 0, 0, 0, 0, 1, 0 });
-		cm.setSaturation(0);
-		final ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
-		bgPaint.setColorFilter(f);
-		// paint it
-		bitmapCanvas.drawBitmap(bgBitmap, 0, 0, bgPaint);
+
+		if (logoname == null || !logoname.equals(Settings.getCustomLogoFilePath()) || myWidth != bWidth || myHeight != bHeight
+				|| customLogo != Settings.useCustomLogo()) {
+			customLogo = Settings.useCustomLogo();
+			logoname = Settings.getCustomLogoFilePath();
+			myWidth = bWidth;
+			myHeight = bHeight;
+			bgBitmap = Settings.getCustomLogoSampled(bWidth, bHeight);
+		}
+		// paint grayscaled version of it
+		bitmapCanvas.drawBitmap(bgBitmap, 0, 0, getGrayscalePaint());
 		// overpaint it with colored version
-
-		final BitmapShader fillBMPshader = new BitmapShader(bgBitmap, TileMode.REPEAT, TileMode.REPEAT);
-
-		final Paint battPaint = new Paint();
-		battPaint.setStyle(Paint.Style.FILL);
-		battPaint.setShader(fillBMPshader);
-		bitmapCanvas.drawArc(getRectForOffset(0), 270, Math.round(level * 3.6f), true, battPaint);
+		final Paint battPaint = getBitmapPaint(bgBitmap);
+		bitmapCanvas.drawArc(getRectForOffset(-bWidth / 2), 270, Math.round(level * 3.6f), true, battPaint);
 		// zeiger
 		if (Settings.isShowZeiger()) {
 			drawZeiger(level);
-		}
-		if (Settings.isShowRand()) {
-			final Paint randPaint = getBackgroundPaint();
-			randPaint.setColor(Color.WHITE);
-			randPaint.setShadowLayer(10, 0, 0, Color.BLACK);
-			// ‰uﬂeren Rand
-			randPaint.setStrokeWidth(offset);
-			randPaint.setStyle(Style.STROKE);
-			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke), 270, 360, true, randPaint);
-			// innere Fl‰che
-			final Paint bgPaint2 = getBackgroundPaint();
-			bgPaint2.setColor(ColorHelper.darker(bgPaint2.getColor()));
-			bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + einerDicke), 270, 360, true, bgPaint2);
 		}
 		// drawScalaText();
 

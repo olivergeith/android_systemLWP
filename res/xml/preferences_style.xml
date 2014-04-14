@@ -103,6 +103,20 @@
             android:title="@string/show_rand"
             android:defaultValue="true"
             />
+        
+        <CheckBoxPreference 
+            android:key="customLogo"
+            android:title="@string/customLogo"
+            android:defaultValue="false"
+            />
+        <Preference
+	        android:key="logoPicker"
+	        android:summary="@string/logoPicker_summary"
+	        android:title="@string/logoPicker"
+	        android:dependency="customLogo"
+	        />
+        
+        
     </PreferenceCategory>
         
 </PreferenceScreen>

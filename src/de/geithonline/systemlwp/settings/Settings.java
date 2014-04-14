@@ -86,15 +86,15 @@ public class Settings {
 
 	public static String getBattStatusCompleteShort() {
 		switch (getStatusStyle()) {
-		case BATT_STATUS_STYLE_VOLT:
-			return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
-		case BATT_STATUS_STYLE_TEMP:
-			return "Battery: " + (float) battTemperature / 10 + "°C";
-		case BATT_STATUS_STYLE_TEMP_VOLT:
-			return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
-		default:
-		case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
-			return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+			case BATT_STATUS_STYLE_VOLT:
+				return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
+			case BATT_STATUS_STYLE_TEMP:
+				return "Battery: " + (float) battTemperature / 10 + "°C";
+			case BATT_STATUS_STYLE_TEMP_VOLT:
+				return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+			default:
+			case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
+				return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
 		}
 	}
 
@@ -112,21 +112,21 @@ public class Settings {
 
 	private static String getHealthText(final int health) {
 		switch (health) {
-		case BatteryManager.BATTERY_HEALTH_GOOD:
-			return "good";
-		case BatteryManager.BATTERY_HEALTH_OVERHEAT:
-			return "overheat";
-		case BatteryManager.BATTERY_HEALTH_DEAD:
-			return "dead";
-		case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
-			return "overvoltage";
-		case BatteryManager.BATTERY_HEALTH_COLD:
-			return "cold";
-		case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
-			return "failure";
+			case BatteryManager.BATTERY_HEALTH_GOOD:
+				return "good";
+			case BatteryManager.BATTERY_HEALTH_OVERHEAT:
+				return "overheat";
+			case BatteryManager.BATTERY_HEALTH_DEAD:
+				return "dead";
+			case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
+				return "overvoltage";
+			case BatteryManager.BATTERY_HEALTH_COLD:
+				return "cold";
+			case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
+				return "failure";
 
-		default:
-			return "unknown";
+			default:
+				return "unknown";
 		}
 	}
 
@@ -426,6 +426,13 @@ public class Settings {
 	 */
 	public static Bitmap getCustomBackgroundSampled(final int reqWidth, final int reqHeight) {
 		final String filePath = getCustomBackgroundFilePath();
+		return getCustomImageSampled(filePath, reqWidth, reqHeight);
+	}
+
+	/**
+	 * @return Bitmap or null...
+	 */
+	private static Bitmap getCustomImageSampled(final String filePath, final int reqWidth, final int reqHeight) {
 		if (!filePath.equals("aaa")) {
 			final BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -543,7 +550,7 @@ public class Settings {
 			prefs.edit().putBoolean("show_status", false).commit();
 		}
 		iconSize = Math.round(getDisplayWidth(context) * 0.15f);
-		defaultlogo = BitmapFactory.decodeResource(context.getResources(), R.drawable.aokplogo);
+		defaultlogo = BitmapFactory.decodeResource(context.getResources(), R.drawable.sun1);
 	}
 
 	public static int getIconSize() {
@@ -577,8 +584,47 @@ public class Settings {
 		return size / 100f;
 	}
 
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++
+	// logo and more
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++
+	public static boolean useCustomLogo() {
+		if (prefs == null) {
+			return true;
+		}
+		return prefs.getBoolean("customLogo", false);
+	}
+
 	public static Bitmap getDefaultLogoForDrawer(final int size) {
 		return Bitmap.createScaledBitmap(defaultlogo, size, size, true);
+	}
+
+	public static String getCustomLogoFilePath() {
+		if (prefs == null) {
+			return "aaa";
+		}
+		final String filePath = prefs.getString("logoPicker", "aaa");
+		return filePath;
+	}
+
+	/**
+	 * @return Bitmap or null...
+	 */
+	public static Bitmap getCustomLogoSampled(final int reqWidth, final int reqHeight) {
+		final Bitmap defaultBmp = getDefaultLogoForDrawer(reqWidth);
+		if (useCustomLogo()) {
+			final String filePath = getCustomLogoFilePath();
+			if (filePath != null && !filePath.equals("aaa")) {
+				final Bitmap b = getCustomImageSampled(filePath, reqWidth, reqHeight);
+				if (b != null) {
+					final Bitmap bOut = Bitmap.createScaledBitmap(b, reqWidth, reqHeight, true);
+					if (!bOut.equals(b)) {
+						b.recycle();
+					}
+					return bOut;
+				}
+			}
+		}
+		return defaultBmp;
 	}
 
 }

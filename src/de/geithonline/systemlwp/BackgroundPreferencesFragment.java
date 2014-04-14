@@ -92,9 +92,6 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 	}
 
 	private void setBackgroundPickerData() {
-		if (Settings.prefs == null) {
-			Settings.prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-		}
 		final Bitmap b = Settings.getCustomBackgroundSampled(128, 128);
 		if (b != null) {
 			final Drawable dr = BitmapHelper.resizeToIcon128(b);

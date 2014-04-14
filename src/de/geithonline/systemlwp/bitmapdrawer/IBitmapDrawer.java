@@ -13,4 +13,6 @@ public interface IBitmapDrawer {
 	public boolean supportsPointerColor();
 
 	public boolean supportsShowRand();
+
+	public boolean supportsLogo();
 }

@@ -117,6 +117,10 @@
 
 	<string name="keepAspectRatio">Keep the aspect ratio of the Background Image</string>
 	<string name="keepAspectRatio_summary">If disabled the image is scaled to exact dimensions of the screen (no background sliding in that case)</string>
-													
+
+	<string name="customLogo">Use custom Logo</string>
+	<string name="logoPicker">Logo Image</string>
+	<string name="logoPicker_summary">Pick a custome logo as battery-image....the Logo should be a square image and around 500x500 pixel for best results!</string>
+														
 	
 </resources>

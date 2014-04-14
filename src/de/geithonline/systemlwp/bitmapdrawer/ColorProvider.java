@@ -1,11 +1,16 @@
 package de.geithonline.systemlwp.bitmapdrawer;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Shader.TileMode;
 import android.graphics.Typeface;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.ColorHelper;
@@ -216,6 +221,32 @@ public class ColorProvider {
 			paint.setTypeface(Typeface.DEFAULT);
 		}
 		paint.setTextAlign(align);
+		return paint;
+	}
+
+	// ####################################################################
+	// all for painting with bitmaps
+	// ####################################################################
+	protected Paint getGrayscalePaint() {
+		final Paint bgPaint = new Paint();
+		final ColorMatrix cm = new ColorMatrix();
+		// final ColorMatrix cm = new ColorMatrix(new float[]
+		// { 0.5f, 0.5f, 0.5f, 0, 0, //
+		// 0.5f, 0.5f, 0.5f, 0, 0, //
+		// 0.5f, 0.5f, 0.5f, 0, 0, //
+		// 0, 0, 0, 1, 0, 0,
+		// 0, 0, 0, 0, 1, 0 });
+		cm.setSaturation(0);
+		final ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
+		bgPaint.setColorFilter(f);
+		return bgPaint;
+	}
+
+	protected Paint getBitmapPaint(final Bitmap bitmap) {
+		final Paint paint = new Paint();
+		final BitmapShader fillBMPshader = new BitmapShader(bitmap, TileMode.REPEAT, TileMode.REPEAT);
+		paint.setStyle(Paint.Style.FILL);
+		paint.setShader(fillBMPshader);
 		return paint;
 	}
 
