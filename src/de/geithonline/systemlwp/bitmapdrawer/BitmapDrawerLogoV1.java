@@ -129,9 +129,7 @@ public class BitmapDrawerLogoV1 extends BitmapDrawer {
 
 	@Override
 	public void drawChargeStatusText(final int level) {
-		final int segmente = 101;
-		final float winkelOneSegment = (360f - (segmente - 0) * gap) / segmente;
-		final float startwinkel = 272f + level * (winkelOneSegment + gap) + gap / 2;
+		final float startwinkel = 272f + Math.round(level * 3.6f);
 
 		final Path mArc = new Path();
 		final RectF oval = getRectForOffset(offset + fontSizeArc + fontSizeArc);

@@ -2,6 +2,7 @@
 2014-04-10 : V1.19
 - fix the last remaining OutofMemoryErrors (Hopefully ;-))
 - reduction of memory-footprint of this App
+- new style LogoV1 (read http://goo.gl/ZDMpmj)
 
 
 [COLOR="blue"]2014-04-10 : V1.18[/COLOR]

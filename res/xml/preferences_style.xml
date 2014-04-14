@@ -115,6 +115,14 @@
 	        android:title="@string/logoPicker"
 	        android:dependency="customLogo"
 	        />
+ 	    <Preference 
+		    android:key="howtoLogoLink"
+	        android:title="Howto use Logo"
+	        android:icon="@drawable/about"
+	        >
+	        <intent android:action="android.intent.action.VIEW"
+	            android:data="http://goo.gl/ZDMpmj" />
+	    </Preference>
         
         
     </PreferenceCategory>
