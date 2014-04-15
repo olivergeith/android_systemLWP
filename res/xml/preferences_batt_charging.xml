@@ -56,7 +56,7 @@
 		    android:title="@string/charge_colors_enable" 
 		    android:summary="@string/charge_colors_enable_summary"
             />
- 	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+ 	    <de.geithonline.android.basics.preferences.colorpicker.ColorPickerPreference
 	        android:key="charge_color"
 	        android:title="@string/charge_color" 
 	        android:summary="Battery --> Color on charge"

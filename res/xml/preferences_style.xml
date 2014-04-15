@@ -92,7 +92,7 @@
             android:defaultValue="true"
             />
         
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
+        <de.geithonline.android.basics.preferences.colorpicker.ColorPickerPreference
             android:key="color_zeiger"
             android:title="@string/color_zeiger" 
             android:summary="@string/color_zeiger_summary"

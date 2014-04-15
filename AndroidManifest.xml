@@ -56,8 +56,6 @@
             </intent-filter>
             
         </activity>
-        <activity  android:name="net.margaritov.preference.colorpicker.ColorPickerPreference" />
-        
 
     </application>
 

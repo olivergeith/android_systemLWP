@@ -48,7 +48,7 @@
 		    android:disableDependentsState="true"
             />
         
-	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	    <de.geithonline.android.basics.preferences.colorpicker.ColorPickerPreference
 	        android:key="scale_color"
 	        android:title="@string/scale_color" 
 	        android:summary="@string/scale_color_summary"
@@ -75,7 +75,7 @@
 	        android:key="battStatusStyle"
 	        android:dependency="show_status"
 	        />
-	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	    <de.geithonline.android.basics.preferences.colorpicker.ColorPickerPreference
 	        android:key="status_color"
 	        android:title="@string/status_color" 
 	        android:summary="@string/status_color_summary"

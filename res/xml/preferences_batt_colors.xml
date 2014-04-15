@@ -3,19 +3,19 @@
     
     <PreferenceCategory android:title="@string/category_battery_options">
 
-	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	    <de.geithonline.android.basics.preferences.colorpicker.ColorPickerPreference
 	        android:key="battery_color"
 	        android:title="@string/color" 
 	        android:summary="Battery --> Color"
 	        android:defaultValue="@integer/COLOR_WHITE"
 	        />
-	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	    <de.geithonline.android.basics.preferences.colorpicker.ColorPickerPreference
 	        android:key="battery_color_mid"
 	        android:title="Color (mid level)" 
 	        android:summary="Battery --> Color (mid level)"
 	        android:defaultValue="@integer/COLOR_ORANGE"
 	        />
-	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	    <de.geithonline.android.basics.preferences.colorpicker.ColorPickerPreference
 	        android:key="battery_color_low"
 	        android:title="Color (low level)" 
 	        android:summary="Battery --> Color (low level)"
@@ -66,7 +66,7 @@
     <PreferenceCategory android:title="@string/category_battery_background_options">
         
 	        <!-- alphaSlider="true" -->
-	    <net.margaritov.preference.colorpicker.ColorPickerPreference
+	    <de.geithonline.android.basics.preferences.colorpicker.ColorPickerPreference
 	        android:key="background_color"
 	        android:title="@string/color" 
 	        android:summary="Battery-Background --> Color"
