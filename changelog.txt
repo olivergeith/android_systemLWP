@@ -1,3 +1,8 @@
+[COLOR="blue"]2014-04-22 : V1.20[/COLOR]
+2014-04-22 : V1.18
+- New Style ColorCircleV1 (Premium)
+- Removed LogoV1 Style (now in its own APP... https://play.google.com/store/apps/details?id=de.geithonline.logolwp)
+
 [COLOR="blue"]2014-04-10 : V1.19[/COLOR]
 2014-04-10 : V1.19
 - fix the last remaining OutofMemoryErrors (Hopefully ;-))

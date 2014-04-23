@@ -175,9 +175,4 @@ public abstract class BitmapDrawer extends ColorProvider implements IBitmapDrawe
 		return false;
 	}
 
-	@Override
-	public boolean supportsLogo() {
-		return false;
-	}
-
 }

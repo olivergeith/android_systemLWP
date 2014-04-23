@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -27,7 +27,6 @@ public class BattPreferencesFragment extends PreferenceFragment {
 	private final int PICK_LOGO = 3;
 	public static final String STYLE_PICKER_KEY = "batt_style";
 	private ListPreference stylePref;
-	private Preference logoPicker;
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
@@ -46,28 +45,15 @@ public class BattPreferencesFragment extends PreferenceFragment {
 			}
 		});
 
-		// Logopicker
-		logoPicker = findPreference("logoPicker");
-		logoPicker.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-			@Override
-			public boolean onPreferenceClick(final Preference preference) {
-				final Intent intent = new Intent();
-				intent.setType("image/*");
-				intent.setAction(Intent.ACTION_GET_CONTENT);
-				startActivityForResult(Intent.createChooser(intent, "Select Logo Picture"), PICK_LOGO);
-				return true;
-			}
-		});
-		final Preference customLogo = findPreference("customLogo");
-		customLogo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-			@Override
-			public boolean onPreferenceClick(final Preference preference) {
-				setLogoPickerData();
-				return true;
-			}
-		});
+		final Preference logov1 = findPreference("logov1");
+		logov1.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
-		setLogoPickerData();
+			@Override
+			public boolean onPreferenceClick(final Preference preference) {
+				showLogoV1Message();
+				return true;
+			}
+		});
 
 		// initialize Properties
 		enableSettingsForStyle(Settings.getStyle());
@@ -117,9 +103,6 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		if (Settings.isDebuggingMessages()) {
 			Toaster.showInfoToast(getActivity(), "SetBG to " + filePath);
 		}
-
-		// Summaries usw updaten
-		setLogoPickerData();
 	}
 
 	private void enableProFeatures() {
@@ -133,24 +116,31 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		final Preference zeiger = findPreference("show_zeiger");
 		final Preference rand = findPreference("show_rand");
 		final Preference colorZeiger = findPreference("color_zeiger");
-		final Preference customLogo = findPreference("customLogo");
 		if (b != null) {
 			stylePref.setIcon(BitmapHelper.bitmapToIcon(b));
 		}
-		customLogo.setEnabled(drawer.supportsLogo());
-		logoPicker.setEnabled(drawer.supportsLogo());
 		zeiger.setEnabled(drawer.supportsShowPointer());
 		rand.setEnabled(drawer.supportsShowRand());
 		colorZeiger.setEnabled(drawer.supportsPointerColor());
 		stylePref.setSummary("Current style: " + style);
-	}
-
-	private void setLogoPickerData() {
-		final Bitmap b = Settings.getCustomLogoSampled(128, 128);
-		if (b != null) {
-			final Drawable dr = BitmapHelper.resizeToIcon128(b);
-			// logoPicker.setSummary(Settings.getCustomLogoFilePath());
-			logoPicker.setIcon(dr);
+		if (style.equals("LogoV1")) {
+			showLogoV1Message();
 		}
 	}
+
+	private void showLogoV1Message() {
+		Toaster.alertInfo(getActivity(), "The LogoV1 style is no longer available!" //
+				+ "\nIt has moved to its own APP!" //
+				+ "\n...with lots of new special settings only for this style!" //
+				+ "\n...like:" //
+				+ "\n- brightness of grayscaled background" //
+				+ "\n- changing hue of logo-image" //
+				+ "\n- re-coloring of logo-image" //
+				+ "\n- masking logo-image to lots of different shapes" //
+				+ "\n- ... and many more ..." //
+				+ "\n" //
+				+ "\nCheck it out...it is free (and addfree) too!", "Goto Play Store ...",
+				"https://play.google.com/store/apps/details?id=de.geithonline.logolwp");
+	}
+
 }

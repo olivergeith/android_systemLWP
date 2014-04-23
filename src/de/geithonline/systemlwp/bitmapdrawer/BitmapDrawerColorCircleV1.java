@@ -54,8 +54,8 @@ public class BitmapDrawerColorCircleV1 extends BitmapDrawer {
 		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(bitmap);
 
-		einerDicke = Math.round(bWidth * 0.07f);
-		zehnerDicke = Math.round(bWidth * 0.03f);
+		einerDicke = Math.round(bWidth * 0.06f);
+		zehnerDicke = Math.round(bWidth * 0.04f);
 		offset = Math.round(bWidth * 0.011f);
 		fontSize = Math.round(bWidth * 0.35f);
 		fontSizeArc = Math.round(bWidth * 0.04f);

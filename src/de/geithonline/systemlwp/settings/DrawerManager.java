@@ -17,7 +17,6 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBrickV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerColorCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerFlowerV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerFlowerV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerLogoV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerNumberOnlyV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleArcV2;
@@ -96,7 +95,6 @@ public class DrawerManager {
 		drawer.put("SimpleArcV1", new BitmapDrawerSimpleArcV1());
 		drawer.put("SimpleArcV2", new BitmapDrawerSimpleArcV2());
 		drawer.put("SimpleArcV3", new BitmapDrawerSimpleArcV3());
-		drawer.put("LogoV1", new BitmapDrawerLogoV1());
 	}
 
 	public static IBitmapDrawer getDrawer(final String name) {
