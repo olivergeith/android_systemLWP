@@ -4,7 +4,6 @@ import android.appwidget.AppWidgetManager;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import de.geithonline.systemlwp.settings.Settings;
 
 public class AboutFragment extends PreferenceFragment {
@@ -38,9 +37,6 @@ public class AboutFragment extends PreferenceFragment {
 	}
 
 	private void setSpecialThings() {
-		if (Settings.prefs == null) {
-			Settings.prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-		}
 		final Preference proBox = findPreference("premium");
 
 		if (Settings.isPremium()) {
