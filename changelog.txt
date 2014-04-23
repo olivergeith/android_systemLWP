@@ -1,5 +1,5 @@
-[COLOR="blue"]2014-04-22 : V1.20[/COLOR]
-2014-04-22 : V1.18
+[COLOR="blue"]2014-04-23 : V1.20[/COLOR]
+2014-04-23 : V1.20
 - New Style ColorCircleV1 (Premium)
 - Removed LogoV1 Style (now in its own APP... https://play.google.com/store/apps/details?id=de.geithonline.logolwp)
 
