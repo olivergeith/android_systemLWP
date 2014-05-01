@@ -29,6 +29,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV6;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV7;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV8;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerSimpleCircleV9;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV3;
@@ -82,6 +83,7 @@ public class DrawerManager {
 		drawer.put("SimpleCircleV6", new BitmapDrawerSimpleCircleV6());
 		drawer.put("SimpleCircleV7", new BitmapDrawerSimpleCircleV7());
 		drawer.put("SimpleCircleV8", new BitmapDrawerSimpleCircleV8());
+		drawer.put("SimpleCircleV9", new BitmapDrawerSimpleCircleV9());
 		drawer.put("ColorCircleV1", new BitmapDrawerColorCircleV1());
 		drawer.put("AokpCircleV1", new BitmapDrawerAokpCircleV1());
 		drawer.put("AokpCircleV2", new BitmapDrawerAokpCircleV2());

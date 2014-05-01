@@ -148,7 +148,8 @@
         <item name="54">false</item>
         <item name="55">true</item>
         <item name="56">false</item>
-        <item name="57">true</item>
+        <item name="57">false</item>
+        <item name="58">false</item>
         <item name="150">false</item>
         <item name="60">true</item>
         <item name="61">true</item>
@@ -195,6 +196,7 @@
         <item name="55">SimpleCircleV6</item>
         <item name="56">SimpleCircleV7</item>
         <item name="57">SimpleCircleV8</item>
+        <item name="58">SimpleCircleV9</item>
         <item name="150">ColorCircleV1</item>
         <item name="60">AokpCircleV1</item>
         <item name="61">AokpCircleV2</item>
@@ -241,6 +243,7 @@
         <item name="55">SimpleCircleV6</item>
         <item name="56">SimpleCircleV7</item>
         <item name="57">SimpleCircleV8</item>
+        <item name="58">SimpleCircleV9</item>
         <item name="150">ColorCircleV1</item>
         <item name="60">AokpCircleV1</item>
         <item name="61">AokpCircleV2</item>
