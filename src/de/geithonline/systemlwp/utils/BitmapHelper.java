@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -79,6 +81,78 @@ public class BitmapHelper {
 		}
 		final long size = f.length();
 		Log.i("Geith", "Custom BG = " + path + " -> size is: " + size);
+	}
+
+	/**
+	 * @return Bitmap or null...
+	 */
+	private static Bitmap getCustomImageSampled(final String filePath, final int reqWidth, final int reqHeight) {
+		if (!filePath.equals("aaa")) {
+			final BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+			options.inDither = false; // Disable Dithering mode
+			options.inPurgeable = true; // Tell to gc that whether it needs free
+										// memory, the Bitmap can be cleared
+			options.inInputShareable = true; // Which kind of reference will be
+												// used to recover the Bitmap
+												// data after being clear, when
+												// it will be used in the future
+			options.inTempStorage = new byte[32 * 1024];
+			options.inJustDecodeBounds = true;
+			BitmapFactory.decodeFile(filePath, options);
+			// Calculate inSampleSize
+			options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+			// Decode bitmap with inSampleSize set
+			options.inJustDecodeBounds = false;
+			final Bitmap b = BitmapFactory.decodeFile(filePath, options);
+			return b;
+		}
+		return null;
+	}
+
+	/**
+	 * @return Bitmap or null...
+	 */
+	private static Bitmap getCustomResourceSampled(final Context context, final int resourceID, final int reqWidth, final int reqHeight) {
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		options.inDither = false; // Disable Dithering mode
+		options.inPurgeable = true; // Tell to gc that whether it needs free
+									// memory, the Bitmap can be cleared
+		options.inInputShareable = true; // Which kind of reference will be
+											// used to recover the Bitmap
+											// data after being clear, when
+											// it will be used in the future
+		options.inTempStorage = new byte[32 * 1024];
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeResource(context.getResources(), resourceID, options);
+		// Calculate inSampleSize
+		options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+		// Decode bitmap with inSampleSize set
+		options.inJustDecodeBounds = false;
+		final Bitmap b = BitmapFactory.decodeResource(context.getResources(), resourceID, options);
+		return b;
+	}
+
+	public static int calculateInSampleSize(final BitmapFactory.Options options, final int reqWidth, final int reqHeight) {
+		// Raw height and width of image
+		final int height = options.outHeight;
+		final int width = options.outWidth;
+		int inSampleSize = 1;
+		if (height > reqHeight || width > reqWidth) {
+
+			final int halfHeight = height / 2;
+			final int halfWidth = width / 2;
+
+			// Calculate the largest inSampleSize value that is a power of 2 and
+			// keeps both
+			// height and width larger than the requested height and width.
+			while ((halfHeight / inSampleSize) > reqHeight && (halfWidth / inSampleSize) > reqWidth) {
+				inSampleSize *= 2;
+			}
+		}
+		Log.i("GEITH", "Samplesize =" + inSampleSize);
+		return inSampleSize;
 	}
 
 }

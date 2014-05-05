@@ -132,8 +132,8 @@
         <item name="12">true</item>
         <item name="21">true</item>
         <item name="22">true</item>
-        <item name="23">false</item>
-        <item name="24">false</item>
+        <item name="23">true</item>
+        <item name="24">true</item>
         <item name="20">true</item>
         <item name="80">true</item>
         <item name="30">true</item>
