@@ -1,21 +1,89 @@
 package de.geithonline.systemlwp.bitmapdrawer;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Shader.TileMode;
 import android.graphics.Typeface;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class ColorProvider {
+
+	private final Paint erasurePaint = initErasurePaint();
+	private final Paint numberPaint = initNumberPaint();
+	private final Paint textPaint = initTextPaint();
+	private final Paint battPaint = initBattPaint();
+	private final Paint zeigerPaint = initZeigerPaint();
+	private final Paint backgrdPaint = initBackgroundPaint();
+	private final Paint scalePaint = initScalePaint();
+	private final Paint battStatusPaint = initBattStatusPaint();
+
+	private Paint initBattStatusPaint() {
+		final Paint battStatusPaint = new Paint();
+		battStatusPaint.setAntiAlias(true);
+		battStatusPaint.setAlpha(255);
+		battStatusPaint.setFakeBoldText(true);
+		return battStatusPaint;
+	}
+
+	private Paint initScalePaint() {
+		final Paint scalePaint = new Paint();
+		scalePaint.setAntiAlias(true);
+		scalePaint.setAlpha(255);
+		scalePaint.setFakeBoldText(true);
+		return scalePaint;
+	}
+
+	private Paint initBackgroundPaint() {
+		final Paint backgroundPaint = new Paint();
+		backgroundPaint.setAntiAlias(true);
+		backgroundPaint.setStyle(Style.FILL);
+		return backgroundPaint;
+	}
+
+	private Paint initZeigerPaint() {
+		final Paint zeigerPaint = new Paint();
+		zeigerPaint.setAntiAlias(true);
+		zeigerPaint.setAlpha(255);
+		zeigerPaint.setStyle(Style.FILL);
+		return zeigerPaint;
+	}
+
+	private Paint initErasurePaint() {
+		final Paint erasurePaint = new Paint();
+		erasurePaint.setAntiAlias(true);
+		erasurePaint.setColor(Color.TRANSPARENT);
+		final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
+		erasurePaint.setXfermode(xfermode);
+		erasurePaint.setStyle(Style.FILL);
+		return erasurePaint;
+	}
+
+	private Paint initNumberPaint() {
+		final Paint numberPaint = new Paint();
+		numberPaint.setAntiAlias(true);
+		numberPaint.setFakeBoldText(true);
+		return numberPaint;
+	}
+
+	private Paint initTextPaint() {
+		final Paint textPaint = new Paint();
+		textPaint.setAntiAlias(true);
+		textPaint.setAntiAlias(true);
+		textPaint.setFakeBoldText(true);
+		return textPaint;
+	}
+
+	private Paint initBattPaint() {
+		final Paint battPaint = new Paint();
+		battPaint.setAntiAlias(true);
+		battPaint.setStyle(Style.FILL);
+		return battPaint;
+	}
+
 	// #####################################################################################
 	// LevelColors
 	// #####################################################################################
@@ -60,13 +128,7 @@ public class ColorProvider {
 	// Different Paints
 	// #####################################################################################
 	public Paint getErasurePaint() {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(Color.TRANSPARENT);
-		final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-		paint.setXfermode(xfermode);
-		paint.setStyle(Style.FILL);
-		return paint;
+		return erasurePaint;
 	}
 
 	public Paint getNumberPaint(final int level, final int fontSize) {
@@ -74,28 +136,25 @@ public class ColorProvider {
 	}
 
 	public Paint getNumberPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
+		numberPaint.setAlpha(Settings.getOpacity());
 		if (Settings.isColoredNumber()) {
-			paint.setColor(getColorForLevel(level));
+			numberPaint.setColor(getColorForLevel(level));
 		} else {
-			paint.setColor(Settings.getBattColor());
+			numberPaint.setColor(Settings.getBattColor());
 		}
-		paint.setAlpha(Settings.getOpacity());
 		final int fSize = adjustFontSize(level, fontSize);
-		paint.setTextSize(fSize);
-		paint.setFakeBoldText(true);
+		numberPaint.setTextSize(fSize);
 		if (bold) {
-			paint.setTypeface(Typeface.DEFAULT_BOLD);
+			numberPaint.setTypeface(Typeface.DEFAULT_BOLD);
 		} else {
-			paint.setTypeface(Typeface.DEFAULT);
+			numberPaint.setTypeface(Typeface.DEFAULT);
 		}
-		paint.setTextAlign(align);
+		numberPaint.setTextAlign(align);
 		if (erase) {
 			final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-			paint.setXfermode(xfermode);
+			numberPaint.setXfermode(xfermode);
 		}
-		return paint;
+		return numberPaint;
 	}
 
 	public Paint getTextPaint(final int level, final int fontSize) {
@@ -103,28 +162,24 @@ public class ColorProvider {
 	}
 
 	public Paint getTextPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
+		textPaint.setAlpha(Settings.getOpacity());
 		if (Settings.isColoredNumber()) {
-			paint.setColor(getColorForLevel(level));
+			textPaint.setColor(getColorForLevel(level));
 		} else {
-			paint.setColor(Settings.getBattColor());
+			textPaint.setColor(Settings.getBattColor());
 		}
-		paint.setAlpha(Settings.getOpacity());
-		paint.setAntiAlias(true);
-		paint.setTextSize(fontSize);
-		paint.setFakeBoldText(true);
+		textPaint.setTextSize(fontSize);
 		if (bold) {
-			paint.setTypeface(Typeface.DEFAULT_BOLD);
+			textPaint.setTypeface(Typeface.DEFAULT_BOLD);
 		} else {
-			paint.setTypeface(Typeface.DEFAULT);
+			textPaint.setTypeface(Typeface.DEFAULT);
 		}
-		paint.setTextAlign(align);
+		textPaint.setTextAlign(align);
 		if (erase) {
 			final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-			paint.setXfermode(xfermode);
+			textPaint.setXfermode(xfermode);
 		}
-		return paint;
+		return textPaint;
 	}
 
 	private int adjustFontSize(final int level, final int fontSize) {
@@ -138,12 +193,9 @@ public class ColorProvider {
 	}
 
 	public Paint getBatteryPaint(final int level) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(getColorForLevel(level));
-		paint.setAlpha(Settings.getOpacity());
-		paint.setStyle(Style.FILL);
-		return paint;
+		battPaint.setAlpha(Settings.getOpacity());
+		battPaint.setColor(getColorForLevel(level));
+		return battPaint;
 	}
 
 	public Paint getBatteryPaintSourceIn(final int level) {
@@ -161,93 +213,48 @@ public class ColorProvider {
 	}
 
 	public Paint getZeigerPaint(final int level) {
-		final Paint paint = getZeigerPaint(level, false);
-		return paint;
+		return getZeigerPaint(level, false);
 	}
 
 	public Paint getZeigerPaint(final int level, final boolean dropShadow) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(Settings.getZeigerColor());
-		paint.setAlpha(255);
-		paint.setStyle(Style.FILL);
+		zeigerPaint.setColor(Settings.getZeigerColor());
 		if (dropShadow) {
-			paint.setShadowLayer(10, 0, 0, Color.BLACK);
+			zeigerPaint.setShadowLayer(10, 0, 0, Color.BLACK);
 		}
-		return paint;
+		return zeigerPaint;
 	}
 
 	public Paint getBackgroundPaint() {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(Settings.getBackgroundColor());
-		paint.setAlpha(Settings.getBackgroundOpacity());
-		paint.setStyle(Style.FILL);
-		return paint;
+		backgrdPaint.setColor(Settings.getBackgroundColor());
+		backgrdPaint.setAlpha(Settings.getBackgroundOpacity());
+		return backgrdPaint;
 	}
 
 	public Paint getTextScalePaint(final int fontSize, final Align align, final boolean bold) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(Settings.getScaleColor());
-		paint.setAlpha(255);
-		paint.setAntiAlias(true);
-		paint.setTextSize(fontSize);
-		paint.setFakeBoldText(true);
+		scalePaint.setColor(Settings.getScaleColor());
+		scalePaint.setTextSize(fontSize);
 		if (bold) {
-			paint.setTypeface(Typeface.DEFAULT_BOLD);
+			scalePaint.setTypeface(Typeface.DEFAULT_BOLD);
 		} else {
-			paint.setTypeface(Typeface.DEFAULT);
+			scalePaint.setTypeface(Typeface.DEFAULT);
 		}
-		paint.setTextAlign(align);
+		scalePaint.setTextAlign(align);
 		if (Settings.isScaleTransparent()) {
 			final PorterDuffXfermode xfermode = new PorterDuffXfermode(Mode.CLEAR);
-			paint.setXfermode(xfermode);
+			scalePaint.setXfermode(xfermode);
 		}
-		return paint;
+		return scalePaint;
 	}
 
 	public Paint getTextBattStatusPaint(final int fontSize, final Align align, final boolean bold) {
-		final Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(Settings.getBattStatusColor());
-		paint.setAlpha(255);
-		paint.setAntiAlias(true);
-		paint.setTextSize(fontSize);
-		paint.setFakeBoldText(true);
+		battStatusPaint.setColor(Settings.getBattStatusColor());
+		battStatusPaint.setTextSize(fontSize);
 		if (bold) {
-			paint.setTypeface(Typeface.DEFAULT_BOLD);
+			battStatusPaint.setTypeface(Typeface.DEFAULT_BOLD);
 		} else {
-			paint.setTypeface(Typeface.DEFAULT);
+			battStatusPaint.setTypeface(Typeface.DEFAULT);
 		}
-		paint.setTextAlign(align);
-		return paint;
+		battStatusPaint.setTextAlign(align);
+		return battStatusPaint;
 	}
-
-	// ####################################################################
-	// all for painting with bitmaps
-	// ####################################################################
-	protected Paint getGrayscalePaint() {
-		final Paint bgPaint = new Paint();
-		final ColorMatrix cm = new ColorMatrix();
-		// final ColorMatrix cm = new ColorMatrix(new float[]
-		// { 0.5f, 0.5f, 0.5f, 0, 0, //
-		// 0.5f, 0.5f, 0.5f, 0, 0, //
-		// 0.5f, 0.5f, 0.5f, 0, 0, //
-		// 0, 0, 0, 1, 0, 0,
-		// 0, 0, 0, 0, 1, 0 });
-		cm.setSaturation(0);
-		final ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
-		bgPaint.setColorFilter(f);
-		return bgPaint;
-	}
-
-	protected Paint getBitmapPaint(final Bitmap bitmap) {
-		final Paint paint = new Paint();
-		final BitmapShader fillBMPshader = new BitmapShader(bitmap, TileMode.REPEAT, TileMode.REPEAT);
-		paint.setStyle(Paint.Style.FILL);
-		paint.setShader(fillBMPshader);
-		return paint;
-	}
-
 }
