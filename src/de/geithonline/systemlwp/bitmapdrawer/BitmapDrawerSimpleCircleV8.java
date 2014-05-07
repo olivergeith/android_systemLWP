@@ -100,8 +100,7 @@ public class BitmapDrawerSimpleCircleV8 extends BitmapDrawer {
 		// glow
 		bgPaint = getBackgroundPaint();
 		bgPaint.setAlpha(192);
-		// bgPaint.setShadowLayer(20, 0, 0, getBatteryPaint(level).getColor());
-		bgPaint.setShadowLayer(8, 0, 0, Color.RED);
+		bgPaint.setShadowLayer(8, 0, 0, getZeigerPaint(level).getColor());
 		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + abstand + levelDicke), 270, 360, true, bgPaint);
 		bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + abstand + levelDicke), 0, 360, true, getErasurePaint());
 
@@ -118,7 +117,9 @@ public class BitmapDrawerSimpleCircleV8 extends BitmapDrawer {
 			// // ‰uﬂeren Rand
 			// randPaint.setStrokeWidth(offset);
 			// randPaint.setStyle(Style.STROKE);
-			// bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc + abstand + levelDicke + abstand + offset), 270, 360, true, randPaint);
+			// bitmapCanvas.drawArc(getRectForOffset(offset + fontSizeArc +
+			// abstand + levelDicke + abstand + offset), 270, 360, true,
+			// randPaint);
 			// innere Fl‰che
 			final Paint bgPaint2 = getBackgroundPaint();
 			bgPaint2.setColor(ColorHelper.darker(bgPaint2.getColor()));
