@@ -12,20 +12,12 @@ import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class ColorProvider {
 
-	private final Paint erasurePaint = initErasurePaint();
-	private final Paint numberPaint = initNumberPaint();
-	private final Paint textPaint = initTextPaint();
-	private final Paint battPaint = initBattPaint();
-	private final Paint zeigerPaint = initZeigerPaint();
-	private final Paint backgrdPaint = initBackgroundPaint();
-	private final Paint scalePaint = initScalePaint();
-	private final Paint battStatusPaint = initBattStatusPaint();
-
 	private Paint initBattStatusPaint() {
 		final Paint battStatusPaint = new Paint();
 		battStatusPaint.setAntiAlias(true);
 		battStatusPaint.setAlpha(255);
 		battStatusPaint.setFakeBoldText(true);
+		battStatusPaint.setStyle(Style.FILL);
 		return battStatusPaint;
 	}
 
@@ -34,6 +26,7 @@ public class ColorProvider {
 		scalePaint.setAntiAlias(true);
 		scalePaint.setAlpha(255);
 		scalePaint.setFakeBoldText(true);
+		scalePaint.setStyle(Style.FILL);
 		return scalePaint;
 	}
 
@@ -128,7 +121,7 @@ public class ColorProvider {
 	// Different Paints
 	// #####################################################################################
 	public Paint getErasurePaint() {
-		return erasurePaint;
+		return initErasurePaint();
 	}
 
 	public Paint getNumberPaint(final int level, final int fontSize) {
@@ -136,6 +129,7 @@ public class ColorProvider {
 	}
 
 	public Paint getNumberPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
+		final Paint numberPaint = initNumberPaint();
 		numberPaint.setAlpha(Settings.getOpacity());
 		if (Settings.isColoredNumber()) {
 			numberPaint.setColor(getColorForLevel(level));
@@ -162,6 +156,7 @@ public class ColorProvider {
 	}
 
 	public Paint getTextPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
+		final Paint textPaint = initTextPaint();
 		textPaint.setAlpha(Settings.getOpacity());
 		if (Settings.isColoredNumber()) {
 			textPaint.setColor(getColorForLevel(level));
@@ -193,8 +188,10 @@ public class ColorProvider {
 	}
 
 	public Paint getBatteryPaint(final int level) {
-		battPaint.setAlpha(Settings.getOpacity());
+		final Paint battPaint = initBattPaint();
+		// battPaint.setAlpha(Settings.getOpacity());
 		battPaint.setColor(getColorForLevel(level));
+		battPaint.setAlpha(Settings.getOpacity());
 		return battPaint;
 	}
 
@@ -217,6 +214,7 @@ public class ColorProvider {
 	}
 
 	public Paint getZeigerPaint(final int level, final boolean dropShadow) {
+		final Paint zeigerPaint = initZeigerPaint();
 		zeigerPaint.setColor(Settings.getZeigerColor());
 		if (dropShadow) {
 			zeigerPaint.setShadowLayer(10, 0, 0, Color.BLACK);
@@ -225,12 +223,14 @@ public class ColorProvider {
 	}
 
 	public Paint getBackgroundPaint() {
+		final Paint backgrdPaint = initBackgroundPaint();
 		backgrdPaint.setColor(Settings.getBackgroundColor());
 		backgrdPaint.setAlpha(Settings.getBackgroundOpacity());
 		return backgrdPaint;
 	}
 
 	public Paint getTextScalePaint(final int fontSize, final Align align, final boolean bold) {
+		final Paint scalePaint = initScalePaint();
 		scalePaint.setColor(Settings.getScaleColor());
 		scalePaint.setTextSize(fontSize);
 		if (bold) {
@@ -247,6 +247,7 @@ public class ColorProvider {
 	}
 
 	public Paint getTextBattStatusPaint(final int fontSize, final Align align, final boolean bold) {
+		final Paint battStatusPaint = initBattStatusPaint();
 		battStatusPaint.setColor(Settings.getBattStatusColor());
 		battStatusPaint.setTextSize(fontSize);
 		if (bold) {
