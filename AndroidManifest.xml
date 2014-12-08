@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.geithonline.systemlwp"
-    android:versionCode="21"
-    android:versionName="1.21" 
+    android:versionCode="30"
+    android:versionName="1.30" 
     >
 
     <uses-sdk
@@ -39,7 +39,6 @@
                 <action android:name="android.service.wallpaper.WallpaperService" >
                 </action>
             </intent-filter>
-
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/mywallpaper" >
@@ -54,9 +53,20 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
         </activity>
-
+        
+        <activity
+            android:name="de.geithonline.systemlwp.ImageReceiverActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.BatteryLWP" >
+		    <intent-filter>
+		        <action android:name="android.intent.action.SEND" />
+		        <category android:name="android.intent.category.DEFAULT" />
+		        <data android:mimeType="image/*" />
+		    </intent-filter>
+        </activity>
+        
     </application>
 
 </manifest>

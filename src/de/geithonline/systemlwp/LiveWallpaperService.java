@@ -40,6 +40,8 @@ public class LiveWallpaperService extends WallpaperService {
 		return new MyWallpaperEngine();
 	}
 
+	public static String filePath = "aaa";
+
 	// #####################################################################################
 	// Wallpaper Engine
 	// #####################################################################################
@@ -49,7 +51,6 @@ public class LiveWallpaperService extends WallpaperService {
 		private int i;
 		private final Handler handler = new Handler();
 		private boolean visible = true;
-		private String filePath = "aaa";
 		private Bitmap backgroundImage = null;
 		private IBitmapDrawer bitmapDrawer = Settings.getBatteryStyle();
 		private int cWidth = 0;
