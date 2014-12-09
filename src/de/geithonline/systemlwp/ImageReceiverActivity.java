@@ -10,6 +10,8 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,17 +19,21 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.ImageView;
 
 public class ImageReceiverActivity extends Activity {
 
-	private TextView button;
+	private Button button;
 	private String image;
+	private ImageView imgView;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image_receiver_activity);
+		imgView = (ImageView) findViewById(R.id.imageView1);
+		button = (Button) findViewById(R.id.setBackground);
 
 		// Get intent, action and MIME type
 		final Intent intent = getIntent();
@@ -39,11 +45,12 @@ public class ImageReceiverActivity extends Activity {
 				if (image == null) {
 					finish();
 				}
+				final Bitmap bmp = loadBitmap(image);
+				imgView.setImageBitmap(bmp);
 			}
 		}
-		button = (TextView) findViewById(R.id.setBackground);
-		button.setOnClickListener(new OnClickListener() {
 
+		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(final View v) {
 				setBackground(image);
@@ -51,6 +58,16 @@ public class ImageReceiverActivity extends Activity {
 			}
 		});
 
+	}
+
+	/**
+	 * @return Bitmap or null...
+	 */
+	public static Bitmap loadBitmap(final String filePath) {
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		final Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
+		return bitmap;
 	}
 
 	private String handleSendImage(final Intent intent) {
@@ -89,8 +106,8 @@ public class ImageReceiverActivity extends Activity {
 
 	private String savefile(final Uri sourceuri, final String filename) {
 		final String sourceFilename = sourceuri.getPath();
-		final String destinationDir = Environment.getExternalStorageDirectory().getPath() + File.separator + "data"
-				+ File.separator + "BatteryLWP" + File.separator;
+		final String destinationDir = Environment.getExternalStorageDirectory().getPath() + File.separator + "data" + File.separator + "BatteryLWP"
+				+ File.separator;
 		final File dir = new File(destinationDir);
 		dir.mkdirs();
 		final String destinationFilename = destinationDir + filename;
