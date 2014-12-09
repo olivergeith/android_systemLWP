@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +20,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import de.geithonline.systemlwp.utils.BitmapHelper;
+import de.geithonline.systemlwp.utils.URIHelper;
 
 public class ImageReceiverActivity extends Activity {
 
@@ -39,17 +40,22 @@ public class ImageReceiverActivity extends Activity {
 		final Intent intent = getIntent();
 		final String action = intent.getAction();
 		final String type = intent.getType();
+		// Check if someone wants to send us an image
 		if (Intent.ACTION_SEND.equals(action) && type != null) {
 			if (type.startsWith("image/")) {
 				image = handleSendImage(intent); // Handle single image being sent
+				Log.i("Receve", "Image = " + image);
 				if (image == null) {
 					finish();
+					return;
+				} else {
+					// Show image in Activity
+					final Bitmap bmp = BitmapHelper.getCustomImageSampled(image, 1000, 1000);
+					imgView.setImageBitmap(bmp);
 				}
-				final Bitmap bmp = loadBitmap(image);
-				imgView.setImageBitmap(bmp);
 			}
 		}
-
+		// Setter Button
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(final View v) {
@@ -61,20 +67,17 @@ public class ImageReceiverActivity extends Activity {
 	}
 
 	/**
-	 * @return Bitmap or null...
+	 * LOading real FilePath from Uri.... adn copiing it to sdcard/data/Folder
+	 * 
+	 * @param intent
+	 * @return
 	 */
-	public static Bitmap loadBitmap(final String filePath) {
-		final BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-		final Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
-		return bitmap;
-	}
-
 	private String handleSendImage(final Intent intent) {
-		final Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-		if (imageUri != null) {
+		final Uri uri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+		if (uri != null) {
 			// Update UI to reflect image being shared
-			final String sourceFilename = imageUri.getPath();
+			// final String sourceFilename = uri.getPath();
+			final String sourceFilename = URIHelper.getPath(this, uri);
 			Log.i("SEND_RECEIVED", "SourcePath = " + sourceFilename);
 			String outname = "BatteryLWP.jpg";
 			if (sourceFilename.endsWith("jpg")) {
@@ -84,16 +87,19 @@ public class ImageReceiverActivity extends Activity {
 			} else {
 				return null;
 			}
+			final String myFile = copyfileToMyData(sourceFilename, outname);
 
-			// Saving file to datadir
-			final String savefile = savefile(imageUri, outname);
-			return savefile;
-			// setBackground(savefile);
+			return myFile;
 
 		}
 		return null;
 	}
 
+	/**
+	 * Settings prefs to use the image
+	 * 
+	 * @param savefile
+	 */
 	private void setBackground(final String savefile) {
 		final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		final SharedPreferences.Editor editor = sharedPref.edit();
@@ -104,8 +110,14 @@ public class ImageReceiverActivity extends Activity {
 		LiveWallpaperService.filePath = "aaa";
 	}
 
-	private String savefile(final Uri sourceuri, final String filename) {
-		final String sourceFilename = sourceuri.getPath();
+	/**
+	 * Copiing file to myData Dir
+	 * 
+	 * @param source
+	 * @param filename
+	 * @return
+	 */
+	private String copyfileToMyData(final String source, final String filename) {
 		final String destinationDir = Environment.getExternalStorageDirectory().getPath() + File.separator + "data" + File.separator + "BatteryLWP"
 				+ File.separator;
 		final File dir = new File(destinationDir);
@@ -116,7 +128,7 @@ public class ImageReceiverActivity extends Activity {
 		BufferedOutputStream bos = null;
 
 		try {
-			bis = new BufferedInputStream(new FileInputStream(sourceFilename));
+			bis = new BufferedInputStream(new FileInputStream(source));
 			bos = new BufferedOutputStream(new FileOutputStream(destinationFilename, false));
 			final byte[] buf = new byte[1024];
 			bis.read(buf);

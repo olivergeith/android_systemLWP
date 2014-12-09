@@ -86,7 +86,7 @@ public class BitmapHelper {
 	/**
 	 * @return Bitmap or null...
 	 */
-	private static Bitmap getCustomImageSampled(final String filePath, final int reqWidth, final int reqHeight) {
+	public static Bitmap getCustomImageSampled(final String filePath, final int reqWidth, final int reqHeight) {
 		if (!filePath.equals("aaa")) {
 			final BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inPreferredConfig = Bitmap.Config.ARGB_8888;
