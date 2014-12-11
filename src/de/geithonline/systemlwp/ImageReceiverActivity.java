@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 import de.geithonline.systemlwp.utils.URIHelper;
 
@@ -28,6 +29,7 @@ public class ImageReceiverActivity extends Activity {
 	private Button button;
 	private String image;
 	private ImageView imgView;
+	private TextView textview;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class ImageReceiverActivity extends Activity {
 		setContentView(R.layout.activity_image_receiver_activity);
 		imgView = (ImageView) findViewById(R.id.imageView1);
 		button = (Button) findViewById(R.id.setBackground);
+		textview = (TextView) findViewById(R.id.textView1);
 
 		// Get intent, action and MIME type
 		final Intent intent = getIntent();
@@ -43,7 +46,8 @@ public class ImageReceiverActivity extends Activity {
 		// Check if someone wants to send us an image
 		if (Intent.ACTION_SEND.equals(action) && type != null) {
 			if (type.startsWith("image/")) {
-				image = handleSendImage(intent); // Handle single image being sent
+				image = handleSendImage(intent); // Handle single image being
+													// sent
 				Log.i("Receve", "Image = " + image);
 				if (image == null) {
 					finish();
@@ -52,6 +56,12 @@ public class ImageReceiverActivity extends Activity {
 					// Show image in Activity
 					final Bitmap bmp = BitmapHelper.getCustomImageSampled(image, 1000, 1000);
 					imgView.setImageBitmap(bmp);
+					final String text = (String) intent.getCharSequenceExtra(Intent.EXTRA_SUBJECT);
+					if (text != null && !text.isEmpty()) {
+						textview.setText(text);
+					} else {
+						textview.setText("");
+					}
 				}
 			}
 		}
@@ -118,8 +128,8 @@ public class ImageReceiverActivity extends Activity {
 	 * @return
 	 */
 	private String copyfileToMyData(final String source, final String filename) {
-		final String destinationDir = Environment.getExternalStorageDirectory().getPath() + File.separator + "data" + File.separator + "BatteryLWP"
-				+ File.separator;
+		final String destinationDir = Environment.getExternalStorageDirectory().getPath() + File.separator + "data"
+				+ File.separator + "BatteryLWP" + File.separator;
 		final File dir = new File(destinationDir);
 		dir.mkdirs();
 		final String destinationFilename = destinationDir + filename;
