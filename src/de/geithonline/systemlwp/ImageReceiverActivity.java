@@ -29,7 +29,8 @@ public class ImageReceiverActivity extends Activity {
 	private Button button;
 	private String image;
 	private ImageView imgView;
-	private TextView textview;
+	private TextView subjectView;
+	private TextView textView;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -37,7 +38,8 @@ public class ImageReceiverActivity extends Activity {
 		setContentView(R.layout.activity_image_receiver_activity);
 		imgView = (ImageView) findViewById(R.id.imageView1);
 		button = (Button) findViewById(R.id.setBackground);
-		textview = (TextView) findViewById(R.id.textView1);
+		subjectView = (TextView) findViewById(R.id.subjectView);
+		textView = (TextView) findViewById(R.id.textView);
 
 		// Get intent, action and MIME type
 		final Intent intent = getIntent();
@@ -56,11 +58,17 @@ public class ImageReceiverActivity extends Activity {
 					// Show image in Activity
 					final Bitmap bmp = BitmapHelper.getCustomImageSampled(image, 1000, 1000);
 					imgView.setImageBitmap(bmp);
-					final String text = (String) intent.getCharSequenceExtra(Intent.EXTRA_SUBJECT);
-					if (text != null && !text.isEmpty()) {
-						textview.setText(text);
+					final String subject = (String) intent.getCharSequenceExtra(Intent.EXTRA_SUBJECT);
+					if (subject != null && !subject.isEmpty()) {
+						subjectView.setText(subject);
 					} else {
-						textview.setText("");
+						subjectView.setText("");
+					}
+					final String text = (String) intent.getCharSequenceExtra(Intent.EXTRA_TEXT);
+					if (text != null && !text.isEmpty()) {
+						textView.setText(text);
+					} else {
+						textView.setText("");
 					}
 				}
 			}

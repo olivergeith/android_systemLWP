@@ -23,14 +23,24 @@
         android:layout_alignParentTop="true" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/subjectView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="Medium Text"
+        android:text="Subject"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/subjectView"
+        android:gravity="center"
+        android:text="Text..." />
 
 </RelativeLayout>
