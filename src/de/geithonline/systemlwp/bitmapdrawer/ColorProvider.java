@@ -128,6 +128,10 @@ public class ColorProvider {
 		return getNumberPaint(level, fontSize, Align.CENTER, true, false);
 	}
 
+	public Paint getNumberPaintAlignLeft(final int level, final int fontSize) {
+		return getNumberPaint(level, fontSize, Align.LEFT, true, false);
+	}
+
 	public Paint getNumberPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
 		final Paint numberPaint = initNumberPaint();
 		numberPaint.setAlpha(Settings.getOpacity());
@@ -153,6 +157,10 @@ public class ColorProvider {
 
 	public Paint getTextPaint(final int level, final int fontSize) {
 		return getTextPaint(level, fontSize, Align.LEFT, true, false);
+	}
+
+	public Paint getTextPaintAlignRight(final int level, final int fontSize) {
+		return getTextPaint(level, fontSize, Align.RIGHT, true, false);
 	}
 
 	public Paint getTextPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {

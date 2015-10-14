@@ -138,6 +138,7 @@
         <item name="80">true</item>
         <item name="30">true</item>
         <item name="31">true</item>
+        <item name="32">true</item>
         <item name="40">true</item>
         <item name="41">true</item>
         <item name="42">true</item>
@@ -185,6 +186,7 @@
         <item name="80">BrickV1</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
+        <item name="32">BarGraphV3</item>
         <item name="40">BarGraphVerticalV1</item>
         <item name="41">BarGraphVerticalV2</item>
         <item name="42">BarGraphVerticalV3</item>
@@ -232,6 +234,7 @@
         <item name="80">BrickV1</item>
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
+        <item name="32">BarGraphV3</item>
         <item name="40">BarGraphVerticalV1</item>
         <item name="41">BarGraphVerticalV2</item>
         <item name="42">BarGraphVerticalV3</item>

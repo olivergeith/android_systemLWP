@@ -9,6 +9,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV3;
@@ -72,6 +73,7 @@ public class DrawerManager {
 		drawer.put("BrickV1", new BitmapDrawerBrickV1());
 		drawer.put("BarGraphV1", new BitmapDrawerBarGraphV1());
 		drawer.put("BarGraphV2", new BitmapDrawerBarGraphV2());
+		drawer.put("BarGraphV3", new BitmapDrawerBarGraphV3());
 		drawer.put("BarGraphVerticalV1", new BitmapDrawerBarGraphVerticalV1());
 		drawer.put("BarGraphVerticalV2", new BitmapDrawerBarGraphVerticalV2());
 		drawer.put("BarGraphVerticalV3", new BitmapDrawerBarGraphVerticalV3());
