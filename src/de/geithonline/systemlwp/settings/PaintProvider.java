@@ -7,7 +7,6 @@ import android.graphics.Paint.Style;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
-import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
 public class PaintProvider {
@@ -155,15 +154,15 @@ public class PaintProvider {
 		return numberPaint;
 	}
 
-	public static Paint getTextPaint(final int level, final int fontSize) {
-		return getTextPaint(level, fontSize, Align.LEFT, true, false);
+	public static Paint getTextPaint(final int level, final float fontSizeArc) {
+		return getTextPaint(level, fontSizeArc, Align.LEFT, true, false);
 	}
 
 	public static Paint getTextPaintAlignRight(final int level, final int fontSize) {
 		return getTextPaint(level, fontSize, Align.RIGHT, true, false);
 	}
 
-	public static Paint getTextPaint(final int level, final int fontSize, final Align align, final boolean bold, final boolean erase) {
+	public static Paint getTextPaint(final int level, final float fontSizeArc, final Align align, final boolean bold, final boolean erase) {
 		final Paint textPaint = initTextPaint();
 		textPaint.setAlpha(Settings.getOpacity());
 		if (Settings.isColoredNumber()) {
@@ -171,7 +170,7 @@ public class PaintProvider {
 		} else {
 			textPaint.setColor(Settings.getBattColor());
 		}
-		textPaint.setTextSize(fontSize);
+		textPaint.setTextSize(fontSizeArc);
 		if (bold) {
 			textPaint.setTypeface(Typeface.DEFAULT_BOLD);
 		} else {
@@ -217,15 +216,11 @@ public class PaintProvider {
 		return paint;
 	}
 
-	public static Paint getZeigerPaint(final int level) {
-		return getZeigerPaint(level, false);
-	}
-
-	public static Paint getZeigerPaint(final int level, final boolean dropShadow) {
+	public static Paint getZeigerPaint(final int level, final float dropRadius) {
 		final Paint zeigerPaint = initZeigerPaint();
 		zeigerPaint.setColor(Settings.getZeigerColor());
-		if (dropShadow) {
-			zeigerPaint.setShadowLayer(10, 0, 0, Color.BLACK);
+		if (dropRadius != 0.f) {
+			zeigerPaint.setShadowLayer(dropRadius, 0, 0, Color.BLACK);
 		}
 		return zeigerPaint;
 	}
@@ -258,10 +253,10 @@ public class PaintProvider {
 		return scalePaint;
 	}
 
-	public static Paint getTextBattStatusPaint(final int fontSize, final Align align, final boolean bold) {
+	public static Paint getTextBattStatusPaint(final float fontSizeArc, final Align align, final boolean bold) {
 		final Paint battStatusPaint = initBattStatusPaint();
 		battStatusPaint.setColor(Settings.getBattStatusColor());
-		battStatusPaint.setTextSize(fontSize);
+		battStatusPaint.setTextSize(fontSizeArc);
 		if (bold) {
 			battStatusPaint.setTypeface(Typeface.DEFAULT_BOLD);
 		} else {

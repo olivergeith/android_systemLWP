@@ -1,27 +1,71 @@
 package de.geithonline.systemlwp.bitmapdrawer.advanced;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.PointF;
 import android.graphics.RectF;
+import de.geithonline.systemlwp.bitmapdrawer.shapes.CirclePath;
+import de.geithonline.systemlwp.bitmapdrawer.shapes.LevelArcPath;
+import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerPath;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
-import de.geithonline.systemlwp.utils.ColorHelper;
+import de.geithonline.systemlwp.utils.GeometrieHelper;
 
-public class BitmapDrawerClockV1 extends BitmapDrawerAdvanced {
+public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 
-	private int offset = 5;
-	private int bogenDicke = 5;
-	private int skaleDicke = 100;
-	private int fontSize = 150;
-	private int fontSizeArc = 20;
-	protected Canvas bitmapCanvas;
+	private float strokeWidth;
 
-	private float fontSizeScala = 20f;
+	private float fontSizeLevel;
+	private float fontSizeArc;
+	private float fontSizeScala;
+
+	private float maxRadius;
+	private float radiusSkalaOuter;
+	private float radiusSkalaInner;
+	private float radiusChangeText;
+	private float radiusBattStatus;
+	private float radiusSkalaText;
+
+	private float radiusLevelOuter;
+
+	private float radiusLevelInner;
+
+	private float zeigerdicke;
+
+	private float radiusZeigerOuter;
+
+	private float radiusZeigerInner;
+
+	private void initPrivateMembers() {
+		maxRadius = bmpWidth / 2;
+		// Strokes
+		strokeWidth = maxRadius * 0.02f;
+		zeigerdicke = maxRadius * 0.02f;
+		// fontsizes
+		fontSizeArc = maxRadius * 0.08f;
+		fontSizeScala = maxRadius * 0.1f;
+		fontSizeLevel = maxRadius * 0.3f;
+		// Radiusses
+		radiusSkalaOuter = maxRadius - fontSizeArc - strokeWidth;
+		radiusSkalaInner = maxRadius * 0.2f;
+
+		radiusChangeText = maxRadius - fontSizeArc;
+
+		radiusBattStatus = maxRadius * 0.5f;
+
+		radiusSkalaText = radiusSkalaOuter - strokeWidth - fontSizeScala;
+
+		radiusLevelOuter = radiusSkalaInner + 4 * strokeWidth;
+		radiusLevelInner = radiusSkalaInner + strokeWidth;
+
+		radiusZeigerOuter = maxRadius - strokeWidth;
+		radiusZeigerInner = radiusSkalaInner + strokeWidth;
+
+	}
 
 	public BitmapDrawerClockV1() {
 	}
@@ -37,103 +81,70 @@ public class BitmapDrawerClockV1 extends BitmapDrawerAdvanced {
 	}
 
 	@Override
-	public Bitmap drawBitmap(final int level) {
-		// welche kante ist schmaler?
-		// wir orientieren uns an der schmalsten kante
-		// das heist, die Batterie ist immer gleich gross
-		if (cWidth < cHeight) {
-			// hochkant
-			setBitmapSize(cWidth, cWidth, true);
-		} else {
-			// quer
-			setBitmapSize(cHeight, cHeight, false);
-		}
-
-		final Bitmap bitmap = Bitmap.createBitmap(bWidth, bHeight, Bitmap.Config.ARGB_8888);
-		bitmapCanvas = new Canvas(bitmap);
-
-		bogenDicke = Math.round(bWidth * 0.01f);
-		skaleDicke = Math.round(bWidth * 0.35f);
-		fontSize = Math.round(bWidth * 0.1f);
-		fontSizeArc = Math.round(bWidth * 0.04f);
-		fontSizeScala = bWidth * 0.05f;
-		offset = fontSizeArc;
-
+	public Bitmap drawBitmap(final int level, final Bitmap bitmap) {
+		initPrivateMembers();
 		drawBogen(level);
 		return bitmap;
 	}
 
 	private void drawBogen(final int level) {
-		final Paint randPaint = PaintProvider.getBackgroundPaint();
-		randPaint.setColor(Color.WHITE);
-		randPaint.setShadowLayer(20, 0, 0, Color.BLACK);
 		// scala
-		bitmapCanvas.drawArc(getRectForOffset(offset), 270, 360, true, PaintProvider.getBackgroundPaint());
+		final Paint skalaPaint = PaintProvider.getBackgroundPaint();
+		final Path skalaPath = new CirclePath(center, radiusSkalaOuter, radiusSkalaInner, false);
+		bitmapCanvas.drawPath(skalaPath, skalaPaint);
+		if (Settings.isShowRand()) {
+			skalaPaint.setColor(Color.WHITE);
+			skalaPaint.setStrokeWidth(strokeWidth);
+			skalaPaint.setStyle(Style.STROKE);
+			skalaPaint.setShadowLayer(4 * strokeWidth, 0, 0, Color.BLACK);
+			bitmapCanvas.drawPath(skalaPath, skalaPaint);
+		}
 		// level
-		// bitmapCanvas.drawArc(getRectForOffset(offset), 270, Math.round(level * 3.6), true, getBatteryPaint(level));
-		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, PaintProvider.getErasurePaint());
+		final float levelArc = level * 3.6f;
+		final Path levelPath = new LevelArcPath(center, radiusLevelOuter, radiusLevelInner, -90, levelArc);
+		bitmapCanvas.drawPath(levelPath, PaintProvider.getBatteryPaint(level));
 
 		// Skalatext
 		drawScalaText();
 
-		if (Settings.isShowRand()) {
-			// äußeren Rand
-			randPaint.setStrokeWidth(bogenDicke);
-			randPaint.setStyle(Style.STROKE);
-			bitmapCanvas.drawArc(getRectForOffset(offset + 2), 270, 360, true, randPaint);
-		}
 		// Zeiger
-		final Paint zp = PaintProvider.getZeigerPaint(level);
-		zp.setShadowLayer(20, 0, 0, Color.BLACK);
-		bitmapCanvas.drawArc(getRectForOffset(0), 270 + Math.round(level * 3.6) - 1, 2, true, zp);
-		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 0, 360, true, PaintProvider.getErasurePaint());
+		final Path zeigerPath = new ZeigerPath(center, radiusSkalaText - 2 * strokeWidth, radiusZeigerInner, zeigerdicke * 1.3f, -90 + levelArc);
+		final Paint zeigerPaint = PaintProvider.getZeigerPaint(level, zeigerdicke * 2);
+		bitmapCanvas.drawPath(zeigerPath, zeigerPaint);
 
-		// innerer Rand
-		randPaint.setStyle(Style.FILL);
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke), 270, 360, true, randPaint);
-		// delete inner Circle
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 0, 360, true, PaintProvider.getErasurePaint());
+		// einer Zeiger
+		final float einerWinkel = level * 36f;
+		final Path einerPath = new ZeigerPath(center, radiusZeigerOuter, radiusZeigerInner, zeigerdicke, -90 + einerWinkel);
+		bitmapCanvas.drawPath(einerPath, zeigerPaint);
 
 		// innere Fläche
-		final Paint bgPaint2 = PaintProvider.getBackgroundPaint();
-		bgPaint2.setColor(ColorHelper.darker2times(bgPaint2.getColor()));
-		bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke + bogenDicke), 270, 360, true, bgPaint2);
+		final Path centerPath = new CirclePath(center, radiusSkalaInner, 0, true);
+		zeigerPaint.setColor(Color.WHITE);
+		bitmapCanvas.drawPath(centerPath, zeigerPaint);
+
 	}
 
 	private void drawScalaText() {
 		for (int i = 0; i < 100; i = i + 10) {
 			final long winkel = 252 + Math.round(i * 3.6f);
 			final Path mArc = new Path();
-			final RectF oval = getRectForOffset(offset + bogenDicke + fontSizeScala);
+			final RectF oval = GeometrieHelper.getCircle(center, radiusSkalaText);
 			mArc.addArc(oval, winkel, 36);
 			final Paint p = PaintProvider.getTextScalePaint(fontSizeScala, Align.CENTER, true);
 			p.setTextAlign(Align.CENTER);
 			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
 		}
-		for (int i = 5; i < 100; i = i + 10) {
-			final long winkel = 252 + Math.round(i * 3.6f);
-			final Path mArc = new Path();
-			final RectF oval = getRectForOffset(offset + bogenDicke + fontSizeScala);
-			mArc.addArc(oval, winkel, 36);
-			final Paint p = PaintProvider.getTextScalePaint(fontSizeScala * 0.75f, Align.CENTER, true);
-			p.setTextAlign(Align.CENTER);
-			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
+		for (int i = 0; i < 100; i = i + 5) {
+			final long winkel = 270 + Math.round(i * 3.6f);
+			final Path zeigerPath = new ZeigerPath(center, radiusSkalaOuter, radiusSkalaOuter - 2 * strokeWidth, zeigerdicke, winkel);
+			final Paint zeigerPaint = PaintProvider.getZeigerPaint(level, 0f);
+			bitmapCanvas.drawPath(zeigerPath, zeigerPaint);
 		}
-
-		// for (int i = 0; i < 100; i = i + 10) {
-		// // Zeiger
-		// final Paint zp = getZeigerPaint(level);
-		// zp.setShadowLayer(10, 0, 0, Color.BLACK);
-		// bitmapCanvas.drawArc(getRectForOffset(offset + bogenDicke + skaleDicke - 3 * offset), (float) (270f + i * 3.6 - 0.5f), 1f, true, zp);
-		// }
-
 	}
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		drawLevelNumberCentered(bitmapCanvas, level, fontSize);
+		drawLevelNumber(bitmapCanvas, level, fontSizeLevel, new PointF(center.x, center.x + maxRadius * 0.6f));
 	}
 
 	@Override
@@ -141,7 +152,7 @@ public class BitmapDrawerClockV1 extends BitmapDrawerAdvanced {
 		final long winkel = 272 + Math.round(level * 3.6f);
 
 		final Path mArc = new Path();
-		final RectF oval = getRectForOffset(fontSizeArc - bogenDicke);
+		final RectF oval = GeometrieHelper.getCircle(center, radiusChangeText);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
 		final Paint p = PaintProvider.getTextPaint(level, fontSizeArc);
@@ -151,15 +162,11 @@ public class BitmapDrawerClockV1 extends BitmapDrawerAdvanced {
 	@Override
 	public void drawBattStatusText() {
 		final Path mArc = new Path();
-		final RectF oval = getRectForOffset(offset + bogenDicke + 3 * fontSizeArc);
+		final RectF oval = GeometrieHelper.getCircle(center, radiusBattStatus);
 		mArc.addArc(oval, 180, 180);
 		final String text = Settings.getBattStatusCompleteShort();
 		final Paint p = PaintProvider.getTextBattStatusPaint(fontSizeArc, Align.CENTER, true);
 		bitmapCanvas.drawTextOnPath(text, mArc, 0, 0, p);
-	}
-
-	private RectF getRectForOffset(final float offset) {
-		return new RectF(offset, offset, bWidth - offset, bWidth - offset);
 	}
 
 }

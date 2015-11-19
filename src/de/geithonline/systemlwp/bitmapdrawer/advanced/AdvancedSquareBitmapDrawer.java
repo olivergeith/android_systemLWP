@@ -13,16 +13,18 @@ import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 
-public abstract class BitmapDrawerAdvanced implements IBitmapDrawer {
-	protected int cHeight = 0;
-	protected int cWidth = 0;
-	protected int bHeight = 0;
-	protected int bWidth = 0;
-	protected int level = -99;
+public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
+	private int displayHeight = 0;
+	private int displayWidth = 0;
 	private Bitmap bitmap;
+	protected Canvas bitmapCanvas;
+	protected int bmpHeight = 0;
+	protected int bmpWidth = 0;
+	protected int level = -99;
 	private boolean isDrawIcon = false;
+	protected PointF center = new PointF();
 
-	public abstract Bitmap drawBitmap(final int level);
+	public abstract Bitmap drawBitmap(final int level, Bitmap Bitmap);
 
 	public abstract void drawLevelNumber(final int level);
 
@@ -32,28 +34,45 @@ public abstract class BitmapDrawerAdvanced implements IBitmapDrawer {
 
 	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
 		if (Settings.isCenteredBattery()) {
-			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight / 2 - bHeight / 2, null);
+			canvas.drawBitmap(bitmap, displayWidth / 2 - bmpWidth / 2, displayHeight / 2 - bmpHeight / 2, null);
 		} else {
-			canvas.drawBitmap(bitmap, cWidth / 2 - bWidth / 2, cHeight - bHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
+			canvas.drawBitmap(bitmap, displayWidth / 2 - bmpWidth / 2, displayHeight - bmpHeight - Settings.getVerticalPositionOffset(isPortrait()), null);
 		}
+	}
+
+	protected Bitmap initSquareBitmap() {
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
+		if (isPortrait()) {
+			// hochkant
+			setBitmapSize(displayWidth, displayWidth, true);
+		} else {
+			// quer
+			setBitmapSize(displayHeight, displayHeight, false);
+		}
+		final Bitmap bitmap = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
+		center.x = bmpWidth / 2;
+		center.y = bmpHeight / 2;
+		return bitmap;
 	}
 
 	protected void setBitmapSize(final int w, final int h, final boolean isPortrait) {
 		// kein resizen wenn ein icon gemalt wird!
 		if (isDrawIcon) {
-			bHeight = h;
-			bWidth = w;
+			bmpHeight = h;
+			bmpWidth = w;
 			return;
 		}
 
 		if (isPortrait) {
 			// hochkant
-			bHeight = Math.round(h * Settings.getPortraitResizeFactor());
-			bWidth = Math.round(w * Settings.getPortraitResizeFactor());
+			bmpHeight = Math.round(h * Settings.getPortraitResizeFactor());
+			bmpWidth = Math.round(w * Settings.getPortraitResizeFactor());
 		} else {
 			// landscape mode
-			bHeight = Math.round(h * Settings.getLandscapeResizeFactor());
-			bWidth = Math.round(w * Settings.getLandscapeResizeFactor());
+			bmpHeight = Math.round(h * Settings.getLandscapeResizeFactor());
+			bmpWidth = Math.round(w * Settings.getLandscapeResizeFactor());
 		}
 	}
 
@@ -62,15 +81,17 @@ public abstract class BitmapDrawerAdvanced implements IBitmapDrawer {
 		final int h = canvas.getHeight();
 		final int w = canvas.getWidth();
 		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
-		if (this.level != level || w != cWidth || h != cHeight || bitmap == null || forcedraw) {
-			cWidth = w;
-			cHeight = h;
+		if (this.level != level || w != displayWidth || h != displayHeight || bitmap == null || forcedraw) {
+			displayWidth = w;
+			displayHeight = h;
 			// Memory frei geben für altes bitmap
 			if (bitmap != null) {
 				bitmap.recycle();
 			}
 			// Bitnmap neu berechnen
-			bitmap = drawBitmap(level);
+			bitmap = initSquareBitmap();
+			bitmapCanvas = new Canvas(bitmap);
+			bitmap = drawBitmap(level, bitmap);
 			if (Settings.isShowNumber()) {
 				drawLevelNumber(level);
 			}
@@ -94,10 +115,12 @@ public abstract class BitmapDrawerAdvanced implements IBitmapDrawer {
 		final int h = size;
 		final int w = size;
 		// Bitmap neu berechnen wenn Level sich Ändert oder Canvas dimensions
-		cWidth = w;
-		cHeight = h;
+		displayWidth = w;
+		displayHeight = h;
 		isDrawIcon = true;
-		final Bitmap icon = drawBitmap(level);
+		Bitmap icon = initSquareBitmap();
+		bitmapCanvas = new Canvas(icon);
+		icon = drawBitmap(level, icon);
 		isDrawIcon = false;
 		drawLevelNumber(level);
 		return icon;
@@ -113,13 +136,18 @@ public abstract class BitmapDrawerAdvanced implements IBitmapDrawer {
 		if (dropShadow) {
 			p.setShadowLayer(10, 0, 0, Color.BLACK);
 		}
-		final PointF point = getTextCenterToDraw(new RectF(0, 0, bWidth, bHeight), p);
+		final PointF point = getTextCenterToDraw(new RectF(0, 0, bmpWidth, bmpHeight), p);
 		canvas.drawText(text, point.x, point.y, p);
 	}
 
 	protected void drawLevelNumberBottom(final Canvas canvas, final int level, final float fontSize) {
 		final Paint p = PaintProvider.getNumberPaint(level, fontSize, Align.CENTER, true, false);
-		canvas.drawText("" + level, bWidth / 2, bHeight - Math.round(bWidth * 0.01f), p);
+		canvas.drawText("" + level, bmpWidth / 2, bmpHeight - Math.round(bmpWidth * 0.01f), p);
+	}
+
+	protected void drawLevelNumber(final Canvas canvas, final int level, final float fontSize, final PointF position) {
+		final Paint p = PaintProvider.getNumberPaint(level, fontSize, Align.CENTER, true, false);
+		canvas.drawText("" + level, position.x, position.y, p);
 	}
 
 	private static PointF getTextCenterToDraw(final RectF region, final Paint paint) {
@@ -131,19 +159,11 @@ public abstract class BitmapDrawerAdvanced implements IBitmapDrawer {
 	}
 
 	public int getcHeight() {
-		return cHeight;
+		return displayHeight;
 	}
 
 	public void setcHeight(final int cHeight) {
-		this.cHeight = cHeight;
-	}
-
-	public int getcWidth() {
-		return cWidth;
-	}
-
-	public void setcWidth(final int cWidth) {
-		this.cWidth = cWidth;
+		displayHeight = cHeight;
 	}
 
 	public int getLevel() {
@@ -155,11 +175,11 @@ public abstract class BitmapDrawerAdvanced implements IBitmapDrawer {
 	}
 
 	protected boolean isPortrait() {
-		return cHeight > cWidth;
+		return displayHeight > displayWidth;
 	}
 
 	protected boolean isLandscape() {
-		return cHeight < cWidth;
+		return displayHeight < displayWidth;
 	}
 
 	@Override
