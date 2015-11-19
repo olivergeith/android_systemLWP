@@ -10,6 +10,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerAokpCircleV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV3;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerBarGraphVerticalV3;
@@ -50,6 +51,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV6;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV1;
 
 public class DrawerManager {
 	private static Map<String, IBitmapDrawer> drawer = new HashMap<String, IBitmapDrawer>();
@@ -71,9 +73,11 @@ public class DrawerManager {
 		drawer.put("TachoV4", new BitmapDrawerTachoV4());
 		drawer.put("TachoV5", new BitmapDrawerTachoV5());
 		drawer.put("BrickV1", new BitmapDrawerBrickV1());
+		drawer.put("ClockV1", new BitmapDrawerClockV1());
 		drawer.put("BarGraphV1", new BitmapDrawerBarGraphV1());
 		drawer.put("BarGraphV2", new BitmapDrawerBarGraphV2());
 		drawer.put("BarGraphV3", new BitmapDrawerBarGraphV3());
+		drawer.put("BarGraphV4", new BitmapDrawerBarGraphV4());
 		drawer.put("BarGraphVerticalV1", new BitmapDrawerBarGraphVerticalV1());
 		drawer.put("BarGraphVerticalV2", new BitmapDrawerBarGraphVerticalV2());
 		drawer.put("BarGraphVerticalV3", new BitmapDrawerBarGraphVerticalV3());

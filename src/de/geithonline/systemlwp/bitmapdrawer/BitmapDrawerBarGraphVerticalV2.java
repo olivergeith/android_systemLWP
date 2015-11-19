@@ -123,7 +123,7 @@ public class BitmapDrawerBarGraphVerticalV2 extends BitmapDrawer {
 		// draw percentage Number
 		final Paint tp = getNumberPaint(level, fontSize);
 		tp.setTextAlign(Align.LEFT);
-		bitmapCanvas.drawText("" + level, bWidth / 2, bHeight - offset, getNumberPaint(level, fontSize));
+		bitmapCanvas.drawText("" + level, einerDicke * 2 + offset, bHeight - offset, tp);
 	}
 
 	@Override

@@ -139,6 +139,7 @@
         <item name="30">true</item>
         <item name="31">true</item>
         <item name="32">true</item>
+        <item name="33">true</item>
         <item name="40">true</item>
         <item name="41">true</item>
         <item name="42">true</item>
@@ -166,6 +167,7 @@
         <item name="90">false</item>
         <item name="91">false</item>
         <item name="92">false</item>
+        <item name="110">true</item>
         </string-array>
     
     <string-array name="prostyl">
@@ -187,6 +189,7 @@
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
         <item name="32">BarGraphV3</item>
+        <item name="33">BarGraphV4</item>
         <item name="40">BarGraphVerticalV1</item>
         <item name="41">BarGraphVerticalV2</item>
         <item name="42">BarGraphVerticalV3</item>
@@ -214,6 +217,7 @@
         <item name="90">SimpleArcV1</item>
         <item name="91">SimpleArcV2</item>
         <item name="92">SimpleArcV3</item>
+        <item name="110">ClockV1</item>
         </string-array>
     
     <string-array name="prostylValues">
@@ -235,6 +239,7 @@
         <item name="30">BarGraphV1</item>
         <item name="31">BarGraphV2</item>
         <item name="32">BarGraphV3</item>
+        <item name="33">BarGraphV4</item>
         <item name="40">BarGraphVerticalV1</item>
         <item name="41">BarGraphVerticalV2</item>
         <item name="42">BarGraphVerticalV3</item>
@@ -262,6 +267,7 @@
         <item name="90">SimpleArcV1</item>
         <item name="91">SimpleArcV2</item>
         <item name="92">SimpleArcV3</item>
+        <item name="110">ClockV1</item>
         </string-array>
     
     <string-array name="animation_styl">
