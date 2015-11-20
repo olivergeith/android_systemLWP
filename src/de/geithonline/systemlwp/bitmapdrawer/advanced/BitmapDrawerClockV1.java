@@ -39,8 +39,13 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 	private float radiusZeigerOuter;
 
 	private float radiusZeigerInner;
+	private final PointF center = new PointF();
 
 	private void initPrivateMembers() {
+
+		center.x = bmpWidth / 2;
+		center.y = bmpHeight / 2;
+
 		maxRadius = bmpWidth / 2;
 		// Strokes
 		strokeWidth = maxRadius * 0.02f;
@@ -83,11 +88,12 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 	@Override
 	public Bitmap drawBitmap(final int level, final Bitmap bitmap) {
 		initPrivateMembers();
-		drawBogen(level);
+
+		drawAll(level);
 		return bitmap;
 	}
 
-	private void drawBogen(final int level) {
+	private void drawAll(final int level) {
 		// scala
 		final Paint skalaPaint = PaintProvider.getBackgroundPaint();
 		final Path skalaPath = new CirclePath(center, radiusSkalaOuter, radiusSkalaInner, false);
@@ -99,13 +105,13 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 			skalaPaint.setShadowLayer(4 * strokeWidth, 0, 0, Color.BLACK);
 			bitmapCanvas.drawPath(skalaPath, skalaPaint);
 		}
+		// Skalatext
+		drawScalaText();
+
 		// level
 		final float levelArc = level * 3.6f;
 		final Path levelPath = new LevelArcPath(center, radiusLevelOuter, radiusLevelInner, -90, levelArc);
 		bitmapCanvas.drawPath(levelPath, PaintProvider.getBatteryPaint(level));
-
-		// Skalatext
-		drawScalaText();
 
 		// Zeiger
 		final Path zeigerPath = new ZeigerPath(center, radiusSkalaText - 2 * strokeWidth, radiusZeigerInner, zeigerdicke * 1.3f, -90 + levelArc);

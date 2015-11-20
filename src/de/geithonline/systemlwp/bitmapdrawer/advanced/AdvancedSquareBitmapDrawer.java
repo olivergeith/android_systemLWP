@@ -22,7 +22,6 @@ public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
 	protected int bmpWidth = 0;
 	protected int level = -99;
 	private boolean isDrawIcon = false;
-	protected PointF center = new PointF();
 
 	public abstract Bitmap drawBitmap(final int level, Bitmap Bitmap);
 
@@ -52,8 +51,6 @@ public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
 			setBitmapSize(displayHeight, displayHeight, false);
 		}
 		final Bitmap bitmap = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
-		center.x = bmpWidth / 2;
-		center.y = bmpHeight / 2;
 		return bitmap;
 	}
 

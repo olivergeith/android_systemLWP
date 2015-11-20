@@ -1,11 +1,14 @@
 package de.geithonline.systemlwp.settings;
 
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import de.geithonline.systemlwp.utils.ColorHelper;
 
@@ -219,7 +222,7 @@ public class PaintProvider {
 	public static Paint getZeigerPaint(final int level, final float dropRadius) {
 		final Paint zeigerPaint = initZeigerPaint();
 		zeigerPaint.setColor(Settings.getZeigerColor());
-		if (dropRadius != 0.f) {
+		if (dropRadius != 0f) {
 			zeigerPaint.setShadowLayer(dropRadius, 0, 0, Color.BLACK);
 		}
 		return zeigerPaint;
@@ -265,4 +268,22 @@ public class PaintProvider {
 		battStatusPaint.setTextAlign(align);
 		return battStatusPaint;
 	}
+
+	public static Paint getGradientRingPaint(final RectF rect, final int colorTop, final int colorBottom) {
+		final Paint paint = new Paint();
+		paint.setAlpha(255);
+		paint.setAntiAlias(true);
+		paint.setStyle(Style.FILL);
+		paint.setShader(new LinearGradient(0, rect.top, 1, rect.bottom, colorTop, colorBottom, Shader.TileMode.MIRROR));
+		return paint;
+	}
+
+	public static int getGray(final int level) {
+		return getGray(level, 255);
+	}
+
+	public static int getGray(final int level, final int alpha) {
+		return Color.argb(alpha, level, level, level);
+	}
+
 }

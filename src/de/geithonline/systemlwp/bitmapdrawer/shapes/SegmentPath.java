@@ -5,11 +5,8 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.utils.PathHelper;
 
-public class LevelArcPath extends Path {
-	public LevelArcPath(final PointF center, final float outerRadius, final float innerRadius, final float startingAngle, float sweep) {
-		if (sweep == 360) {
-			sweep = 359.999f;
-		}
+public class SegmentPath extends Path {
+	public SegmentPath(final PointF center, final float outerRadius, final float innerRadius, final float rotateWinkel, final float sweepAngel) {
 
 		final Path p = new Path();
 		p.moveTo(center.x + innerRadius, center.y);
@@ -19,14 +16,14 @@ public class LevelArcPath extends Path {
 		oval.right = center.x + outerRadius;
 		oval.top = center.y - outerRadius;
 		oval.bottom = center.y + outerRadius;
-		p.arcTo(oval, 0, sweep);
+		p.arcTo(oval, 0, sweepAngel);
 		oval.left = center.x - innerRadius;
 		oval.right = center.x + innerRadius;
 		oval.top = center.y - innerRadius;
 		oval.bottom = center.y + innerRadius;
-		p.arcTo(oval, sweep, -sweep);
+		p.arcTo(oval, sweepAngel, -sweepAngel);
 		p.close();
-		PathHelper.rotatePath(center.x, center.y, p, startingAngle);
+		PathHelper.rotatePath(center.x, center.y, p, rotateWinkel - sweepAngel / 2);
 		addPath(p);
 	}
 }
