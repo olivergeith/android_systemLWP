@@ -10,6 +10,9 @@ import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart.EZ_COLORING;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart.EZ_MODUS;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
@@ -42,7 +45,7 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 		strokeWidth = maxRadius * 0.02f;
 		// fontsizes
 		fontSizeArc = maxRadius * 0.08f;
-		fontSizeLevel = maxRadius * 0.6f;
+		fontSizeLevel = maxRadius * 0.50f;
 		// Radiusses
 
 		radiusChangeText = maxRadius * 0.72f;// - fontSizeArc;
@@ -78,11 +81,11 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 				.draw(bitmapCanvas);
 
 		new RingPart(center, maxRadius * 0.90f, maxRadius * 0.70f, new Paint())//
-				.setGradient(new Gradient(PaintProvider.getGray(192), PaintProvider.getGray(32), GRAD_STYLE.top2bottom))//
+				.setGradient(new Gradient(PaintProvider.getGray(200), PaintProvider.getGray(32), GRAD_STYLE.top2bottom))//
 				.setOutline(new Outline(PaintProvider.getGray(64), strokeWidth))//
 				.draw(bitmapCanvas);
 		new RingPart(center, maxRadius * 0.70f, maxRadius * 0.60f, new Paint())//
-				.setGradient(new Gradient(PaintProvider.getGray(160), PaintProvider.getGray(200), GRAD_STYLE.top2bottom))//
+				.setGradient(new Gradient(PaintProvider.getGray(32), PaintProvider.getGray(180), GRAD_STYLE.top2bottom))//
 				.setOutline(new Outline(PaintProvider.getGray(96), strokeWidth))//
 				.draw(bitmapCanvas);
 
@@ -101,6 +104,16 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 				.setDropShadow(new DropShadow(2 * strokeWidth, Color.BLACK))//
 				.setZeigerType(ZEIGER_TYP.raute)//
 				.draw(bitmapCanvas);
+		// Timer
+		new LevelEinerZehnerPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 60, -90, EZ_MODUS.einer, EZ_COLORING.Custom)//
+				.setColor(Settings.getScaleColor())//
+				.configureSegemte(3f, strokeWidth / 3)//
+				.draw(bitmapCanvas);
+		new LevelEinerZehnerPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 120, 90, EZ_MODUS.zehner, EZ_COLORING.Custom)//
+				.setColor(Settings.getScaleColor())//
+				.configureSegemte(3f, strokeWidth / 3)//
+				.draw(bitmapCanvas);
+
 	}
 
 	@Override

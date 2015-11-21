@@ -9,7 +9,8 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart.EINER_ZEHNER_MODUS;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart.EZ_COLORING;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart.EZ_MODUS;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart.LEVEL_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
@@ -145,10 +146,10 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 			new RingPart(centerRe, maxRadius * 0.22f, 0, PaintProvider.getBackgroundPaint())//
 					.setOutline(new Outline(Color.WHITE, strokeWidth / 2))//
 					.draw(bitmapCanvas);
-			new LevelEinerZehnerPart(centerLi, maxRadius * 0.20f, maxRadius * 0.15f, level, -90, 360, EINER_ZEHNER_MODUS.zehner, false)//
+			new LevelEinerZehnerPart(centerLi, maxRadius * 0.20f, maxRadius * 0.15f, level, -90, 360, EZ_MODUS.zehner, EZ_COLORING.ColorOf100)//
 					.configureSegemte(5f, strokeWidth / 3)//
 					.draw(bitmapCanvas);
-			new LevelEinerZehnerPart(centerRe, maxRadius * 0.20f, maxRadius * 0.15f, level, -90, 360, EINER_ZEHNER_MODUS.einer, false)//
+			new LevelEinerZehnerPart(centerRe, maxRadius * 0.20f, maxRadius * 0.15f, level, -90, 360, EZ_MODUS.einer, EZ_COLORING.ColorOf100)//
 					.configureSegemte(5f, strokeWidth / 3)//
 					.draw(bitmapCanvas);
 			// LevelNumbers

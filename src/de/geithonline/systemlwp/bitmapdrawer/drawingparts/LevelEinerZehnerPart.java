@@ -10,16 +10,20 @@ import de.geithonline.systemlwp.settings.PaintProvider;
 
 public class LevelEinerZehnerPart {
 
-	public enum EINER_ZEHNER_STYLE {
+	public enum EZ_STYLE {
 		segmented_onlyactive, segmented_all;
 	}
 
-	public enum EINER_ZEHNER_MODUS {
+	public enum EZ_MODUS {
 		einer, zehner;
 	}
 
-	private EINER_ZEHNER_STYLE style = EINER_ZEHNER_STYLE.segmented_all;
-	private EINER_ZEHNER_MODUS modus = EINER_ZEHNER_MODUS.einer;
+	public enum EZ_COLORING {
+		AllLevelColors, ColorOf100, Custom;
+	}
+
+	private EZ_STYLE style = EZ_STYLE.segmented_all;
+	private EZ_MODUS modus = EZ_MODUS.einer;
 
 	private final PointF c;
 	private final float ra;
@@ -34,7 +38,7 @@ public class LevelEinerZehnerPart {
 	private float strokeWidthSegmente = 1f;
 
 	public LevelEinerZehnerPart(final PointF center, final float radAussen, final float radInnen, final int level, final float startWinkel,
-			final float maxWinkel, final EINER_ZEHNER_MODUS modus, final boolean colorfull) {
+			final float maxWinkel, final EZ_MODUS modus, final EZ_COLORING colorfull) {
 		c = center;
 		ra = radAussen;
 		ri = radInnen;
@@ -52,10 +56,15 @@ public class LevelEinerZehnerPart {
 		}
 		this.maxWinkel = maxWinkel;
 		this.startWinkel = startWinkel;
-		if (colorfull) {
+		switch (colorfull) {
+		default:
+		case AllLevelColors:
 			paint = PaintProvider.getBatteryPaint(level);
-		} else {
+			break;
+		case Custom:
+		case ColorOf100:
 			paint = PaintProvider.getBatteryPaint(100);
+			break;
 		}
 		initPaint();
 	}
@@ -65,7 +74,12 @@ public class LevelEinerZehnerPart {
 		paint.setStyle(Style.FILL);
 	}
 
-	public LevelEinerZehnerPart setStyle(final EINER_ZEHNER_STYLE style) {
+	public LevelEinerZehnerPart setColor(final int color) {
+		paint.setColor(color);
+		return this;
+	}
+
+	public LevelEinerZehnerPart setStyle(final EZ_STYLE style) {
 		this.style = style;
 		return this;
 	}
@@ -90,7 +104,12 @@ public class LevelEinerZehnerPart {
 
 	private void drawSegemtedOnlyAct(final Canvas canvas) {
 		final float winkelProSegment = maxWinkel / anzahlSegmente;
-		final float sweepProSeg = winkelProSegment - abstandZwischenSegemten;
+		float sweepProSeg;
+		if (winkelProSegment < 0) {
+			sweepProSeg = winkelProSegment + abstandZwischenSegemten;
+		} else {
+			sweepProSeg = winkelProSegment - abstandZwischenSegemten;
+		}
 
 		for (int i = 0; i < anzahlSegmente; i = i + 1) {
 			if (i < level) {
@@ -105,8 +124,12 @@ public class LevelEinerZehnerPart {
 
 	private void drawSegemtedAll(final Canvas canvas) {
 		final float winkelProSegment = maxWinkel / anzahlSegmente;
-		final float sweepProSeg = winkelProSegment - abstandZwischenSegemten;
-
+		float sweepProSeg;
+		if (winkelProSegment < 0) {
+			sweepProSeg = winkelProSegment + abstandZwischenSegemten;
+		} else {
+			sweepProSeg = winkelProSegment - abstandZwischenSegemten;
+		}
 		for (int i = 0; i < anzahlSegmente; i = i + 1) {
 			paint.setStrokeWidth(strokeWidthSegmente);
 			if (level > i) {
