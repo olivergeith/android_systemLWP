@@ -4,15 +4,19 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
-import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import de.geithonline.systemlwp.bitmapdrawer.shapes.CirclePath;
-import de.geithonline.systemlwp.bitmapdrawer.shapes.LevelArcPath;
-import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerPath;
-import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerShapePath;
-import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerShapePath.ZEIGER_TYP;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart.LEVEL_STYLE;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaLinePart;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaTextPart;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.ZeigerPart;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.GeometrieHelper;
@@ -60,10 +64,10 @@ public class BitmapDrawerClockV3 extends AdvancedSquareBitmapDrawer {
 		return true;
 	}
 
-	@Override
-	public boolean supportsShowRand() {
-		return true;
-	}
+	// @Override
+	// public boolean supportsShowRand() {
+	// return true;
+	// }
 
 	@Override
 	public Bitmap drawBitmap(final int level, final Bitmap bitmap) {
@@ -73,117 +77,57 @@ public class BitmapDrawerClockV3 extends AdvancedSquareBitmapDrawer {
 	}
 
 	private void drawAll(final int level) {
-		final int op = 224; // Settings.getBackgroundOpacity();
-		// drawGradientRing(maxRadius * 0.98f, maxRadius * 0.90f, PaintProvider.getGray(96), PaintProvider.getGray(192), PaintProvider.getGray(224), false);
-		drawGradientRing(maxRadius * 0.99f, maxRadius * 0.80f, PaintProvider.getGray(64, op), //
-				PaintProvider.getGray(32, op), PaintProvider.getGray(192, op), true);
+		final int op = 224;
 
-		drawBackgroundRing(maxRadius * 0.79f, maxRadius * 0.40f, PaintProvider.getGray(192, op), false);
-		drawLevelRing(level, maxRadius * 0.79f, maxRadius * 0.40f, Settings.isShowRand());
+		// Ausen Ring
+		new RingPart(center, maxRadius * 0.99f, maxRadius * 0.80f, new Paint())//
+				.setGradient(new Gradient(PaintProvider.getGray(32, op), PaintProvider.getGray(192, op), GRAD_STYLE.top2bottom))//
+				.setOutline(new Outline(PaintProvider.getGray(64, op), strokeWidth))//
+				.draw(bitmapCanvas);
+		// SkalaBackground
+		new RingPart(center, maxRadius * 0.79f, maxRadius * 0.40f, PaintProvider.getBackgroundPaint())//
+				.draw(bitmapCanvas);
 
-		drawGradientRing(maxRadius * 0.40f, maxRadius * 0.35f, PaintProvider.getGray(64, op), //
-				PaintProvider.getGray(224, op), PaintProvider.getGray(32, op), false);
-		drawZeiger(level, maxRadius * 0.36f, maxRadius * 0.85f, Settings.isShowRand());
-		drawGradientRing(maxRadius * 0.35f, maxRadius * 0.00f, PaintProvider.getGray(32, op), //
-				PaintProvider.getGray(32, op), PaintProvider.getGray(192, op), true);
+		// Level
+		new LevelPart(center, maxRadius * 0.79f, maxRadius * 0.70f, level, -90, 360)//
+				.setStyle(LEVEL_STYLE.segmented_onlyactive)//
+				.setColorful(true)//
+				.configureSegemte(20, 2f, strokeWidth / 2)//
+				.draw(bitmapCanvas);
+				// new LevelPart(center, maxRadius * 0.55f, maxRadius * 0.40f, level, -90, 360)//
+				// .setStyle(LEVEL_STYLE.normal)//
+				// .draw(bitmapCanvas);
+				// new LevelPart(center, maxRadius * 0.79f, maxRadius * 0.40f, level, -90, 360)//
+				// .setStyle(LEVEL_STYLE.normal)//
+				// .draw(bitmapCanvas);
 
-		drawScalaLines(maxRadius * 0.85f, maxRadius * 0.82f, 5);
-		drawScalaText(maxRadius * 0.90f);
-	}
+		// Innen Phase (with white dropshadow)
+		new RingPart(center, maxRadius * 0.40f, maxRadius * 0.35f, new Paint())//
+				.setGradient(new Gradient(PaintProvider.getGray(224, op), PaintProvider.getGray(32, op), GRAD_STYLE.top2bottom))//
+				.draw(bitmapCanvas);
+		// Zeiger
+		new ZeigerPart(center, level, maxRadius * 0.85f, maxRadius * 0.36f, strokeWidth, -90, 360)//
+				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
+				.draw(bitmapCanvas);
 
-	private void drawScalaText(final float radius) {
-		for (int i = 0; i < 100; i = i + 10) {
-			final long winkel = 252 + Math.round(i * 3.6f);
-			final Path mArc = new Path();
-			final RectF oval = GeometrieHelper.getCircle(center, radius);
-			mArc.addArc(oval, winkel, 36);
-			final Paint p = PaintProvider.getTextScalePaint(fontSizeScala, Align.CENTER, true);
-			p.setTextAlign(Align.CENTER);
-			bitmapCanvas.drawTextOnPath("" + i, mArc, 0, 0, p);
-		}
-	}
+		// Innen Fläche
+		new RingPart(center, maxRadius * 0.35f, maxRadius * 0.00f, new Paint())//
+				.setGradient(new Gradient(PaintProvider.getGray(32, op), PaintProvider.getGray(192, op), GRAD_STYLE.top2bottom))//
+				.setOutline(new Outline(PaintProvider.getGray(32, op), strokeWidth))//
+				.draw(bitmapCanvas);
 
-	private void drawScalaLines(final float ra, final float ri, final int step) {
-		for (int i = 0; i < 100; i = i + step) {
-			final long winkel = 270 + Math.round(i * 3.6f);
-			final Path zeigerPath = new ZeigerPath(center, ra, ri, strokeWidth / 2, winkel);
-			final Paint zeigerPaint = PaintProvider.getZeigerPaint(100, 0f);
-			bitmapCanvas.drawPath(zeigerPath, zeigerPaint);
-		}
-	}
+		new SkalaLinePart(center, maxRadius * 0.88f, maxRadius * 0.82f, -90, 360)//
+				.set5erRadius(maxRadius * 0.86f)//
+				.set1erRadius(maxRadius * 0.83f)//
+				.setDicke(strokeWidth / 2)//
+				.draw(bitmapCanvas);
 
-	private void drawZeiger(final int level, final float ra, final float ri, final boolean outline) {
-		final Path path = new ZeigerShapePath(center, ra, ri, zeigerdicke, -90 + level * 3.6f, ZEIGER_TYP.rect);
-		final Paint paint = PaintProvider.getZeigerPaint(level, strokeWidth * 2);
-		bitmapCanvas.drawPath(path, paint);
-		if (outline) {
-			paint.setColor(Color.DKGRAY);
-			paint.setAlpha(255);
-			paint.setStrokeWidth(strokeWidth / 2);
-			paint.setStyle(Style.STROKE);
-			paint.setShadowLayer(0, 0, 0, Color.BLACK);
-			bitmapCanvas.drawPath(path, paint);
-		}
-	}
+		new SkalaTextPart(center, maxRadius * 0.90f, fontSizeScala, -90, 360)//
+				.setFontsize5er(fontSizeScala * 0.75f)//
+				.draw(bitmapCanvas);
 
-	private void drawLevelRing(final int level, final float ra, final float ri, final boolean outline) {
-		final float levelWinkel = level * 3.6f;
-		final Path path = new LevelArcPath(center, ra, ri, -90, levelWinkel);
-		final Paint paint = PaintProvider.getBatteryPaint(level);
-		bitmapCanvas.drawPath(path, paint);
-		if (outline) {
-			paint.setAlpha(255);
-			paint.setStrokeWidth(strokeWidth);
-			paint.setStyle(Style.STROKE);
-			bitmapCanvas.drawPath(path, paint);
-		}
-	}
-
-	private void drawBackgroundRing(final float ra, final float ri, final int outlineColor, final boolean outline) {
-		final Paint paint = PaintProvider.getBackgroundPaint();
-		boolean filled = true;
-		if (ri > 0) {
-			filled = false;
-		}
-		final Path path = new CirclePath(center, ra, ri, filled);
-		bitmapCanvas.drawPath(path, paint);
-
-		if (outline) {
-			paint.setColor(outlineColor);
-			paint.setStrokeWidth(strokeWidth / 2);
-			paint.setStyle(Style.STROKE);
-			bitmapCanvas.drawPath(path, paint);
-		}
-	}
-
-	private void drawGradientRing(final float ra, final float ri, final int cOutline, final int topColor, final int bottomColor, final boolean outline) {
-		boolean filled = true;
-		if (ri > 0) {
-			filled = false;
-		}
-		final Path path = new CirclePath(center, ra, ri, filled);
-		final Paint paint = PaintProvider.getGradientRingPaint(GeometrieHelper.getCircle(center, ra), topColor, bottomColor);
-		bitmapCanvas.drawPath(path, paint);
-		paint.setShader(null);
-		if (outline) {
-			paint.setColor(cOutline);
-			paint.setStrokeWidth(strokeWidth);
-			paint.setStyle(Style.STROKE);
-			bitmapCanvas.drawPath(path, paint);
-		}
-	}
-
-	private void drawColoredRing(final float ra, final float ri, final int color, final int cOutline, final boolean outline) {
-		final Path path = new CirclePath(center, ra, ri, false);
-		final Paint paint = PaintProvider.getBackgroundPaint();
-		paint.setColor(color);
-		bitmapCanvas.drawPath(path, paint);
-		if (outline) {
-			paint.setColor(cOutline);
-			paint.setStrokeWidth(strokeWidth);
-			paint.setStyle(Style.STROKE);
-			bitmapCanvas.drawPath(path, paint);
-		}
+		// drawScalaLines(maxRadius * 0.85f, maxRadius * 0.82f, 5);
+		// drawScalaText(maxRadius * 0.90f);
 	}
 
 	@Override

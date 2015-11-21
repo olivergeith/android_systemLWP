@@ -23,12 +23,13 @@ public class PaintProvider {
 		return battStatusPaint;
 	}
 
-	private static Paint initScalePaint() {
+	public static Paint initScalePaint() {
 		final Paint scalePaint = new Paint();
 		scalePaint.setAntiAlias(true);
 		scalePaint.setAlpha(255);
 		scalePaint.setFakeBoldText(true);
 		scalePaint.setStyle(Style.FILL);
+		scalePaint.setColor(Settings.getScaleColor());
 		return scalePaint;
 	}
 
@@ -219,12 +220,9 @@ public class PaintProvider {
 		return paint;
 	}
 
-	public static Paint getZeigerPaint(final int level, final float dropRadius) {
+	public static Paint getZeigerPaint() {
 		final Paint zeigerPaint = initZeigerPaint();
 		zeigerPaint.setColor(Settings.getZeigerColor());
-		if (dropRadius != 0f) {
-			zeigerPaint.setShadowLayer(dropRadius, 0, 0, Color.BLACK);
-		}
 		return zeigerPaint;
 	}
 
