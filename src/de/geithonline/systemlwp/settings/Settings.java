@@ -16,6 +16,7 @@ import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart.LEVEL_STYLE;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 
 public class Settings {
@@ -103,6 +104,25 @@ public class Settings {
 
 	public static String getBattHealthString() {
 		return "Health is " + getHealthText(battHealth);
+	}
+
+	public static String getLevelStyleString() {
+		if (prefs == null) {
+			return "Normal";
+		}
+		return prefs.getString("levelStyles", "Normal");
+	}
+
+	public static LEVEL_STYLE getLevelStyle() {
+		switch (getLevelStyleString()) {
+		default:
+		case "Normal":
+			return LEVEL_STYLE.normal;
+		case "Only activ segments":
+			return LEVEL_STYLE.segmented_onlyactive;
+		case "All segments":
+			return LEVEL_STYLE.segmented_all;
+		}
 	}
 
 	public static String getBattVoltageString() {

@@ -14,4 +14,6 @@ public interface IBitmapDrawer {
 
 	public boolean supportsShowRand();
 
+	public boolean supportsLevelStyle();
+
 }

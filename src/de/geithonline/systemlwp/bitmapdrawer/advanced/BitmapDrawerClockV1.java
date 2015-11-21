@@ -68,11 +68,6 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 	}
 
 	@Override
-	public boolean supportsShowRand() {
-		return true;
-	}
-
-	@Override
 	public Bitmap drawBitmap(final int level, final Bitmap bitmap) {
 		initPrivateMembers();
 

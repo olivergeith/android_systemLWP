@@ -11,7 +11,6 @@ import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart.LEVEL_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaLinePart;
@@ -34,8 +33,6 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 
 	private final PointF center = new PointF();
 
-	private final LEVEL_STYLE style;
-
 	private void initPrivateMembers() {
 		center.x = bmpWidth / 2;
 		center.y = bmpHeight / 2;
@@ -53,8 +50,7 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 
 	}
 
-	public BitmapDrawerClockV2(final LEVEL_STYLE style) {
-		this.style = style;
+	public BitmapDrawerClockV2() {
 	}
 
 	@Override
@@ -62,10 +58,10 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 		return true;
 	}
 
-	// @Override
-	// public boolean supportsShowRand() {
-	// return true;
-	// }
+	@Override
+	public boolean supportsLevelStyle() {
+		return true;
+	}
 
 	@Override
 	public Bitmap drawBitmap(final int level, final Bitmap bitmap) {
@@ -77,7 +73,7 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 	private void drawAll(final int level) {
 
 		new LevelPart(center, maxRadius * 0.98f, maxRadius * 0.92f, level, -90, 360)//
-				.setStyle(style)//
+				.setStyle(Settings.getLevelStyle())//
 				.configureSegemte(20, 1.0f, strokeWidth / 3)//
 				.draw(bitmapCanvas);
 

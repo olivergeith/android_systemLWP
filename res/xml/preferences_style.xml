@@ -101,6 +101,17 @@
             android:title="@string/show_rand"
             android:defaultValue="true"
             />
+
+        <ListPreference
+	        android:defaultValue="Normal"
+	        android:title="@string/levelStyles" 
+            android:summary="@string/levelStyles_summary" 
+	        android:dialogTitle="@string/levelStyles"
+	        android:entries="@array/levelStyles"
+	        android:entryValues="@array/levelStyles"
+	        android:key="levelStyles"
+	        />
+        
         
     </PreferenceCategory>
         

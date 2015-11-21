@@ -11,7 +11,6 @@ import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart.LEVEL_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaLinePart;
@@ -61,10 +60,10 @@ public class BitmapDrawerClockV3 extends AdvancedSquareBitmapDrawer {
 		return true;
 	}
 
-	// @Override
-	// public boolean supportsShowRand() {
-	// return true;
-	// }
+	@Override
+	public boolean supportsLevelStyle() {
+		return true;
+	}
 
 	@Override
 	public Bitmap drawBitmap(final int level, final Bitmap bitmap) {
@@ -87,7 +86,7 @@ public class BitmapDrawerClockV3 extends AdvancedSquareBitmapDrawer {
 
 		// Level
 		new LevelPart(center, maxRadius * 0.79f, maxRadius * 0.70f, level, -90, 360)//
-				.setStyle(LEVEL_STYLE.segmented_onlyactive)//
+				.setStyle(Settings.getLevelStyle())//
 				.setColorful(true)//
 				.configureSegemte(20, 2f, strokeWidth / 2)//
 				.draw(bitmapCanvas);

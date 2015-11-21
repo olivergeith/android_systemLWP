@@ -89,11 +89,8 @@ public class BattPreferencesFragment extends PreferenceFragment {
 
 		if (sharedPref == null) {
 			Log.e(this.getClass().getSimpleName(), "SharedPreferences were null!!");
-			Toaster.showErrorToast(
-					getActivity(),
-					"Could not save imagepath "
-							+ filePath
-							+ "Sharedfreferences not found!!! (null). Make sure you set the Wallpaper at least once before editing preferences of it (SystemSettings->Display->Wallpaper->LiveWallpaper->Choose BatteryLWP and set it!");
+			Toaster.showErrorToast(getActivity(), "Could not save imagepath " + filePath
+					+ "Sharedfreferences not found!!! (null). Make sure you set the Wallpaper at least once before editing preferences of it (SystemSettings->Display->Wallpaper->LiveWallpaper->Choose BatteryLWP and set it!");
 			return;
 		}
 		final SharedPreferences.Editor editor = sharedPref.edit();
@@ -106,7 +103,8 @@ public class BattPreferencesFragment extends PreferenceFragment {
 	}
 
 	private void enableProFeatures() {
-		// Nothing so far
+		final Preference levelStyles = findPreference("levelStyles");
+		levelStyles.setEnabled(Settings.isPremium());
 	}
 
 	private void enableSettingsForStyle(final String style) {
@@ -114,6 +112,7 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		// Find a Drawer for this Style
 		final IBitmapDrawer drawer = DrawerManager.getDrawer(style);
 		final Preference zeiger = findPreference("show_zeiger");
+		final Preference levelStyles = findPreference("levelStyles");
 		final Preference rand = findPreference("show_rand");
 		final Preference colorZeiger = findPreference("color_zeiger");
 		if (b != null) {
@@ -122,6 +121,7 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		zeiger.setEnabled(drawer.supportsShowPointer());
 		rand.setEnabled(drawer.supportsShowRand());
 		colorZeiger.setEnabled(drawer.supportsPointerColor());
+		levelStyles.setEnabled(drawer.supportsLevelStyle());
 		stylePref.setSummary("Current style: " + style);
 		if (style.equals("LogoV1")) {
 			showLogoV1Message();
@@ -129,18 +129,19 @@ public class BattPreferencesFragment extends PreferenceFragment {
 	}
 
 	private void showLogoV1Message() {
-		Toaster.alertInfo(getActivity(), "The LogoV1 style is no longer available!" //
-				+ "\nIt has moved to its own APP!" //
-				+ "\n...with lots of new special settings only for this style!" //
-				+ "\n...like:" //
-				+ "\n- brightness of grayscaled background" //
-				+ "\n- changing hue of logo-image" //
-				+ "\n- re-coloring of logo-image" //
-				+ "\n- masking logo-image to lots of different shapes" //
-				+ "\n- ... and many more ..." //
-				+ "\n" //
-				+ "\nCheck it out...it is free (and addfree) too!", "Goto Play Store ...",
-				"https://play.google.com/store/apps/details?id=de.geithonline.logolwp");
+		Toaster.alertInfo(getActivity(),
+				"The LogoV1 style is no longer available!" //
+						+ "\nIt has moved to its own APP!" //
+						+ "\n...with lots of new special settings only for this style!" //
+						+ "\n...like:" //
+						+ "\n- brightness of grayscaled background" //
+						+ "\n- changing hue of logo-image" //
+						+ "\n- re-coloring of logo-image" //
+						+ "\n- masking logo-image to lots of different shapes" //
+						+ "\n- ... and many more ..." //
+						+ "\n" //
+						+ "\nCheck it out...it is free (and addfree) too!",
+				"Goto Play Store ...", "https://play.google.com/store/apps/details?id=de.geithonline.logolwp");
 	}
 
 }

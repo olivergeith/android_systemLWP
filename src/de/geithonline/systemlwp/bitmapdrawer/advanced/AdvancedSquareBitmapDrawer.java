@@ -200,4 +200,8 @@ public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
 		return false;
 	}
 
+	@Override
+	public boolean supportsLevelStyle() {
+		return false;
+	}
 }

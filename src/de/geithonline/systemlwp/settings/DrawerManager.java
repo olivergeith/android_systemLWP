@@ -55,7 +55,6 @@ import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV1;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV1.CLOCK_V1_TYPE;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV2;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV3;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart.LEVEL_STYLE;
 
 public class DrawerManager {
 	private static Map<String, IBitmapDrawer> drawer = new HashMap<String, IBitmapDrawer>();
@@ -110,8 +109,7 @@ public class DrawerManager {
 		drawer.put("SimpleArcV3", new BitmapDrawerSimpleArcV3());
 		drawer.put("ClockV1", new BitmapDrawerClockV1(CLOCK_V1_TYPE.Normal));
 		drawer.put("ClockV1 (Timer Style)", new BitmapDrawerClockV1(CLOCK_V1_TYPE.Timer));
-		drawer.put("ClockV2", new BitmapDrawerClockV2(LEVEL_STYLE.normal));
-		drawer.put("ClockV2 (SegmentLevel)", new BitmapDrawerClockV2(LEVEL_STYLE.segmented_all));
+		drawer.put("ClockV2", new BitmapDrawerClockV2());
 		drawer.put("ClockV3", new BitmapDrawerClockV3());
 	}
 

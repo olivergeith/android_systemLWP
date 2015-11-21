@@ -110,5 +110,7 @@
     <string name="logoPicker_summary">Pick a custome logo as battery-image....the Logo should be a square image and around 500x500 pixel for best results!</string>
     <string name="title_activity_image_receiver_activity2">Battery LiveWallpaper</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="levelStyles">Style of Level-Arch</string>
+    <string name="levelStyles_summary">Style of Level-Arch</string>
+    
 </resources>
