@@ -74,38 +74,38 @@ public class LevelPart {
 	}
 
 	private void drawSegemtedOnlyAct(final Canvas canvas) {
-		final float abstand = 1.5f; // Abstand zwischen den Segmenten
 		final float winkelProProzent = maxWinkel / 100;
-		final float sweepProSeg = winkelProProzent * 100 / anzahlSegmente - abstand;
+		final float sweepProSeg = winkelProProzent * 100 / anzahlSegmente - abstandZwischenSegemten;
 
 		for (int i = 0; i < 100; i = i + 100 / anzahlSegmente) {
-			if (level >= i) {
-				if (colorful) {
-					paint.setColor(PaintProvider.getColorForLevel(i));
-				}
-				final float winkel = startWinkel + i * winkelProProzent + abstand / 2;
+			if (colorful) {
+				paint.setColor(PaintProvider.getColorForLevel(i));
+			}
+			if (i < level) {
+				final float winkel = startWinkel + i * winkelProProzent + abstandZwischenSegemten / 2;
 				final Path path = new LevelArcPath(c, ra, ri, winkel, sweepProSeg);
 				canvas.drawPath(path, paint);
+			} else {
+				// do nothing
 			}
 		}
 	}
 
 	private void drawSegemtedAll(final Canvas canvas) {
-		final float abstand = 1.5f; // Abstand zwischen den Segmenten
 		final float winkelProProzent = maxWinkel / 100;
-		final float sweepProSeg = winkelProProzent * 100 / anzahlSegmente - abstand;
+		final float sweepProSeg = winkelProProzent * 100 / anzahlSegmente - abstandZwischenSegemten;
 
 		for (int i = 0; i < 100; i = i + 100 / anzahlSegmente) {
 			paint.setStrokeWidth(strokeWidthSegmente);
-			if (level >= i) {
+			if (colorful) {
+				paint.setColor(PaintProvider.getColorForLevel(i));
+			}
+			if (i < level) {
 				paint.setStyle(Style.FILL_AND_STROKE);
 			} else {
 				paint.setStyle(Style.STROKE);
 			}
-			if (colorful) {
-				paint.setColor(PaintProvider.getColorForLevel(i));
-			}
-			final float winkel = startWinkel + i * winkelProProzent + abstand / 2;
+			final float winkel = startWinkel + i * winkelProProzent + abstandZwischenSegemten / 2;
 			// Log.i("LevelPart", i + ".Winkel=" + winkel);
 			final Path path = new LevelArcPath(c, ra, ri, winkel, sweepProSeg);
 			canvas.drawPath(path, paint);
@@ -135,10 +135,10 @@ public class LevelPart {
 		return this;
 	}
 
-	public LevelPart configureSegemte(final int anzahl, final float abstand, final float strokWidth) {
+	public LevelPart configureSegemte(final int anzahl, final float abstand, final float strokeWidth) {
 		anzahlSegmente = anzahl;
 		abstandZwischenSegemten = abstand;
-		strokeWidthSegmente = strokWidth;
+		strokeWidthSegmente = strokeWidth;
 		return this;
 	}
 

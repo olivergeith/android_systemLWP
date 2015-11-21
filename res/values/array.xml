@@ -169,7 +169,9 @@
         <item name="92">false</item>
         <item name="110">true</item>
         <item name="111">false</item>
-        <item name="112">false</item>
+        <item name="120">true</item>
+        <item name="121">false</item>
+        <item name="130">false</item>
         </string-array>
     
     <string-array name="prostyl">
@@ -220,8 +222,10 @@
         <item name="91">SimpleArcV2</item>
         <item name="92">SimpleArcV3</item>
         <item name="110">ClockV1</item>
-        <item name="111">ClockV2</item>
-        <item name="112">ClockV3</item>
+        <item name="111">ClockV1 (Timer Style)</item>
+        <item name="120">ClockV2</item>
+        <item name="121">ClockV2 (SegmentLevel)</item>
+        <item name="130">ClockV3</item>
         </string-array>
     
     <string-array name="prostylValues">
@@ -272,8 +276,10 @@
         <item name="91">SimpleArcV2</item>
         <item name="92">SimpleArcV3</item>
         <item name="110">ClockV1</item>
-        <item name="111">ClockV2</item>
-        <item name="112">ClockV3</item>
+        <item name="111">ClockV1 (Timer Style)</item>
+        <item name="120">ClockV2</item>
+        <item name="121">ClockV2 (SegmentLevel)</item>
+        <item name="130">ClockV3</item>
         </string-array>
     
     <string-array name="animation_styl">

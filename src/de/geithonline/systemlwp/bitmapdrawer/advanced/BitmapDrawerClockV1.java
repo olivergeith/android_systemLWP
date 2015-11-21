@@ -8,6 +8,8 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart.EINER_ZEHNER_MODUS;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart.LEVEL_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
@@ -15,11 +17,16 @@ import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaLinePart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaTextPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.ZeigerPart;
+import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerShapePath.ZEIGER_TYP;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.GeometrieHelper;
 
 public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
+
+	public enum CLOCK_V1_TYPE {
+		Normal, Timer
+	}
 
 	private float strokeWidth;
 
@@ -33,6 +40,8 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 
 	private final PointF center = new PointF();
 
+	private final CLOCK_V1_TYPE type;
+
 	private void initPrivateMembers() {
 		center.x = bmpWidth / 2;
 		center.y = bmpHeight / 2;
@@ -42,14 +51,15 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 		// fontsizes
 		fontSizeArc = maxRadius * 0.08f;
 		fontSizeScala = maxRadius * 0.1f;
-		fontSizeLevel = maxRadius * 0.3f;
+		fontSizeLevel = maxRadius * 0.2f;
 		// Radiusses
 
 		radiusChangeText = maxRadius - fontSizeArc;
 		radiusBattStatus = maxRadius * 0.5f;
 	}
 
-	public BitmapDrawerClockV1() {
+	public BitmapDrawerClockV1(final CLOCK_V1_TYPE type) {
+		this.type = type;
 	}
 
 	@Override
@@ -77,6 +87,11 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 				.setOutline(new Outline(Color.WHITE, strokeWidth))//
 				.draw(bitmapCanvas);
 
+		// level
+		new LevelPart(center, maxRadius * 0.88f, maxRadius * 0.72f, level, -90, 360)//
+				.setStyle(LEVEL_STYLE.normal)//
+				.draw(bitmapCanvas);
+
 		// Skalatext
 		new SkalaLinePart(center, maxRadius * 0.90f, maxRadius * 0.86f, -90, 360)//
 				.set5erRadius(maxRadius * 0.90f)//
@@ -86,18 +101,22 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 		new SkalaTextPart(center, maxRadius * 0.75f, fontSizeScala, -90, 360)//
 				.draw(bitmapCanvas);
 
-		// level
-		new LevelPart(center, maxRadius * 0.30f, maxRadius * 0.20f, level, -90, 360)//
-				.setStyle(LEVEL_STYLE.normal)//
-				.draw(bitmapCanvas);
+		// // level
+		// new LevelPart(center, maxRadius * 0.28f, maxRadius * 0.20f, level, -90, 360)//
+		// .setStyle(LEVEL_STYLE.normal)//
+		// .draw(bitmapCanvas);
+		// Level Numbers
+		drawDualLevel(level);
 
 		// Zeiger
 		new ZeigerPart(center, level, maxRadius * 0.70f, maxRadius * 0.20f, strokeWidth * 1.5f, -90, 360)//
 				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
+				.setZeigerType(ZEIGER_TYP.rect)//
 				.draw(bitmapCanvas);
 
 		new ZeigerPart(center, level, maxRadius * 0.95f, maxRadius * 0.20f, strokeWidth, -90, 360)//
-				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
+				.setDropShadow(new DropShadow(2 * strokeWidth, Color.BLACK))//
+				.setZeigerType(ZEIGER_TYP.rect)//
 				.setEinerZeiger(true)//
 				.draw(bitmapCanvas);
 
@@ -111,7 +130,44 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 
 	@Override
 	public void drawLevelNumber(final int level) {
-		drawLevelNumber(bitmapCanvas, level, fontSizeLevel, new PointF(center.x, center.x + maxRadius * 0.6f));
+	}
+
+	private void drawDualLevel(final int level) {
+		switch (type) {
+		default:
+		case Normal:
+			if (Settings.isShowNumber()) {
+				drawLevelNumber(bitmapCanvas, level, fontSizeLevel * 1.5f, new PointF(center.x, center.x + maxRadius * 0.6f));
+			}
+			break;
+		case Timer:
+			final PointF centerLi = new PointF(center.x - maxRadius * 0.25f, center.y + maxRadius * 0.38f);
+			final PointF centerRe = new PointF(center.x + maxRadius * 0.25f, center.y + maxRadius * 0.38f);
+
+			new RingPart(centerLi, maxRadius * 0.22f, 0, PaintProvider.getBackgroundPaint())//
+					.setOutline(new Outline(Color.WHITE, strokeWidth / 2))//
+					.draw(bitmapCanvas);
+			new RingPart(centerRe, maxRadius * 0.22f, 0, PaintProvider.getBackgroundPaint())//
+					.setOutline(new Outline(Color.WHITE, strokeWidth / 2))//
+					.draw(bitmapCanvas);
+			new LevelEinerZehnerPart(centerLi, maxRadius * 0.20f, maxRadius * 0.15f, level, -90, 360, EINER_ZEHNER_MODUS.zehner, false)//
+					.configureSegemte(5f, strokeWidth / 3)//
+					.draw(bitmapCanvas);
+			new LevelEinerZehnerPart(centerRe, maxRadius * 0.20f, maxRadius * 0.15f, level, -90, 360, EINER_ZEHNER_MODUS.einer, false)//
+					.configureSegemte(5f, strokeWidth / 3)//
+					.draw(bitmapCanvas);
+			// LevelNumbers
+			if (Settings.isShowNumber()) {
+				int zehner = level / 10;
+				if (level == 100) {
+					zehner = 10;
+				}
+				final int einer = level % 10;
+				drawLevelNumberCenteredInRect(bitmapCanvas, level, "" + zehner, fontSizeLevel, GeometrieHelper.getCircle(centerLi, maxRadius * 0.15f));
+				drawLevelNumberCenteredInRect(bitmapCanvas, level, "" + einer, fontSizeLevel, GeometrieHelper.getCircle(centerRe, maxRadius * 0.15f));
+			}
+			break;
+		}
 	}
 
 	@Override

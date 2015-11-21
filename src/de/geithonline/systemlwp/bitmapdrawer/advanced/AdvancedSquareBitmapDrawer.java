@@ -147,6 +147,12 @@ public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
 		canvas.drawText("" + level, position.x, position.y, p);
 	}
 
+	protected void drawLevelNumberCenteredInRect(final Canvas canvas, final int level, final String txt, final float fontSize, final RectF rect) {
+		final Paint p = PaintProvider.getNumberPaint(level, fontSize, Align.CENTER, true, false);
+		final PointF position = getTextCenterToDraw(rect, p);
+		canvas.drawText(txt, position.x, position.y, p);
+	}
+
 	private static PointF getTextCenterToDraw(final RectF region, final Paint paint) {
 		final Rect textBounds = new Rect();
 		paint.getTextBounds("69", 0, 2, textBounds);

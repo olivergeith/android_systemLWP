@@ -8,7 +8,7 @@ import de.geithonline.systemlwp.utils.PathHelper;
 public class ZeigerShapePath extends Path {
 
 	public enum ZEIGER_TYP {
-		triangle, circle, rect, raute;
+		triangle, circle, rect, raute, needle;
 	}
 
 	public ZeigerShapePath(final PointF center, final float ra, final float ri, final float size, final float rotateWinkel, final ZEIGER_TYP typ) {
@@ -27,8 +27,24 @@ public class ZeigerShapePath extends Path {
 		case raute:
 			drawRaute(center, ra, ri, size, rotateWinkel);
 			break;
+		case needle:
+			drawNeedle(center, ra, ri, size, rotateWinkel);
+			break;
 
 		}
+	}
+
+	private void drawNeedle(final PointF center, final float ra, final float ri, final float size, final float rotateWinkel) {
+		final Path p = new Path();
+		final float rm = ri + (ra - ri) / 2;
+		p.moveTo(center.x + ra, center.y);
+		p.lineTo(center.x + rm, center.y + size / 2);
+		p.lineTo(center.x + ri, center.y + size / 2);
+		p.lineTo(center.x + ri, center.y - size / 2);
+		p.lineTo(center.x + rm, center.y - size / 2);
+		p.close();
+		PathHelper.rotatePath(center.x, center.y, p, rotateWinkel);
+		addPath(p);
 	}
 
 	private void drawRaute(final PointF center, final float ra, final float ri, final float size, final float rotateWinkel) {

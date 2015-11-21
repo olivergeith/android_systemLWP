@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
-import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -17,7 +16,6 @@ import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaLinePart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.ZeigerPart;
-import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerShapePath;
 import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerShapePath.ZEIGER_TYP;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
@@ -33,9 +31,10 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 	private float maxRadius;
 	private float radiusChangeText;
 	private float radiusBattStatus;
-	private float zeigerdicke;
 
 	private final PointF center = new PointF();
+
+	private final LEVEL_STYLE style;
 
 	private void initPrivateMembers() {
 		center.x = bmpWidth / 2;
@@ -44,8 +43,6 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 		maxRadius = bmpWidth / 2;
 		// Strokes
 		strokeWidth = maxRadius * 0.02f;
-		// sonstiges
-		zeigerdicke = maxRadius * 0.1f;
 		// fontsizes
 		fontSizeArc = maxRadius * 0.08f;
 		fontSizeLevel = maxRadius * 0.6f;
@@ -56,7 +53,8 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 
 	}
 
-	public BitmapDrawerClockV2() {
+	public BitmapDrawerClockV2(final LEVEL_STYLE style) {
+		this.style = style;
 	}
 
 	@Override
@@ -79,7 +77,8 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 	private void drawAll(final int level) {
 
 		new LevelPart(center, maxRadius * 0.98f, maxRadius * 0.92f, level, -90, 360)//
-				.setStyle(LEVEL_STYLE.normal)//
+				.setStyle(style)//
+				.configureSegemte(20, 1.0f, strokeWidth / 3)//
 				.draw(bitmapCanvas);
 
 		new RingPart(center, maxRadius * 0.90f, maxRadius * 0.70f, new Paint())//
@@ -106,22 +105,6 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 				.setDropShadow(new DropShadow(2 * strokeWidth, Color.BLACK))//
 				.setZeigerType(ZEIGER_TYP.raute)//
 				.draw(bitmapCanvas);
-
-		// drawZeiger(level, maxRadius * 0.87f, maxRadius * 0.73f, Settings.isShowRand());
-	}
-
-	private void drawZeiger(final int level, final float ra, final float ri, final boolean outline) {
-		final Path path = new ZeigerShapePath(center, ra, ri, zeigerdicke, -90 + level * 3.6f, ZEIGER_TYP.raute);
-		final Paint paint = PaintProvider.getZeigerPaint();
-		bitmapCanvas.drawPath(path, paint);
-		if (outline) {
-			paint.setColor(Color.DKGRAY);
-			paint.setAlpha(255);
-			paint.setStrokeWidth(strokeWidth / 2);
-			paint.setStyle(Style.STROKE);
-			paint.setShadowLayer(0, 0, 0, Color.BLACK);
-			bitmapCanvas.drawPath(path, paint);
-		}
 	}
 
 	@Override

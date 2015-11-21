@@ -32,7 +32,6 @@ public class BitmapDrawerClockV3 extends AdvancedSquareBitmapDrawer {
 	private float maxRadius;
 	private float radiusChangeText;
 	private float radiusBattStatus;
-	private float zeigerdicke;
 
 	private final PointF center = new PointF();
 
@@ -43,8 +42,6 @@ public class BitmapDrawerClockV3 extends AdvancedSquareBitmapDrawer {
 		maxRadius = bmpWidth / 2;
 		// Strokes
 		strokeWidth = maxRadius * 0.02f;
-		// sonstiges
-		zeigerdicke = maxRadius * 0.02f;
 		// fontsizes
 		fontSizeArc = maxRadius * 0.08f;
 		fontSizeScala = maxRadius * 0.08f;
