@@ -52,9 +52,10 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV6;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV1;
-import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV1.CLOCK_V1_TYPE;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV2;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV3;
+import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV4;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.TimerType;
 
 public class DrawerManager {
 	private static Map<String, IBitmapDrawer> drawer = new HashMap<String, IBitmapDrawer>();
@@ -107,10 +108,12 @@ public class DrawerManager {
 		drawer.put("SimpleArcV1", new BitmapDrawerSimpleArcV1());
 		drawer.put("SimpleArcV2", new BitmapDrawerSimpleArcV2());
 		drawer.put("SimpleArcV3", new BitmapDrawerSimpleArcV3());
-		drawer.put("ClockV1", new BitmapDrawerClockV1(CLOCK_V1_TYPE.Normal));
-		drawer.put("ClockV1 (Timer Style)", new BitmapDrawerClockV1(CLOCK_V1_TYPE.Timer));
-		drawer.put("ClockV2", new BitmapDrawerClockV2());
+		drawer.put("ClockV1", new BitmapDrawerClockV1(TimerType.Without));
+		drawer.put("ClockV1 (Timer Style)", new BitmapDrawerClockV1(TimerType.Timer));
+		drawer.put("ClockV2", new BitmapDrawerClockV2(TimerType.Without));
+		drawer.put("ClockV2 (Extra Level Bars)", new BitmapDrawerClockV2(TimerType.Timer));
 		drawer.put("ClockV3", new BitmapDrawerClockV3());
+		drawer.put("ClockV4", new BitmapDrawerClockV4());
 	}
 
 	public static IBitmapDrawer getDrawer(final String name) {

@@ -111,6 +111,15 @@
 	        android:entryValues="@array/levelStyles"
 	        android:key="levelStyles"
 	        />
+        <ListPreference
+	        android:defaultValue="1"
+	        android:title="@string/levelMode" 
+            android:summary="@string/levelMode_summary" 
+	        android:dialogTitle="@string/levelMode"
+	        android:entries="@array/levelMode"
+	        android:entryValues="@array/levelMode"
+	        android:key="levelMode"
+	        />
         
         
     </PreferenceCategory>

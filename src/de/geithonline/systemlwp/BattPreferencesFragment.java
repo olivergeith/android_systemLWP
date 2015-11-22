@@ -103,6 +103,8 @@ public class BattPreferencesFragment extends PreferenceFragment {
 	}
 
 	private void enableProFeatures() {
+		final Preference levelMode = findPreference("levelMode");
+		levelMode.setEnabled(Settings.isPremium());
 		final Preference levelStyles = findPreference("levelStyles");
 		levelStyles.setEnabled(Settings.isPremium());
 	}
@@ -113,6 +115,7 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		final IBitmapDrawer drawer = DrawerManager.getDrawer(style);
 		final Preference zeiger = findPreference("show_zeiger");
 		final Preference levelStyles = findPreference("levelStyles");
+		final Preference levelMode = findPreference("levelMode");
 		final Preference rand = findPreference("show_rand");
 		final Preference colorZeiger = findPreference("color_zeiger");
 		if (b != null) {
@@ -122,6 +125,7 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		rand.setEnabled(drawer.supportsShowRand());
 		colorZeiger.setEnabled(drawer.supportsPointerColor());
 		levelStyles.setEnabled(drawer.supportsLevelStyle());
+		levelMode.setEnabled(drawer.supportsLevelStyle());
 		stylePref.setSummary("Current style: " + style);
 		if (style.equals("LogoV1")) {
 			showLogoV1Message();

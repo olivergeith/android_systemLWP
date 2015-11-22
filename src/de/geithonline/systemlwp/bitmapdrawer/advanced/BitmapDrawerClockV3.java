@@ -90,7 +90,7 @@ public class BitmapDrawerClockV3 extends AdvancedSquareBitmapDrawer {
 		new LevelPart(center, maxRadius * 0.79f, maxRadius * 0.70f, level, -90, 360, EZColoring.LevelColors)//
 				.configureSegemte(1f, strokeWidth / 3)//
 				.setStyle(Settings.getLevelStyle())//
-				.setMode(EZMode.Einer)//
+				.setMode(Settings.getLevelMode())//
 				.draw(bitmapCanvas);
 
 		// Innen Phase (with white dropshadow)

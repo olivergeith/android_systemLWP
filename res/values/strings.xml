@@ -112,5 +112,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="levelStyles">Style of Level-Arch</string>
     <string name="levelStyles_summary">Style of Level-Arch</string>
+    <string name="levelMode">Precision of Level-Arch</string>
+    <string name="levelMode_summary">Precision of Level-Arch</string>
     
 </resources>

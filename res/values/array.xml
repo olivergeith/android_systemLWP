@@ -7,10 +7,10 @@
         <item >All segments</item>
     </string-array>
 
-    <string-array name="segmentAnzahl">
+    <string-array name="levelMode">
+        <item >1</item>
+        <item >5</item>
         <item >10</item>
-        <item >20</item>
-        <item >100</item>
     </string-array>
     
     
@@ -185,7 +185,9 @@
         <item name="110">true</item>
         <item name="111">false</item>
         <item name="120">true</item>
+        <item name="121">false</item>
         <item name="130">false</item>
+        <item name="140">false</item>
         </string-array>
     
     <string-array name="prostyl">
@@ -238,7 +240,9 @@
         <item name="110">ClockV1</item>
         <item name="111">ClockV1 (Timer Style)</item>
         <item name="120">ClockV2</item>
+        <item name="121">ClockV2 (Extra Level Bars)</item>
         <item name="130">ClockV3</item>
+        <item name="140">ClockV4</item>
         </string-array>
     
     <string-array name="prostylValues">
@@ -291,7 +295,9 @@
         <item name="110">ClockV1</item>
         <item name="111">ClockV1 (Timer Style)</item>
         <item name="120">ClockV2</item>
+        <item name="121">ClockV2 (Extra Level Bars)</item>
         <item name="130">ClockV3</item>
+        <item name="140">ClockV4</item>
         </string-array>
     
     <string-array name="animation_styl">

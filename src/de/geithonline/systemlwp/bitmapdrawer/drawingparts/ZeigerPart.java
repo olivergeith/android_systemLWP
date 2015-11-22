@@ -44,6 +44,9 @@ public class ZeigerPart {
 			anzahlLevel = 100;
 			break;
 		case EinerOnly9Segment:
+			levelIntern = this.level % 10;
+			anzahlLevel = 9;
+			break;
 		case EinerOnly10Segmente:
 			levelIntern = this.level % 10;
 			anzahlLevel = 10;

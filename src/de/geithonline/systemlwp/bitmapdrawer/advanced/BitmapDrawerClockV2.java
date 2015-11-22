@@ -17,6 +17,7 @@ import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaLinePart;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.TimerType;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.ZeigerPart;
 import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerShapePath.ZEIGER_TYP;
 import de.geithonline.systemlwp.settings.PaintProvider;
@@ -33,6 +34,8 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 	private float maxRadius;
 	private float radiusChangeText;
 	private float radiusBattStatus;
+
+	private final TimerType type;
 
 	private final PointF center = new PointF();
 
@@ -53,7 +56,8 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 
 	}
 
-	public BitmapDrawerClockV2() {
+	public BitmapDrawerClockV2(final TimerType type) {
+		this.type = type;
 	}
 
 	@Override
@@ -75,10 +79,12 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 
 	private void drawAll(final int level) {
 
+		final EZMode levelMode = Settings.getLevelMode();
+
 		new LevelPart(center, maxRadius * 0.98f, maxRadius * 0.92f, level, -90, 360, EZColoring.LevelColors)//
 				.configureSegemte(1f, strokeWidth / 3)//
 				.setStyle(Settings.getLevelStyle())//
-				.setMode(EZMode.Einer)//
+				.setMode(levelMode)//
 				.draw(bitmapCanvas);
 
 		// new LevelPart(center, maxRadius * 0.98f, maxRadius * 0.92f, level, -90, 360)//
@@ -110,20 +116,22 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 				.setDropShadow(new DropShadow(2 * strokeWidth, Color.BLACK))//
 				.setZeigerType(ZEIGER_TYP.raute)//
 				.draw(bitmapCanvas);
-		// Timer
-		new LevelPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 60, -90, EZColoring.Custom)//
-				.setColor(Settings.getScaleColor())//
-				.setStyle(EZStyle.segmented_all)//
-				.setMode(EZMode.EinerOnly10Segmente)//
-				.configureSegemte(3f, strokeWidth / 3)//
-				.draw(bitmapCanvas);
-		new LevelPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 120, 90, EZColoring.Custom)//
-				.setColor(Settings.getScaleColor())//
-				.setStyle(EZStyle.segmented_all)//
-				.setMode(EZMode.Zehner)//
-				.configureSegemte(3f, strokeWidth / 3)//
-				.draw(bitmapCanvas);
 
+		if (type.equals(TimerType.Timer)) {
+			// Timer
+			new LevelPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 60, -90, EZColoring.Custom)//
+					.setColor(Settings.getScaleColor())//
+					.setStyle(EZStyle.segmented_all)//
+					.setMode(EZMode.EinerOnly10Segmente)//
+					.configureSegemte(3f, strokeWidth / 3)//
+					.draw(bitmapCanvas);
+			new LevelPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 120, 90, EZColoring.Custom)//
+					.setColor(Settings.getScaleColor())//
+					.setStyle(EZStyle.segmented_all)//
+					.setMode(EZMode.Zehner)//
+					.configureSegemte(3f, strokeWidth / 3)//
+					.draw(bitmapCanvas);
+		}
 	}
 
 	@Override

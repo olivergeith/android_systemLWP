@@ -16,6 +16,7 @@ import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZStyle;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 
@@ -111,6 +112,25 @@ public class Settings {
 			return "Normal";
 		}
 		return prefs.getString("levelStyles", "Normal");
+	}
+
+	public static String getLevelModeString() {
+		if (prefs == null) {
+			return "1";
+		}
+		return prefs.getString("levelMode", "1");
+	}
+
+	public static EZMode getLevelMode() {
+		switch (getLevelModeString()) {
+		default:
+		case "1":
+			return EZMode.Einer;
+		case "5":
+			return EZMode.Fuenfer;
+		case "10":
+			return EZMode.Zehner;
+		}
 	}
 
 	public static EZStyle getLevelStyle() {
