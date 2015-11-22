@@ -16,23 +16,43 @@ public class ZeigerPart {
 	private final float ra;
 	private final float ri;
 	private final Paint paint;
-	private final int level;
+	private final int levelIntern;
 	private final float maxWinkel;
 	private final float startWinkel;
 	private final float dicke;
 	private Outline outline = null;
 	private ZEIGER_TYP zeigerType = ZEIGER_TYP.rect;
-	private boolean isEinerZeiger = false;
+	private final EZMode modus;
+	private int anzahlLevel;
+	private final int level;
+	// private boolean isEinerZeiger = false;
 
 	public ZeigerPart(final PointF center, final int level, final float radAussen, final float radInnen, final float dicke, final float startWinkel,
-			final float maxWinkel) {
+			final float maxWinkel, final EZMode modus) {
 		this.dicke = dicke;
-		c = center;
-		ra = radAussen;
-		ri = radInnen;
+		this.modus = modus;
 		this.level = level;
 		this.maxWinkel = maxWinkel;
 		this.startWinkel = startWinkel;
+		c = center;
+		ra = radAussen;
+		ri = radInnen;
+		switch (this.modus) {
+		default:
+		case all:
+			levelIntern = this.level;
+			anzahlLevel = 100;
+			break;
+		case einer:
+			levelIntern = this.level % 10;
+			anzahlLevel = 10;
+			break;
+		case zehner:
+			levelIntern = this.level / 10;
+			anzahlLevel = 10;
+			break;
+		}
+
 		paint = PaintProvider.getZeigerPaint();
 		initPaint();
 	}
@@ -47,6 +67,11 @@ public class ZeigerPart {
 		return this;
 	}
 
+	public ZeigerPart overrideColor(final int color) {
+		paint.setColor(color);
+		return this;
+	}
+
 	public ZeigerPart setOutline(final Outline outline) {
 		this.outline = outline;
 		return this;
@@ -57,17 +82,9 @@ public class ZeigerPart {
 		return this;
 	}
 
-	public ZeigerPart setEinerZeiger(final boolean isEinerZeiger) {
-		this.isEinerZeiger = isEinerZeiger;
-		return this;
-	}
-
 	public void draw(final Canvas canvas) {
-		float winkelProProzent = maxWinkel / 100;
-		if (isEinerZeiger) {
-			winkelProProzent = winkelProProzent * 10;
-		}
-		final float winkel = startWinkel + level * winkelProProzent;
+		final float winkelProlevel = maxWinkel / anzahlLevel;
+		final float winkel = startWinkel + levelIntern * winkelProlevel;
 		final Path path = new ZeigerShapePath(c, ra, ri, dicke, winkel, zeigerType);
 		canvas.drawPath(path, paint);
 		if (outline != null) {

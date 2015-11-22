@@ -8,11 +8,11 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart.EZ_COLORING;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart.EZ_MODUS;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
@@ -100,16 +100,16 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 				.draw(bitmapCanvas);
 
 		// Zeiger
-		new ZeigerPart(center, level, maxRadius * 0.87f, maxRadius * 0.73f, strokeWidth * 3, -90, 360)//
+		new ZeigerPart(center, level, maxRadius * 0.87f, maxRadius * 0.73f, strokeWidth * 3, -90, 360, EZMode.all)//
 				.setDropShadow(new DropShadow(2 * strokeWidth, Color.BLACK))//
 				.setZeigerType(ZEIGER_TYP.raute)//
 				.draw(bitmapCanvas);
 		// Timer
-		new LevelEinerZehnerPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 60, -90, EZ_MODUS.einer, EZ_COLORING.Custom)//
+		new LevelEinerZehnerPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 60, -90, EZMode.einer, EZ_COLORING.Custom)//
 				.setColor(Settings.getScaleColor())//
 				.configureSegemte(3f, strokeWidth / 3)//
 				.draw(bitmapCanvas);
-		new LevelEinerZehnerPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 120, 90, EZ_MODUS.zehner, EZ_COLORING.Custom)//
+		new LevelEinerZehnerPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 120, 90, EZMode.zehner, EZ_COLORING.Custom)//
 				.setColor(Settings.getScaleColor())//
 				.configureSegemte(3f, strokeWidth / 3)//
 				.draw(bitmapCanvas);

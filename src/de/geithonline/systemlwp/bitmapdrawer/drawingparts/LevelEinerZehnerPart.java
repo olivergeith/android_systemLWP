@@ -14,43 +14,41 @@ public class LevelEinerZehnerPart {
 		segmented_onlyactive, segmented_all;
 	}
 
-	public enum EZ_MODUS {
-		einer, zehner;
-	}
-
 	public enum EZ_COLORING {
 		AllLevelColors, ColorOf100, Custom;
 	}
 
 	private EZ_STYLE style = EZ_STYLE.segmented_all;
-	private EZ_MODUS modus = EZ_MODUS.einer;
+	private EZMode modus = EZMode.einer;
 
 	private final PointF c;
 	private final float ra;
 	private final float ri;
 	private final Paint paint;
-	private final int level;
+	private final int levelIntern;
 	private final float maxWinkel;
 	private final float startWinkel;
 	private float abstandZwischenSegemten = 1.5f;
 	private float anzahlSegmente = 10;
 
 	private float strokeWidthSegmente = 1f;
+	private final int level;
 
 	public LevelEinerZehnerPart(final PointF center, final float radAussen, final float radInnen, final int level, final float startWinkel,
-			final float maxWinkel, final EZ_MODUS modus, final EZ_COLORING colorfull) {
+			final float maxWinkel, final EZMode modus, final EZ_COLORING colorfull) {
 		c = center;
 		ra = radAussen;
 		ri = radInnen;
 		this.modus = modus;
+		this.level = level;
 		switch (this.modus) {
 		default:
 		case einer:
-			this.level = level % 10;
+			levelIntern = level % 10;
 			anzahlSegmente = 9;
 			break;
 		case zehner:
-			this.level = level / 10;
+			levelIntern = level / 10;
 			anzahlSegmente = 10;
 			break;
 		}
@@ -59,7 +57,7 @@ public class LevelEinerZehnerPart {
 		switch (colorfull) {
 		default:
 		case AllLevelColors:
-			paint = PaintProvider.getBatteryPaint(level);
+			paint = PaintProvider.getBatteryPaint(this.level);
 			break;
 		case Custom:
 		case ColorOf100:
@@ -112,7 +110,7 @@ public class LevelEinerZehnerPart {
 		}
 
 		for (int i = 0; i < anzahlSegmente; i = i + 1) {
-			if (i < level) {
+			if (i < levelIntern) {
 				final float winkel = startWinkel + i * winkelProSegment + abstandZwischenSegemten / 2;
 				final Path path = new LevelArcPath(c, ra, ri, winkel, sweepProSeg);
 				canvas.drawPath(path, paint);
@@ -132,7 +130,7 @@ public class LevelEinerZehnerPart {
 		}
 		for (int i = 0; i < anzahlSegmente; i = i + 1) {
 			paint.setStrokeWidth(strokeWidthSegmente);
-			if (level > i) {
+			if (levelIntern > i) {
 				paint.setStyle(Style.FILL_AND_STROKE);
 			} else {
 				paint.setStyle(Style.STROKE);

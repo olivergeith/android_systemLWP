@@ -8,6 +8,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
@@ -102,7 +103,7 @@ public class BitmapDrawerClockV3 extends AdvancedSquareBitmapDrawer {
 				.setGradient(new Gradient(PaintProvider.getGray(224, op), PaintProvider.getGray(32, op), GRAD_STYLE.top2bottom))//
 				.draw(bitmapCanvas);
 		// Zeiger
-		new ZeigerPart(center, level, maxRadius * 0.85f, maxRadius * 0.36f, strokeWidth, -90, 360)//
+		new ZeigerPart(center, level, maxRadius * 0.85f, maxRadius * 0.36f, strokeWidth, -90, 360, EZMode.all)//
 				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
 				.draw(bitmapCanvas);
 
