@@ -50,6 +50,13 @@ public class RingPart {
 		return this;
 	}
 
+	public RingPart setDropShadow(final DropShadow dropShadow) {
+		if (dropShadow != null) {
+			dropShadow.setUpPaint(paint);
+		}
+		return this;
+	}
+
 	public RingPart setColor(final int color) {
 		paint.setStyle(Style.FILL);
 		paint.setColor(color);

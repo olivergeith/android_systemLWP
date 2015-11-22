@@ -61,6 +61,13 @@ public class LevelPart {
 		return this;
 	}
 
+	public LevelPart setDropShadow(final DropShadow dropShadow) {
+		if (dropShadow != null) {
+			dropShadow.setUpPaint(paint);
+		}
+		return this;
+	}
+
 	public LevelPart setMode(final EZMode modus) {
 		Log.i("LevelMode", "Modus = " + modus);
 		this.modus = modus;

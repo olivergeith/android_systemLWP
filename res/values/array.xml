@@ -188,62 +188,10 @@
         <item name="121">false</item>
         <item name="130">false</item>
         <item name="140">false</item>
+        <item name="150">false</item>
+        <item name="151">false</item>
         </string-array>
     
-    <string-array name="prostyl">
-        <item name="1">ZoopaWideV1</item>
-        <item name="2">ZoopaWideV2</item>
-        <item name="3">ZoopaWideV3</item>
-        <item name="4">ZoopaWideV4</item>
-        <item name="5">ZoopaWideV5</item>
-        <item name="6">ZoopaWideV6</item>
-        <item name="10">ZoopaCircleV1</item>
-        <item name="11">ZoopaCircleV2</item>
-        <item name="12">ZoopaCircleV3</item>
-        <item name="21">TachoV1</item>
-        <item name="22">TachoV2</item>
-        <item name="23">TachoV3</item>
-        <item name="24">TachoV4</item>
-        <item name="20">TachoV5</item>
-        <item name="80">BrickV1</item>
-        <item name="30">BarGraphV1</item>
-        <item name="31">BarGraphV2</item>
-        <item name="32">BarGraphV3</item>
-        <item name="33">BarGraphV4</item>
-        <item name="40">BarGraphVerticalV1</item>
-        <item name="41">BarGraphVerticalV2</item>
-        <item name="42">BarGraphVerticalV3</item>
-        <item name="50">SimpleCircleV1</item>
-        <item name="51">SimpleCircleV2</item>
-        <item name="52">SimpleCircleV3</item>
-        <item name="53">SimpleCircleV4</item>
-        <item name="54">SimpleCircleV5</item>
-        <item name="55">SimpleCircleV6</item>
-        <item name="56">SimpleCircleV7</item>
-        <item name="57">SimpleCircleV8</item>
-        <item name="58">SimpleCircleV9</item>
-        <item name="150">ColorCircleV1</item>
-        <item name="60">AokpCircleV1</item>
-        <item name="61">AokpCircleV2</item>
-        <item name="62">AokpCircleV3</item>
-        <item name="70">NumberOnlyV1</item>
-        <item name="75">StarV1</item>
-        <item name="76">StarV2</item>
-        <item name="77">StarV3</item>
-        <item name="78">StarV4</item>
-        <item name="100">FlowerV1</item>
-        <item name="101">FlowerV2</item>
-        <item name="80">BatteryV1</item>
-        <item name="90">SimpleArcV1</item>
-        <item name="91">SimpleArcV2</item>
-        <item name="92">SimpleArcV3</item>
-        <item name="110">ClockV1</item>
-        <item name="111">ClockV1 (Timer Style)</item>
-        <item name="120">ClockV2</item>
-        <item name="121">ClockV2 (Extra Level Bars)</item>
-        <item name="130">ClockV3</item>
-        <item name="140">ClockV4</item>
-        </string-array>
     
     <string-array name="prostylValues">
         <item name="1">ZoopaWideV1</item>
@@ -298,6 +246,8 @@
         <item name="121">ClockV2 (Extra Level Bars)</item>
         <item name="130">ClockV3</item>
         <item name="140">ClockV4</item>
+        <item name="150">ClockV5</item>
+        <item name="151">ClockV5 (Extra Level Bars)</item>
         </string-array>
     
     <string-array name="animation_styl">

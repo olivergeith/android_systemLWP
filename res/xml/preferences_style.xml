@@ -12,7 +12,7 @@
 	        android:title="@string/style" 
 	        android:summary="@string/style_summary" 
 	        android:dialogTitle="Battery Style"
-	        android:entries="@array/prostyl"
+	        android:entries="@array/prostylValues"
 	        android:entryValues="@array/prostylValues"
 	        stylelistpreference:entryBooleans="@array/styl_booleans"
 	        

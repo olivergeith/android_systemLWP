@@ -17,6 +17,7 @@ public class SkalaTextPart {
 	private final float startWinkel;
 	private final float fontSize10er;
 	private float fontsize5er;
+	private boolean draw100 = false;
 
 	public SkalaTextPart(final PointF center, final float radius, final float fontSize10er, final float startWinkel, final float maxWinkel) {
 		c = center;
@@ -31,9 +32,18 @@ public class SkalaTextPart {
 		return this;
 	}
 
+	public SkalaTextPart setDraw100(final boolean draw100) {
+		this.draw100 = draw100;
+		return this;
+	}
+
 	public void draw(final Canvas canvas) {
 		float fontSize = 0f;
-		for (int i = 0; i < 100; i = i + 1) {
+		int forloopEnd = 100;
+		if (draw100) {
+			forloopEnd = 101;
+		}
+		for (int i = 0; i < forloopEnd; i = i + 1) {
 
 			if (i % 10 == 0) {// 10 er
 				fontSize = fontSize10er;

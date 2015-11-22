@@ -1,5 +1,7 @@
 package de.geithonline.systemlwp.bitmapdrawer.drawingparts;
 
+import android.graphics.Paint;
+
 public class DropShadow {
 	private final float radius;
 	private final int color;
@@ -34,6 +36,10 @@ public class DropShadow {
 
 	public float getOffsetY() {
 		return offsetY;
+	}
+
+	public void setUpPaint(final Paint p) {
+		p.setShadowLayer(radius, offsetX, offsetY, color);
 	}
 
 }

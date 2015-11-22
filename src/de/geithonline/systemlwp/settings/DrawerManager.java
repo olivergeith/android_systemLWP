@@ -55,6 +55,7 @@ import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV1;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV2;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV3;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV4;
+import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV5;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.TimerType;
 
 public class DrawerManager {
@@ -114,6 +115,8 @@ public class DrawerManager {
 		drawer.put("ClockV2 (Extra Level Bars)", new BitmapDrawerClockV2(TimerType.Timer));
 		drawer.put("ClockV3", new BitmapDrawerClockV3());
 		drawer.put("ClockV4", new BitmapDrawerClockV4());
+		drawer.put("ClockV5", new BitmapDrawerClockV5());
+		drawer.put("ClockV5 (Extra Level Bars)", new BitmapDrawerClockV5(TimerType.Timer));
 	}
 
 	public static IBitmapDrawer getDrawer(final String name) {

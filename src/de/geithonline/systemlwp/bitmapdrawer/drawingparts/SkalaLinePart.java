@@ -18,6 +18,7 @@ public class SkalaLinePart {
 	private final float ri;
 	private final Paint paint;
 	private float dicke = 2f;
+	private boolean draw100 = false;
 
 	private final float maxWinkel;
 	private final float startWinkel;
@@ -40,6 +41,11 @@ public class SkalaLinePart {
 		paint.setStyle(Style.FILL);
 	}
 
+	public SkalaLinePart setDraw100(final boolean draw100) {
+		this.draw100 = draw100;
+		return this;
+	}
+
 	public SkalaLinePart set1erRadius(final float r) {
 		ra1er = r;
 		return this;
@@ -57,7 +63,11 @@ public class SkalaLinePart {
 
 	public void draw(final Canvas canvas) {
 		float ra = 0f;
-		for (int i = 0; i < 100; i = i + 1) {
+		int forloopEnd = 100;
+		if (draw100) {
+			forloopEnd = 101;
+		}
+		for (int i = 0; i < forloopEnd; i = i + 1) {
 			if (i % 10 == 0) {// 10 er
 				ra = ra10er;
 			} else if (i % 5 == 0) { // 5er

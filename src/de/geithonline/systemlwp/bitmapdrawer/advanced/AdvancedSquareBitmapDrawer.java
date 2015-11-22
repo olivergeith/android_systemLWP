@@ -2,13 +2,13 @@ package de.geithonline.systemlwp.bitmapdrawer.advanced;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
@@ -124,14 +124,14 @@ public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
 	}
 
 	protected void drawLevelNumberCentered(final Canvas canvas, final int level, final float fontSize) {
-		drawLevelNumberCentered(canvas, level, fontSize, false);
+		drawLevelNumberCentered(canvas, level, fontSize, null);
 	}
 
-	protected void drawLevelNumberCentered(final Canvas canvas, final int level, final float fontSize, final boolean dropShadow) {
+	protected void drawLevelNumberCentered(final Canvas canvas, final int level, final float fontSize, final DropShadow dropShadow) {
 		final String text = "" + level;
 		final Paint p = PaintProvider.getNumberPaint(level, fontSize, Align.CENTER, true, false);
-		if (dropShadow) {
-			p.setShadowLayer(10, 0, 0, Color.BLACK);
+		if (dropShadow != null) {
+			dropShadow.setUpPaint(p);
 		}
 		final PointF point = getTextCenterToDraw(new RectF(0, 0, bmpWidth, bmpHeight), p);
 		canvas.drawText(text, point.x, point.y, p);

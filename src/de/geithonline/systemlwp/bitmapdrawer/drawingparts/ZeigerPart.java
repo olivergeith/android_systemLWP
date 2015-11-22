@@ -86,7 +86,9 @@ public class ZeigerPart {
 	}
 
 	public ZeigerPart setDropShadow(final DropShadow dropShadow) {
-		paint.setShadowLayer(dropShadow.getRadius(), dropShadow.getOffsetX(), dropShadow.getOffsetY(), dropShadow.getColor());
+		if (dropShadow != null) {
+			dropShadow.setUpPaint(paint);
+		}
 		return this;
 	}
 
