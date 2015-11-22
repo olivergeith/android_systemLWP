@@ -5,7 +5,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.util.Log;
 import de.geithonline.systemlwp.bitmapdrawer.shapes.LevelArcPath;
 import de.geithonline.systemlwp.settings.PaintProvider;
 
@@ -69,7 +68,6 @@ public class LevelPart {
 	}
 
 	public LevelPart setMode(final EZMode modus) {
-		Log.i("LevelMode", "Modus = " + modus);
 		this.modus = modus;
 		switch (this.modus) {
 		default:
@@ -94,7 +92,6 @@ public class LevelPart {
 			anzahlSegmente = 10;
 			break;
 		}
-		Log.i("LevelMode", "AnzahlSegmente = " + anzahlSegmente);
 		return this;
 	}
 
@@ -110,7 +107,6 @@ public class LevelPart {
 	}
 
 	public void draw(final Canvas canvas) {
-		Log.i("DrawLevel", "AnzahlSegmente = " + anzahlSegmente);
 		switch (style) {
 		default:
 		case segmented_all:
@@ -189,7 +185,6 @@ public class LevelPart {
 			} else {
 				winkel = startWinkel + i * winkelProSegment + abstandZwischenSegemten / 2;
 			}
-			// Log.i("LevelPart", i + ".Winkel=" + winkel);
 			final Path path = new LevelArcPath(c, ra, ri, winkel, sweepProSeg);
 			canvas.drawPath(path, paint);
 		}

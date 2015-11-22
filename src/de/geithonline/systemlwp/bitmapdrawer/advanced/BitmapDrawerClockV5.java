@@ -22,6 +22,7 @@ import de.geithonline.systemlwp.bitmapdrawer.drawingparts.TimerType;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.ZeigerPart;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
+import de.geithonline.systemlwp.utils.ColorHelper;
 import de.geithonline.systemlwp.utils.GeometrieHelper;
 
 public class BitmapDrawerClockV5 extends AdvancedSquareBitmapDrawer {
@@ -115,7 +116,7 @@ public class BitmapDrawerClockV5 extends AdvancedSquareBitmapDrawer {
 				.draw(bitmapCanvas);
 		// Zeiger
 		new ZeigerPart(center, level, maxRadius * 0.80f, maxRadius * 0.26f, strokeWidth, startWinkel, sweep, EZMode.Einer)//
-				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
+				.setDropShadow(new DropShadow(3 * strokeWidth, ColorHelper.changeBrightness(Settings.getZeigerColor(), -64)))//
 				.draw(bitmapCanvas);
 
 		// Innen Fläche
@@ -150,13 +151,13 @@ public class BitmapDrawerClockV5 extends AdvancedSquareBitmapDrawer {
 					.setStyle(EZStyle.segmented_all)//
 					.setMode(EZMode.EinerOnly10Segmente)//
 					.draw(bitmapCanvas);
-			new ZeigerPart(center, level, maxRadius * 0.66f, maxRadius * 0.26f, strokeWidth, startWinkel - 5, -80, EZMode.Zehner)//
-					.setDropShadow(new DropShadow(2 * strokeWidth, Color.BLACK))//
-					.overrideColor(Color.WHITE)//
+			new ZeigerPart(center, level, maxRadius * 0.66f, maxRadius * 0.33f, strokeWidth, startWinkel - 5, -80, EZMode.Zehner)//
+					.setDropShadow(new DropShadow(3 * strokeWidth, ColorHelper.changeBrightness(Settings.getZeigerColor(), -100)))//
+					// .overrideColor(Color.WHITE)//
 					.draw(bitmapCanvas);
-			new ZeigerPart(center, level, maxRadius * 0.60f, maxRadius * 0.26f, strokeWidth, startWinkel - 5, -80, EZMode.EinerOnly10Segmente)//
-					.setDropShadow(new DropShadow(2 * strokeWidth, Color.BLACK))//
-					.overrideColor(Color.WHITE)//
+			new ZeigerPart(center, level, maxRadius * 0.60f, maxRadius * 0.33f, strokeWidth, startWinkel - 5, -80, EZMode.EinerOnly10Segmente)//
+					.setDropShadow(new DropShadow(3 * strokeWidth, ColorHelper.changeBrightness(Settings.getZeigerColor(), -100)))//
+					// .overrideColor(Color.WHITE)//
 					.draw(bitmapCanvas);
 
 			// ##############################################
