@@ -1,7 +1,6 @@
 package de.geithonline.systemlwp.bitmapdrawer.drawingparts;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
@@ -11,35 +10,43 @@ import de.geithonline.systemlwp.settings.PaintProvider;
 
 public class LevelPart {
 
-	public enum LEVEL_STYLE {
-		normal, segmented_onlyactive, segmented_all;
-	}
-
-	private LEVEL_STYLE style = LEVEL_STYLE.normal;
-
-	private Outline outline;
+	private EZStyle style = EZStyle.sweep;
+	private EZMode modus = EZMode.Einer;
 	private final PointF c;
 	private final float ra;
 	private final float ri;
 	private final Paint paint;
-	private final int level;
+	private int levelIntern;
 	private final float maxWinkel;
 	private final float startWinkel;
-	private int anzahlSegmente = 10;
-	float abstandZwischenSegemten = 1.5f;
+	private float abstandZwischenSegemten = 1.5f;
+	private float anzahlSegmente = 10;
 
 	private float strokeWidthSegmente = 1f;
+	private final int level;
+	private final EZColoring coloring;
 
-	private boolean colorful = false;
-
-	public LevelPart(final PointF center, final float radAussen, final float radInnen, final int level, final float startWinkel, final float maxWinkel) {
+	public LevelPart(final PointF center, final float radAussen, final float radInnen, //
+			final int level, final float startWinkel, final float maxWinkel, final EZColoring coloring) {
 		c = center;
 		ra = radAussen;
 		ri = radInnen;
 		this.level = level;
 		this.maxWinkel = maxWinkel;
 		this.startWinkel = startWinkel;
-		paint = PaintProvider.getBatteryPaint(level);
+		this.coloring = coloring;
+		setMode(modus);
+		switch (coloring) {
+		default:
+		case LevelColors:
+			paint = PaintProvider.getBatteryPaint(this.level);
+			break;
+		case Colorfull:
+		case Custom:
+		case ColorOf100:
+			paint = PaintProvider.getBatteryPaint(100);
+			break;
+		}
 		initPaint();
 	}
 
@@ -48,98 +55,133 @@ public class LevelPart {
 		paint.setStyle(Style.FILL);
 	}
 
-	public LevelPart setOutline(final Outline outline) {
-		this.outline = outline;
+	public LevelPart setColor(final int color) {
+		paint.setColor(color);
 		return this;
 	}
 
-	public LevelPart setColorful(final boolean colorful) {
-		this.colorful = colorful;
+	public LevelPart setMode(final EZMode modus) {
+		this.modus = modus;
+		switch (modus) {
+		default:
+		case Einer:
+			levelIntern = level;
+			anzahlSegmente = 100;
+			break;
+		case EinerOnly9Segment:
+			levelIntern = level % 10;
+			anzahlSegmente = 9;
+			break;
+		case EinerOnly10Segmente:
+			levelIntern = level % 10;
+			anzahlSegmente = 10;
+			break;
+		case Fuenfer:
+			levelIntern = level / 5;
+			anzahlSegmente = 20;
+			break;
+		case Zehner:
+			levelIntern = level / 10;
+			anzahlSegmente = 10;
+			break;
+		}
+		return this;
+	}
+
+	public LevelPart setStyle(final EZStyle style) {
+		this.style = style;
+		return this;
+	}
+
+	public LevelPart configureSegemte(final float abstand, final float strokWidth) {
+		abstandZwischenSegemten = abstand;
+		strokeWidthSegmente = strokWidth;
 		return this;
 	}
 
 	public void draw(final Canvas canvas) {
 		switch (style) {
 		default:
-		case normal:
-			drawNormal(canvas);
+		case segmented_all:
+			drawSegemtedAll(canvas);
 			break;
 		case segmented_onlyactive:
 			drawSegemtedOnlyAct(canvas);
 			break;
-		case segmented_all:
-			drawSegemtedAll(canvas);
+		case sweep:
+			drawSweep(canvas);
 			break;
+
 		}
 	}
 
-	private void drawSegemtedOnlyAct(final Canvas canvas) {
-		final float winkelProProzent = maxWinkel / 100;
-		final float sweepProSeg = winkelProProzent * 100 / anzahlSegmente - abstandZwischenSegemten;
+	private void drawSweep(final Canvas canvas) {
+		final float winkelProSegment = maxWinkel / anzahlSegmente;
+		final float sweep = winkelProSegment * levelIntern;
+		final Path path = new LevelArcPath(c, ra, ri, startWinkel, sweep);
+		canvas.drawPath(path, paint);
+	}
 
-		for (int i = 0; i < 100; i = i + 100 / anzahlSegmente) {
-			if (colorful) {
-				paint.setColor(PaintProvider.getColorForLevel(i));
-			}
-			if (i < level) {
-				final float winkel = startWinkel + i * winkelProProzent + abstandZwischenSegemten / 2;
+	private void drawSegemtedOnlyAct(final Canvas canvas) {
+		final float winkelProSegment = maxWinkel / anzahlSegmente;
+		float sweepProSeg;
+		if (winkelProSegment < 0) {
+			sweepProSeg = winkelProSegment + abstandZwischenSegemten;
+		} else {
+			sweepProSeg = winkelProSegment - abstandZwischenSegemten;
+		}
+
+		for (int i = 0; i < anzahlSegmente; i = i + 1) {
+			float winkel;
+			if (i < levelIntern) {
+				if (winkelProSegment < 0) {
+					winkel = startWinkel + i * winkelProSegment - abstandZwischenSegemten / 2;
+				} else {
+					winkel = startWinkel + i * winkelProSegment + abstandZwischenSegemten / 2;
+				}
+				if (coloring.equals(EZColoring.Colorfull)) {
+					final int faktor = (int) (100 / anzahlSegmente);
+					paint.setColor(PaintProvider.getColorForLevel(i * faktor));
+				}
 				final Path path = new LevelArcPath(c, ra, ri, winkel, sweepProSeg);
 				canvas.drawPath(path, paint);
 			} else {
 				// do nothing
 			}
 		}
+
 	}
 
 	private void drawSegemtedAll(final Canvas canvas) {
-		final float winkelProProzent = maxWinkel / 100;
-		final float sweepProSeg = winkelProProzent * 100 / anzahlSegmente - abstandZwischenSegemten;
-
-		for (int i = 0; i < 100; i = i + 100 / anzahlSegmente) {
+		final float winkelProSegment = maxWinkel / anzahlSegmente;
+		float sweepProSeg;
+		if (winkelProSegment < 0) {
+			sweepProSeg = winkelProSegment + abstandZwischenSegemten;
+		} else {
+			sweepProSeg = winkelProSegment - abstandZwischenSegemten;
+		}
+		for (int i = 0; i < anzahlSegmente; i = i + 1) {
 			paint.setStrokeWidth(strokeWidthSegmente);
-			if (colorful) {
-				paint.setColor(PaintProvider.getColorForLevel(i));
-			}
-			if (i < level) {
+			if (levelIntern > i) {
 				paint.setStyle(Style.FILL_AND_STROKE);
 			} else {
 				paint.setStyle(Style.STROKE);
 			}
-			final float winkel = startWinkel + i * winkelProProzent + abstandZwischenSegemten / 2;
+			if (coloring.equals(EZColoring.Colorfull)) {
+				final int faktor = (int) (100 / anzahlSegmente);
+				paint.setColor(PaintProvider.getColorForLevel(i * faktor));
+			}
+
+			float winkel;
+			if (winkelProSegment < 0) {
+				winkel = startWinkel + i * winkelProSegment - abstandZwischenSegemten / 2;
+			} else {
+				winkel = startWinkel + i * winkelProSegment + abstandZwischenSegemten / 2;
+			}
 			// Log.i("LevelPart", i + ".Winkel=" + winkel);
 			final Path path = new LevelArcPath(c, ra, ri, winkel, sweepProSeg);
 			canvas.drawPath(path, paint);
 		}
-	}
-
-	private void drawNormal(final Canvas canvas) {
-		final float step = maxWinkel / 100;
-		final float sweepForLevel = level * step;
-		final Path path = new LevelArcPath(c, ra, ri, startWinkel, sweepForLevel);
-		canvas.drawPath(path, paint);
-		if (outline != null) {
-			// aufräumen für Outline
-			paint.setShader(null);
-			paint.setShadowLayer(0, 0, 0, Color.BLACK);
-			// stroke einstellen
-			paint.setColor(outline.getColor());
-			paint.setStrokeWidth(outline.getStrokeWidth());
-			paint.setStyle(Style.STROKE);
-			// und nochmal zeichnen
-			canvas.drawPath(path, paint);
-		}
-	}
-
-	public LevelPart setStyle(final LEVEL_STYLE style) {
-		this.style = style;
-		return this;
-	}
-
-	public LevelPart configureSegemte(final int anzahl, final float abstand, final float strokeWidth) {
-		anzahlSegmente = anzahl;
-		abstandZwischenSegemten = abstand;
-		strokeWidthSegmente = strokeWidth;
-		return this;
 	}
 
 }

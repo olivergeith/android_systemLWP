@@ -8,11 +8,11 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZColoring;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZMode;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZStyle;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelEinerZehnerPart.EZ_COLORING;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
@@ -75,10 +75,16 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 
 	private void drawAll(final int level) {
 
-		new LevelPart(center, maxRadius * 0.98f, maxRadius * 0.92f, level, -90, 360)//
+		new LevelPart(center, maxRadius * 0.98f, maxRadius * 0.92f, level, -90, 360, EZColoring.LevelColors)//
+				.configureSegemte(1f, strokeWidth / 3)//
 				.setStyle(Settings.getLevelStyle())//
-				.configureSegemte(20, 1.0f, strokeWidth / 3)//
+				.setMode(EZMode.Einer)//
 				.draw(bitmapCanvas);
+
+		// new LevelPart(center, maxRadius * 0.98f, maxRadius * 0.92f, level, -90, 360)//
+		// .setStyle(Settings.getLevelStyle())//
+		// .configureSegemte(20, 1.0f, strokeWidth / 3)//
+		// .draw(bitmapCanvas);
 
 		new RingPart(center, maxRadius * 0.90f, maxRadius * 0.70f, new Paint())//
 				.setGradient(new Gradient(PaintProvider.getGray(200), PaintProvider.getGray(32), GRAD_STYLE.top2bottom))//
@@ -100,17 +106,21 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 				.draw(bitmapCanvas);
 
 		// Zeiger
-		new ZeigerPart(center, level, maxRadius * 0.87f, maxRadius * 0.73f, strokeWidth * 3, -90, 360, EZMode.all)//
+		new ZeigerPart(center, level, maxRadius * 0.87f, maxRadius * 0.73f, strokeWidth * 3, -90, 360, EZMode.Einer)//
 				.setDropShadow(new DropShadow(2 * strokeWidth, Color.BLACK))//
 				.setZeigerType(ZEIGER_TYP.raute)//
 				.draw(bitmapCanvas);
 		// Timer
-		new LevelEinerZehnerPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 60, -90, EZMode.einer, EZ_COLORING.Custom)//
+		new LevelPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 60, -90, EZColoring.Custom)//
 				.setColor(Settings.getScaleColor())//
+				.setStyle(EZStyle.segmented_all)//
+				.setMode(EZMode.EinerOnly10Segmente)//
 				.configureSegemte(3f, strokeWidth / 3)//
 				.draw(bitmapCanvas);
-		new LevelEinerZehnerPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 120, 90, EZMode.zehner, EZ_COLORING.Custom)//
+		new LevelPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 120, 90, EZColoring.Custom)//
 				.setColor(Settings.getScaleColor())//
+				.setStyle(EZStyle.segmented_all)//
+				.setMode(EZMode.Zehner)//
 				.configureSegemte(3f, strokeWidth / 3)//
 				.draw(bitmapCanvas);
 

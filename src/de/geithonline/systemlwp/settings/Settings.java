@@ -16,7 +16,7 @@ import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart.LEVEL_STYLE;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZStyle;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 
 public class Settings {
@@ -113,15 +113,15 @@ public class Settings {
 		return prefs.getString("levelStyles", "Normal");
 	}
 
-	public static LEVEL_STYLE getLevelStyle() {
+	public static EZStyle getLevelStyle() {
 		switch (getLevelStyleString()) {
 		default:
 		case "Normal":
-			return LEVEL_STYLE.normal;
+			return EZStyle.sweep;
 		case "Only activ segments":
-			return LEVEL_STYLE.segmented_onlyactive;
+			return EZStyle.segmented_onlyactive;
 		case "All segments":
-			return LEVEL_STYLE.segmented_all;
+			return EZStyle.segmented_all;
 		}
 	}
 

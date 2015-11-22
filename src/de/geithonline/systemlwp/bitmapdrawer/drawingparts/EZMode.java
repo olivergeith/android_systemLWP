@@ -1,5 +1,5 @@
 package de.geithonline.systemlwp.bitmapdrawer.drawingparts;
 
 public enum EZMode {
-	all, einer, zehner;
+	Einer, EinerOnly9Segment, EinerOnly10Segmente, Fuenfer, Zehner;
 }

@@ -8,6 +8,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZColoring;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
@@ -86,24 +87,18 @@ public class BitmapDrawerClockV3 extends AdvancedSquareBitmapDrawer {
 				.draw(bitmapCanvas);
 
 		// Level
-		new LevelPart(center, maxRadius * 0.79f, maxRadius * 0.70f, level, -90, 360)//
+		new LevelPart(center, maxRadius * 0.79f, maxRadius * 0.70f, level, -90, 360, EZColoring.LevelColors)//
+				.configureSegemte(1f, strokeWidth / 3)//
 				.setStyle(Settings.getLevelStyle())//
-				.setColorful(true)//
-				.configureSegemte(20, 2f, strokeWidth / 2)//
+				.setMode(EZMode.Einer)//
 				.draw(bitmapCanvas);
-				// new LevelPart(center, maxRadius * 0.55f, maxRadius * 0.40f, level, -90, 360)//
-				// .setStyle(LEVEL_STYLE.normal)//
-				// .draw(bitmapCanvas);
-				// new LevelPart(center, maxRadius * 0.79f, maxRadius * 0.40f, level, -90, 360)//
-				// .setStyle(LEVEL_STYLE.normal)//
-				// .draw(bitmapCanvas);
 
 		// Innen Phase (with white dropshadow)
 		new RingPart(center, maxRadius * 0.40f, maxRadius * 0.35f, new Paint())//
 				.setGradient(new Gradient(PaintProvider.getGray(224, op), PaintProvider.getGray(32, op), GRAD_STYLE.top2bottom))//
 				.draw(bitmapCanvas);
 		// Zeiger
-		new ZeigerPart(center, level, maxRadius * 0.85f, maxRadius * 0.36f, strokeWidth, -90, 360, EZMode.all)//
+		new ZeigerPart(center, level, maxRadius * 0.85f, maxRadius * 0.36f, strokeWidth, -90, 360, EZMode.Einer)//
 				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
 				.draw(bitmapCanvas);
 

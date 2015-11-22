@@ -39,15 +39,20 @@ public class ZeigerPart {
 		ri = radInnen;
 		switch (this.modus) {
 		default:
-		case all:
+		case Einer:
 			levelIntern = this.level;
 			anzahlLevel = 100;
 			break;
-		case einer:
+		case EinerOnly9Segment:
+		case EinerOnly10Segmente:
 			levelIntern = this.level % 10;
 			anzahlLevel = 10;
 			break;
-		case zehner:
+		case Fuenfer:
+			levelIntern = level / 5;
+			anzahlLevel = 20;
+			break;
+		case Zehner:
 			levelIntern = this.level / 10;
 			anzahlLevel = 10;
 			break;
