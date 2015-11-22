@@ -11,6 +11,8 @@ import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZColoring;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZStyle;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
+import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
@@ -41,7 +43,7 @@ public class BitmapDrawerClockV4 extends AdvancedSquareBitmapDrawer {
 		// Strokes
 		strokeWidth = maxRadius * 0.02f;
 		// fontsizes
-		fontSizeArc = maxRadius * 0.08f;
+		fontSizeArc = maxRadius * 0.07f;
 		fontSizeScala = maxRadius * 0.1f;
 		fontSizeLevel = maxRadius * 0.2f;
 
@@ -64,20 +66,25 @@ public class BitmapDrawerClockV4 extends AdvancedSquareBitmapDrawer {
 	}
 
 	private void drawAll(final int level) {
+
+		new RingPart(center, maxRadius * 0.98f, maxRadius * 0.88f, new Paint())//
+				.setGradient(new Gradient(PaintProvider.getGray(32), PaintProvider.getGray(192), GRAD_STYLE.top2bottom))//
+				.setOutline(new Outline(PaintProvider.getGray(224), strokeWidth * 0.75f))//
+				.draw(bitmapCanvas);
 		// scala
-		new RingPart(center, maxRadius * 0.90f, 0, PaintProvider.getBackgroundPaint())//
-				.setOutline(new Outline(Color.WHITE, strokeWidth))//
+		new RingPart(center, maxRadius * 0.88f, 0, PaintProvider.getBackgroundPaint())//
+				// .setOutline(new Outline(Color.WHITE, strokeWidth))//
 				.draw(bitmapCanvas);
 
 		// level ring
-		new LevelPart(center, maxRadius * 0.82f, maxRadius * 0.72f, level, -90, 360, EZColoring.LevelColors)//
+		new LevelPart(center, maxRadius * 0.86f, maxRadius * 0.72f, level, -90, 360, EZColoring.LevelColors)//
 				.configureSegemte(1f, strokeWidth / 3)//
 				.setMode(EZMode.Einer)//
-				.setStyle(EZStyle.segmented_onlyactive)//
+				.setStyle(EZStyle.sweep)//
 				.draw(bitmapCanvas);
 
 		// Gegenläufiger Level
-		new LevelPart(center, maxRadius * 0.88f, maxRadius * 0.84f, 100 - level, -90, -360, EZColoring.LevelColors)//
+		new LevelPart(center, maxRadius * 0.70f, maxRadius * 0.66f, 100 - level, -90, -360, EZColoring.ColorOf100)//
 				.configureSegemte(1f, strokeWidth / 3)//
 				.setMode(EZMode.Einer)//
 				.setStyle(EZStyle.segmented_onlyactive)//
@@ -85,8 +92,8 @@ public class BitmapDrawerClockV4 extends AdvancedSquareBitmapDrawer {
 
 		// Timer
 		final float maxScala = 120f;
-		final float ri = maxRadius * 0.60f;
-		new LevelPart(center, maxRadius * 0.70f, ri, level, -225, maxScala, EZColoring.Colorfull)//
+		final float ri = maxRadius * 0.54f;
+		new LevelPart(center, maxRadius * 0.64f, ri, level, -225, maxScala, EZColoring.ColorOf100)//
 				.configureSegemte(1.5f, strokeWidth / 3)//
 				.setMode(EZMode.Fuenfer)//
 				.setStyle(EZStyle.segmented_all)//
@@ -96,7 +103,7 @@ public class BitmapDrawerClockV4 extends AdvancedSquareBitmapDrawer {
 				.setZeigerType(ZEIGER_TYP.rect)//
 				.draw(bitmapCanvas);
 
-		new LevelPart(center, maxRadius * 0.70f, ri, level, 45, -maxScala, EZColoring.ColorOf100)//
+		new LevelPart(center, maxRadius * 0.64f, ri, level, 45, -maxScala, EZColoring.ColorOf100)//
 				.configureSegemte(1.5f, strokeWidth / 3)//
 				.setMode(EZMode.EinerOnly9Segment)//
 				.setStyle(EZStyle.segmented_all)//
@@ -141,7 +148,7 @@ public class BitmapDrawerClockV4 extends AdvancedSquareBitmapDrawer {
 		final long winkel = 272 + Math.round(level * 3.6f);
 
 		final Path mArc = new Path();
-		final RectF oval = GeometrieHelper.getCircle(center, maxRadius - fontSizeArc);
+		final RectF oval = GeometrieHelper.getCircle(center, maxRadius * 0.91f);
 		mArc.addArc(oval, winkel, 180);
 		final String text = Settings.getChargingText();
 		final Paint p = PaintProvider.getTextPaint(level, fontSizeArc);
