@@ -56,7 +56,7 @@ import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV2;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV3;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV4;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV5;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.TimerType;
+import de.geithonline.systemlwp.bitmapdrawer.enums.TimerType;
 
 public class DrawerManager {
 	private static Map<String, IBitmapDrawer> drawer = new HashMap<String, IBitmapDrawer>();

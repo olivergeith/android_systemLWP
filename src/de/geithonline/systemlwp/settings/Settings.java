@@ -16,8 +16,8 @@ import de.geithonline.systemlwp.BackgroundPreferencesFragment;
 import de.geithonline.systemlwp.LiveWallpaperService;
 import de.geithonline.systemlwp.R;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZMode;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.EZStyle;
+import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
+import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 
 public class Settings {
