@@ -3,6 +3,7 @@
 
     <string-array name="levelStyles">
         <item >Normal</item>
+        <item >Normal (with Outline)</item>
         <item >Only activ segments</item>
         <item >All segments</item>
     </string-array>

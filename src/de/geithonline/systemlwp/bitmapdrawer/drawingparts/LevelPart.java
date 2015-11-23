@@ -51,6 +51,7 @@ public class LevelPart {
 	}
 
 	private void initPaint() {
+		paint.setStrokeWidth(strokeWidthSegmente);
 		paint.setAntiAlias(true);
 		paint.setStyle(Style.FILL);
 	}
@@ -75,7 +76,7 @@ public class LevelPart {
 			levelIntern = level;
 			anzahlSegmente = 100;
 			break;
-		case EinerOnly9Segment:
+		case EinerOnly9Segmente:
 			levelIntern = level % 10;
 			anzahlSegmente = 9;
 			break;
@@ -100,9 +101,19 @@ public class LevelPart {
 		return this;
 	}
 
-	public LevelPart configureSegemte(final float abstand, final float strokWidth) {
-		abstandZwischenSegemten = abstand;
+	/**
+	 * @param abstandsWinkel
+	 *            in grad (default ist 1.5 grad)
+	 * @return
+	 */
+	public LevelPart setSegemteAbstand(final float abstandsWinkel) {
+		abstandZwischenSegemten = abstandsWinkel;
+		return this;
+	}
+
+	public LevelPart setStrokeWidth(final float strokWidth) {
 		strokeWidthSegmente = strokWidth;
+		paint.setStrokeWidth(strokeWidthSegmente);
 		return this;
 	}
 
@@ -115,6 +126,9 @@ public class LevelPart {
 		case segmented_onlyactive:
 			drawSegemtedOnlyAct(canvas);
 			break;
+		case sweep_withOutline:
+			drawSweepWithOutline(canvas);
+			// hier ist absichtlich kein // break;
 		case sweep:
 			drawSweep(canvas);
 			break;
@@ -122,10 +136,17 @@ public class LevelPart {
 		}
 	}
 
+	private void drawSweepWithOutline(final Canvas canvas) {
+		final Path path = new LevelArcPath(c, ra, ri, startWinkel, maxWinkel);
+		paint.setStyle(Style.STROKE);
+		canvas.drawPath(path, paint);
+	}
+
 	private void drawSweep(final Canvas canvas) {
 		final float winkelProSegment = maxWinkel / anzahlSegmente;
 		final float sweep = winkelProSegment * levelIntern;
 		final Path path = new LevelArcPath(c, ra, ri, startWinkel, sweep);
+		paint.setStyle(Style.FILL);
 		canvas.drawPath(path, paint);
 	}
 

@@ -80,7 +80,8 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 
 		// level ring
 		new LevelPart(center, maxRadius * 0.86f, maxRadius * 0.72f, level, -90, 360, EZColoring.LevelColors)//
-				.configureSegemte(1f, strokeWidth / 3)//
+				.setSegemteAbstand(1f)//
+				.setStrokeWidth(strokeWidth / 3)//
 				.setMode(EZMode.Einer)//
 				.setStyle(EZStyle.sweep)//
 				.draw(bitmapCanvas);
@@ -103,9 +104,7 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 				.set5erRadiusInnen(maxRadius * 0.86f)//
 				.set1erRadiusInnen(maxRadius * 0.88f)//
 				.setDicke(strokeWidth / 2)//
-				.draw(bitmapCanvas);
-		new SkalaLinePart(center, maxRadius * 0.90f, maxRadius * 0.84f, -90, 360)//
-				.setDicke(strokeWidth)//
+				.setDicke10er(strokeWidth)//
 				.draw(bitmapCanvas);
 
 		new SkalaTextPart(center, maxRadius * 0.75f, fontSizeScala, -90, 360)//
@@ -164,12 +163,14 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 			new LevelPart(centerLi, maxRadius * 0.20f, maxRadius * 0.15f, level, -90, 360, EZColoring.ColorOf100)//
 					.setMode(EZMode.Zehner)//
 					.setStyle(EZStyle.segmented_all)//
-					.configureSegemte(5f, strokeWidth / 3)//
+					.setSegemteAbstand(5f)//
+					.setStrokeWidth(strokeWidth / 3)//
 					.draw(bitmapCanvas);
 			new LevelPart(centerRe, maxRadius * 0.20f, maxRadius * 0.15f, level, -90, 360, EZColoring.ColorOf100)//
 					.setMode(EZMode.EinerOnly10Segmente)//
 					.setStyle(EZStyle.segmented_all)//
-					.configureSegemte(5f, strokeWidth / 3)//
+					.setSegemteAbstand(5f)//
+					.setStrokeWidth(strokeWidth / 3)//
 					.draw(bitmapCanvas);
 			// LevelNumbers
 			if (Settings.isShowNumber()) {

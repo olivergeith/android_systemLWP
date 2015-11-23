@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
-    xmlns:stylelistpreference="http://schemas.android.com/apk/res/de.geithonline.systemlwp">
+    xmlns:stylelistpreference="http://schemas.android.com/apk/res/de.geithonline.systemlwp"
+     xmlns:seekbarpreference="http://schemas.android.com/apk/lib/de.geithonline.android.basics.preferences">
  
-    <PreferenceCategory 
-        android:title="@string/category_style"
-        android:summary="@string/category_style_summary">
 
         <de.geithonline.systemlwp.stylelistpreference.StyleListPreference
 	        android:key="batt_style"
@@ -18,66 +16,6 @@
 	        
 	        />
         
-        <Preference
-            android:key="logov1"
-            android:title="Where is LogoV1 Style ?"
-            android:icon="@android:drawable/ic_dialog_info"
-            />
-            
-        
-    </PreferenceCategory>
-    
-    <PreferenceCategory 
-        android:title="@string/category_size"
-        android:summary="@string/category_size_summary">
-        
-        <ListPreference
-            android:key="resizePortrait"
-            android:defaultValue="100"
-            android:title="@string/resizePortrait" 
-            android:summary="@string/resizePortrait_summary" 
-            android:dialogTitle="@string/resizePortrait"
-            android:entries="@array/resize"
-            android:entryValues="@array/resizeValues"
-            />
-        <ListPreference
-            android:key="resizeLandscape"
-            android:defaultValue="100"
-            android:title="@string/resizeLandscape" 
-            android:summary="@string/resizeLandscape_summary" 
-            android:dialogTitle="@string/resizeLandscape"
-            android:entries="@array/resize"
-            android:entryValues="@array/resizeValues"
-            />
-        
-        <CheckBoxPreference 
-            android:key="centerBattery"
-            android:title="@string/centerBattery"
-            android:summary="@string/centerBattery_summary"
-            android:defaultValue="true"
-            android:disableDependentsState="true"
-        	/>
-        
-        <EditTextPreference
-		    android:key="vertical_position"
-    		android:defaultValue="0"
-		    android:title="@string/vertical_position" 
-    		android:dialogTitle="@string/vertical_position"
-		    android:inputType="number"
-		    android:summary="@string/vertical_position_summary"
-		    android:dependency="centerBattery"
-         	/>
-        <EditTextPreference
-		    android:key="vertical_position_landscape"
-    		android:defaultValue="0"
-		    android:title="@string/vertical_position_landscape" 
-    		android:dialogTitle="@string/vertical_position_landscape"
-		    android:inputType="number"
-		    android:summary="@string/vertical_position_landscape_summary"
-		    android:dependency="centerBattery"
-         	/>
-        
-    </PreferenceCategory>
         
     <PreferenceCategory 
         android:title="@string/category_style_options"

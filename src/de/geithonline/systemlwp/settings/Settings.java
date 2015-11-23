@@ -138,6 +138,8 @@ public class Settings {
 		default:
 		case "Normal":
 			return EZStyle.sweep;
+		case "Normal (with Outline)":
+			return EZStyle.sweep_withOutline;
 		case "Only activ segments":
 			return EZStyle.segmented_onlyactive;
 		case "All segments":
@@ -608,17 +610,22 @@ public class Settings {
 
 	public static float getPortraitResizeFactor() {
 		if (prefs == null) {
-			return 1.0f;
+			return 0.75f;
 		}
-		final int size = Integer.valueOf(prefs.getString("resizePortrait", "100"));
+		final int size = prefs.getInt("resizePortraitInt", 75);
 		return size / 100f;
 	}
 
 	public static float getLandscapeResizeFactor() {
 		if (prefs == null) {
-			return 1.0f;
+			return 0.75f;
 		}
-		final int size = Integer.valueOf(prefs.getString("resizeLandscape", "100"));
+		final int size = prefs.getInt("resizeLandscapeInt", 75);
 		return size / 100f;
+	}
+
+	public static boolean isShowScalaGlow() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

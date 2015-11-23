@@ -88,7 +88,8 @@ public class BitmapDrawerClockV3 extends AdvancedSquareBitmapDrawer {
 
 		// Level
 		new LevelPart(center, maxRadius * 0.79f, maxRadius * 0.70f, level, -90, 360, EZColoring.LevelColors)//
-				.configureSegemte(1f, strokeWidth / 3)//
+				.setSegemteAbstand(1f)//
+				.setStrokeWidth(strokeWidth / 3)//
 				.setStyle(Settings.getLevelStyle())//
 				.setMode(Settings.getLevelMode())//
 				.draw(bitmapCanvas);

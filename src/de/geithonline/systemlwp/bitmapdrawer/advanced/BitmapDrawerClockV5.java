@@ -96,21 +96,24 @@ public class BitmapDrawerClockV5 extends AdvancedSquareBitmapDrawer {
 
 		// Level
 		new LevelPart(center, maxRadius * 0.71f, maxRadius * 0.60f, level, startWinkel, sweep, EZColoring.LevelColors)//
-				.configureSegemte(1.0f, strokeWidth / 3)//
+				.setSegemteAbstand(1f)//
+				.setStrokeWidth(strokeWidth / 3)//
 				.setStyle(Settings.getLevelStyle())//
 				.setMode(Settings.getLevelMode())//
 				// .setDropShadow(new DropShadow(strokeWidth * 1, Color.BLACK))//
 				.draw(bitmapCanvas);
 
 		// Innen Phase
-		new RingPart(center, maxRadius * 0.32f, maxRadius * 0.25f, new Paint())//
-				.setColor(Color.BLACK)//
-				.setDropShadow(new DropShadow(strokeWidth * 10, Settings.getZeigerColor()))//
-				.draw(bitmapCanvas);
-		new RingPart(center, maxRadius * 0.32f, maxRadius * 0.25f, new Paint())//
-				.setColor(Color.BLACK)//
-				.setDropShadow(new DropShadow(strokeWidth * 5, Settings.getZeigerColor()))//
-				.draw(bitmapCanvas);
+		if (Settings.isShowScalaGlow()) {
+			new RingPart(center, maxRadius * 0.32f, maxRadius * 0.25f, new Paint())//
+					.setColor(Color.BLACK)//
+					.setDropShadow(new DropShadow(strokeWidth * 10, Settings.getZeigerColor()))//
+					.draw(bitmapCanvas);
+			new RingPart(center, maxRadius * 0.32f, maxRadius * 0.25f, new Paint())//
+					.setColor(Color.BLACK)//
+					.setDropShadow(new DropShadow(strokeWidth * 5, Settings.getZeigerColor()))//
+					.draw(bitmapCanvas);
+		}
 		new RingPart(center, maxRadius * 0.31f, maxRadius * 0.25f, new Paint())//
 				.setGradient(new Gradient(PaintProvider.getGray(224, op), PaintProvider.getGray(48, op), GRAD_STYLE.top2bottom))//
 				.draw(bitmapCanvas);
@@ -141,13 +144,15 @@ public class BitmapDrawerClockV5 extends AdvancedSquareBitmapDrawer {
 			// ##############################################
 			// Playing
 			new LevelPart(center, maxRadius * 0.71f, maxRadius * 0.66f, level, startWinkel - 5, -80, EZColoring.ColorOf100)//
-					.configureSegemte(1.5f, strokeWidth / 3)//
+					.setSegemteAbstand(1.5f)//
+					.setStrokeWidth(strokeWidth / 3)//
 					.setStyle(EZStyle.segmented_all)//
 					.setMode(EZMode.Zehner)//
 					.draw(bitmapCanvas);
 
 			new LevelPart(center, maxRadius * 0.64f, maxRadius * 0.60f, level, startWinkel - 5, -80, EZColoring.ColorOf100)//
-					.configureSegemte(1.5f, strokeWidth / 3)//
+					.setSegemteAbstand(1.5f)//
+					.setStrokeWidth(strokeWidth / 3)//
 					.setStyle(EZStyle.segmented_all)//
 					.setMode(EZMode.EinerOnly10Segmente)//
 					.draw(bitmapCanvas);

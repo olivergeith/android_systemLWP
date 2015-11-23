@@ -20,11 +20,13 @@ public class SkalaLinePart {
 
 	private float ri1er;
 	private final Paint paint;
-	private float dicke = 2f;
 	private boolean draw100 = false;
 
 	private final float maxWinkel;
 	private final float startWinkel;
+	private float dicke10er = 2f;
+	private float dicke1er = 2f;
+	private float dicke5er = 2f;
 
 	public SkalaLinePart(final PointF center, final float rad10er, final float radInnen, final float startWinkel, final float maxWinkel) {
 		c = center;
@@ -35,6 +37,7 @@ public class SkalaLinePart {
 		ri1er = radInnen;
 		ri5er = radInnen;
 		paint = PaintProvider.initScalePaint();
+
 		this.maxWinkel = maxWinkel;
 		this.startWinkel = startWinkel;
 
@@ -83,14 +86,37 @@ public class SkalaLinePart {
 		return this;
 	}
 
+	public SkalaLinePart setDicke10er(final float dicke10er) {
+		this.dicke10er = dicke10er;
+		return this;
+	}
+
+	public SkalaLinePart setDicke1er(final float dicke1er) {
+		this.dicke1er = dicke1er;
+		return this;
+	}
+
+	public SkalaLinePart setDicke5er(final float dicke5er) {
+		this.dicke5er = dicke5er;
+		return this;
+	}
+
+	/**
+	 * @param dicke
+	 *            setzt die Dicke auf alle linien gleich
+	 * @return
+	 */
 	public SkalaLinePart setDicke(final float dicke) {
-		this.dicke = dicke;
+		dicke1er = dicke;
+		dicke10er = dicke;
+		dicke5er = dicke;
 		return this;
 	}
 
 	public void draw(final Canvas canvas) {
 		float ra = 0f;
 		float ri = 0f;
+		float dicke = 2f;
 		int forloopEnd = 100;
 		if (draw100) {
 			forloopEnd = 101;
@@ -99,12 +125,15 @@ public class SkalaLinePart {
 			if (i % 10 == 0) {// 10 er
 				ra = ra10er;
 				ri = ri10er;
+				dicke = dicke10er;
 			} else if (i % 5 == 0) { // 5er
 				ra = ra5er;
 				ri = ri5er;
+				dicke = dicke5er;
 			} else { // einer
 				ra = ra1er;
 				ri = ri1er;
+				dicke = dicke1er;
 			}
 			if (ra > 0f) {
 				final float winkelProProzent = maxWinkel / 100;

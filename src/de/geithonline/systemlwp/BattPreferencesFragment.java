@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -41,16 +40,6 @@ public class BattPreferencesFragment extends PreferenceFragment {
 			@Override
 			public boolean onPreferenceChange(final Preference preference, final Object newStyle) {
 				enableSettingsForStyle((String) newStyle);
-				return true;
-			}
-		});
-
-		final Preference logov1 = findPreference("logov1");
-		logov1.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(final Preference preference) {
-				showLogoV1Message();
 				return true;
 			}
 		});

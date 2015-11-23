@@ -7,12 +7,18 @@
             android:icon="@drawable/icon"
             android:title="@string/header_title_battery"
             android:summary="@string/header_summary_battery" />
+
+    <header android:fragment="de.geithonline.systemlwp.BattSizePositionFragment"
+            android:icon="@drawable/size"
+            android:title="@string/header_title_sizeposition"
+            android:summary="@string/header_summary_sizeposition" />
     
     <header android:fragment="de.geithonline.systemlwp.BattColorPreferencesFragment"
             android:icon="@drawable/color"
             android:title="@string/header_title_battery_options"
             android:summary="@string/header_summary_battery_options" />
 
+    
     <header android:fragment="de.geithonline.systemlwp.BattNumberPreferencesFragment"
             android:icon="@drawable/number"
             android:title="@string/header_title_number_options"

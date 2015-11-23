@@ -82,7 +82,8 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 		final EZMode levelMode = Settings.getLevelMode();
 
 		new LevelPart(center, maxRadius * 0.98f, maxRadius * 0.92f, level, -90, 360, EZColoring.LevelColors)//
-				.configureSegemte(1f, strokeWidth / 3)//
+				.setSegemteAbstand(1f)//
+				.setStrokeWidth(strokeWidth / 3)//
 				.setStyle(Settings.getLevelStyle())//
 				.setMode(levelMode)//
 				.draw(bitmapCanvas);
@@ -123,13 +124,15 @@ public class BitmapDrawerClockV2 extends AdvancedSquareBitmapDrawer {
 					.setColor(Settings.getScaleColor())//
 					.setStyle(EZStyle.segmented_all)//
 					.setMode(EZMode.EinerOnly10Segmente)//
-					.configureSegemte(3f, strokeWidth / 3)//
+					.setSegemteAbstand(3f)//
+					.setStrokeWidth(strokeWidth / 3)//
 					.draw(bitmapCanvas);
 			new LevelPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 120, 90, EZColoring.Custom)//
 					.setColor(Settings.getScaleColor())//
 					.setStyle(EZStyle.segmented_all)//
 					.setMode(EZMode.Zehner)//
-					.configureSegemte(3f, strokeWidth / 3)//
+					.setSegemteAbstand(3f)//
+					.setStrokeWidth(strokeWidth / 3)//
 					.draw(bitmapCanvas);
 		}
 	}
