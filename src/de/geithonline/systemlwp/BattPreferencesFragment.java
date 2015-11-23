@@ -107,9 +107,12 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		final Preference levelMode = findPreference("levelMode");
 		final Preference rand = findPreference("show_rand");
 		final Preference colorZeiger = findPreference("color_zeiger");
+		final Preference glowScala = findPreference("glowScala");
+
 		if (b != null) {
 			stylePref.setIcon(BitmapHelper.bitmapToIcon(b));
 		}
+		glowScala.setEnabled(drawer.supportsGlowScala());
 		zeiger.setEnabled(drawer.supportsShowPointer());
 		rand.setEnabled(drawer.supportsShowRand());
 		colorZeiger.setEnabled(drawer.supportsPointerColor());

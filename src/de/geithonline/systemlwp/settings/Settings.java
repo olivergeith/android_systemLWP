@@ -301,7 +301,7 @@ public class Settings {
 		if (prefs == null) {
 			return 100;
 		}
-		final int size = Integer.valueOf(prefs.getString("fontsize", "100"));
+		final int size = prefs.getInt("fontsizeInt", 100);
 		return size;
 	}
 
@@ -309,7 +309,7 @@ public class Settings {
 		if (prefs == null) {
 			return 100;
 		}
-		final int size = Integer.valueOf(prefs.getString("fontsize100", "100"));
+		final int size = prefs.getInt("fontsize100Int", 100);
 		return size;
 	}
 
@@ -338,7 +338,7 @@ public class Settings {
 		if (prefs == null) {
 			return 30;
 		}
-		final int thr = Integer.valueOf(prefs.getString("threshold_mid", "30"));
+		final int thr = prefs.getInt("threshold_mid_Int", 30);
 		return thr;
 	}
 
@@ -346,7 +346,7 @@ public class Settings {
 		if (prefs == null) {
 			return 10;
 		}
-		final int thr = Integer.valueOf(prefs.getString("threshold_low", "10"));
+		final int thr = prefs.getInt("threshold_low_Int", 10);
 		return thr;
 	}
 
@@ -354,7 +354,7 @@ public class Settings {
 		if (prefs == null) {
 			return 128;
 		}
-		final int op = Integer.valueOf(prefs.getString("opacity", "128"));
+		final int op = prefs.getInt("opacityInt", 128);
 		return op;
 	}
 
@@ -362,7 +362,7 @@ public class Settings {
 		if (prefs == null) {
 			return 128;
 		}
-		final int op = Integer.valueOf(prefs.getString("background_opacity", "128"));
+		final int op = prefs.getInt("background_opacityInt", 128);
 		return op;
 	}
 
@@ -624,8 +624,19 @@ public class Settings {
 		return size / 100f;
 	}
 
-	public static boolean isShowScalaGlow() {
-		// TODO Auto-generated method stub
-		return true;
+	public static boolean isShowGlowScala() {
+		if (prefs == null) {
+			return true;
+		}
+		return prefs.getBoolean("glowScala", true);
 	}
+
+	public static int getGlowScalaColor() {
+		if (prefs == null) {
+			return R.integer.COLOR_WHITE;
+		}
+		final int col = prefs.getInt("glowScalaColor", R.integer.COLOR_WHITE);
+		return col;
+	}
+
 }

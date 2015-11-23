@@ -16,4 +16,6 @@ public interface IBitmapDrawer {
 
 	public boolean supportsLevelStyle();
 
+	public boolean supportsGlowScala();
+
 }

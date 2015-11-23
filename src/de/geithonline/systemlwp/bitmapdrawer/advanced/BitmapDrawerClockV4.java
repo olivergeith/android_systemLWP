@@ -10,15 +10,15 @@ import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
-import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
-import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
-import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaLinePart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaTextPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.ZeigerPart;
+import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
+import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
+import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
 import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerShapePath.ZEIGER_TYP;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
@@ -58,6 +58,11 @@ public class BitmapDrawerClockV4 extends AdvancedSquareBitmapDrawer {
 	}
 
 	@Override
+	public boolean supportsGlowScala() {
+		return true;
+	}
+
+	@Override
 	public Bitmap drawBitmap(final int level, final Bitmap bitmap) {
 		initPrivateMembers();
 
@@ -92,31 +97,6 @@ public class BitmapDrawerClockV4 extends AdvancedSquareBitmapDrawer {
 				.setStyle(EZStyle.segmented_onlyactive)//
 				.draw(bitmapCanvas);
 
-		// Timer
-		final float maxScala = 120f;
-		final float ri = maxRadius * 0.54f;
-		new LevelPart(center, maxRadius * 0.64f, ri, level, -225, maxScala, EZColoring.ColorOf100)//
-				.setSegemteAbstand(1.5f)//
-				.setStrokeWidth(strokeWidth / 3)//
-				.setMode(EZMode.Zehner)//
-				.setStyle(EZStyle.segmented_all)//
-				.draw(bitmapCanvas);
-		new ZeigerPart(center, level, ri, maxRadius * 0.20f, strokeWidth * 1.0f, -225, maxScala, EZMode.Zehner)//
-				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
-				.setZeigerType(ZEIGER_TYP.rect)//
-				.draw(bitmapCanvas);
-
-		new LevelPart(center, maxRadius * 0.64f, ri, level, 45, -maxScala, EZColoring.ColorOf100)//
-				.setSegemteAbstand(1.5f)//
-				.setStrokeWidth(strokeWidth / 3)//
-				.setMode(EZMode.EinerOnly10Segmente)//
-				.setStyle(EZStyle.segmented_all)//
-				.draw(bitmapCanvas);
-		new ZeigerPart(center, level, ri, maxRadius * 0.20f, strokeWidth * 1.0f, 45, -maxScala, EZMode.EinerOnly10Segmente)//
-				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
-				.setZeigerType(ZEIGER_TYP.rect)//
-				.draw(bitmapCanvas);
-
 		// Skalatext
 		new SkalaLinePart(center, maxRadius * 0.90f, maxRadius * 0.86f, -90, 360)//
 				.set5erRadiusAussen(maxRadius * 0.90f)//
@@ -127,24 +107,50 @@ public class BitmapDrawerClockV4 extends AdvancedSquareBitmapDrawer {
 				.setFontsize5er(fontSizeScala * 0.75f)//
 				.draw(bitmapCanvas);
 
+		// SkalaGlow
+		if (Settings.isShowGlowScala()) {
+			new RingPart(center, maxRadius * 0.20f, 0f, new Paint())//
+					.setColor(Color.BLACK)//
+					.setDropShadow(new DropShadow(strokeWidth * 20, Settings.getGlowScalaColor()))//
+					.draw(bitmapCanvas);
+			new RingPart(center, maxRadius * 0.20f, 0f, new Paint())//
+					.setColor(Color.BLACK)//
+					.setDropShadow(new DropShadow(strokeWidth * 10, Settings.getGlowScalaColor()))//
+					.draw(bitmapCanvas);
+		}
+
+		// Timer
+		final float maxScala = 120f;
+		final float ri = maxRadius * 0.54f;
+		new LevelPart(center, maxRadius * 0.64f, ri, level, -225, maxScala, EZColoring.ColorOf100)//
+				.setSegemteAbstand(1.5f)//
+				.setStrokeWidth(strokeWidth / 3)//
+				.setMode(EZMode.Zehner)//
+				.setStyle(EZStyle.segmented_all)//
+				.draw(bitmapCanvas);
+		new ZeigerPart(center, level, ri, maxRadius * 0.20f, strokeWidth * 1.0f, -225, maxScala, EZMode.Zehner)//
+				.setDropShadow(new DropShadow(1.5f * strokeWidth, 0, 1.5f * strokeWidth, Color.BLACK))//
+				.setZeigerType(ZEIGER_TYP.rect)//
+				.draw(bitmapCanvas);
+
+		new LevelPart(center, maxRadius * 0.64f, ri, level, 45, -maxScala, EZColoring.ColorOf100)//
+				.setSegemteAbstand(1.5f)//
+				.setStrokeWidth(strokeWidth / 3)//
+				.setMode(EZMode.EinerOnly10Segmente)//
+				.setStyle(EZStyle.segmented_all)//
+				.draw(bitmapCanvas);
+		new ZeigerPart(center, level, ri, maxRadius * 0.20f, strokeWidth * 1.0f, 45, -maxScala, EZMode.EinerOnly10Segmente)//
+				.setDropShadow(new DropShadow(1.5f * strokeWidth, 0, 1.5f * strokeWidth, Color.BLACK))//
+				.setZeigerType(ZEIGER_TYP.rect)//
+				.draw(bitmapCanvas);
+
 		// Zeiger
 		new ZeigerPart(center, level, maxRadius * 0.78f, maxRadius * 0.20f, strokeWidth * 1.5f, -90, 360, EZMode.Einer)//
-				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
+				.setDropShadow(new DropShadow(1.5f * strokeWidth, 0, 1.5f * strokeWidth, Color.BLACK))//
 				.setZeigerType(ZEIGER_TYP.rect)//
 				// .overrideColor(Color.RED)//
 				.draw(bitmapCanvas);
-
-		// innere Fläche
-		if (Settings.isShowScalaGlow()) {
-			new RingPart(center, maxRadius * 0.20f, 0f, new Paint())//
-					.setColor(Color.BLACK)//
-					.setDropShadow(new DropShadow(strokeWidth * 20, Settings.getZeigerColor()))//
-					.draw(bitmapCanvas);
-			new RingPart(center, maxRadius * 0.20f, 0f, new Paint())//
-					.setColor(Color.BLACK)//
-					.setDropShadow(new DropShadow(strokeWidth * 10, Settings.getZeigerColor()))//
-					.draw(bitmapCanvas);
-		}
+		// innere fläche
 		new RingPart(center, maxRadius * 0.20f, 0f, new Paint())//
 				.setColor(Color.WHITE)//
 				.setOutline(new Outline(PaintProvider.getGray(32), strokeWidth))//

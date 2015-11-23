@@ -116,5 +116,10 @@
     <string name="levelStyles_summary">Style of Level-Arch</string>
     <string name="levelMode">Precision of Level-Arch</string>
     <string name="levelMode_summary">Precision of Level-Arch</string>
+    <string name="glowScala">Scala is glowing</string>
+    <string name="glowScalaColor">Color of Scala-Glow</string>
+    <string name="premiumOnly">Premium Version only!</string>
+    
+      
     
 </resources>

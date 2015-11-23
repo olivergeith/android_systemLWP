@@ -10,19 +10,18 @@ import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Gradient.GRAD_STYLE;
-import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
-import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
-import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
-import de.geithonline.systemlwp.bitmapdrawer.enums.TimerType;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaLinePart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.SkalaTextPart;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.ZeigerPart;
+import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
+import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
+import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
+import de.geithonline.systemlwp.bitmapdrawer.enums.TimerType;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
-import de.geithonline.systemlwp.utils.ColorHelper;
 import de.geithonline.systemlwp.utils.GeometrieHelper;
 
 public class BitmapDrawerClockV5 extends AdvancedSquareBitmapDrawer {
@@ -70,6 +69,11 @@ public class BitmapDrawerClockV5 extends AdvancedSquareBitmapDrawer {
 	}
 
 	@Override
+	public boolean supportsGlowScala() {
+		return true;
+	}
+
+	@Override
 	public boolean supportsLevelStyle() {
 		return true;
 	}
@@ -104,14 +108,14 @@ public class BitmapDrawerClockV5 extends AdvancedSquareBitmapDrawer {
 				.draw(bitmapCanvas);
 
 		// Innen Phase
-		if (Settings.isShowScalaGlow()) {
+		if (Settings.isShowGlowScala()) {
 			new RingPart(center, maxRadius * 0.32f, maxRadius * 0.25f, new Paint())//
 					.setColor(Color.BLACK)//
-					.setDropShadow(new DropShadow(strokeWidth * 10, Settings.getZeigerColor()))//
+					.setDropShadow(new DropShadow(strokeWidth * 10, Settings.getGlowScalaColor()))//
 					.draw(bitmapCanvas);
 			new RingPart(center, maxRadius * 0.32f, maxRadius * 0.25f, new Paint())//
 					.setColor(Color.BLACK)//
-					.setDropShadow(new DropShadow(strokeWidth * 5, Settings.getZeigerColor()))//
+					.setDropShadow(new DropShadow(strokeWidth * 5, Settings.getGlowScalaColor()))//
 					.draw(bitmapCanvas);
 		}
 		new RingPart(center, maxRadius * 0.31f, maxRadius * 0.25f, new Paint())//
@@ -119,7 +123,7 @@ public class BitmapDrawerClockV5 extends AdvancedSquareBitmapDrawer {
 				.draw(bitmapCanvas);
 		// Zeiger
 		new ZeigerPart(center, level, maxRadius * 0.80f, maxRadius * 0.26f, strokeWidth, startWinkel, sweep, EZMode.Einer)//
-				.setDropShadow(new DropShadow(3 * strokeWidth, ColorHelper.changeBrightness(Settings.getZeigerColor(), -64)))//
+				.setDropShadow(new DropShadow(1.5f * strokeWidth, 0, 1.5f * strokeWidth, Color.BLACK))//
 				.draw(bitmapCanvas);
 
 		// Innen Fläche
@@ -157,11 +161,11 @@ public class BitmapDrawerClockV5 extends AdvancedSquareBitmapDrawer {
 					.setMode(EZMode.EinerOnly10Segmente)//
 					.draw(bitmapCanvas);
 			new ZeigerPart(center, level, maxRadius * 0.66f, maxRadius * 0.33f, strokeWidth, startWinkel - 5, -80, EZMode.Zehner)//
-					.setDropShadow(new DropShadow(3 * strokeWidth, ColorHelper.changeBrightness(Settings.getZeigerColor(), -100)))//
+					.setDropShadow(new DropShadow(1.5f * strokeWidth, 0, 1.5f * strokeWidth, Color.BLACK))//
 					// .overrideColor(Color.WHITE)//
 					.draw(bitmapCanvas);
 			new ZeigerPart(center, level, maxRadius * 0.60f, maxRadius * 0.33f, strokeWidth, startWinkel - 5, -80, EZMode.EinerOnly10Segmente)//
-					.setDropShadow(new DropShadow(3 * strokeWidth, ColorHelper.changeBrightness(Settings.getZeigerColor(), -100)))//
+					.setDropShadow(new DropShadow(1.5f * strokeWidth, 0, 1.5f * strokeWidth, Color.BLACK))//
 					// .overrideColor(Color.WHITE)//
 					.draw(bitmapCanvas);
 

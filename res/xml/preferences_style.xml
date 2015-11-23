@@ -3,7 +3,8 @@
     xmlns:stylelistpreference="http://schemas.android.com/apk/res/de.geithonline.systemlwp"
      xmlns:seekbarpreference="http://schemas.android.com/apk/lib/de.geithonline.android.basics.preferences">
  
-
+    <PreferenceCategory android:title="Battery Style"/>
+    
         <de.geithonline.systemlwp.stylelistpreference.StyleListPreference
 	        android:key="batt_style"
 	        android:defaultValue="ZoopaWideV3"
@@ -17,10 +18,7 @@
 	        />
         
         
-    <PreferenceCategory 
-        android:title="@string/category_style_options"
-        android:summary="@string/category_style_options_summary">
-        
+    <PreferenceCategory android:title="Pointer Options"/>
         
         <CheckBoxPreference 
             android:key="show_zeiger"
@@ -31,16 +29,27 @@
         <de.geithonline.android.basics.preferences.colorpicker.ColorPickerPreference
             android:key="color_zeiger"
             android:title="@string/color_zeiger" 
-            android:summary="@string/color_zeiger_summary"
             android:defaultValue="@integer/COLOR_WHITE"
             />
-        <CheckBoxPreference 
-            android:key="show_rand"
-            android:title="@string/show_rand"
-            android:defaultValue="true"
-            />
 
-        <ListPreference
+     <PreferenceCategory android:title="Scale Options"/>
+        <CheckBoxPreference 
+            android:key="glowScala"
+            android:title="@string/glowScala"
+            android:defaultValue="true"
+            android:dependency=""
+            />
+        <de.geithonline.android.basics.preferences.colorpicker.ColorPickerPreference
+            android:key="glowScalaColor"
+            android:title="@string/glowScalaColor" 
+            android:defaultValue="@integer/COLOR_WHITE"
+            android:dependency="glowScala"
+            />
+        
+        
+    <PreferenceCategory android:title="Level-Bar Options"/>
+    <PreferenceCategory android:title="@string/premiumOnly"/>
+    <ListPreference
 	        android:defaultValue="Normal"
 	        android:title="@string/levelStyles" 
             android:summary="@string/levelStyles_summary" 
@@ -58,8 +67,13 @@
 	        android:entryValues="@array/levelMode"
 	        android:key="levelMode"
 	        />
+    <PreferenceCategory android:title="Misc Options"/>
+        <CheckBoxPreference 
+            android:key="show_rand"
+            android:title="@string/show_rand"
+            android:defaultValue="true"
+            />
         
         
-    </PreferenceCategory>
         
 </PreferenceScreen>

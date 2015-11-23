@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+     xmlns:seekbarpreference="http://schemas.android.com/apk/lib/de.geithonline.android.basics.preferences"
+     >
     
     <PreferenceCategory android:title="@string/category_battery_options">
 
@@ -35,32 +37,38 @@
 		    android:summary="@string/gradient_colors_mid_summary"
             />
         	    	    
-        <ListPreference
+       <de.geithonline.android.basics.preferences.SeekBarPreference
 	        android:defaultValue="128"
-	        android:title="@string/opacity" 
-            android:summary="@string/opacity_summary" 
-	        android:dialogTitle="Battery --> Opacity"
-	        android:entries="@array/opacities"
-	        android:entryValues="@array/opacitiesValues"
-	        android:key="opacity"
-	        />
-        
-        <EditTextPreference
-		    android:key="threshold_mid"
-    		android:defaultValue="30"
-		    android:title="@string/threshold_mid" 
-    		android:dialogTitle="@string/threshold_mid"
-		    android:inputType="number"
-		    android:summary="@string/threshold_mid_summary"
-         	/>
-        <EditTextPreference
-		    android:key="threshold_low"
-    		android:defaultValue="10"
-		    android:title="@string/threshold_low" 
-    		android:dialogTitle="@string/threshold_low"
-		    android:inputType="number"
-		    android:summary="@string/threshold_low_summary"
-         	/>
+	        android:dialogMessage="Battery --> Opacity"
+	        android:key="opacityInt"
+	        android:summary="%1$d"
+	        android:title="@string/opacity"
+	        seekbarpreference:maxValue="255"
+	        seekbarpreference:minValue="0"
+	        seekbarpreference:stepValue="1" />
+
+       
+       <de.geithonline.android.basics.preferences.SeekBarPreference
+	        android:defaultValue="30"
+    		android:dialogMessage="@string/threshold_mid"
+	        android:key="threshold_mid_Int"
+	        android:summary="%1$d"
+	        android:title="@string/threshold_mid"
+	        seekbarpreference:maxValue="50"
+	        seekbarpreference:minValue="16"
+	        seekbarpreference:stepValue="1" />
+
+       <de.geithonline.android.basics.preferences.SeekBarPreference
+	        android:defaultValue="10"
+    		android:dialogMessage="@string/threshold_low"
+	        android:key="threshold_low_Int"
+	        android:summary="%1$d"
+	        android:title="@string/threshold_low"
+	        seekbarpreference:maxValue="15"
+	        seekbarpreference:minValue="1"
+	        seekbarpreference:stepValue="1" />
+       
+       
     </PreferenceCategory>>
         
     <PreferenceCategory android:title="@string/category_battery_background_options">
@@ -72,17 +80,17 @@
 	        android:summary="Battery-Background --> Color"
 	        android:defaultValue="@integer/COLOR_DARKGRAY"
 	        />
-	    
-	    <ListPreference
-	        android:key="background_opacity"
-	        android:title="@string/opacity" 
-	        android:summary="@string/opacity_summary" 
-	        android:dialogTitle="Battery-Background --> Opacity"
+
+	    <de.geithonline.android.basics.preferences.SeekBarPreference
 	        android:defaultValue="128"
-	        android:entries="@array/opacities"
-	        android:entryValues="@array/opacitiesValues"
-	        />
-	    	    
+	        android:dialogMessage="Battery-Background --> Opacity"
+	        android:key="background_opacityInt"
+	        android:summary="%1$d"
+	        android:title="@string/opacity"
+	        seekbarpreference:maxValue="255"
+	        seekbarpreference:minValue="0"
+	        seekbarpreference:stepValue="1" />
+	    
 	</PreferenceCategory>>
 
 
