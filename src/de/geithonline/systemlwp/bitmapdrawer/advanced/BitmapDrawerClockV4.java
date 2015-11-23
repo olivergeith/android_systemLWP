@@ -115,7 +115,7 @@ public class BitmapDrawerClockV4 extends AdvancedSquareBitmapDrawer {
 
 		// Skalatext
 		new SkalaLinePart(center, maxRadius * 0.90f, maxRadius * 0.86f, -90, 360)//
-				.set5erRadius(maxRadius * 0.90f)//
+				.set5erRadiusAussen(maxRadius * 0.90f)//
 				.setDicke(strokeWidth / 2)//
 				.draw(bitmapCanvas);
 

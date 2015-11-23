@@ -15,7 +15,10 @@ public class SkalaLinePart {
 	private final float ra10er;
 	private float ra5er = 0f;
 	private float ra1er = 0f;
-	private final float ri;
+	private final float ri10er;
+	private float ri5er;
+
+	private float ri1er;
 	private final Paint paint;
 	private float dicke = 2f;
 	private boolean draw100 = false;
@@ -28,7 +31,9 @@ public class SkalaLinePart {
 		ra1er = 0f;
 		ra5er = 0f;
 		ra10er = rad10er;
-		ri = radInnen;
+		ri10er = radInnen;
+		ri1er = radInnen;
+		ri5er = radInnen;
 		paint = PaintProvider.initScalePaint();
 		this.maxWinkel = maxWinkel;
 		this.startWinkel = startWinkel;
@@ -46,13 +51,35 @@ public class SkalaLinePart {
 		return this;
 	}
 
-	public SkalaLinePart set1erRadius(final float r) {
-		ra1er = r;
+	/**
+	 * @param ra1er
+	 *            Auﬂenradius 1er Striche <br>
+	 *            if set to 0f no 1eer Striche will be painted
+	 * @return
+	 */
+	public SkalaLinePart set1erRadiusAussen(final float ra1er) {
+		this.ra1er = ra1er;
 		return this;
 	}
 
-	public SkalaLinePart set5erRadius(final float r) {
-		ra5er = r;
+	/**
+	 * @param ra5er
+	 *            Auﬂenradius 5er Striche <br>
+	 *            if set to 0f...no 5er striche will be painted
+	 * @return
+	 */
+	public SkalaLinePart set5erRadiusAussen(final float ra5er) {
+		this.ra5er = ra5er;
+		return this;
+	}
+
+	public SkalaLinePart set5erRadiusInnen(final float ri5er) {
+		this.ri5er = ri5er;
+		return this;
+	}
+
+	public SkalaLinePart set1erRadiusInnen(final float ri1er) {
+		this.ri1er = ri1er;
 		return this;
 	}
 
@@ -63,6 +90,7 @@ public class SkalaLinePart {
 
 	public void draw(final Canvas canvas) {
 		float ra = 0f;
+		float ri = 0f;
 		int forloopEnd = 100;
 		if (draw100) {
 			forloopEnd = 101;
@@ -70,10 +98,13 @@ public class SkalaLinePart {
 		for (int i = 0; i < forloopEnd; i = i + 1) {
 			if (i % 10 == 0) {// 10 er
 				ra = ra10er;
+				ri = ri10er;
 			} else if (i % 5 == 0) { // 5er
 				ra = ra5er;
+				ri = ri5er;
 			} else { // einer
 				ra = ra1er;
+				ri = ri1er;
 			}
 			if (ra > 0f) {
 				final float winkelProProzent = maxWinkel / 100;

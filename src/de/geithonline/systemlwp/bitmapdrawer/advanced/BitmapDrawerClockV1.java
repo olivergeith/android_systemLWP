@@ -79,27 +79,33 @@ public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
 				.draw(bitmapCanvas);
 
 		// level ring
-		new LevelPart(center, maxRadius * 0.88f, maxRadius * 0.72f, level, -90, 360, EZColoring.LevelColors)//
+		new LevelPart(center, maxRadius * 0.86f, maxRadius * 0.72f, level, -90, 360, EZColoring.LevelColors)//
 				.configureSegemte(1f, strokeWidth / 3)//
 				.setMode(EZMode.Einer)//
 				.setStyle(EZStyle.sweep)//
 				.draw(bitmapCanvas);
-		// Playing
-		new LevelPart(center, maxRadius * 0.70f, maxRadius * 0.65f, level, -180, 180, EZColoring.LevelColors)//
-				.configureSegemte(1f, strokeWidth / 3)//
-				.setMode(EZMode.Zehner)//
-				.setStyle(EZStyle.segmented_all)//
-				.draw(bitmapCanvas);
-		new ZeigerPart(center, level, maxRadius * 0.65f, maxRadius * 0.20f, strokeWidth * 1.5f, -180, 180, EZMode.Einer)//
-				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
-				.setZeigerType(ZEIGER_TYP.needle)//
-				.overrideColor(Color.RED)//
-				.draw(bitmapCanvas);
+				// // Playing
+				// new LevelPart(center, maxRadius * 0.70f, maxRadius * 0.65f, level, -180, 180, EZColoring.LevelColors)//
+				// .configureSegemte(1f, strokeWidth / 3)//
+				// .setMode(EZMode.Zehner)//
+				// .setStyle(EZStyle.segmented_all)//
+				// .draw(bitmapCanvas);
+				// new ZeigerPart(center, level, maxRadius * 0.65f, maxRadius * 0.20f, strokeWidth * 1.5f, -180, 180, EZMode.Einer)//
+				// .setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
+				// .setZeigerType(ZEIGER_TYP.needle)//
+				// .overrideColor(Color.RED)//
+				// .draw(bitmapCanvas);
 
 		// Skalatext
-		new SkalaLinePart(center, maxRadius * 0.90f, maxRadius * 0.86f, -90, 360)//
-				.set5erRadius(maxRadius * 0.90f)//
+		new SkalaLinePart(center, maxRadius * 0.90f, maxRadius * 0.84f, -90, 360)//
+				.set5erRadiusAussen(maxRadius * 0.90f)//
+				.set1erRadiusAussen(maxRadius * 0.90f)//
+				.set5erRadiusInnen(maxRadius * 0.86f)//
+				.set1erRadiusInnen(maxRadius * 0.88f)//
 				.setDicke(strokeWidth / 2)//
+				.draw(bitmapCanvas);
+		new SkalaLinePart(center, maxRadius * 0.90f, maxRadius * 0.84f, -90, 360)//
+				.setDicke(strokeWidth)//
 				.draw(bitmapCanvas);
 
 		new SkalaTextPart(center, maxRadius * 0.75f, fontSizeScala, -90, 360)//
