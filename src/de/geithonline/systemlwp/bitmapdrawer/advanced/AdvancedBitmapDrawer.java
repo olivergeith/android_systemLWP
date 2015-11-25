@@ -32,7 +32,7 @@ public abstract class AdvancedBitmapDrawer implements IBitmapDrawer {
 
 	public abstract void drawBattStatusText();
 
-	public void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
+	private final void drawOnCanvas(final Bitmap bitmap, final Canvas canvas) {
 		if (Settings.isCenteredBattery()) {
 			canvas.drawBitmap(bitmap, displayWidth / 2 - bmpWidth / 2, displayHeight / 2 - bmpHeight / 2, null);
 		} else {
@@ -40,7 +40,7 @@ public abstract class AdvancedBitmapDrawer implements IBitmapDrawer {
 		}
 	}
 
-	protected Bitmap initBitmap() {
+	private final Bitmap initBitmap() {
 		switch (getBitmapRatio()) {
 			default:
 			case SQUARE:
@@ -50,7 +50,7 @@ public abstract class AdvancedBitmapDrawer implements IBitmapDrawer {
 		}
 	}
 
-	protected Bitmap initSquareBitmap() {
+	private final Bitmap initSquareBitmap() {
 		// welche kante ist schmaler?
 		// wir orientieren uns an der schmalsten kante
 		// das heist, die Batterie ist immer gleich gross
@@ -68,7 +68,7 @@ public abstract class AdvancedBitmapDrawer implements IBitmapDrawer {
 	/**
 	 * @return für rectangular designs aka Bögen
 	 */
-	protected Bitmap initRectangularBitmap() {
+	private final Bitmap initRectangularBitmap() {
 		// welche kante ist schmaler?
 		// wir orientieren uns an der schmalsten kante
 		// das heist, die Batterie ist immer gleich gross
@@ -83,7 +83,7 @@ public abstract class AdvancedBitmapDrawer implements IBitmapDrawer {
 		return bitmap;
 	}
 
-	protected void setBitmapSize(final int w, final int h, final boolean isPortrait) {
+	private final void setBitmapSize(final int w, final int h, final boolean isPortrait) {
 		// kein resizen wenn ein icon gemalt wird!
 		if (isDrawIcon) {
 			bmpHeight = h;
@@ -190,28 +190,8 @@ public abstract class AdvancedBitmapDrawer implements IBitmapDrawer {
 		return new PointF(x, y);
 	}
 
-	public int getcHeight() {
-		return displayHeight;
-	}
-
-	public void setcHeight(final int cHeight) {
-		displayHeight = cHeight;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(final int level) {
-		this.level = level;
-	}
-
-	protected boolean isPortrait() {
+	private boolean isPortrait() {
 		return displayHeight > displayWidth;
-	}
-
-	protected boolean isLandscape() {
-		return displayHeight < displayWidth;
 	}
 
 	@Override
