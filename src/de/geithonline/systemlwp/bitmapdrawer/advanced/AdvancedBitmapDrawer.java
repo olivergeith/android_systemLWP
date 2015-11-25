@@ -9,11 +9,12 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
 import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.enums.BitmapRatio;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.BitmapHelper;
 
-public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
+public abstract class AdvancedBitmapDrawer implements IBitmapDrawer {
 	private int displayHeight = 0;
 	private int displayWidth = 0;
 	private Bitmap bitmap;
@@ -39,6 +40,16 @@ public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
 		}
 	}
 
+	protected Bitmap initBitmap() {
+		switch (getBitmapRatio()) {
+			default:
+			case SQUARE:
+				return initSquareBitmap();
+			case RECTANGULAR:
+				return initRectangularBitmap();
+		}
+	}
+
 	protected Bitmap initSquareBitmap() {
 		// welche kante ist schmaler?
 		// wir orientieren uns an der schmalsten kante
@@ -49,6 +60,24 @@ public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
 		} else {
 			// quer
 			setBitmapSize(displayHeight, displayHeight, false);
+		}
+		final Bitmap bitmap = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
+		return bitmap;
+	}
+
+	/**
+	 * @return für rectangular designs aka Bögen
+	 */
+	protected Bitmap initRectangularBitmap() {
+		// welche kante ist schmaler?
+		// wir orientieren uns an der schmalsten kante
+		// das heist, die Batterie ist immer gleich gross
+		if (isPortrait()) {
+			// hochkant
+			setBitmapSize(displayWidth, displayWidth / 2, true);
+		} else {
+			// quer
+			setBitmapSize(displayHeight, displayHeight / 2, false);
 		}
 		final Bitmap bitmap = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
 		return bitmap;
@@ -86,7 +115,7 @@ public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
 				bitmap.recycle();
 			}
 			// Bitnmap neu berechnen
-			bitmap = initSquareBitmap();
+			bitmap = initBitmap();
 			bitmapCanvas = new Canvas(bitmap);
 			bitmap = drawBitmap(level, bitmap);
 			if (Settings.isShowNumber()) {
@@ -115,7 +144,7 @@ public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
 		displayWidth = w;
 		displayHeight = h;
 		isDrawIcon = true;
-		Bitmap icon = initSquareBitmap();
+		Bitmap icon = initBitmap();
 		bitmapCanvas = new Canvas(icon);
 		icon = drawBitmap(level, icon);
 		isDrawIcon = false;
@@ -209,4 +238,14 @@ public abstract class AdvancedSquareBitmapDrawer implements IBitmapDrawer {
 	public boolean supportsGlowScala() {
 		return false;
 	}
+
+	/**
+	 * Diese Methode kann von Kindklassen überschrieben werden, wenn sie ein anderes Ratio als SQUARE haben wollen!
+	 * 
+	 * @return the ratio Enum
+	 */
+	protected BitmapRatio getBitmapRatio() {
+		return BitmapRatio.SQUARE;
+	}
+
 }

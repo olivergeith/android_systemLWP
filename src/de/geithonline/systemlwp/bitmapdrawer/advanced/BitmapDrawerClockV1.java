@@ -23,7 +23,7 @@ import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.GeometrieHelper;
 
-public class BitmapDrawerClockV1 extends AdvancedSquareBitmapDrawer {
+public class BitmapDrawerClockV1 extends AdvancedBitmapDrawer {
 
 	private float strokeWidth;
 

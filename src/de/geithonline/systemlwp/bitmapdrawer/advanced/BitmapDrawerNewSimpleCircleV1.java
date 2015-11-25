@@ -20,7 +20,7 @@ import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
 import de.geithonline.systemlwp.utils.GeometrieHelper;
 
-public class BitmapDrawerNewSimpleCircleV1 extends AdvancedSquareBitmapDrawer {
+public class BitmapDrawerNewSimpleCircleV1 extends AdvancedBitmapDrawer {
 
 	private float strokeWidth;
 
