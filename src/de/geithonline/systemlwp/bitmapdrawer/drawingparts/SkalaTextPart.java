@@ -18,6 +18,7 @@ public class SkalaTextPart {
 	private final float fontSize10er;
 	private float fontsize5er;
 	private boolean draw100 = false;
+	private final Paint paint;
 
 	public SkalaTextPart(final PointF center, final float radius, final float fontSize10er, final float startWinkel, final float maxWinkel) {
 		c = center;
@@ -25,6 +26,20 @@ public class SkalaTextPart {
 		this.maxWinkel = maxWinkel;
 		this.startWinkel = startWinkel;
 		this.fontSize10er = fontSize10er;
+		paint = PaintProvider.getTextScalePaint(fontSize10er, Align.CENTER, true);
+		paint.setTextAlign(Align.CENTER);
+	}
+
+	public SkalaTextPart setDropShadow(final DropShadow dropShadow) {
+		if (dropShadow != null) {
+			dropShadow.setUpPaint(paint);
+		}
+		return this;
+	}
+
+	public SkalaTextPart overrideColor(final int color) {
+		paint.setColor(color);
+		return this;
 	}
 
 	public SkalaTextPart setFontsize5er(final float fontsize5er) {
@@ -58,9 +73,8 @@ public class SkalaTextPart {
 				final Path mArc = new Path();
 				final RectF oval = GeometrieHelper.getCircle(c, radius);
 				mArc.addArc(oval, winkel - 18, 36);
-				final Paint p = PaintProvider.getTextScalePaint(fontSize, Align.CENTER, true);
-				p.setTextAlign(Align.CENTER);
-				canvas.drawTextOnPath("" + i, mArc, 0, 0, p);
+				paint.setTextSize(fontSize);
+				canvas.drawTextOnPath("" + i, mArc, 0, 0, paint);
 			}
 		}
 	}
