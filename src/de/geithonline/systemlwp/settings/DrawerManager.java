@@ -36,9 +36,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV4;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV2;
-import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
@@ -57,6 +55,8 @@ import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV3;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV4;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV5;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewSimpleCircleV1;
+import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewTachoV1;
+import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewTachoV3;
 import de.geithonline.systemlwp.bitmapdrawer.enums.TimerType;
 
 public class DrawerManager {
@@ -73,9 +73,9 @@ public class DrawerManager {
 		drawer.put("ZoopaCircleV1", new BitmapDrawerZoopaCircleV1());
 		drawer.put("ZoopaCircleV2", new BitmapDrawerZoopaCircleV2());
 		drawer.put("ZoopaCircleV3", new BitmapDrawerZoopaCircleV3());
-		drawer.put("TachoV1", new BitmapDrawerTachoV1());
+		drawer.put("TachoV1", new BitmapDrawerNewTachoV1());
 		drawer.put("TachoV2", new BitmapDrawerTachoV2());
-		drawer.put("TachoV3", new BitmapDrawerTachoV3());
+		drawer.put("TachoV3", new BitmapDrawerNewTachoV3());
 		drawer.put("TachoV4", new BitmapDrawerTachoV4());
 		drawer.put("TachoV5", new BitmapDrawerTachoV5());
 		drawer.put("BrickV1", new BitmapDrawerBrickV1());

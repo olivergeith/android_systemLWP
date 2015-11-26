@@ -123,19 +123,24 @@ public class LevelPart {
 	public void draw(final Canvas canvas) {
 		switch (style) {
 		default:
-		case segmented_all:
-			drawSegemtedAll(canvas);
+		case sweep:
+			drawSweep(canvas);
+			break;
+		case sweep_withAplpah:
+			drawSweepWithAlpha(canvas);
+			break;
+		case sweep_withOutline:
+			drawSweepWithOutline(canvas);
 			break;
 		case segmented_onlyactive:
 			drawSegemtedOnlyAct(canvas);
 			break;
-		case sweep_withOutline:
-			drawSweepWithOutline(canvas);
-			// hier ist absichtlich kein // break;
-		case sweep:
-			drawSweep(canvas);
+		case segmented_all:
+			drawSegemtedAll(canvas);
 			break;
-
+		case segmented_all_alpha:
+			drawSegemtedAllHalfAlpha(canvas);
+			break;
 		}
 	}
 
@@ -143,6 +148,39 @@ public class LevelPart {
 		final Path path = new LevelArcPath(c, ra, ri, startWinkel, maxWinkel);
 		paint.setStyle(Style.STROKE);
 		canvas.drawPath(path, paint);
+		final float winkelProSegment = maxWinkel / anzahlSegmente;
+		final float sweep = winkelProSegment * levelIntern;
+		final Path path2 = new LevelArcPath(c, ra, ri, startWinkel, sweep);
+		paint.setStyle(Style.FILL);
+		canvas.drawPath(path2, paint);
+
+	}
+
+	// private void drawSweepWithOutlineV2(final Canvas canvas) {
+	// final float winkelProSegment = maxWinkel / anzahlSegmente;
+	// final float sweep = winkelProSegment * levelIntern;
+	// final Path path = new LevelArcPath(c, ra, ri, startWinkel, sweep);
+	// final Path path2 = new LevelArcPath(c, ra, ri, startWinkel + sweep, maxWinkel - sweep);
+	// paint.setStyle(Style.FILL_AND_STROKE);
+	// canvas.drawPath(path, paint);
+	// // rest als stroke
+	// paint.setStyle(Style.STROKE);
+	// paint.setColor(PaintProvider.getColorForLevel(100));
+	// canvas.drawPath(path2, paint);
+	// }
+
+	private void drawSweepWithAlpha(final Canvas canvas) {
+		final float winkelProSegment = maxWinkel / anzahlSegmente;
+		final float sweep = winkelProSegment * levelIntern;
+		final Path path = new LevelArcPath(c, ra, ri, startWinkel, sweep);
+		final Path path2 = new LevelArcPath(c, ra, ri, startWinkel + sweep, maxWinkel - sweep);
+		paint.setStyle(Style.FILL);
+		final int alpha = paint.getAlpha();
+		canvas.drawPath(path, paint);
+		// rest in ein drittel alpha malen
+		paint.setColor(PaintProvider.getColorForLevel(100));
+		paint.setAlpha(alpha / 3);
+		canvas.drawPath(path2, paint);
 	}
 
 	private void drawSweep(final Canvas canvas) {
@@ -197,6 +235,38 @@ public class LevelPart {
 				paint.setStyle(Style.FILL_AND_STROKE);
 			} else {
 				paint.setStyle(Style.STROKE);
+			}
+			if (coloring.equals(EZColoring.Colorfull)) {
+				final int faktor = (int) (100 / anzahlSegmente);
+				paint.setColor(PaintProvider.getColorForLevel(i * faktor));
+			}
+
+			float winkel;
+			if (winkelProSegment < 0) {
+				winkel = startWinkel + i * winkelProSegment - abstandZwischenSegemten / 2;
+			} else {
+				winkel = startWinkel + i * winkelProSegment + abstandZwischenSegemten / 2;
+			}
+			final Path path = new LevelArcPath(c, ra, ri, winkel, sweepProSeg);
+			canvas.drawPath(path, paint);
+		}
+	}
+
+	private void drawSegemtedAllHalfAlpha(final Canvas canvas) {
+		final float winkelProSegment = maxWinkel / anzahlSegmente;
+		float sweepProSeg;
+		if (winkelProSegment < 0) {
+			sweepProSeg = winkelProSegment + abstandZwischenSegemten;
+		} else {
+			sweepProSeg = winkelProSegment - abstandZwischenSegemten;
+		}
+		final int alpha = paint.getAlpha();
+		for (int i = 0; i < anzahlSegmente; i = i + 1) {
+			paint.setStrokeWidth(strokeWidthSegmente);
+			if (levelIntern > i) {
+				paint.setAlpha(alpha);
+			} else {
+				paint.setAlpha(alpha / 3);
 			}
 			if (coloring.equals(EZColoring.Colorfull)) {
 				final int faktor = (int) (100 / anzahlSegmente);

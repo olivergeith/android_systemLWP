@@ -138,12 +138,16 @@ public class Settings {
 		default:
 		case "Normal":
 			return EZStyle.sweep;
-		case "Normal (with Outline)":
+		case "Normal (alpha)":
+			return EZStyle.sweep_withAplpah;
+		case "Normal (outline)":
 			return EZStyle.sweep_withOutline;
 		case "Only activ segments":
 			return EZStyle.segmented_onlyactive;
-		case "All segments":
+		case "All segments (outline)":
 			return EZStyle.segmented_all;
+		case "All segments (alpha)":
+			return EZStyle.segmented_all_alpha;
 		}
 	}
 

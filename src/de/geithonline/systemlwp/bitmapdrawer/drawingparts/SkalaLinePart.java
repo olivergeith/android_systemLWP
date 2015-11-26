@@ -21,6 +21,7 @@ public class SkalaLinePart {
 	private float ri1er;
 	private final Paint paint;
 	private boolean draw100 = false;
+	private boolean draw0 = true;
 
 	private final float maxWinkel;
 	private final float startWinkel;
@@ -51,6 +52,11 @@ public class SkalaLinePart {
 
 	public SkalaLinePart setDraw100(final boolean draw100) {
 		this.draw100 = draw100;
+		return this;
+	}
+
+	public SkalaLinePart setDraw0(final boolean draw0) {
+		this.draw0 = draw0;
 		return this;
 	}
 
@@ -121,7 +127,11 @@ public class SkalaLinePart {
 		if (draw100) {
 			forloopEnd = 101;
 		}
-		for (int i = 0; i < forloopEnd; i = i + 1) {
+		int forloopStart = 1;
+		if (draw0) {
+			forloopStart = 0;
+		}
+		for (int i = forloopStart; i < forloopEnd; i = i + 1) {
 			if (i % 10 == 0) {// 10 er
 				ra = ra10er;
 				ri = ri10er;
