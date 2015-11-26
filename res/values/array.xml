@@ -193,6 +193,7 @@
         <item name="140">false</item>
         <item name="150">false</item>
         <item name="151">false</item>
+        <item name="155">false</item>
         <item name="160">true</item>
         <item name="161">true</item>
         </string-array>
@@ -253,6 +254,7 @@
         <item name="140">ClockV4</item>
         <item name="150">ClockV5</item>
         <item name="151">ClockV5 (Extra Level Bars)</item>
+        <item name="155">ClockV6</item>
         <item name="160">NewSimpleCircleV1</item>
         <item name="161">NewSimpleCircleV1 (smaller)</item>
         </string-array>
