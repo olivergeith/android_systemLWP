@@ -10,6 +10,7 @@ import android.graphics.PointF;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import de.geithonline.systemlwp.bitmapdrawer.shapes.HalfArcPath;
+import de.geithonline.systemlwp.settings.PaintProvider;
 
 public class HalfArchPart {
 
@@ -22,6 +23,7 @@ public class HalfArchPart {
 	// private DropShadow dropShadow;
 	private Gradient gradient;
 	private float undercut = 0;
+	private boolean erase = false;
 
 	public HalfArchPart(final PointF center, final float radAussen, final float radInnen, final Paint paint) {
 		c = center;
@@ -35,6 +37,11 @@ public class HalfArchPart {
 	private void initPaint() {
 		paint.setAntiAlias(true);
 		paint.setStyle(Style.FILL);
+	}
+
+	public HalfArchPart setEraseBeforDraw() {
+		erase = true;
+		return this;
 	}
 
 	public HalfArchPart setOutline(final Outline outline) {
@@ -82,20 +89,24 @@ public class HalfArchPart {
 		if (gradient != null) {
 			paint.setStyle(Style.FILL);
 			switch (gradient.getStyle()) {
-				default:
-				case top2bottom:
-					paint.setShader(new LinearGradient(c.x, c.y - ra, c.x, c.y + ra, gradient.getColor1(), gradient.getColor2(), Shader.TileMode.MIRROR));
-					break;
-				case radial:
-					final int[] colors = new int[] { gradient.getColor1(), gradient.getColor2() };
-					paint.setShader(new RadialGradient(c.x, c.y, ra, colors, getDistancesRadial(), Shader.TileMode.CLAMP));
-					break;
+			default:
+			case top2bottom:
+				paint.setShader(new LinearGradient(c.x, c.y - ra, c.x, c.y + ra, gradient.getColor1(), gradient.getColor2(), Shader.TileMode.MIRROR));
+				break;
+			case radial:
+				final int[] colors = new int[] { gradient.getColor1(), gradient.getColor2() };
+				paint.setShader(new RadialGradient(c.x, c.y, ra, colors, getDistancesRadial(), Shader.TileMode.CLAMP));
+				break;
 			}
 		}
 	}
 
 	public HalfArchPart draw(final Canvas canvas) {
 		path = new HalfArcPath(c, ra, ri, undercut);
+
+		if (erase) {
+			canvas.drawPath(path, PaintProvider.getErasurePaint());
+		}
 		canvas.drawPath(path, paint);
 		// Outline?
 		if (outline != null) {

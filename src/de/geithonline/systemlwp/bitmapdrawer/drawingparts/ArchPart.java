@@ -10,6 +10,7 @@ import android.graphics.PointF;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import de.geithonline.systemlwp.bitmapdrawer.shapes.LevelArcPath;
+import de.geithonline.systemlwp.settings.PaintProvider;
 
 public class ArchPart {
 
@@ -21,9 +22,9 @@ public class ArchPart {
 	private Outline outline = null;
 	// private DropShadow dropShadow;
 	private Gradient gradient;
-	private final float undercut = 0;
 	private final float startWinkel;
 	private final float sweep;
+	private boolean erase = false;
 
 	public ArchPart(final PointF center, final float radAussen, final float radInnen, final float startWinkel, final float sweep, final Paint paint) {
 		c = center;
@@ -39,6 +40,11 @@ public class ArchPart {
 	private void initPaint() {
 		paint.setAntiAlias(true);
 		paint.setStyle(Style.FILL);
+	}
+
+	public ArchPart setEraseBeforDraw() {
+		erase = true;
+		return this;
 	}
 
 	public ArchPart setOutline(final Outline outline) {
@@ -95,6 +101,11 @@ public class ArchPart {
 
 	public ArchPart draw(final Canvas canvas) {
 		path = new LevelArcPath(c, ra, ri, startWinkel, sweep);
+
+		if (erase) {
+			canvas.drawPath(path, PaintProvider.getErasurePaint());
+		}
+
 		canvas.drawPath(path, paint);
 		// Outline?
 		if (outline != null) {

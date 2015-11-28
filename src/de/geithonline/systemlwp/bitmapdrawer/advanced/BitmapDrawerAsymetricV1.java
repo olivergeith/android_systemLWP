@@ -90,9 +90,8 @@ public class BitmapDrawerAsymetricV1 extends AdvancedBitmapDrawer {
 				.setOutline(new Outline(PaintProvider.getGray(192), strokeWidth / 2))//
 				.draw(bitmapCanvas);
 		// SkalaBackground
-		new RingPart(center2, maxRadius * 0.65f, maxRadius * 0.0f, PaintProvider.getErasurePaint())//
-				.draw(bitmapCanvas);
 		new RingPart(center2, maxRadius * 0.65f, maxRadius * 0.0f, PaintProvider.getBackgroundPaint())//
+				.setEraseBeforDraw()//
 				.setOutline(new Outline(Color.WHITE, strokeWidth / 2))//
 				.draw(bitmapCanvas);
 		// Skala
@@ -152,9 +151,8 @@ public class BitmapDrawerAsymetricV1 extends AdvancedBitmapDrawer {
 				.draw(bitmapCanvas);
 
 		// Timer
-		new ArchPart(center, maxRadius * 0.93f, maxRadius * 0.81f, -201, 92, PaintProvider.getErasurePaint())//
-				.draw(bitmapCanvas);
 		new ArchPart(center, maxRadius * 0.93f, maxRadius * 0.81f, -201, 92, PaintProvider.getBackgroundPaint())//
+				.setEraseBeforDraw()//
 				.setOutline(new Outline(PaintProvider.getGray(192), strokeWidth / 2))//
 				.draw(bitmapCanvas);
 		new LevelPart(center, maxRadius * 0.91f, maxRadius * 0.83f, level, -200, 90, EZColoring.ColorOf100)//
@@ -163,9 +161,8 @@ public class BitmapDrawerAsymetricV1 extends AdvancedBitmapDrawer {
 				.setStyle(EZStyle.segmented_all)//
 				.setMode(EZMode.Zehner)//
 				.draw(bitmapCanvas);
-		new ArchPart(center, maxRadius * 0.93f, maxRadius * 0.81f, 21, -92, PaintProvider.getErasurePaint())//
-				.draw(bitmapCanvas);
 		new ArchPart(center, maxRadius * 0.93f, maxRadius * 0.81f, 21, -92, PaintProvider.getBackgroundPaint())//
+				.setEraseBeforDraw()//
 				.setOutline(new Outline(PaintProvider.getGray(192), strokeWidth / 2))//
 				.draw(bitmapCanvas);
 		new LevelPart(center, maxRadius * 0.91f, maxRadius * 0.83f, level, 20, -90, EZColoring.ColorOf100)//
@@ -175,9 +172,8 @@ public class BitmapDrawerAsymetricV1 extends AdvancedBitmapDrawer {
 				.setMode(EZMode.EinerOnly10Segmente)//
 				.draw(bitmapCanvas);
 
-		new ArchPart(center, maxRadius * 0.93f, maxRadius * 0.70f, -108, 36, PaintProvider.getErasurePaint())//
-				.draw(bitmapCanvas);
 		new ArchPart(center, maxRadius * 0.93f, maxRadius * 0.70f, -108, 36, PaintProvider.getBackgroundPaint())//
+				.setEraseBeforDraw()//
 				.setOutline(new Outline(PaintProvider.getGray(192), strokeWidth / 2))//
 				.draw(bitmapCanvas);
 	}

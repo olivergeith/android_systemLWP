@@ -10,6 +10,7 @@ import android.graphics.PointF;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import de.geithonline.systemlwp.bitmapdrawer.shapes.CirclePath;
+import de.geithonline.systemlwp.settings.PaintProvider;
 
 public class RingPart {
 
@@ -21,6 +22,7 @@ public class RingPart {
 	private Outline outline = null;
 	// private DropShadow dropShadow;
 	private Gradient gradient;
+	private boolean erase = false;
 
 	public RingPart(final PointF center, final float radAussen, final float radInnen, final Paint paint) {
 		c = center;
@@ -47,6 +49,11 @@ public class RingPart {
 
 	public RingPart setAlpha(final int alpha) {
 		paint.setAlpha(alpha);
+		return this;
+	}
+
+	public RingPart setEraseBeforDraw() {
+		erase = true;
 		return this;
 	}
 
@@ -93,6 +100,9 @@ public class RingPart {
 	}
 
 	public RingPart draw(final Canvas canvas) {
+		if (erase) {
+			canvas.drawPath(path, PaintProvider.getErasurePaint());
+		}
 		canvas.drawPath(path, paint);
 		// Outline?
 		if (outline != null) {
