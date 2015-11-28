@@ -643,4 +643,9 @@ public class Settings {
 		return col;
 	}
 
+	public static boolean isShowTimer() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

@@ -127,11 +127,11 @@ public class PaintProvider {
 		return initErasurePaint();
 	}
 
-	public static Paint getNumberPaint(final int level, final int fontSize) {
+	public static Paint getNumberPaint(final int level, final float fontSize) {
 		return getNumberPaint(level, fontSize, Align.CENTER, true, false);
 	}
 
-	public static Paint getNumberPaintAlignLeft(final int level, final int fontSize) {
+	public static Paint getNumberPaintAlignLeft(final int level, final float fontSize) {
 		return getNumberPaint(level, fontSize, Align.LEFT, true, false);
 	}
 

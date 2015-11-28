@@ -49,6 +49,7 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV6;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
+import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerAsymetricV1;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV1;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV2;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV3;
@@ -122,6 +123,7 @@ public class DrawerManager {
 		drawer.put("ClockV6", new BitmapDrawerClockV6());
 		drawer.put("NewSimpleCircleV1", new BitmapDrawerNewSimpleCircleV1());
 		drawer.put("NewSimpleCircleV1 (smaller)", new BitmapDrawerNewSimpleCircleV1(0.88f, 0.82f, 0.97f, 0.73f));
+		drawer.put("AsymetricV1", new BitmapDrawerAsymetricV1());
 	}
 
 	public static IBitmapDrawer getDrawer(final String name) {
