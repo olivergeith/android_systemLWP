@@ -1,4 +1,4 @@
-package de.geithonline.systemlwp.bitmapdrawer.drawingparts;
+package de.geithonline.systemlwp.bitmapdrawer.data;
 
 import android.graphics.Paint;
 import android.graphics.Paint.Align;

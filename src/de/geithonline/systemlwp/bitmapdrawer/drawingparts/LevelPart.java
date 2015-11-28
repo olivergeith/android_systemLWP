@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PointF;
+import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;

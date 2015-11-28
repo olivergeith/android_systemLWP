@@ -9,6 +9,9 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
+import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.data.Gradient;
+import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.shapes.CirclePath;
 import de.geithonline.systemlwp.settings.PaintProvider;
 

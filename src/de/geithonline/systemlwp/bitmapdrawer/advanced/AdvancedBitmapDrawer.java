@@ -8,7 +8,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
-import de.geithonline.systemlwp.bitmapdrawer.drawingparts.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.enums.BitmapRatio;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;

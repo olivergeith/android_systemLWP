@@ -6,6 +6,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.utils.GeometrieHelper;
 

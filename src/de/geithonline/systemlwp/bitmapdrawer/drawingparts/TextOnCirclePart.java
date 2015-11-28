@@ -7,6 +7,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import de.geithonline.systemlwp.bitmapdrawer.data.FontAttributes;
 import de.geithonline.systemlwp.utils.GeometrieHelper;
 
 public class TextOnCirclePart {
