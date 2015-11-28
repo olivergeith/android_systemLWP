@@ -1,4 +1,4 @@
-package de.geithonline.systemlwp.bitmapdrawer.drawingparts;
+package de.geithonline.systemlwp.bitmapdrawer.parts;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,10 +12,10 @@ import android.graphics.Shader;
 import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.data.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
-import de.geithonline.systemlwp.bitmapdrawer.shapes.HalfArcPath;
+import de.geithonline.systemlwp.bitmapdrawer.shapes.LevelArcPath;
 import de.geithonline.systemlwp.settings.PaintProvider;
 
-public class HalfArchPart {
+public class ArchPart {
 
 	private final PointF c;
 	private final float ra;
@@ -25,13 +25,16 @@ public class HalfArchPart {
 	private Outline outline = null;
 	// private DropShadow dropShadow;
 	private Gradient gradient;
-	private float undercut = 0;
+	private final float startWinkel;
+	private final float sweep;
 	private boolean erase = false;
 
-	public HalfArchPart(final PointF center, final float radAussen, final float radInnen, final Paint paint) {
+	public ArchPart(final PointF center, final float radAussen, final float radInnen, final float startWinkel, final float sweep, final Paint paint) {
 		c = center;
 		ra = radAussen;
 		ri = radInnen;
+		this.startWinkel = startWinkel;
+		this.sweep = sweep;
 
 		this.paint = paint;
 		initPaint();
@@ -42,40 +45,35 @@ public class HalfArchPart {
 		paint.setStyle(Style.FILL);
 	}
 
-	public HalfArchPart setEraseBeforDraw() {
+	public ArchPart setEraseBeforDraw() {
 		erase = true;
 		return this;
 	}
 
-	public HalfArchPart setOutline(final Outline outline) {
+	public ArchPart setOutline(final Outline outline) {
 		this.outline = outline;
 		return this;
 	}
 
-	public HalfArchPart setUndercut(final float undercut) {
-		this.undercut = undercut;
-		return this;
-	}
-
-	public HalfArchPart setAlpha(final int alpha) {
+	public ArchPart setAlpha(final int alpha) {
 		paint.setAlpha(alpha);
 		return this;
 	}
 
-	public HalfArchPart setDropShadow(final DropShadow dropShadow) {
+	public ArchPart setDropShadow(final DropShadow dropShadow) {
 		if (dropShadow != null) {
 			dropShadow.setUpPaint(paint);
 		}
 		return this;
 	}
 
-	public HalfArchPart setColor(final int color) {
+	public ArchPart setColor(final int color) {
 		paint.setStyle(Style.FILL);
 		paint.setColor(color);
 		return this;
 	}
 
-	public HalfArchPart setGradient(final Gradient gradient) {
+	public ArchPart setGradient(final Gradient gradient) {
 		this.gradient = gradient;
 		setupGradient();
 		return this;
@@ -104,12 +102,13 @@ public class HalfArchPart {
 		}
 	}
 
-	public HalfArchPart draw(final Canvas canvas) {
-		path = new HalfArcPath(c, ra, ri, undercut);
+	public ArchPart draw(final Canvas canvas) {
+		path = new LevelArcPath(c, ra, ri, startWinkel, sweep);
 
 		if (erase) {
 			canvas.drawPath(path, PaintProvider.getErasurePaint());
 		}
+
 		canvas.drawPath(path, paint);
 		// Outline?
 		if (outline != null) {

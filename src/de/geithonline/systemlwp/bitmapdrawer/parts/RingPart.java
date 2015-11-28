@@ -1,4 +1,4 @@
-package de.geithonline.systemlwp.bitmapdrawer.drawingparts;
+package de.geithonline.systemlwp.bitmapdrawer.parts;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
