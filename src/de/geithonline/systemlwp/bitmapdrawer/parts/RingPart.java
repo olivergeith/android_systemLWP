@@ -23,7 +23,6 @@ public class RingPart {
 	private final Paint paint;
 	private final Path path;
 	private Outline outline = null;
-	// private DropShadow dropShadow;
 	private Gradient gradient;
 	private boolean erase = false;
 

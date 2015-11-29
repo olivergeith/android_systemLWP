@@ -59,6 +59,7 @@ import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV6;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewSimpleCircleV1;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewTachoV1;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewTachoV3;
+import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerRotatingV1;
 import de.geithonline.systemlwp.bitmapdrawer.enums.TimerType;
 
 public class DrawerManager {
@@ -124,6 +125,7 @@ public class DrawerManager {
 		drawer.put("NewSimpleCircleV1", new BitmapDrawerNewSimpleCircleV1());
 		drawer.put("NewSimpleCircleV1 (smaller)", new BitmapDrawerNewSimpleCircleV1(0.88f, 0.82f, 0.97f, 0.73f));
 		drawer.put("AsymetricV1", new BitmapDrawerAsymetricV1());
+		drawer.put("RotatingV1", new BitmapDrawerRotatingV1());
 	}
 
 	public static IBitmapDrawer getDrawer(final String name) {

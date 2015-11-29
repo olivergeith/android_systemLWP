@@ -7,6 +7,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.data.FontAttributes;
 import de.geithonline.systemlwp.utils.GeometrieHelper;
 
@@ -48,6 +49,13 @@ public class TextOnCirclePart {
 	public TextOnCirclePart setTypeface(final Typeface typeFace) {
 		attr.setTypeFace(typeFace);
 		attr.setupPaint(paint);
+		return this;
+	}
+
+	public TextOnCirclePart setDropShadow(final DropShadow dropShadow) {
+		if (dropShadow != null) {
+			dropShadow.setUpPaint(paint);
+		}
 		return this;
 	}
 

@@ -197,6 +197,7 @@
         <item name="160">true</item>
         <item name="161">true</item>
         <item name="170">false</item>
+        <item name="180">false</item>
         </string-array>
     
     
@@ -259,6 +260,7 @@
         <item name="160">NewSimpleCircleV1</item>
         <item name="161">NewSimpleCircleV1 (smaller)</item>
         <item name="170">AsymetricV1</item>
+        <item name="180">RotatingV1</item>
         </string-array>
     
     <string-array name="animation_styl">
