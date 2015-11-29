@@ -75,14 +75,14 @@ public class BitmapDrawerRotatingV1 extends AdvancedBitmapDrawer {
 
 		// Ausen Ring
 		new RingPart(center, maxRadius * 0.99f, maxRadius * 0.90f, new Paint())//
-				.setGradient(new Gradient(PaintProvider.getGray(32, op), PaintProvider.getGray(192, op), GRAD_STYLE.top2bottom))//
-				.setOutline(new Outline(PaintProvider.getGray(64, op), strokeWidth))//
+				.setGradient(new Gradient(PaintProvider.getGray(32, op), PaintProvider.getGray(96, op), GRAD_STYLE.top2bottom))//
+				.setOutline(new Outline(PaintProvider.getGray(128, op), strokeWidth / 2))//
 				.draw(bitmapCanvas);
 
 		// Mittlerer ring
 		new RingPart(center, maxRadius * 0.65f, maxRadius * 0.50f, new Paint())//
 				.setGradient(new Gradient(PaintProvider.getGray(96, op), PaintProvider.getGray(32, op), GRAD_STYLE.top2bottom))//
-				.setOutline(new Outline(PaintProvider.getGray(64, op), strokeWidth))//
+				.setOutline(new Outline(PaintProvider.getGray(192, op), strokeWidth / 2))//
 				.draw(bitmapCanvas);
 
 		new SkalaLinePart(center, maxRadius * 0.55f, maxRadius * 0.51f, -90, 360)//
@@ -158,7 +158,7 @@ public class BitmapDrawerRotatingV1 extends AdvancedBitmapDrawer {
 	@Override
 	public void drawChargeStatusText(final int level) {
 		final float winkel = 90 + level * 3.6f;
-		new TextOnCirclePart(center, maxRadius * 0.68f, winkel, fontSizeArc, new Paint())//
+		new TextOnCirclePart(center, maxRadius * 0.70f, winkel, fontSizeArc, new Paint())//
 				.setColor(Settings.getBattStatusColor())//
 				.setAlign(Align.CENTER)//
 				.draw(bitmapCanvas, Settings.getChargingText());
@@ -167,7 +167,7 @@ public class BitmapDrawerRotatingV1 extends AdvancedBitmapDrawer {
 	@Override
 	public void drawBattStatusText() {
 		final float winkel = 90 + level * 3.6f;
-		new TextOnCirclePart(center, maxRadius * 0.78f, winkel, fontSizeArc, new Paint())//
+		new TextOnCirclePart(center, maxRadius * 0.80f, winkel, fontSizeArc, new Paint())//
 				.setColor(Settings.getBattStatusColor())//
 				.setAlign(Align.CENTER)//
 				.draw(bitmapCanvas, Settings.getBattStatusCompleteShort());
