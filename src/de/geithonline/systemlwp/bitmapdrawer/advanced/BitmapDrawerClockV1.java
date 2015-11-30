@@ -12,7 +12,6 @@ import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
-import de.geithonline.systemlwp.bitmapdrawer.enums.TimerType;
 import de.geithonline.systemlwp.bitmapdrawer.parts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.SkalaLinePart;
@@ -37,8 +36,6 @@ public class BitmapDrawerClockV1 extends AdvancedBitmapDrawer {
 
 	private final PointF center = new PointF();
 
-	private final TimerType type;
-
 	private void initPrivateMembers() {
 		center.x = bmpWidth / 2;
 		center.y = bmpHeight / 2;
@@ -55,12 +52,16 @@ public class BitmapDrawerClockV1 extends AdvancedBitmapDrawer {
 		radiusBattStatus = maxRadius * 0.5f;
 	}
 
-	public BitmapDrawerClockV1(final TimerType type) {
-		this.type = type;
+	public BitmapDrawerClockV1() {
 	}
 
 	@Override
 	public boolean supportsPointerColor() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsExtraLevelBars() {
 		return true;
 	}
 
@@ -143,14 +144,7 @@ public class BitmapDrawerClockV1 extends AdvancedBitmapDrawer {
 	}
 
 	private void drawDualLevel(final int level) {
-		switch (type) {
-		default:
-		case Without:
-			if (Settings.isShowNumber()) {
-				drawLevelNumber(bitmapCanvas, level, fontSizeLevel * 1.5f, new PointF(center.x, center.x + maxRadius * 0.6f));
-			}
-			break;
-		case Timer:
+		if (Settings.isShowExtraLevelBars()) {
 			final PointF centerLi = new PointF(center.x - maxRadius * 0.25f, center.y + maxRadius * 0.38f);
 			final PointF centerRe = new PointF(center.x + maxRadius * 0.25f, center.y + maxRadius * 0.38f);
 
@@ -182,7 +176,10 @@ public class BitmapDrawerClockV1 extends AdvancedBitmapDrawer {
 				drawLevelNumberCenteredInRect(bitmapCanvas, level, "" + zehner, fontSizeLevel, GeometrieHelper.getCircle(centerLi, maxRadius * 0.15f));
 				drawLevelNumberCenteredInRect(bitmapCanvas, level, "" + einer, fontSizeLevel, GeometrieHelper.getCircle(centerRe, maxRadius * 0.15f));
 			}
-			break;
+		} else {
+			if (Settings.isShowNumber()) {
+				drawLevelNumber(bitmapCanvas, level, fontSizeLevel * 1.5f, new PointF(center.x, center.x + maxRadius * 0.6f));
+			}
 		}
 	}
 

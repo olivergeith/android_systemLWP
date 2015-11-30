@@ -7,18 +7,17 @@ import android.graphics.Paint.Align;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.data.Gradient;
+import de.geithonline.systemlwp.bitmapdrawer.data.Gradient.GRAD_STYLE;
+import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
-import de.geithonline.systemlwp.bitmapdrawer.enums.TimerType;
 import de.geithonline.systemlwp.bitmapdrawer.parts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.SkalaLinePart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.ZeigerPart;
-import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
-import de.geithonline.systemlwp.bitmapdrawer.data.Gradient;
-import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
-import de.geithonline.systemlwp.bitmapdrawer.data.Gradient.GRAD_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerShapePath.ZEIGER_TYP;
 import de.geithonline.systemlwp.settings.PaintProvider;
 import de.geithonline.systemlwp.settings.Settings;
@@ -34,8 +33,6 @@ public class BitmapDrawerClockV2 extends AdvancedBitmapDrawer {
 	private float maxRadius;
 	private float radiusChangeText;
 	private float radiusBattStatus;
-
-	private final TimerType type;
 
 	private final PointF center = new PointF();
 
@@ -56,8 +53,7 @@ public class BitmapDrawerClockV2 extends AdvancedBitmapDrawer {
 
 	}
 
-	public BitmapDrawerClockV2(final TimerType type) {
-		this.type = type;
+	public BitmapDrawerClockV2() {
 	}
 
 	@Override
@@ -67,6 +63,11 @@ public class BitmapDrawerClockV2 extends AdvancedBitmapDrawer {
 
 	@Override
 	public boolean supportsLevelStyle() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsExtraLevelBars() {
 		return true;
 	}
 
@@ -118,7 +119,7 @@ public class BitmapDrawerClockV2 extends AdvancedBitmapDrawer {
 				.setZeigerType(ZEIGER_TYP.raute)//
 				.draw(bitmapCanvas);
 
-		if (type.equals(TimerType.Timer)) {
+		if (Settings.isShowExtraLevelBars()) {
 			// Timer
 			new LevelPart(center, maxRadius * 0.56f, maxRadius * 0.48f, level, 60, -90, EZColoring.Custom)//
 					.setColor(Settings.getScaleColor())//

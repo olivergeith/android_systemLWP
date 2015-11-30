@@ -60,6 +60,16 @@ public class BitmapDrawerRotatingV1 extends AdvancedBitmapDrawer {
 	}
 
 	@Override
+	public boolean supportsShowPointer() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsExtraLevelBars() {
+		return true;
+	}
+
+	@Override
 	public Bitmap drawBitmap(final int level, final Bitmap bitmap) {
 		initPrivateMembers();
 		drawAll(level);
@@ -103,16 +113,12 @@ public class BitmapDrawerRotatingV1 extends AdvancedBitmapDrawer {
 				.setMode(Settings.getLevelMode())//
 				.draw(bitmapCanvas);
 
-		// Innen Phase (with white dropshadow)
+		// Innen Phase
 		new RingPart(center, maxRadius * 0.20f, maxRadius * 0.15f, new Paint())//
 				.setGradient(new Gradient(PaintProvider.getGray(224, op), PaintProvider.getGray(32, op), GRAD_STYLE.top2bottom))//
 				.draw(bitmapCanvas);
-		// Zeiger
-		new ZeigerPart(center, level, maxRadius * 0.65f, maxRadius * 0.16f, strokeWidth, -90, 360, EZMode.Einer)//
-				.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
-				.draw(bitmapCanvas);
 
-		if (Settings.isShowTimer()) {
+		if (Settings.isShowExtraLevelBars()) {
 			// Level
 			new LevelPart(center, maxRadius * 0.48f, maxRadius * 0.35f, level, 85, -170, EZColoring.ColorOf100)//
 					.setSegemteAbstand(1f)//
@@ -136,7 +142,12 @@ public class BitmapDrawerRotatingV1 extends AdvancedBitmapDrawer {
 					.draw(bitmapCanvas);
 
 		}
-
+		if (Settings.isShowZeiger()) {
+			// Zeiger
+			new ZeigerPart(center, level, maxRadius * 0.65f, maxRadius * 0.16f, strokeWidth, -90, 360, EZMode.Einer)//
+					.setDropShadow(new DropShadow(3 * strokeWidth, Color.BLACK))//
+					.draw(bitmapCanvas);
+		}
 		// Innen Fläche
 		new RingPart(center, maxRadius * 0.15f, maxRadius * 0.00f, new Paint())//
 				.setGradient(new Gradient(PaintProvider.getGray(192, op), PaintProvider.getGray(32, op), GRAD_STYLE.top2bottom))//

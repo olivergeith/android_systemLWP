@@ -42,11 +42,11 @@ public abstract class AdvancedBitmapDrawer implements IBitmapDrawer {
 
 	private final Bitmap initBitmap() {
 		switch (getBitmapRatio()) {
-			default:
-			case SQUARE:
-				return initSquareBitmap();
-			case RECTANGULAR:
-				return initRectangularBitmap();
+		default:
+		case SQUARE:
+			return initSquareBitmap();
+		case RECTANGULAR:
+			return initRectangularBitmap();
 		}
 	}
 
@@ -216,6 +216,11 @@ public abstract class AdvancedBitmapDrawer implements IBitmapDrawer {
 
 	@Override
 	public boolean supportsGlowScala() {
+		return false;
+	}
+
+	@Override
+	public boolean supportsExtraLevelBars() {
 		return false;
 	}
 

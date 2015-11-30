@@ -9,12 +9,11 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.data.Gradient;
-import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.data.Gradient.GRAD_STYLE;
+import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
-import de.geithonline.systemlwp.bitmapdrawer.enums.TimerType;
 import de.geithonline.systemlwp.bitmapdrawer.parts.LevelPart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.SkalaLinePart;
@@ -37,8 +36,6 @@ public class BitmapDrawerClockV5 extends AdvancedBitmapDrawer {
 
 	private final PointF center = new PointF();
 
-	private TimerType type = TimerType.Without;
-
 	private void initPrivateMembers() {
 		center.x = bmpWidth / 2;
 		center.y = bmpHeight / 2;
@@ -59,10 +56,6 @@ public class BitmapDrawerClockV5 extends AdvancedBitmapDrawer {
 	public BitmapDrawerClockV5() {
 	}
 
-	public BitmapDrawerClockV5(final TimerType type) {
-		this.type = type;
-	}
-
 	@Override
 	public boolean supportsPointerColor() {
 		return true;
@@ -75,6 +68,11 @@ public class BitmapDrawerClockV5 extends AdvancedBitmapDrawer {
 
 	@Override
 	public boolean supportsLevelStyle() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsExtraLevelBars() {
 		return true;
 	}
 
@@ -144,7 +142,7 @@ public class BitmapDrawerClockV5 extends AdvancedBitmapDrawer {
 				.setFontsize5er(fontSizeScala * 0.75f)//
 				.draw(bitmapCanvas);
 
-		if (type.equals(TimerType.Timer)) {
+		if (Settings.isShowExtraLevelBars()) {
 			// ##############################################
 			// Playing
 			new LevelPart(center, maxRadius * 0.71f, maxRadius * 0.66f, level, startWinkel - 5, -80, EZColoring.ColorOf100)//

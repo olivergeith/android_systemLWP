@@ -67,6 +67,13 @@
 	        android:entryValues="@array/levelMode"
 	        android:key="levelMode"
 	        />
+
+        <CheckBoxPreference 
+            android:key="showExtraLevelBars"
+            android:title="@string/showExtraLevelBars"
+            android:defaultValue="false"
+            />
+        
     <PreferenceCategory android:title="Misc Options"/>
         <CheckBoxPreference 
             android:key="show_rand"

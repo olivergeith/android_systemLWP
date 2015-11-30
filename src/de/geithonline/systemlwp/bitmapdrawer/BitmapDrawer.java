@@ -184,4 +184,9 @@ public abstract class BitmapDrawer extends ColorProvider implements IBitmapDrawe
 	public boolean supportsGlowScala() {
 		return false;
 	}
+
+	@Override
+	public boolean supportsExtraLevelBars() {
+		return false;
+	}
 }

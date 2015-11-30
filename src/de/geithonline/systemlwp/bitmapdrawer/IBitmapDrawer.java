@@ -18,4 +18,6 @@ public interface IBitmapDrawer {
 
 	public boolean supportsGlowScala();
 
+	public boolean supportsExtraLevelBars();
+
 }

@@ -96,18 +96,23 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		levelMode.setEnabled(Settings.isPremium());
 		final Preference levelStyles = findPreference("levelStyles");
 		levelStyles.setEnabled(Settings.isPremium());
+		final Preference showExtraLevelBars = findPreference("showExtraLevelBars");
+		showExtraLevelBars.setEnabled(Settings.isPremium());
 	}
 
 	private void enableSettingsForStyle(final String style) {
 		final Bitmap b = DrawerManager.getIconForDrawer(style, Settings.getIconSize());
-		// Find a Drawer for this Style
 		final IBitmapDrawer drawer = DrawerManager.getDrawer(style);
+
 		final Preference zeiger = findPreference("show_zeiger");
 		final Preference levelStyles = findPreference("levelStyles");
 		final Preference levelMode = findPreference("levelMode");
 		final Preference rand = findPreference("show_rand");
 		final Preference colorZeiger = findPreference("color_zeiger");
 		final Preference glowScala = findPreference("glowScala");
+		final Preference showExtraLevelBars = findPreference("showExtraLevelBars");
+
+		showExtraLevelBars.setEnabled(drawer.supportsExtraLevelBars());
 
 		if (b != null) {
 			stylePref.setIcon(BitmapHelper.bitmapToIcon(b));
@@ -119,25 +124,5 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		levelStyles.setEnabled(drawer.supportsLevelStyle());
 		levelMode.setEnabled(drawer.supportsLevelStyle());
 		stylePref.setSummary("Current style: " + style);
-		if (style.equals("LogoV1")) {
-			showLogoV1Message();
-		}
 	}
-
-	private void showLogoV1Message() {
-		Toaster.alertInfo(getActivity(),
-				"The LogoV1 style is no longer available!" //
-						+ "\nIt has moved to its own APP!" //
-						+ "\n...with lots of new special settings only for this style!" //
-						+ "\n...like:" //
-						+ "\n- brightness of grayscaled background" //
-						+ "\n- changing hue of logo-image" //
-						+ "\n- re-coloring of logo-image" //
-						+ "\n- masking logo-image to lots of different shapes" //
-						+ "\n- ... and many more ..." //
-						+ "\n" //
-						+ "\nCheck it out...it is free (and addfree) too!",
-				"Goto Play Store ...", "https://play.google.com/store/apps/details?id=de.geithonline.logolwp");
-	}
-
 }
