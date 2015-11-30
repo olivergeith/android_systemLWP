@@ -9,8 +9,8 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.data.Gradient;
-import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.data.Gradient.GRAD_STYLE;
+import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
@@ -116,6 +116,10 @@ public class BitmapDrawerClockV4 extends AdvancedBitmapDrawer {
 			new RingPart(center, maxRadius * 0.20f, 0f, new Paint())//
 					.setColor(Color.BLACK)//
 					.setDropShadow(new DropShadow(strokeWidth * 10, Settings.getGlowScalaColor()))//
+					.draw(bitmapCanvas);
+			new RingPart(center, maxRadius * 0.20f, 0f, new Paint())//
+					.setColor(Color.BLACK)//
+					.setDropShadow(new DropShadow(strokeWidth * 3, Settings.getGlowScalaColor()))//
 					.draw(bitmapCanvas);
 		}
 

@@ -2,11 +2,15 @@ package de.geithonline.systemlwp.bitmapdrawer.parts;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
 import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.data.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.shapes.ZeigerShapePath;
@@ -28,7 +32,7 @@ public class ZeigerPart {
 	private final EZMode modus;
 	private int anzahlLevel;
 	private final int level;
-	// private boolean isEinerZeiger = false;
+	private Gradient gradient;
 
 	public ZeigerPart(final PointF center, final int level, final float radAussen, final float radInnen, final float dicke, final float startWinkel,
 			final float maxWinkel, final EZMode modus) {
@@ -83,6 +87,35 @@ public class ZeigerPart {
 		return this;
 	}
 
+	public ZeigerPart setGradient(final Gradient gradient) {
+		this.gradient = gradient;
+		setupGradient();
+		return this;
+	}
+
+	private void setupGradient() {
+		if (gradient != null) {
+			paint.setStyle(Style.FILL);
+			switch (gradient.getStyle()) {
+			default:
+			case top2bottom:
+				paint.setShader(new LinearGradient(c.x, c.y - ra, c.x, c.y + ra, gradient.getColor1(), gradient.getColor2(), Shader.TileMode.MIRROR));
+				break;
+			case radial:
+				final int[] colors = new int[] { gradient.getColor1(), gradient.getColor2() };
+				paint.setShader(new RadialGradient(c.x, c.y, ra, colors, getDistancesRadial(), Shader.TileMode.CLAMP));
+				break;
+			}
+		}
+	}
+
+	private float[] getDistancesRadial() {
+		final float di = ri / ra;
+		final float da = 1.0f;
+		final float distances[] = new float[] { di, da };
+		return distances;
+	}
+
 	public ZeigerPart setOutline(final Outline outline) {
 		this.outline = outline;
 		return this;
@@ -101,9 +134,10 @@ public class ZeigerPart {
 		final Path path = new ZeigerShapePath(c, ra, ri, dicke, winkel, zeigerType);
 		canvas.drawPath(path, paint);
 		if (outline != null) {
+			paint.setShader(null);
 			paint.setShadowLayer(0, 0, 0, Color.BLACK);
 			paint.setColor(outline.getColor());
-			paint.setAlpha(255);
+			// paint.setAlpha(255);
 			paint.setStrokeWidth(outline.getStrokeWidth());
 			paint.setStyle(Style.STROKE);
 			canvas.drawPath(path, paint);

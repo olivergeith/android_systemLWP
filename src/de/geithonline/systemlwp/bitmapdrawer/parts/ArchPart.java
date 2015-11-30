@@ -23,7 +23,6 @@ public class ArchPart {
 	private final Paint paint;
 	private Path path;
 	private Outline outline = null;
-	// private DropShadow dropShadow;
 	private Gradient gradient;
 	private final float startWinkel;
 	private final float sweep;

@@ -60,6 +60,7 @@ import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewSimpleCircl
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewTachoV1;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewTachoV3;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerRotatingV1;
+import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerRotatingV2;
 
 public class DrawerManager {
 	private static Map<String, IBitmapDrawer> drawer = new HashMap<String, IBitmapDrawer>();
@@ -122,6 +123,7 @@ public class DrawerManager {
 		drawer.put("NewSimpleCircleV1 (smaller)", new BitmapDrawerNewSimpleCircleV1(0.88f, 0.82f, 0.97f, 0.73f));
 		drawer.put("AsymetricV1", new BitmapDrawerAsymetricV1());
 		drawer.put("RotatingV1", new BitmapDrawerRotatingV1());
+		drawer.put("RotatingV2", new BitmapDrawerRotatingV2());
 	}
 
 	public static IBitmapDrawer getDrawer(final String name) {

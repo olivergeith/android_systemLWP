@@ -7,8 +7,8 @@ import android.graphics.Paint.Align;
 import android.graphics.PointF;
 import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
 import de.geithonline.systemlwp.bitmapdrawer.data.Gradient;
-import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.data.Gradient.GRAD_STYLE;
+import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
@@ -117,13 +117,6 @@ public class BitmapDrawerAsymetricV1 extends AdvancedBitmapDrawer {
 				.setStyle(Settings.getLevelStyle())//
 				.setMode(Settings.getLevelMode())//
 				.draw(bitmapCanvas);
-		// // gegenläufiger
-		// new LevelPart(center2, maxRadius * 0.39f, maxRadius * 0.35f, 100 - level, -90, -360, EZColoring.ColorOf100)//
-		// .setSegemteAbstand(1f)//
-		// .setStrokeWidth(strokeWidth / 3)//
-		// .setStyle(Settings.getLevelStyle())//
-		// .setMode(Settings.getLevelMode())//
-		// .draw(bitmapCanvas);
 		// Zeiger
 		new ZeigerPart(center2, level, maxRadius * 0.64f, maxRadius * 0.0f, strokeWidth, -90, 360, EZMode.Einer)//
 				.setDropShadow(new DropShadow(1.5f * strokeWidth, 0, 1.5f * strokeWidth, Color.BLACK))//

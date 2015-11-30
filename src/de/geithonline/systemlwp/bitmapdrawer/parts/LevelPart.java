@@ -200,7 +200,8 @@ public class LevelPart {
 		} else {
 			sweepProSeg = winkelProSegment - abstandZwischenSegemten;
 		}
-
+		// alpha merken
+		final int alpha = paint.getAlpha();
 		for (int i = 0; i < anzahlSegmente; i = i + 1) {
 			float winkel;
 			if (i < levelIntern) {
@@ -213,6 +214,8 @@ public class LevelPart {
 					final int faktor = (int) (100 / anzahlSegmente);
 					paint.setColor(PaintProvider.getColorForLevel(i * faktor));
 				}
+				// für den Colorfull Fall wieder setzen von Alpha!
+				paint.setAlpha(alpha);
 				final Path path = new LevelArcPath(c, ra, ri, winkel, sweepProSeg);
 				canvas.drawPath(path, paint);
 			} else {
@@ -230,6 +233,7 @@ public class LevelPart {
 		} else {
 			sweepProSeg = winkelProSegment - abstandZwischenSegemten;
 		}
+		final int alpha = paint.getAlpha();
 		for (int i = 0; i < anzahlSegmente; i = i + 1) {
 			paint.setStrokeWidth(strokeWidthSegmente);
 			if (levelIntern > i) {
@@ -241,7 +245,7 @@ public class LevelPart {
 				final int faktor = (int) (100 / anzahlSegmente);
 				paint.setColor(PaintProvider.getColorForLevel(i * faktor));
 			}
-
+			paint.setAlpha(alpha);
 			float winkel;
 			if (winkelProSegment < 0) {
 				winkel = startWinkel + i * winkelProSegment - abstandZwischenSegemten / 2;
@@ -263,15 +267,15 @@ public class LevelPart {
 		}
 		final int alpha = paint.getAlpha();
 		for (int i = 0; i < anzahlSegmente; i = i + 1) {
+			if (coloring.equals(EZColoring.Colorfull)) {
+				final int faktor = (int) (100 / anzahlSegmente);
+				paint.setColor(PaintProvider.getColorForLevel(i * faktor));
+			}
 			paint.setStrokeWidth(strokeWidthSegmente);
 			if (levelIntern > i) {
 				paint.setAlpha(alpha);
 			} else {
 				paint.setAlpha(alpha / 3);
-			}
-			if (coloring.equals(EZColoring.Colorfull)) {
-				final int faktor = (int) (100 / anzahlSegmente);
-				paint.setColor(PaintProvider.getColorForLevel(i * faktor));
 			}
 
 			float winkel;
