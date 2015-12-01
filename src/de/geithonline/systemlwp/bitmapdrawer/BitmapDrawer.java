@@ -189,4 +189,15 @@ public abstract class BitmapDrawer extends ColorProvider implements IBitmapDrawe
 	public boolean supportsExtraLevelBars() {
 		return false;
 	}
+
+	@Override
+	public boolean supportsThermometer() {
+		return false;
+	}
+
+	@Override
+	public boolean supportsVoltmeter() {
+		return false;
+	}
+
 }

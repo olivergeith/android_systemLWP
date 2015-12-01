@@ -5,14 +5,19 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PointF;
+import android.graphics.Typeface;
 import de.geithonline.systemlwp.bitmapdrawer.data.DropShadow;
+import de.geithonline.systemlwp.bitmapdrawer.data.FontAttributes;
 import de.geithonline.systemlwp.bitmapdrawer.data.Gradient;
 import de.geithonline.systemlwp.bitmapdrawer.data.Gradient.GRAD_STYLE;
 import de.geithonline.systemlwp.bitmapdrawer.data.Outline;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZColoring;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZMode;
 import de.geithonline.systemlwp.bitmapdrawer.enums.EZStyle;
+import de.geithonline.systemlwp.bitmapdrawer.parts.ArchPart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.LevelPart;
+import de.geithonline.systemlwp.bitmapdrawer.parts.MultimeterSkalaPart;
+import de.geithonline.systemlwp.bitmapdrawer.parts.MultimeterZeigerPart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.RingPart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.SkalaLinePart;
 import de.geithonline.systemlwp.bitmapdrawer.parts.SkalaTextPart;
@@ -72,6 +77,11 @@ public class BitmapDrawerRotatingV2 extends AdvancedBitmapDrawer {
 
 	@Override
 	public boolean supportsGlowScala() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsVoltmeter() {
 		return true;
 	}
 
@@ -148,23 +158,48 @@ public class BitmapDrawerRotatingV2 extends AdvancedBitmapDrawer {
 				.setGradient(new Gradient(PaintProvider.getGray(224), PaintProvider.getGray(32), GRAD_STYLE.top2bottom))//
 				.draw(bitmapCanvas);
 
+		// Extra Level Bars
 		if (Settings.isShowExtraLevelBars()) {
-			// Level
 			final PointF center2 = new PointF(center.x, center.y + maxRadius * 0.95f);
-			final float w = 110;
-			new LevelPart(center2, maxRadius * 0.58f, maxRadius * 0.53f, level, -90 - w / 2, w, EZColoring.ColorOf100)//
+			final float w = 90;
+			new LevelPart(center2, maxRadius * 0.43f, maxRadius * 0.40f, level, -90 - w / 2, w, EZColoring.ColorOf100)//
 					.setSegemteAbstand(1f)//
 					.setStrokeWidth(strokeWidth / 3)//
 					.setStyle(EZStyle.segmented_all_alpha)//
 					.setMode(EZMode.EinerOnly10Segmente)//
 					.draw(bitmapCanvas);
-			new LevelPart(center2, maxRadius * 0.52f, maxRadius * 0.44f, level, -90 - w / 2, w, EZColoring.ColorOf100)//
+			new LevelPart(center2, maxRadius * 0.39f, maxRadius * 0.33f, level, -90 - w / 2, w, EZColoring.ColorOf100)//
 					.setSegemteAbstand(1f)//
 					.setStrokeWidth(strokeWidth / 3)//
 					.setStyle(EZStyle.segmented_all_alpha)//
 					.setMode(EZMode.Zehner)//
 					.draw(bitmapCanvas);
 		}
+		// Voltmeter
+		if (Settings.isShowVoltmeter()) {
+			final PointF center2 = new PointF(center.x, center.y + maxRadius * 0.95f);
+			MultimeterSkalaPart.getDefaultVoltmeterPart(center2, maxRadius * 0.50f, maxRadius * 0.45f, -135, 90)//
+					.setFontAttributes(new FontAttributes(Align.CENTER, Typeface.DEFAULT, fontSizeScala))//
+					.setFontRadius(maxRadius * 0.52f)//
+					.setLineRadius(maxRadius * 0.45f)//
+					.draw(bitmapCanvas);
+			MultimeterZeigerPart.getDefaultVoltmeterPart(center2, Settings.getBattVoltage(), maxRadius * 0.50f, maxRadius * 0.05f, -135, 90)//
+					.setDicke(strokeWidth)//
+					.setDropShadow(new DropShadow(strokeWidth * 3, Color.BLACK))//
+					.draw(bitmapCanvas);
+			new ArchPart(center, maxRadius * 0.99f, maxRadius * 0.80f, 75, 30, new Paint())//
+					.setGradient(new Gradient(PaintProvider.getGray(32), PaintProvider.getGray(96), GRAD_STYLE.top2bottom))//
+					.setOutline(new Outline(PaintProvider.getGray(128), strokeWidth / 2))//
+					.setDropShadow(new DropShadow(strokeWidth * 3, Color.BLACK))//
+					.draw(bitmapCanvas);
+			new TextOnCirclePart(center, maxRadius * 0.92f, 90, fontSizeArc, new Paint())//
+					.setColor(Settings.getBattStatusColor())//
+					.setAlign(Align.CENTER)//
+					.invert(true)//
+					.draw(bitmapCanvas, Settings.getBattVoltage() + " Volt");
+
+		}
+
 		if (Settings.isShowZeiger()) {
 			// Zeiger
 			new ZeigerPart(center, level, maxRadius * 0.65f, maxRadius * 0.16f, strokeWidth, -225, 270, EZMode.Einer)//
@@ -190,10 +225,9 @@ public class BitmapDrawerRotatingV2 extends AdvancedBitmapDrawer {
 
 	@Override
 	public void drawChargeStatusText(final int level) {
-		new TextOnCirclePart(center, maxRadius * 0.80f, 90, fontSizeArc, new Paint())//
+		new TextOnCirclePart(center, maxRadius * 0.35f, -90, fontSizeArc, new Paint())//
 				.setColor(Settings.getBattStatusColor())//
 				.setAlign(Align.CENTER)//
-				.invert(true)//
 				.draw(bitmapCanvas, Settings.getChargingText());
 	}
 

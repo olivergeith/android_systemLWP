@@ -24,7 +24,7 @@ public class MultimeterZeigerPart {
 	private final Paint paint;
 	private final float sweep;
 	private final float startWinkel;
-	private final float dicke;
+	private float dicke = 2f;
 	private Outline outline = null;
 	private ZEIGER_TYP zeigerType = ZEIGER_TYP.rect;
 	private float value;
@@ -32,9 +32,10 @@ public class MultimeterZeigerPart {
 	private final float minValue;
 	private final float maxValue;
 
-	public MultimeterZeigerPart(final PointF center, final float value, final float minValue, final float maxValue, final float radAussen, final float radInnen,
-			final float dicke, final float startWinkel, final float sweep) {
-		this.dicke = dicke;
+	public MultimeterZeigerPart(final PointF center, final float value, //
+			final float minValue, final float maxValue, //
+			final float radAussen, final float radInnen, //
+			final float startWinkel, final float sweep) {
 		this.minValue = minValue;
 		this.maxValue = maxValue;
 		this.sweep = sweep;
@@ -55,9 +56,21 @@ public class MultimeterZeigerPart {
 		initPaint();
 	}
 
+	public static MultimeterZeigerPart getDefaultVoltmeterPart(//
+			final PointF center, final float value, //
+			final float radAussen, final float radInnen, //
+			final float startWinkel, final float sweep) {
+		return new MultimeterZeigerPart(center, value, 3.5f, 4.5f, radAussen, radInnen, startWinkel, sweep);
+	}
+
 	private void initPaint() {
 		paint.setAntiAlias(true);
 		paint.setStyle(Style.FILL);
+	}
+
+	public MultimeterZeigerPart setDicke(final float dicke) {
+		this.dicke = dicke;
+		return this;
 	}
 
 	public MultimeterZeigerPart setZeigerType(final ZEIGER_TYP zeigerType) {
@@ -80,14 +93,14 @@ public class MultimeterZeigerPart {
 		if (gradient != null) {
 			paint.setStyle(Style.FILL);
 			switch (gradient.getStyle()) {
-				default:
-				case top2bottom:
-					paint.setShader(new LinearGradient(c.x, c.y - ra, c.x, c.y + ra, gradient.getColor1(), gradient.getColor2(), Shader.TileMode.MIRROR));
-					break;
-				case radial:
-					final int[] colors = new int[] { gradient.getColor1(), gradient.getColor2() };
-					paint.setShader(new RadialGradient(c.x, c.y, ra, colors, getDistancesRadial(), Shader.TileMode.CLAMP));
-					break;
+			default:
+			case top2bottom:
+				paint.setShader(new LinearGradient(c.x, c.y - ra, c.x, c.y + ra, gradient.getColor1(), gradient.getColor2(), Shader.TileMode.MIRROR));
+				break;
+			case radial:
+				final int[] colors = new int[] { gradient.getColor1(), gradient.getColor2() };
+				paint.setShader(new RadialGradient(c.x, c.y, ra, colors, getDistancesRadial(), Shader.TileMode.CLAMP));
+				break;
 			}
 		}
 	}

@@ -96,13 +96,18 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		levelMode.setEnabled(Settings.isPremium());
 		final Preference levelStyles = findPreference("levelStyles");
 		levelStyles.setEnabled(Settings.isPremium());
-		final Preference showExtraLevelBars = findPreference("showExtraLevelBars");
-		showExtraLevelBars.setEnabled(Settings.isPremium());
+		final Preference showVoltmeter = findPreference("showVoltmeter");
+		showVoltmeter.setEnabled(Settings.isPremium());
+		final Preference showThermometer = findPreference("showThermometer");
+		showThermometer.setEnabled(Settings.isPremium());
 	}
 
 	private void enableSettingsForStyle(final String style) {
 		final Bitmap b = DrawerManager.getIconForDrawer(style, Settings.getIconSize());
 		final IBitmapDrawer drawer = DrawerManager.getDrawer(style);
+		if (b != null) {
+			stylePref.setIcon(BitmapHelper.bitmapToIcon(b));
+		}
 
 		final Preference zeiger = findPreference("show_zeiger");
 		final Preference levelStyles = findPreference("levelStyles");
@@ -111,18 +116,19 @@ public class BattPreferencesFragment extends PreferenceFragment {
 		final Preference colorZeiger = findPreference("color_zeiger");
 		final Preference glowScala = findPreference("glowScala");
 		final Preference showExtraLevelBars = findPreference("showExtraLevelBars");
+		final Preference showVoltmeter = findPreference("showVoltmeter");
+		final Preference showThermometer = findPreference("showThermometer");
 
 		showExtraLevelBars.setEnabled(drawer.supportsExtraLevelBars());
-
-		if (b != null) {
-			stylePref.setIcon(BitmapHelper.bitmapToIcon(b));
-		}
+		showThermometer.setEnabled(drawer.supportsThermometer());
+		showVoltmeter.setEnabled(drawer.supportsVoltmeter());
 		glowScala.setEnabled(drawer.supportsGlowScala());
 		zeiger.setEnabled(drawer.supportsShowPointer());
 		rand.setEnabled(drawer.supportsShowRand());
 		colorZeiger.setEnabled(drawer.supportsPointerColor());
 		levelStyles.setEnabled(drawer.supportsLevelStyle());
 		levelMode.setEnabled(drawer.supportsLevelStyle());
+
 		stylePref.setSummary("Current style: " + style);
 	}
 }

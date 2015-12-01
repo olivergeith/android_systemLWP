@@ -52,7 +52,6 @@
     <ListPreference
 	        android:defaultValue="Normal"
 	        android:title="@string/levelStyles" 
-            android:summary="@string/levelStyles_summary" 
 	        android:dialogTitle="@string/levelStyles"
 	        android:entries="@array/levelStyles"
 	        android:entryValues="@array/levelStyles"
@@ -61,7 +60,6 @@
         <ListPreference
 	        android:defaultValue="1"
 	        android:title="@string/levelMode" 
-            android:summary="@string/levelMode_summary" 
 	        android:dialogTitle="@string/levelMode"
 	        android:entries="@array/levelMode"
 	        android:entryValues="@array/levelMode"
@@ -69,13 +67,24 @@
 	        />
 
         <CheckBoxPreference 
-            android:key="showExtraLevelBars"
-            android:title="@string/showExtraLevelBars"
+            android:key="showVoltmeter"
+            android:title="@string/showVoltmeter"
+            android:defaultValue="false"
+            />
+
+        <CheckBoxPreference 
+            android:key="showThermometer"
+            android:title="@string/showThermometer"
             android:defaultValue="false"
             />
         
     <PreferenceCategory android:title="Misc Options"/>
         <CheckBoxPreference 
+            android:key="showExtraLevelBars"
+            android:title="@string/showExtraLevelBars"
+            android:defaultValue="false"
+            />
+    	<CheckBoxPreference 
             android:key="show_rand"
             android:title="@string/show_rand"
             android:defaultValue="true"

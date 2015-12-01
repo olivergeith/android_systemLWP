@@ -224,6 +224,16 @@ public abstract class AdvancedBitmapDrawer implements IBitmapDrawer {
 		return false;
 	}
 
+	@Override
+	public boolean supportsThermometer() {
+		return false;
+	}
+
+	@Override
+	public boolean supportsVoltmeter() {
+		return false;
+	}
+
 	/**
 	 * Diese Methode kann von Kindklassen überschrieben werden, wenn sie ein anderes Ratio als SQUARE haben wollen!
 	 * 

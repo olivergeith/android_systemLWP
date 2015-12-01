@@ -94,6 +94,7 @@ public class LiveWallpaperService extends WallpaperService {
 				// How are we charging?
 				final int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
 				Settings.isChargeUSB = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
+				Settings.isChargeWireless = chargePlug == BatteryManager.BATTERY_PLUGGED_WIRELESS;
 				Settings.isChargeAC = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
 				Settings.battTemperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
 				Settings.battHealth = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);

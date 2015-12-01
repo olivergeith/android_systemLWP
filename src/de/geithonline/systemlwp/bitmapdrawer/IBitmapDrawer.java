@@ -20,4 +20,8 @@ public interface IBitmapDrawer {
 
 	public boolean supportsExtraLevelBars();
 
+	public boolean supportsVoltmeter();
+
+	public boolean supportsThermometer();
+
 }

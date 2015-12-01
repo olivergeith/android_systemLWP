@@ -120,7 +120,7 @@
     <string name="glowScalaColor">Color of Scala-Glow</string>
     <string name="premiumOnly">Premium Version only!</string>
     <string name="showExtraLevelBars">Show extra level-bars</string>
-    
-      
+    <string name="showVoltmeter">Show Voltmeter</string>
+    <string name="showThermometer">Show Temperature</string>
     
 </resources>
