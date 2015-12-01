@@ -30,6 +30,7 @@ public class Settings {
 	public static boolean isCharging = false;
 	public static boolean isChargeUSB = false;
 	public static boolean isChargeAC = false;
+	public static boolean isChargeWireless = false;
 	public static int battTemperature = -1;
 	public static int battHealth = -1;
 	public static int battVoltage = -1;
@@ -87,15 +88,15 @@ public class Settings {
 
 	public static String getBattStatusCompleteShort() {
 		switch (getStatusStyle()) {
-			case BATT_STATUS_STYLE_VOLT:
-				return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
-			case BATT_STATUS_STYLE_TEMP:
-				return "Battery: " + (float) battTemperature / 10 + "°C";
-			case BATT_STATUS_STYLE_TEMP_VOLT:
-				return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
-			default:
-			case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
-				return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+		case BATT_STATUS_STYLE_VOLT:
+			return "Battery: " + (float) (battVoltage / 10) / 100 + "V";
+		case BATT_STATUS_STYLE_TEMP:
+			return "Battery: " + (float) battTemperature / 10 + "°C";
+		case BATT_STATUS_STYLE_TEMP_VOLT:
+			return "Battery: " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
+		default:
+		case BATT_STATUS_STYLE_TEMP_VOLT_HEALTH:
+			return "Battery: health " + getHealthText(battHealth) + ", " + (float) battTemperature / 10 + "°C, " + (float) (battVoltage / 10) / 100 + "V";
 		}
 	}
 
@@ -127,31 +128,31 @@ public class Settings {
 
 	public static EZMode getLevelMode() {
 		switch (getLevelModeString()) {
-			default:
-			case "1":
-				return EZMode.Einer;
-			case "5":
-				return EZMode.Fuenfer;
-			case "10":
-				return EZMode.Zehner;
+		default:
+		case "1":
+			return EZMode.Einer;
+		case "5":
+			return EZMode.Fuenfer;
+		case "10":
+			return EZMode.Zehner;
 		}
 	}
 
 	public static EZStyle getLevelStyle() {
 		switch (getLevelStyleString()) {
-			default:
-			case "Normal":
-				return EZStyle.sweep;
-			case "Normal (alpha)":
-				return EZStyle.sweep_withAplpah;
-			case "Normal (outline)":
-				return EZStyle.sweep_withOutline;
-			case "Only activ segments":
-				return EZStyle.segmented_onlyactive;
-			case "All segments (outline)":
-				return EZStyle.segmented_all;
-			case "All segments (alpha)":
-				return EZStyle.segmented_all_alpha;
+		default:
+		case "Normal":
+			return EZStyle.sweep;
+		case "Normal (alpha)":
+			return EZStyle.sweep_withAplpah;
+		case "Normal (outline)":
+			return EZStyle.sweep_withOutline;
+		case "Only activ segments":
+			return EZStyle.segmented_onlyactive;
+		case "All segments (outline)":
+			return EZStyle.segmented_all;
+		case "All segments (alpha)":
+			return EZStyle.segmented_all_alpha;
 		}
 	}
 
@@ -161,21 +162,21 @@ public class Settings {
 
 	private static String getHealthText(final int health) {
 		switch (health) {
-			case BatteryManager.BATTERY_HEALTH_GOOD:
-				return "good";
-			case BatteryManager.BATTERY_HEALTH_OVERHEAT:
-				return "overheat";
-			case BatteryManager.BATTERY_HEALTH_DEAD:
-				return "dead";
-			case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
-				return "overvoltage";
-			case BatteryManager.BATTERY_HEALTH_COLD:
-				return "cold";
-			case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
-				return "failure";
+		case BatteryManager.BATTERY_HEALTH_GOOD:
+			return "good";
+		case BatteryManager.BATTERY_HEALTH_OVERHEAT:
+			return "overheat";
+		case BatteryManager.BATTERY_HEALTH_DEAD:
+			return "dead";
+		case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
+			return "overvoltage";
+		case BatteryManager.BATTERY_HEALTH_COLD:
+			return "cold";
+		case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
+			return "failure";
 
-			default:
-				return "unknown";
+		default:
+			return "unknown";
 		}
 	}
 
@@ -228,6 +229,8 @@ public class Settings {
 			text = "Charging on USB";
 		} else if (isChargeAC) {
 			text = "Charging on AC";
+		} else if (isChargeWireless) {
+			text = "Charging wireless";
 		} else {
 			text = "Charging...";
 		}
@@ -652,6 +655,20 @@ public class Settings {
 			return false;
 		}
 		return prefs.getBoolean("showExtraLevelBars", false);
+	}
+
+	public static boolean isShowVoltmeter() {
+		if (prefs == null) {
+			return false;
+		}
+		return prefs.getBoolean("showVoltmeter", false);
+	}
+
+	public static boolean isShowThermometer() {
+		if (prefs == null) {
+			return false;
+		}
+		return prefs.getBoolean("showThermometer", false);
 	}
 
 }
