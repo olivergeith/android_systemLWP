@@ -1,5 +1,7 @@
 package de.geithonline.systemlwp.bitmapdrawer.parts;
 
+import java.util.Locale;
+
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
@@ -31,6 +33,8 @@ public class MultimeterSkalaPart {
 	private FontAttributes attr = null;
 	private float fontRadius;
 	private float lineRadius = 0f;
+	private String format = "%.1f";
+	private String einheit = "";
 
 	public MultimeterSkalaPart(final PointF center, final float ra, final float ri, final float startWinkel, final float sweep, final float[] scala) {
 		c = center;
@@ -54,6 +58,17 @@ public class MultimeterSkalaPart {
 		return voltmeter;
 	}
 
+	public static MultimeterSkalaPart getDefaultThermometerPart(final PointF center, final float ra, final float ri, final float startWinkel,
+			final float sweep) {
+		final float[] scala = new float[] { 0f, 25f, 50f, 75f };
+		final float[] deviderScala = new float[] { 5f, 10f, 15f, 20f, 30f, 35f, 40f, 45f, 55f, 60f, 65f, 70f };
+
+		final MultimeterSkalaPart temp = new MultimeterSkalaPart(center, ra, ri, startWinkel, sweep, scala)//
+				.setNumberFormatKeinNachkomma()//
+				.setDividerScala(deviderScala, ri + (ra - ri) / 2, ri);
+		return temp;
+	}
+
 	private void initPaint() {
 		paint.setAntiAlias(true);
 		paint.setStyle(Style.FILL);
@@ -74,6 +89,16 @@ public class MultimeterSkalaPart {
 
 	public MultimeterSkalaPart setFontRadius(final float radius) {
 		fontRadius = radius;
+		return this;
+	}
+
+	public MultimeterSkalaPart setNumberFormat(final String format) {
+		this.format = format;
+		return this;
+	}
+
+	public MultimeterSkalaPart setNumberFormatKeinNachkomma() {
+		format = "%.0f";
 		return this;
 	}
 
@@ -100,6 +125,11 @@ public class MultimeterSkalaPart {
 		return this;
 	}
 
+	public MultimeterSkalaPart setEinheit(final String einheit) {
+		this.einheit = einheit;
+		return this;
+	}
+
 	public void draw(final Canvas canvas) {
 
 		if (mainScala == null || mainScala.length < 2) {
@@ -117,12 +147,16 @@ public class MultimeterSkalaPart {
 			final float winkel = startWinkel + valueSweep;
 			final Path path = new ZeigerShapePath(c, ra, ri, dicke, winkel, ZEIGER_TYP.rect);
 			canvas.drawPath(path, paint);
-
+			// Nummern
 			if (attr != null) {
 				final Path mArc = new Path();
 				final RectF oval = GeometrieHelper.getCircle(c, fontRadius);
 				mArc.addArc(oval, winkel - 18, 36);
-				canvas.drawTextOnPath("" + s, mArc, 0, 0, paint);
+				if (s == max) {
+					format = format + einheit;
+				}
+				final String nr = String.format(Locale.US, format, s);
+				canvas.drawTextOnPath(nr, mArc, 0, 0, paint);
 			}
 		}
 		// ggf devider zeichenen

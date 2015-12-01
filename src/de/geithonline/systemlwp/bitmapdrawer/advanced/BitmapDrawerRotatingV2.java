@@ -86,6 +86,11 @@ public class BitmapDrawerRotatingV2 extends AdvancedBitmapDrawer {
 	}
 
 	@Override
+	public boolean supportsThermometer() {
+		return true;
+	}
+
+	@Override
 	public Bitmap drawBitmap(final int level, final Bitmap bitmap) {
 		initPrivateMembers();
 		drawAll(level);
@@ -103,24 +108,16 @@ public class BitmapDrawerRotatingV2 extends AdvancedBitmapDrawer {
 				.setGradient(new Gradient(PaintProvider.getGray(32), PaintProvider.getGray(96), GRAD_STYLE.top2bottom))//
 				.setOutline(new Outline(PaintProvider.getGray(128), strokeWidth / 2))//
 				.draw(bitmapCanvas);
+
+		// Extra Level Bars
+		drawExtraLevelBars(level);
+
 		// Level
 		new LevelPart(center, maxRadius * 0.83f, maxRadius * 0.60f, level, -225, 270, EZColoring.LevelColors)//
 				.setSegemteAbstand(0.75f)//
 				.setStrokeWidth(strokeWidth / 3)//
 				.setStyle(Settings.getLevelStyle())//
 				.setMode(Settings.getLevelMode())//
-				.draw(bitmapCanvas);
-
-		// Rotierendes Feld für Levelnummer
-		new ZeigerPart(center, level, maxRadius * 0.98f, maxRadius * 0.70f, 25, -225, 270, EZMode.Einer)//
-				.setZeigerType(ZEIGER_TYP.inward_triangle)//
-				.setDropShadow(new DropShadow(strokeWidth * 2, Color.BLACK))//
-				.draw(bitmapCanvas);
-		new ZeigerPart(center, level, maxRadius * 0.98f, maxRadius * 0.70f, 25, -225, 270, EZMode.Einer)//
-				.setGradient(new Gradient(PaintProvider.getGray(32), PaintProvider.getGray(96), GRAD_STYLE.top2bottom))//
-				.setOutline(new Outline(PaintProvider.getGray(128), strokeWidth / 2))//
-				.setZeigerType(ZEIGER_TYP.inward_triangle)//
-				.setDropShadow(new DropShadow(strokeWidth * 3, Settings.getGlowScalaColor()))//
 				.draw(bitmapCanvas);
 
 		// Skala
@@ -158,47 +155,8 @@ public class BitmapDrawerRotatingV2 extends AdvancedBitmapDrawer {
 				.setGradient(new Gradient(PaintProvider.getGray(224), PaintProvider.getGray(32), GRAD_STYLE.top2bottom))//
 				.draw(bitmapCanvas);
 
-		// Extra Level Bars
-		if (Settings.isShowExtraLevelBars()) {
-			final PointF center2 = new PointF(center.x, center.y + maxRadius * 0.95f);
-			final float w = 90;
-			new LevelPart(center2, maxRadius * 0.43f, maxRadius * 0.40f, level, -90 - w / 2, w, EZColoring.ColorOf100)//
-					.setSegemteAbstand(1f)//
-					.setStrokeWidth(strokeWidth / 3)//
-					.setStyle(EZStyle.segmented_all_alpha)//
-					.setMode(EZMode.EinerOnly10Segmente)//
-					.draw(bitmapCanvas);
-			new LevelPart(center2, maxRadius * 0.39f, maxRadius * 0.33f, level, -90 - w / 2, w, EZColoring.ColorOf100)//
-					.setSegemteAbstand(1f)//
-					.setStrokeWidth(strokeWidth / 3)//
-					.setStyle(EZStyle.segmented_all_alpha)//
-					.setMode(EZMode.Zehner)//
-					.draw(bitmapCanvas);
-		}
 		// Voltmeter
-		if (Settings.isShowVoltmeter()) {
-			final PointF center2 = new PointF(center.x, center.y + maxRadius * 0.95f);
-			MultimeterSkalaPart.getDefaultVoltmeterPart(center2, maxRadius * 0.50f, maxRadius * 0.45f, -135, 90)//
-					.setFontAttributes(new FontAttributes(Align.CENTER, Typeface.DEFAULT, fontSizeScala))//
-					.setFontRadius(maxRadius * 0.52f)//
-					.setLineRadius(maxRadius * 0.45f)//
-					.draw(bitmapCanvas);
-			MultimeterZeigerPart.getDefaultVoltmeterPart(center2, Settings.getBattVoltage(), maxRadius * 0.50f, maxRadius * 0.05f, -135, 90)//
-					.setDicke(strokeWidth)//
-					.setDropShadow(new DropShadow(strokeWidth * 3, Color.BLACK))//
-					.draw(bitmapCanvas);
-			new ArchPart(center, maxRadius * 0.99f, maxRadius * 0.80f, 75, 30, new Paint())//
-					.setGradient(new Gradient(PaintProvider.getGray(32), PaintProvider.getGray(96), GRAD_STYLE.top2bottom))//
-					.setOutline(new Outline(PaintProvider.getGray(128), strokeWidth / 2))//
-					.setDropShadow(new DropShadow(strokeWidth * 3, Color.BLACK))//
-					.draw(bitmapCanvas);
-			new TextOnCirclePart(center, maxRadius * 0.92f, 90, fontSizeArc, new Paint())//
-					.setColor(Settings.getBattStatusColor())//
-					.setAlign(Align.CENTER)//
-					.invert(true)//
-					.draw(bitmapCanvas, Settings.getBattVoltage() + " Volt");
-
-		}
+		drawMeter();
 
 		if (Settings.isShowZeiger()) {
 			// Zeiger
@@ -213,8 +171,87 @@ public class BitmapDrawerRotatingV2 extends AdvancedBitmapDrawer {
 				.draw(bitmapCanvas);
 	}
 
+	private void drawMeter() {
+		if (Settings.isShowThermometer()) {
+			final PointF center2 = new PointF(center.x, center.y + maxRadius * 0.95f);
+			MultimeterSkalaPart.getDefaultThermometerPart(center2, maxRadius * 0.40f, maxRadius * 0.35f, -135, 90)//
+					.setFontAttributes(new FontAttributes(Align.CENTER, Typeface.DEFAULT, fontSizeScala * 0.75f))//
+					.setFontRadius(maxRadius * 0.42f)//
+					.setLineRadius(maxRadius * 0.35f)//
+					.setEinheit("°C")//
+					.draw(bitmapCanvas);
+			MultimeterZeigerPart.getDefaultThemometerPart(center2, Settings.getBattTemperature(), maxRadius * 0.37f, maxRadius * 0.05f, -135, 90)//
+					.setDicke(strokeWidth)//
+					.setDropShadow(new DropShadow(strokeWidth * 3, Color.BLACK))//
+					.draw(bitmapCanvas);
+			new ArchPart(center, maxRadius * 0.99f, maxRadius * 0.80f, 75, 30, new Paint())//
+					.setGradient(new Gradient(PaintProvider.getGray(32), PaintProvider.getGray(96), GRAD_STYLE.top2bottom))//
+					.setOutline(new Outline(PaintProvider.getGray(128), strokeWidth / 2))//
+					.setDropShadow(new DropShadow(strokeWidth * 3, Color.BLACK))//
+					.draw(bitmapCanvas);
+
+			// new TextOnCirclePart(center, maxRadius * 0.87f, 90, fontSizeArc, new Paint())//
+			// .setColor(Settings.getBattStatusColor())//
+			// .setAlign(Align.CENTER)//
+			// .invert(true)//
+			// .draw(bitmapCanvas, Settings.getBattTemperature() + " °C");
+		}
+		if (Settings.isShowVoltmeter()) {
+			final PointF center2 = new PointF(center.x, center.y + maxRadius * 0.95f);
+			MultimeterSkalaPart.getDefaultVoltmeterPart(center2, maxRadius * 0.55f, maxRadius * 0.50f, -135, 90)//
+					.setFontAttributes(new FontAttributes(Align.CENTER, Typeface.DEFAULT, fontSizeScala * 0.75f))//
+					.setFontRadius(maxRadius * 0.56f)//
+					.setLineRadius(maxRadius * 0.50f)//
+					.setEinheit("V")//
+					.draw(bitmapCanvas);
+			MultimeterZeigerPart.getDefaultVoltmeterPart(center2, Settings.getBattVoltage(), maxRadius * 0.52f, maxRadius * 0.05f, -135, 90)//
+					.setDicke(strokeWidth)//
+					.setDropShadow(new DropShadow(strokeWidth * 3, Color.BLACK))//
+					.draw(bitmapCanvas);
+			new ArchPart(center, maxRadius * 0.99f, maxRadius * 0.80f, 75, 30, new Paint())//
+					.setGradient(new Gradient(PaintProvider.getGray(32), PaintProvider.getGray(96), GRAD_STYLE.top2bottom))//
+					.setOutline(new Outline(PaintProvider.getGray(128), strokeWidth / 2))//
+					.setDropShadow(new DropShadow(strokeWidth * 3, Color.BLACK))//
+					.draw(bitmapCanvas);
+			new TextOnCirclePart(center, maxRadius * 0.92f, 90, fontSizeArc, new Paint())//
+					.setColor(Settings.getBattStatusColor())//
+					.setAlign(Align.CENTER)//
+					.invert(true)//
+					.draw(bitmapCanvas, Settings.getBattVoltage() + " Volt");
+		}
+	}
+
+	private void drawExtraLevelBars(final int level) {
+		if (Settings.isShowExtraLevelBars()) {
+			new LevelPart(center, maxRadius * 0.92f, maxRadius * 0.88f, level, 70, -45, EZColoring.ColorOf100)//
+					.setSegemteAbstand(1f)//
+					.setStrokeWidth(strokeWidth / 3)//
+					.setStyle(EZStyle.segmented_all_alpha)//
+					.setMode(EZMode.EinerOnly10Segmente)//
+					.draw(bitmapCanvas);
+			new LevelPart(center, maxRadius * 0.92f, maxRadius * 0.88f, level, 110, 45, EZColoring.ColorOf100)//
+					.setSegemteAbstand(1f)//
+					.setStrokeWidth(strokeWidth / 3)//
+					.setStyle(EZStyle.segmented_all_alpha)//
+					.setMode(EZMode.Zehner)//
+					.draw(bitmapCanvas);
+		}
+	}
+
 	@Override
 	public void drawLevelNumber(final int level) {
+		// Rotierendes Feld für Levelnummer
+		new ZeigerPart(center, level, maxRadius * 0.98f, maxRadius * 0.70f, 25, -225, 270, EZMode.Einer)//
+				.setZeigerType(ZEIGER_TYP.inward_triangle)//
+				.setDropShadow(new DropShadow(strokeWidth * 2, Color.BLACK))//
+				.draw(bitmapCanvas);
+		new ZeigerPart(center, level, maxRadius * 0.98f, maxRadius * 0.70f, 25, -225, 270, EZMode.Einer)//
+				.setGradient(new Gradient(PaintProvider.getGray(32), PaintProvider.getGray(96), GRAD_STYLE.top2bottom))//
+				.setOutline(new Outline(PaintProvider.getGray(128), strokeWidth / 2))//
+				.setZeigerType(ZEIGER_TYP.inward_triangle)//
+				.setDropShadow(new DropShadow(strokeWidth * 3, Settings.getGlowScalaColor()))//
+				.draw(bitmapCanvas);
+		// die nummer
 		final float winkel = -226 + level * 2.7f;
 		new TextOnCirclePart(center, maxRadius * 0.85f, winkel, fontSizeLevel, PaintProvider.getNumberPaint(level, fontSizeLevel))//
 				.setAlign(Align.CENTER)//
@@ -225,7 +262,7 @@ public class BitmapDrawerRotatingV2 extends AdvancedBitmapDrawer {
 
 	@Override
 	public void drawChargeStatusText(final int level) {
-		new TextOnCirclePart(center, maxRadius * 0.35f, -90, fontSizeArc, new Paint())//
+		new TextOnCirclePart(center, maxRadius * 0.75f, -90, fontSizeArc, new Paint())//
 				.setColor(Settings.getBattStatusColor())//
 				.setAlign(Align.CENTER)//
 				.draw(bitmapCanvas, Settings.getChargingText());

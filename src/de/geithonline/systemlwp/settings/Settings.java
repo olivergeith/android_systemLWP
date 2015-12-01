@@ -104,6 +104,10 @@ public class Settings {
 		return battVoltage / 1000f;
 	}
 
+	public static float getBattTemperature() {
+		return battTemperature / 10f;
+	}
+
 	public static String getBattTemperatureString() {
 		return "Temperature is " + (float) battTemperature / 10 + " °C";
 	}
