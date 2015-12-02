@@ -35,6 +35,7 @@ public class MultimeterSkalaPart {
 	private float lineRadius = 0f;
 	private String format = "%.1f";
 	private String einheit = "";
+	private boolean invert = false;
 
 	public MultimeterSkalaPart(final PointF center, final float ra, final float ri, final float startWinkel, final float sweep, final float[] scala) {
 		c = center;
@@ -60,8 +61,8 @@ public class MultimeterSkalaPart {
 
 	public static MultimeterSkalaPart getDefaultThermometerPart(final PointF center, final float ra, final float ri, final float startWinkel,
 			final float sweep) {
-		final float[] scala = new float[] { 0f, 25f, 50f, 75f };
-		final float[] deviderScala = new float[] { 5f, 10f, 15f, 20f, 30f, 35f, 40f, 45f, 55f, 60f, 65f, 70f };
+		final float[] scala = new float[] { 0f, 20f, 40f, 60f };
+		final float[] deviderScala = new float[] { 5f, 10f, 15f, 25f, 30f, 35f, 45f, 50f, 55f };
 
 		final MultimeterSkalaPart temp = new MultimeterSkalaPart(center, ra, ri, startWinkel, sweep, scala)//
 				.setNumberFormatKeinNachkomma()//
@@ -130,6 +131,11 @@ public class MultimeterSkalaPart {
 		return this;
 	}
 
+	public MultimeterSkalaPart invertText(final boolean invert) {
+		this.invert = invert;
+		return this;
+	}
+
 	public void draw(final Canvas canvas) {
 
 		if (mainScala == null || mainScala.length < 2) {
@@ -149,9 +155,14 @@ public class MultimeterSkalaPart {
 			canvas.drawPath(path, paint);
 			// Nummern
 			if (attr != null) {
+				int faktor = 1;
+				if (invert) {
+					faktor = -1;
+				}
+
 				final Path mArc = new Path();
 				final RectF oval = GeometrieHelper.getCircle(c, fontRadius);
-				mArc.addArc(oval, winkel - 18, 36);
+				mArc.addArc(oval, winkel - 18 * faktor, 36 * faktor);
 				if (s == max) {
 					format = format + einheit;
 				}

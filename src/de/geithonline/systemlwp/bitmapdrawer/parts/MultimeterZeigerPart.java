@@ -67,7 +67,7 @@ public class MultimeterZeigerPart {
 			final PointF center, final float value, //
 			final float radAussen, final float radInnen, //
 			final float startWinkel, final float sweep) {
-		return new MultimeterZeigerPart(center, value, 0f, 75f, radAussen, radInnen, startWinkel, sweep);
+		return new MultimeterZeigerPart(center, value, 0f, 60f, radAussen, radInnen, startWinkel, sweep);
 	}
 
 	private void initPaint() {
