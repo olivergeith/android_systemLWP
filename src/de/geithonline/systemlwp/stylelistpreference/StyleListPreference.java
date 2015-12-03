@@ -209,7 +209,9 @@ public class StyleListPreference extends ListPreference {
 			View row = convertView;
 			CustomHolder holder = null;
 			final int p = position;
-			row = mInflater.inflate(R.layout.style_list_preference_row, parent, false);
+			if (row == null) {
+				row = mInflater.inflate(R.layout.style_list_preference_row, parent, false);
+			}
 			holder = new CustomHolder(row, position);
 
 			row.setTag(holder);
