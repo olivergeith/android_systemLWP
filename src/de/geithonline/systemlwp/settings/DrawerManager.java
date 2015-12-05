@@ -36,7 +36,9 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV2;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerStarV4;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV1;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV2;
+import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV3;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerTachoV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaCircleV1;
@@ -49,18 +51,9 @@ import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV4;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV5;
 import de.geithonline.systemlwp.bitmapdrawer.BitmapDrawerZoopaWideV6;
 import de.geithonline.systemlwp.bitmapdrawer.IBitmapDrawer;
-import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerAsymetricV1;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV1;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV2;
 import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV3;
-import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV4;
-import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV5;
-import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerClockV6;
-import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewSimpleCircleV1;
-import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewTachoV1;
-import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerNewTachoV3;
-import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerRotatingV1;
-import de.geithonline.systemlwp.bitmapdrawer.advanced.BitmapDrawerRotatingV2;
 
 public class DrawerManager {
 	private static Map<String, IBitmapDrawer> drawer = new HashMap<String, IBitmapDrawer>();
@@ -76,9 +69,9 @@ public class DrawerManager {
 		drawer.put("ZoopaCircleV1", new BitmapDrawerZoopaCircleV1());
 		drawer.put("ZoopaCircleV2", new BitmapDrawerZoopaCircleV2());
 		drawer.put("ZoopaCircleV3", new BitmapDrawerZoopaCircleV3());
-		drawer.put("TachoV1", new BitmapDrawerNewTachoV1());
+		drawer.put("TachoV1", new BitmapDrawerTachoV1());
 		drawer.put("TachoV2", new BitmapDrawerTachoV2());
-		drawer.put("TachoV3", new BitmapDrawerNewTachoV3());
+		drawer.put("TachoV3", new BitmapDrawerTachoV3());
 		drawer.put("TachoV4", new BitmapDrawerTachoV4());
 		drawer.put("TachoV5", new BitmapDrawerTachoV5());
 		drawer.put("BrickV1", new BitmapDrawerBrickV1());
@@ -116,14 +109,6 @@ public class DrawerManager {
 		drawer.put("ClockV1", new BitmapDrawerClockV1());
 		drawer.put("ClockV2", new BitmapDrawerClockV2());
 		drawer.put("ClockV3", new BitmapDrawerClockV3());
-		drawer.put("ClockV4", new BitmapDrawerClockV4());
-		drawer.put("ClockV5", new BitmapDrawerClockV5());
-		drawer.put("ClockV6", new BitmapDrawerClockV6());
-		drawer.put("NewSimpleCircleV1", new BitmapDrawerNewSimpleCircleV1());
-		drawer.put("NewSimpleCircleV1 (smaller)", new BitmapDrawerNewSimpleCircleV1(0.88f, 0.82f, 0.97f, 0.73f));
-		drawer.put("AsymetricV1", new BitmapDrawerAsymetricV1());
-		drawer.put("RotatingV1", new BitmapDrawerRotatingV1());
-		drawer.put("RotatingV2", new BitmapDrawerRotatingV2());
 	}
 
 	public static IBitmapDrawer getDrawer(final String name) {

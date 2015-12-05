@@ -188,14 +188,6 @@
         <item name="110">true</item>
         <item name="120">true</item>
         <item name="130">false</item>
-        <item name="140">false</item>
-        <item name="150">false</item>
-        <item name="155">false</item>
-        <item name="160">true</item>
-        <item name="161">true</item>
-        <item name="170">false</item>
-        <item name="180">false</item>
-        <item name="181">false</item>
         </string-array>
     
     
@@ -249,14 +241,6 @@
         <item name="110">ClockV1</item>
         <item name="120">ClockV2</item>
         <item name="130">ClockV3</item>
-        <item name="140">ClockV4</item>
-        <item name="150">ClockV5</item>
-        <item name="155">ClockV6</item>
-        <item name="160">NewSimpleCircleV1</item>
-        <item name="161">NewSimpleCircleV1 (smaller)</item>
-        <item name="170">AsymetricV1</item>
-        <item name="180">RotatingV1</item>
-        <item name="181">RotatingV2</item>
         </string-array>
     
     <string-array name="animation_styl">
