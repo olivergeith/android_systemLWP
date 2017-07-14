@@ -139,7 +139,7 @@ public class SettingsReader {
 		return prefs.getBoolean("show_zeiger", true);
 	}
 
-	public int getAnimationDelaý() {
+	public int getAnimationDelay() {
 		if (prefs == null) {
 			return 50;
 		}
@@ -147,7 +147,7 @@ public class SettingsReader {
 		return thr;
 	}
 
-	public int getAnimationDelaýOnCurrentLevel() {
+	public int getAnimationDelayOnCurrentLevel() {
 		if (prefs == null) {
 			return 2500;
 		}

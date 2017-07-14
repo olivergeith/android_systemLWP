@@ -119,18 +119,18 @@ public class LiveWallpaperService extends WallpaperService {
 					} else {
 						canvas.drawPaint(Settings.getWallpaperBackgroundPaint(cWidth, cHeight));
 					}
-					// schaun, ob der Bitmapdrawer sich geändert hat
+					// schaun, ob der Bitmapdrawer sich geï¿½ndert hat
 					bitmapDrawer = Settings.getBatteryStyle();
 					if (!Settings.isCharging || Settings.isAnimationEnabled() == false) {
 						bitmapDrawer.draw(level, canvas, forcedraw);
 					} else {
 						bitmapDrawer.draw(i, canvas, forcedraw);
 						// Ret animationlevel
-						// Level länger anzeigen
+						// Level lï¿½nger anzeigen
 						if (i == level) {
-							millies = Settings.getAnimationDelaýOnCurrentLevel();
+							millies = Settings.getAnimationDelayOnCurrentLevel();
 						} else {
-							millies = Settings.getAnimationDelaý();
+							millies = Settings.getAnimationDelay();
 						}
 
 						i += 1;
@@ -228,7 +228,7 @@ public class LiveWallpaperService extends WallpaperService {
 			// Log.i("GEITH", "w=" + w);
 			// Log.i("GEITH", "as=" + aspectBG);
 
-			// erstmal setzen wir die Zielhöhe auf Canvas heigth
+			// erstmal setzen wir die Zielhï¿½he auf Canvas heigth
 			int dstH = cHeight;
 			int dstW = cWidth;
 			// ..und berechnen daraufhin die Breite des Bitmaps (damit
@@ -243,8 +243,8 @@ public class LiveWallpaperService extends WallpaperService {
 					// oh schade das Bild ist zu schmal und passt nicht in der
 					// Breite
 					// dannn machen wir es nun breiter (1.4fach
-					// canvasbreite)...dafür wird es leider zu hoch
-					// also wird später unten was abgeschnitten
+					// canvasbreite)...dafï¿½r wird es leider zu hoch
+					// also wird spï¿½ter unten was abgeschnitten
 					// 1.4 fach damit es auch was zum sliden gibt ;-)
 					dstW = Math.round(cWidth * 1.4f);
 					dstH = Math.round(dstW / aspectBG);
