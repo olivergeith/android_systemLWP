@@ -24,16 +24,12 @@ import de.geithonline.systemlwp.utils.Toaster;
  */
 public class BillingManager {
 	/*
-	 * base64EncodedPublicKey should be YOUR APPLICATION'S PUBLIC KEY (that you
-	 * got from the Google Play developer console). This is not your developer
-	 * public key, it's the *app-specific* public key.
+	 * base64EncodedPublicKey should be YOUR APPLICATION'S PUBLIC KEY (that you got from the Google Play developer console). This is not your developer public
+	 * key, it's the *app-specific* public key.
 	 * 
-	 * Instead of just storing the entire literal string here embedded in the
-	 * program, construct the key at runtime from pieces or use bit manipulation
-	 * (for example, XOR with some other string) to hide the actual key. The key
-	 * itself is not secret information, but we don't want to make it easy for
-	 * an attacker to replace the public key with one of their own and then fake
-	 * messages from the server.
+	 * Instead of just storing the entire literal string here embedded in the program, construct the key at runtime from pieces or use bit manipulation (for
+	 * example, XOR with some other string) to hide the actual key. The key itself is not secret information, but we don't want to make it easy for an attacker
+	 * to replace the public key with one of their own and then fake messages from the server.
 	 */
 	private final String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnPZVeL8OkQIVc6mi0hdXPySB7yDkdovB8rKHAeGg3/IlE9i56N2WFFIovtXh3y5VSC76jpOXSCzHjdY7MJOy1eVu0Q41U1ppTF6Hd1EYel4KJlvlbjn1KlGQgZr9sVM65/nzgMcKFgn9X570NJJMHiIpwEPBDVJ5bMJQxmYsn1KE3WNu+57Rb01TcEEa1plhMkqmDeui4zTrZUKRXfyk0AveDEN4ZzQoRdcz4fhueEZH0XyBkiDpYPcQuO6m/d8oQm1a1Q4e13Im0oPoQ9xFgueZ7RW/mTKGeEaLbUS0MMIS+WG/lR1fJ+R6ZvwfNt8HlK2zXibLo2xY+zs7ZC+5rQIDAQAB";
 	// The helper object
@@ -159,9 +155,7 @@ public class BillingManager {
 			Log.d(TAG, "Query inventory was successful.");
 
 			/*
-			 * Check for items we own. Notice that for each purchase, we check
-			 * the developer payload to see if it's correct! See
-			 * verifyDeveloperPayload().
+			 * Check for items we own. Notice that for each purchase, we check the developer payload to see if it's correct! See verifyDeveloperPayload().
 			 */
 
 			// Do we have the premium upgrade?
@@ -260,7 +254,7 @@ public class BillingManager {
 			file.delete();
 		}
 		// Wir speichern das auch noch mal in den preferences,,,dann kann man
-		// später schöner drauf zugreifen
+		// spï¿½ter schï¿½ner drauf zugreifen
 		saveProStatusToPrefs(isPre);
 	}
 

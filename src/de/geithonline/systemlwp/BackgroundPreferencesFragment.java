@@ -72,11 +72,8 @@ public class BackgroundPreferencesFragment extends PreferenceFragment {
 
 		if (sharedPref == null) {
 			Log.e(this.getClass().getSimpleName(), "SharedPreferences were null!!");
-			Toaster.showErrorToast(
-					getActivity(),
-					"Could not save imagepath "
-							+ filePath
-							+ "Sharedfreferences not found!!! (null). Make sure you set the Wallpaper at least once before editing preferences of it (SystemSettings->Display->Wallpaper->LiveWallpaper->Choose BatteryLWP and set it!");
+			Toaster.showErrorToast(getActivity(), "Could not save imagepath " + filePath
+					+ "Sharedfreferences not found!!! (null). Make sure you set the Wallpaper at least once before editing preferences of it (SystemSettings->Display->Wallpaper->LiveWallpaper->Choose BatteryLWP and set it!");
 			return;
 		}
 		final SharedPreferences.Editor editor = sharedPref.edit();
